@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Parques Bs As</string>
+    <string name="emailHint">Email</string>
+    <string name="PasswordHint">Password</string>
+    <string name="IniciarSesion">Iniciar Sesion</string>
+    <string name="CrearCuenta">Crear Cuenta</string>
+    <string name="RecuperarContraseña">Recuperar Contraseña</string>
 </resources>
