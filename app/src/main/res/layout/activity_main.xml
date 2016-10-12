@@ -38,7 +38,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#82000000"
+                android:background="#87000000"
                 android:hint="@string/emailHint"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/white"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"
-                android:background="#82000000"
+                android:background="#87000000"
                 android:hint="@string/PasswordHint"
                 android:inputType="textPassword"
                 android:textColor="@color/white"
