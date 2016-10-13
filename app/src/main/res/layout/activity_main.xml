@@ -13,48 +13,50 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_height="match_parent"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="@dimen/LoginTitle" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent"
+        android:layout_weight="20"
+        android:orientation="vertical"
+        android:weightSum="100">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
+            android:layout_weight="50"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
             <EditText
+                android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#87000000"
                 android:hint="@string/emailHint"
                 android:inputType="textEmailAddress"
+                android:padding="8dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:padding="8dp"
-                android:textSize="@dimen/LoginEdittext"
-                android:id="@+id/editText" />
+                android:textSize="@dimen/LoginEdittext" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:layout_marginTop="10dp"
                 android:background="#87000000"
                 android:hint="@string/PasswordHint"
                 android:inputType="textPassword"
+                android:padding="8dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
@@ -63,7 +65,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="50"
             android:orientation="vertical">
 
             <Button
@@ -84,6 +87,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="40"
         android:gravity="bottom">
 
         <LinearLayout
