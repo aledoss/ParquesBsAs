@@ -5,4 +5,9 @@
     <string name="IniciarSesion">Iniciar Sesion</string>
     <string name="CrearCuenta">Crear Cuenta</string>
     <string name="RecuperarContraseña">Recuperar Contraseña</string>
+    <string name="WorkInProgress">Work in progress</string>
+    <string name="DatosVacios">Campos obligatorios sin completar</string>
+    <string name="nombreHint">Nombre</string>
+    <string name="apellidoHint">Apellido</string>
+    <string name="DNIHint">DNI (Opcional)</string>
 </resources>

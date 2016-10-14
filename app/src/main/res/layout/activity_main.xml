@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_home_img_original"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="@dimen/general_padding"
     android:weightSum="100"
-    tools:context="com.example.ndiaz.parquesbsas.activities.MainActivity">
+    tools:context="com.example.ndiaz.parquesbsas.activities.activities.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,6 +17,7 @@
         android:layout_weight="40"
         android:gravity="center"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="@dimen/LoginTitle" />
@@ -38,7 +39,7 @@
             android:paddingRight="20dp">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/etEmailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#87000000"
@@ -50,6 +51,7 @@
                 android:textSize="@dimen/LoginEdittext" />
 
             <EditText
+                android:id="@+id/etPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -70,6 +72,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btnIniciar_Sesion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/IniciarSesion" />
@@ -97,12 +100,14 @@
             android:weightSum="100">
 
             <Button
+                android:id="@+id/btnCrear_Cuenta_Login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
                 android:text="@string/CrearCuenta" />
 
             <Button
+                android:id="@+id/btnRecuperarContraseña"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="50"

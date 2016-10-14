@@ -7,7 +7,7 @@
     android:background="#F1E9D2"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.ndiaz.parquesbsas.activities.SplashScreen">
+    tools:context="com.example.ndiaz.parquesbsas.activities.activities.SplashScreen">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:src="@drawable/splas_tree2" />
+            android:src="@drawable/splash_tree2" />
 
         <ProgressBar
             android:layout_width="200dp"

@@ -1,11 +1,9 @@
-package com.example.ndiaz.parquesbsas.activities;
+package com.example.ndiaz.parquesbsas.activities.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 
