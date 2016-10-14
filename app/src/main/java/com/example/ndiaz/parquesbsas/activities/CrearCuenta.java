@@ -1,9 +1,10 @@
-package com.example.ndiaz.parquesbsas.activities.activities;
+package com.example.ndiaz.parquesbsas.activities;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -11,7 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.activities.util.Constants;
+import com.example.ndiaz.parquesbsas.database.DBHelper;
+import com.example.ndiaz.parquesbsas.database.Usuario;
+import com.example.ndiaz.parquesbsas.util.Constants;
+
+import java.io.Serializable;
 
 public class CrearCuenta extends AppCompatActivity implements View.OnClickListener, Constants {
 
@@ -40,7 +45,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
     }
 
     private void transparentStatusBar() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
@@ -50,7 +55,12 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
             case R.id.btnCrear_Cuenta:
                 obtenerDatosCrearCuenta();
                 if (datosNoVacios()) {
-                    crearCuenta();
+                    if (cuentaDuplicada()) {
+                        Toast.makeText(this, getResources().getString(R.string.EmailExistente), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Usuario usuario = crearCuenta();
+                        accederHome(usuario);
+                    }
                 } else {
                     Toast.makeText(this, getResources().getString(R.string.DatosVacios), Toast.LENGTH_SHORT).show();
                 }
@@ -58,18 +68,39 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    private void crearCuenta() {
+    private void accederHome(Usuario usuario) {
         Intent intent = new Intent(CrearCuenta.this, MainHome.class);
-        intent.putExtra(CREARCUENTANOMBRE, nombre);
-        intent.putExtra(CREARCUENTAAPELLIDO, apellido);
-        if (!dni.equalsIgnoreCase("")) {
-            intent.putExtra(CREARCUENTADNI, dni);
-        } else {
-            intent.putExtra(CREARCUENTADNI, "");
-        }
-        intent.putExtra(CREARCUENTAEMAIL, email);
-        intent.putExtra(CREARCUENTAPASSWORD, password);
+        intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
         startActivity(intent);
+    }
+
+    private boolean cuentaDuplicada() {
+        boolean cuentaDuplicada;
+        DBHelper db = new DBHelper(this);
+        Usuario usuario = db.getUsuario(email, password);
+        if (usuario == null) {
+            db.close();
+            cuentaDuplicada = false;
+        } else {
+            db.close();
+            cuentaDuplicada = true;
+        }
+        return cuentaDuplicada;
+    }
+
+    private Usuario crearCuenta() {
+        DBHelper db = new DBHelper(this);
+        Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setDni(dni);
+        usuario.setEmail(email);
+        usuario.setPassword(password);
+
+        db.insertarUsuario(usuario);
+        db.close();
+
+        return usuario;
     }
 
     private boolean datosNoVacios() {

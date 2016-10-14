@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.activities.activities;
+package com.example.ndiaz.parquesbsas.activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.activities.util.Constants;
+import com.example.ndiaz.parquesbsas.util.Constants;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Constants {
 

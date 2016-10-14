@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.activities.util;
+package com.example.ndiaz.parquesbsas.util;
 
 /**
  * Created by Lenwe on 13/10/2016.
@@ -10,11 +10,7 @@ public interface Constants {
     String LOGINPASSWORD = "LoginPassword";
 
     //Crear cuenta
-    String CREARCUENTANOMBRE = "CrearCuentaNombre";
-    String CREARCUENTAAPELLIDO = "CrearCuentaApellido";
-    String CREARCUENTADNI = "CrearCuentaDNI";
-    String CREARCUENTAEMAIL = "CrearCuentaEmail";
-    String CREARCUENTAPASSWORD = "CrearCuentaPassword";
+    String CREARCUENTAUSUARIO = "CrearCuentaUsuario";
 
     //DB
     String DATABASE = "ParquesBsAs";
@@ -26,6 +22,10 @@ public interface Constants {
     String DNIUSUARIOCOLUMNA = "DNI";
     String EMAILUSUARIOCOLUMNA = "Email";
     String PASSWORDUSUARIOCOLUMNA = "Password";
+    String ALL_COLUMNS_USUARIOS[] = {
+            "id", NOMBREUSUARIOCOLUMNA, APELLIDOUSUARIOCOLUMNA, DNIUSUARIOCOLUMNA, EMAILUSUARIOCOLUMNA, PASSWORDUSUARIOCOLUMNA
+    };
+
     ////Parques
     String TABLEPARQUES = "Parques";
     String NOMBREPARQUECOLUMNA = "Nombre";
@@ -33,5 +33,8 @@ public interface Constants {
     String IMAGENPARQUECOLUMNA = "Imagen";
     String LATITUDPARQUECOLUMNA = "Latitud";
     String LONGITUDPARQUECOLUMNA = "Longitud";
+    String ALL_COLUMNS_PARQUES[] = {
+            "id", NOMBREPARQUECOLUMNA, DESCRIPCIONPARQUECOLUMNA, IMAGENPARQUECOLUMNA, LATITUDPARQUECOLUMNA, LONGITUDPARQUECOLUMNA
+    };
 
 }

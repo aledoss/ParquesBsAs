@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.activities.SplashScreen"
+            android:name=".activities.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.activities.CrearCuenta" />
-        <activity android:name=".activities.activities.MainHome"></activity>
+        <activity android:name=".activities.CrearCuenta" />
+        <activity android:name=".activities.MainHome"></activity>
     </application>
 
 </manifest>

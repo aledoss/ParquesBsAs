@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.activities.activities;
+package com.example.ndiaz.parquesbsas.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
