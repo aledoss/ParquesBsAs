@@ -15,4 +15,23 @@ public interface Constants {
     String CREARCUENTADNI = "CrearCuentaDNI";
     String CREARCUENTAEMAIL = "CrearCuentaEmail";
     String CREARCUENTAPASSWORD = "CrearCuentaPassword";
+
+    //DB
+    String DATABASE = "ParquesBsAs";
+    int VERSIONDB = 1;
+    ////Usuarios
+    String TABLEUSUARIOS = "Usuarios";
+    String NOMBREUSUARIOCOLUMNA = "Nombre";
+    String APELLIDOUSUARIOCOLUMNA = "Apellido";
+    String DNIUSUARIOCOLUMNA = "DNI";
+    String EMAILUSUARIOCOLUMNA = "Email";
+    String PASSWORDUSUARIOCOLUMNA = "Password";
+    ////Parques
+    String TABLEPARQUES = "Parques";
+    String NOMBREPARQUECOLUMNA = "Nombre";
+    String DESCRIPCIONPARQUECOLUMNA = "Descripcion";
+    String IMAGENPARQUECOLUMNA = "Imagen";
+    String LATITUDPARQUECOLUMNA = "Latitud";
+    String LONGITUDPARQUECOLUMNA = "Longitud";
+
 }

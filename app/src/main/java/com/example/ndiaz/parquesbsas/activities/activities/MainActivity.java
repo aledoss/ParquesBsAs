@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.activities.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void transparentStatusBar() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
     @Override

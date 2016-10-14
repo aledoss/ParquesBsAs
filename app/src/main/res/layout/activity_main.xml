@@ -104,6 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
+                style="?android:attr/buttonBarButtonStyle"
                 android:text="@string/CrearCuenta" />
 
             <Button
