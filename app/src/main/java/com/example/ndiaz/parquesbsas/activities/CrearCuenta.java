@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -40,8 +41,31 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         etDNI = (EditText) findViewById(R.id.etDNICrearCuenta);
         etEmail = (EditText) findViewById(R.id.etEmailCrearCuenta);
         etPassword = (EditText) findViewById(R.id.etPasswordCrearCuenta);
+        mostrarOcultarPass();
 
         btnCrearCuenta.setOnClickListener(this);
+    }
+
+    private void mostrarOcultarPass() {
+        etPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(!etPassword.getText().toString().equalsIgnoreCase("")){
+                    final int DRAWABLE_RIGHT = 2;
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                            return true;
+                        }
+                    } else {
+                        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     private void transparentStatusBar() {
@@ -72,6 +96,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         Intent intent = new Intent(CrearCuenta.this, MainHome.class);
         intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
         startActivity(intent);
+        finish();
     }
 
     private boolean cuentaDuplicada() {

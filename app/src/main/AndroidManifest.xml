@@ -21,14 +21,14 @@
         <activity
             android:name=".activities.SplashScreen"
             android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".activities.CrearCuenta" />
+        <activity android:name=".activities.MainHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CrearCuenta" />
-        <activity android:name=".activities.MainHome"></activity>
     </application>
 
 </manifest>

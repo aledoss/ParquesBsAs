@@ -6,8 +6,7 @@ package com.example.ndiaz.parquesbsas.util;
 
 public interface Constants {
     //Login
-    String LOGINEMAIL = "LoginEmail";
-    String LOGINPASSWORD = "LoginPassword";
+    String INICIARSESIONUSUARIO = "IniciarSesionUsuario";
 
     //Crear cuenta
     String CREARCUENTAUSUARIO = "CrearCuentaUsuario";

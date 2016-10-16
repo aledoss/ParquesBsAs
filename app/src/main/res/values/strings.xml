@@ -11,4 +11,13 @@
     <string name="apellidoHint">Apellido</string>
     <string name="DNIHint">DNI (Opcional)</string>
     <string name="EmailExistente">Email existente</string>
+    <string name="DatosIncorrectos">Datos incorrectos</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_closed">Drawer Closed</string>
+    
+    <string-array name="drawer_list">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+    </string-array>
 </resources>
