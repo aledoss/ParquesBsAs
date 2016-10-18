@@ -14,10 +14,14 @@
     <string name="DatosIncorrectos">Datos incorrectos</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_closed">Drawer Closed</string>
-    
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about_me">About me</string>
+
     <string-array name="drawer_list">
         <item>Item 1</item>
         <item>Item 2</item>
         <item>Item 3</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="menu_logout">Logout</string>
 </resources>

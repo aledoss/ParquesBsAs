@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_menu1"
-        android:title="Caballito"
-        android:icon="@mipmap/ic_launcher"/>
+    <group android:checkableBehavior="single"
+        android:id="@+id/asdasd">
+        <item
+            android:id="@+id/nav_menu1"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Caballito" />
 
-    <group>
-        <item android:id="@+id/nav_menu2"
-            android:title="Settings"
-            android:icon="@drawable/ic_settings"/>
+        <item
+            android:id="@+id/nav_menu2"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Caballito" />
+
+        <item
+            android:id="@+id/nav_menu3"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Caballito" />
+    </group>
+
+    <group android:checkableBehavior="none"
+        android:id="@+id/asdaas">
+        <item
+            android:id="@+id/nav_menu_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/nav_menu_about_me"
+            android:icon="@drawable/ic_action_about_me"
+            android:title="@string/menu_about_me" />
+        <item
+            android:id="@+id/nav_menu_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/menu_logout" />
     </group>
 
 
