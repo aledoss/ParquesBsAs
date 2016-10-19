@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.activities;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         transparentStatusBar();
         setupUI();
+        setupDefaultSettings();
+        checkSettings();
     }
 
     private void setupUI() {
@@ -130,4 +133,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
     }
+
+    private void setupDefaultSettings() {
+        PreferenceManager.setDefaultValues(this,R.xml.settings,false);
+    }
+
+    private void checkSettings() {
+
+    }
+
 }

@@ -17,11 +17,10 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_about_me">About me</string>
 
-    <string-array name="drawer_list">
-        <item>Item 1</item>
-        <item>Item 2</item>
-        <item>Item 3</item>
-    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="menu_logout">Logout</string>
+
+    <string name="settings_configuracion">Configuración</string>
+    <string name="settings_inicio_sesion_auto_default">true</string>
+    <string name="settings_inicio_sesion_auto">Iniciar sesión automáticamente</string>
 </resources>

@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings_configuracion">
 
+        <CheckBoxPreference
+            android:defaultValue="@string/settings_inicio_sesion_auto_default"
+            android:key="settings_checkbox_inicio_sesion_auto"
+            android:title="@string/settings_inicio_sesion_auto" />
+
+        <!--<ListPreference
+            android:key="settings_list_preference_Expiracion"
+            android:title="@string/settings_Expiracion"
+            android:dialogTitle="Aviso"
+            android:defaultValue="@string/settings_notificacion_antelacion_un_dia"
+            android:entries="@array/settings_entries_list_preference"
+            android:entryValues="@array/settings_entries_values_list_preference" />
+
+        <CheckBoxPreference
+            android:defaultValue="@string/settings_notificacion_vibrar_default"
+            android:key="settings_checkbox_vibrar"
+            android:title="@string/settings_notificacion_vibrar" />-->
+
+
+    </PreferenceCategory>
 </PreferenceScreen>
