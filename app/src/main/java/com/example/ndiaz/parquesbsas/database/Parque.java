@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class Parque implements Serializable {
     int id;
     String nombre;
+    String descripcionCorta;
     String descripcion;
     String imagen;
     String latitud;
@@ -36,6 +37,14 @@ public class Parque implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcionCorta() {
+        return descripcionCorta;
+    }
+
+    public void setDescripcionCorta(String descripcionCorta) {
+        this.descripcionCorta = descripcionCorta;
     }
 
     public String getDescripcion() {

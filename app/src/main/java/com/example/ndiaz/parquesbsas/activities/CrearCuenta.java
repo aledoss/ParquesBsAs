@@ -1,6 +1,8 @@
 package com.example.ndiaz.parquesbsas.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +52,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         etPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(!etPassword.getText().toString().equalsIgnoreCase("")){
+                if (!etPassword.getText().toString().equalsIgnoreCase("")) {
                     final int DRAWABLE_RIGHT = 2;
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
@@ -93,6 +95,11 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
     }
 
     private void accederHome(Usuario usuario) {
+        SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAILLOGINSAVED, email);
+        editor.putString(PASSWORDLOGINSAVED, password);
+        editor.commit();
         Intent intent = new Intent(CrearCuenta.this, MainHome.class);
         intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
         startActivity(intent);

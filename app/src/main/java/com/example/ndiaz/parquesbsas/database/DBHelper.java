@@ -28,8 +28,8 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 PASSWORDUSUARIOCOLUMNA + " text )");
 
         db.execSQL("create table if not exists " + TABLEPARQUES + " (id integer primary key, " + NOMBREPARQUECOLUMNA + " text, " +
-                DESCRIPCIONPARQUECOLUMNA + " text, " + IMAGENPARQUECOLUMNA + " text, " + LATITUDPARQUECOLUMNA + " text, " +
-                LONGITUDPARQUECOLUMNA + " text )");
+                DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCIONPARQUECOLUMNA + " text, " + IMAGENPARQUECOLUMNA + " text, " +
+                LATITUDPARQUECOLUMNA + " text, " + LONGITUDPARQUECOLUMNA + " text )");
     }
 
     @Override
@@ -78,12 +78,12 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         }
     }
 
-    public Usuario getUsuario(String email, String password){
+    public Usuario getUsuario(String email, String password) {
         String whereClause = EMAILUSUARIOCOLUMNA + "= ? AND " + PASSWORDUSUARIOCOLUMNA + " = ?";
         String[] whereArgs = {email, password};
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.query(TABLEUSUARIOS, ALL_COLUMNS_USUARIOS, whereClause, whereArgs, null, null, null);
-        try{
+        try {
             cur.moveToFirst();
             Usuario usuario = new Usuario();
             usuario.setId(cur.getInt(cur.getColumnIndex("id")));
@@ -93,7 +93,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
             usuario.setEmail(cur.getString(cur.getColumnIndex(EMAILUSUARIOCOLUMNA)));
             usuario.setPassword(cur.getString(cur.getColumnIndex(PASSWORDUSUARIOCOLUMNA)));
             return usuario;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -104,6 +104,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         ContentValues contentValues = new ContentValues();
         try {
             contentValues.put(NOMBREPARQUECOLUMNA, parque.getNombre());
+            contentValues.put(DESCRIPCIONCORTAPARQUECOLUMNA, parque.getDescripcionCorta());
             contentValues.put(DESCRIPCIONPARQUECOLUMNA, parque.getDescripcion());
             contentValues.put(IMAGENPARQUECOLUMNA, parque.getImagen());
             contentValues.put(LATITUDPARQUECOLUMNA, parque.getLatitud());
@@ -121,11 +122,12 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         ArrayList<Parque> listaParques = new ArrayList<>();
         Cursor cur = db.rawQuery("select * from " + TABLEPARQUES, null);
         cur.moveToFirst();
-        try{
-            while(!cur.isAfterLast()){
+        try {
+            while (!cur.isAfterLast()) {
                 Parque parque = new Parque();
                 parque.setId(cur.getInt(cur.getColumnIndex("id")));
                 parque.setNombre(cur.getString(cur.getColumnIndex(NOMBREPARQUECOLUMNA)));
+                parque.setDescripcionCorta(cur.getString(cur.getColumnIndex(DESCRIPCIONCORTAPARQUECOLUMNA)));
                 parque.setDescripcion(cur.getString(cur.getColumnIndex(DESCRIPCIONPARQUECOLUMNA)));
                 parque.setImagen(cur.getString(cur.getColumnIndex(IMAGENPARQUECOLUMNA)));
                 parque.setLatitud(cur.getString(cur.getColumnIndex(LATITUDPARQUECOLUMNA)));
@@ -134,9 +136,33 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 cur.moveToNext();
             }
             return listaParques;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean updateParque(Parque parque) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        try {
+            contentValues.put(DESCRIPCIONPARQUECOLUMNA, parque.getDescripcion());
+            db.update(TABLEPARQUES, contentValues, "id = ?", new String[]{String.valueOf(parque.getId())});
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteParque(Parque parque) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            db.delete(TABLEPARQUES, "id = ?", new String[]{String.valueOf(parque.getId())});
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

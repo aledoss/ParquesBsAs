@@ -1,12 +1,15 @@
 package com.example.ndiaz.parquesbsas.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,15 +31,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText etEmail, etPassword;
     private LinearLayout linearLayout;
     private String email, password;
+    private boolean recordarDatosLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupDefaultSettings();
+        verificarLogin();   //se fija si el usuario decidio guardar sus datos y que se loguee automaticamente
         setContentView(R.layout.activity_main);
         transparentStatusBar();
         setupUI();
-        setupDefaultSettings();
-        checkSettings();
+    }
+
+    private void verificarLogin() {
+        try {
+            recordarDatosLogin = obtenerDatosSharedPreferencesSettings();
+            if (recordarDatosLogin) {
+                obtenerDatosLoginSharedPreferences();
+                Usuario usuario = obtenerUsuario();
+                if (usuario != null) {
+                    iniciarSesion(usuario, false);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void obtenerDatosLoginSharedPreferences() {
+        try {
+            SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
+            email = sharedPreferences.getString(EMAILLOGINSAVED, "");
+            password = sharedPreferences.getString(PASSWORDLOGINSAVED, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean obtenerDatosSharedPreferencesSettings() {
+        //obtengo datos del settings
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        recordarDatosLogin = sharedPrefs.getBoolean(SETTINGS_CHECBOX_INICIO_SESION_AUTO, true);
+        Log.d("SETTINGS", "Recordar: " + recordarDatosLogin);
+        return recordarDatosLogin;
     }
 
     private void setupUI() {
@@ -57,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(!etPassword.getText().toString().equalsIgnoreCase("")){
+                if (!etPassword.getText().toString().equalsIgnoreCase("")) {
                     final int DRAWABLE_RIGHT = 2;
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
@@ -88,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (datosNoVacios()) {
                     Usuario usuario = obtenerUsuario();
                     if (usuario != null) {
-                        iniciarSesion(usuario);
+                        iniciarSesion(usuario, true);
                     } else {
                         Toast.makeText(this, getResources().getString(R.string.DatosIncorrectos), Toast.LENGTH_SHORT).show();
                     }
@@ -122,7 +159,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    private void iniciarSesion(Usuario usuario) {
+    private void iniciarSesion(Usuario usuario, boolean guardarDatos) {
+        if (guardarDatos) {
+            try {
+                SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(EMAILLOGINSAVED, email);
+                editor.putString(PASSWORDLOGINSAVED, password);
+                editor.commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         Intent intent = new Intent(MainActivity.this, MainHome.class);
         intent.putExtra(INICIARSESIONUSUARIO, (Serializable) usuario);
         startActivity(intent);
@@ -135,11 +183,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupDefaultSettings() {
-        PreferenceManager.setDefaultValues(this,R.xml.settings,false);
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
     }
 
-    private void checkSettings() {
-
-    }
 
 }

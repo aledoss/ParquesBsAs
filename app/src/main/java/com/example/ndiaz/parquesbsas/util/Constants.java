@@ -7,9 +7,19 @@ package com.example.ndiaz.parquesbsas.util;
 public interface Constants {
     //Login
     String INICIARSESIONUSUARIO = "IniciarSesionUsuario";
+    String EMAILLOGINSAVED = "EmailLoginSaved";
+    String PASSWORDLOGINSAVED = "PasswordLoginSaved";
+    String LOGINPREFERENCES = "LoginPreferences";
 
     //Crear cuenta
     String CREARCUENTAUSUARIO = "CrearCuentaUsuario";
+
+    //Crear parque
+    String CREARPARQUE = "CrearParque";
+
+    //Detalles Parque
+    String PARQUEDETALLES = "ParqueDetalles";
+    String ACCIONMODIFICARPARQUE = "AccionModificarParque";
 
     //DB
     String DATABASE = "ParquesBsAs";
@@ -28,12 +38,16 @@ public interface Constants {
     ////Parques
     String TABLEPARQUES = "Parques";
     String NOMBREPARQUECOLUMNA = "Nombre";
+    String DESCRIPCIONCORTAPARQUECOLUMNA = "Descripcion_Corta";
     String DESCRIPCIONPARQUECOLUMNA = "Descripcion";
     String IMAGENPARQUECOLUMNA = "Imagen";
     String LATITUDPARQUECOLUMNA = "Latitud";
     String LONGITUDPARQUECOLUMNA = "Longitud";
     String ALL_COLUMNS_PARQUES[] = {
-            "id", NOMBREPARQUECOLUMNA, DESCRIPCIONPARQUECOLUMNA, IMAGENPARQUECOLUMNA, LATITUDPARQUECOLUMNA, LONGITUDPARQUECOLUMNA
+            "id", NOMBREPARQUECOLUMNA, DESCRIPCIONCORTAPARQUECOLUMNA, DESCRIPCIONPARQUECOLUMNA, IMAGENPARQUECOLUMNA, LATITUDPARQUECOLUMNA, LONGITUDPARQUECOLUMNA
     };
+
+    //Settings
+    String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 
 }

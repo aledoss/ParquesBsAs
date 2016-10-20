@@ -23,4 +23,24 @@
     <string name="settings_configuracion">Configuración</string>
     <string name="settings_inicio_sesion_auto_default">true</string>
     <string name="settings_inicio_sesion_auto">Iniciar sesión automáticamente</string>
+    <string name="menu_agregar_parque">Agregar Parque</string>
+    <string name="menu_parques">Parques</string>
+    <string name="menu_reclamos">Reclamos</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="about_me_text">Mi nombre es Nicolás Diaz. Estoy en el 6to cuatrimestre de la Escuela Da Vinci y esta es la app del primer parcial.</string>
+    <string name="borrar_parque_menu">Borrar</string>
+    <string name="modificar_parque_menu">Editar</string>
+    <string name="borrar">Borrar</string>
+    <string name="pregunta_borrar_parque">Desea borrar este parque?</string>
+    <string name="lat_prompt">Latitud</string>
+    <string name="lng_prompt">Longitud</string>
+
+    <string-array name="lat_entries">
+        <item>-34.6060982</item>
+        <item>-34.6178287</item>
+    </string-array>
+    <string-array name="lng_entries">
+        <item>-58.4354782</item>
+        <item>-58.4333543</item>
+    </string-array>
 </resources>
