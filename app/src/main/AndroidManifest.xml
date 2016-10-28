@@ -20,17 +20,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.CrearCuenta"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.MainHome"></activity>
+        <activity android:name=".activities.MainHome" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -49,8 +43,22 @@
             android:name=".activities.AgregarParque"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.DetallesParque"
-            android:screenOrientation="portrait"></activity>
+            android:name=".activities.DetallesParqueOld"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.reclamos.ListaReclamos" />
+        <activity android:name=".activities.info_parques.DetallesParque">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.info_parques.DescGeneralParque" />
+        <activity android:name=".activities.info_parques.ListaActividadesParque" />
+        <activity android:name=".activities.info_parques.ListaActividadesHorarios" />
+        <activity android:name=".activities.reclamos.AgregarReclamo" />
+        <activity android:name=".activities.reclamos.DetalleReclamo" />
+        <activity android:name=".activities.PerfilUsuario"></activity>
     </application>
 
 </manifest>

@@ -53,7 +53,7 @@ public class ListaParques extends AppCompatActivity implements Constants {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Parque parque = listaParques.get(position);
-                Intent intent = new Intent(ListaParques.this, DetallesParque.class);
+                Intent intent = new Intent(ListaParques.this, DetallesParqueOld.class);
                 intent.putExtra(PARQUEDETALLES, (Serializable) parque);
                 startActivity(intent);
             }

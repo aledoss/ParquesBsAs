@@ -34,6 +34,16 @@
     <string name="pregunta_borrar_parque">Desea borrar este parque?</string>
     <string name="lat_prompt">Latitud</string>
     <string name="lng_prompt">Longitud</string>
+    <string name="sin_reclamos_cargados">Sin reclamos cargados</string>
+    <string name="menu_agregar_reclamo">Agregar reclamo</string>
+    <string name="actividades">Actividades</string>
+    <string name="ferias">Ferias</string>
+    <string name="descripcion_general">Descripción general</string>
+    <string name="eco_bici">Eco Bici</string>
+    <string name="seguridad">Seguridad:</string>
+    <string name="estacion_saludable">Estación saludable</string>
+    <string name="sin_actividades_cargadas">Sin actividades cargadas</string>
+    <string name="sin_actividades_horarios_cargadas">Actividad sin horarios</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

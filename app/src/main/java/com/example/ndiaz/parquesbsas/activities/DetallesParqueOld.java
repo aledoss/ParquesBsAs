@@ -20,7 +20,7 @@ import com.example.ndiaz.parquesbsas.database.Parque;
 import com.example.ndiaz.parquesbsas.util.Constants;
 import com.squareup.picasso.Picasso;
 
-public class DetallesParque extends AppCompatActivity implements Constants, View.OnClickListener {
+public class DetallesParqueOld extends AppCompatActivity implements Constants, View.OnClickListener {
 
     private Toolbar toolbar;
     private TextView txtNombre, txtDesc;
@@ -34,7 +34,7 @@ public class DetallesParque extends AppCompatActivity implements Constants, View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalles_parque);
+        setContentView(R.layout.activity_detalles_parque_old);
         obtenerDatosParque();
         setupUI();
     }
@@ -70,7 +70,7 @@ public class DetallesParque extends AppCompatActivity implements Constants, View
         btnModificar.setOnClickListener(this);
 
         setupToolbar();
-        Picasso.with(DetallesParque.this)
+        Picasso.with(DetallesParqueOld.this)
                 .load(imagen)
                 .placeholder(R.mipmap.ic_launcher)
                 .fit()
@@ -112,13 +112,13 @@ public class DetallesParque extends AppCompatActivity implements Constants, View
     }
 
     private void borrarParque() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(DetallesParque.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DetallesParqueOld.this);
         builder.setTitle(getResources().getString(R.string.borrar));
         builder.setMessage(getResources().getString(R.string.pregunta_borrar_parque));
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DBHelper db = new DBHelper(DetallesParque.this);
+                DBHelper db = new DBHelper(DetallesParqueOld.this);
                 db.deleteParque(parque);
                 db.close();
                 finish();
@@ -137,7 +137,7 @@ public class DetallesParque extends AppCompatActivity implements Constants, View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_detalle_parque_modificar:
-                DBHelper db = new DBHelper(DetallesParque.this);
+                DBHelper db = new DBHelper(DetallesParqueOld.this);
                 parque.setDescripcion(etDesc.getText().toString());
                 txtDesc.setText(parque.getDescripcion());
                 db.updateParque(parque);

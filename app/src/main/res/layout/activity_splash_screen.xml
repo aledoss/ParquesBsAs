@@ -17,7 +17,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:src="@drawable/splash_tree2" />
+            android:src="@drawable/splash_tree1" />
 
         <ProgressBar
             android:layout_width="200dp"
