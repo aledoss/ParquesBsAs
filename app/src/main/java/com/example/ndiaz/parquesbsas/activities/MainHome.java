@@ -206,7 +206,6 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap = googleMap;
         LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
         try{

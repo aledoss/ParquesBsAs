@@ -50,4 +50,9 @@ public interface Constants {
     //Settings
     String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 
+    //SOAP
+    String URLSOAPECOBICI = "http://bicis.buenosaires.gob.ar/ServiceBicycle.asmx";
+    String NAMESPACESOAPECOBICI = "http://tempuri.org/";
+
+
 }
