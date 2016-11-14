@@ -37,6 +37,7 @@ public interface Constants {
 
     ////Parques
     String TABLEPARQUES = "Parques";
+    String IDPARQUECOLUMNA = "Id_Parque";
     String NOMBREPARQUECOLUMNA = "Nombre";
     String DESCRIPCIONCORTAPARQUECOLUMNA = "Descripcion_Corta";
     String DESCRIPCIONPARQUECOLUMNA = "Descripcion";
@@ -50,9 +51,14 @@ public interface Constants {
     //Settings
     String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 
-    //SOAP
-    String URLSOAPECOBICI = "http://bicis.buenosaires.gob.ar/ServiceBicycle.asmx";
-    String NAMESPACESOAPECOBICI = "http://tempuri.org/";
+    //XML
+    String xmlURL = "https://recursos-data.buenosaires.gob.ar/ckan2/ecobici/estado-ecobici.xml";
 
+    //Otros
+    String INGRESOPRIMERAVEZ = "IngresoPrimeraVez";
 
+    //FTP
+    String FTP_HOST = "185.28.20.89";
+    String FTP_USER = "u757745325";
+    String FTP_PASS = "pepeveraz16166";
 }

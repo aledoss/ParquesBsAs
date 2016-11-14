@@ -9,7 +9,7 @@
     tools:context="com.example.ndiaz.parquesbsas.activities.reclamos.ListaReclamos">
 
     <include
-        android:id="@+id/toolbar_reclamos"
+        android:id="@+id/toolbar_lista_reclamo"
         layout="@layout/toolbar" />
 
     <ListView

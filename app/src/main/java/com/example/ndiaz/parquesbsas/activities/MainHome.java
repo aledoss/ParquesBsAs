@@ -54,9 +54,32 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
+        verificarDatosParque();
         usuario = obtenerDatosUsuario();
         setupUI();
 
+    }
+
+    private void verificarDatosParque() {
+        if(ingresoPrimeraVez()){//me fijo si es la primera vez que ingresa
+            guardarDatosParquesBD();
+        }
+    }
+
+    private void guardarDatosParquesBD() {
+
+    }
+
+    private boolean ingresoPrimeraVez() {
+        SharedPreferences mPrefs = getSharedPreferences(INGRESOPRIMERAVEZ, Context.MODE_PRIVATE);
+        boolean primeraVez = mPrefs.getBoolean(INGRESOPRIMERAVEZ, true);
+        if(primeraVez){
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(INGRESOPRIMERAVEZ, false);
+            editor.commit();
+            return true;
+        }
+        return false;
     }
 
     private Usuario obtenerDatosUsuario() {
@@ -208,13 +231,13 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public void onMapReady(GoogleMap googleMap) {
         LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
-        try{
+        try {
             DBHelper db = new DBHelper(MainHome.this);
             ArrayList<Parque> listaParques = db.getAllParques();
             LatLng parqueLatLng;
-            for(Parque parque: listaParques){
-                BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.mipmap.ic_launcher);
-                Bitmap b=bitmapdraw.getBitmap();
+            for (Parque parque : listaParques) {
+                BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
+                Bitmap b = bitmapdraw.getBitmap();
                 Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
                 parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
                 googleMap.addMarker(new MarkerOptions()
@@ -225,7 +248,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
                 );
             }
             db.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

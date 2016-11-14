@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.activities.info_parques;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,12 +20,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.example.ndiaz.parquesbsas.util.Constants.xmlURL;
+
 public class DetallesParque extends AppCompatActivity {
     private Button btnEcoBici;
     protected XmlPullParserFactory xmlPullParserFactory;
     protected XmlPullParser parser;
-    //private final String xmlPath = "http://www.w3schools.com/xml/cd_catalog.xml";
-    private final String xmlPath = "https://recursos-data.buenosaires.gob.ar/ckan2/ecobici/estado-ecobici.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +43,17 @@ public class DetallesParque extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 BackgroundAsyncTask backgroundAsyncTask = new BackgroundAsyncTask();
-                backgroundAsyncTask.execute(xmlPath);
+                backgroundAsyncTask.execute(xmlURL);
             }
         });
     }
 
-    private class BackgroundAsyncTask extends AsyncTask<String, Void, String> {
+    private class BackgroundAsyncTask extends AsyncTask<String, Void, BackgroundAsyncTask.Entity> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected BackgroundAsyncTask.Entity doInBackground(String... params) {
             URL url = null;
-            String returnedResult = "";
+            Entity entity = null;
             try {
                 url = new URL(params[0]);
             } catch (MalformedURLException e) {
@@ -68,78 +69,126 @@ public class DetallesParque extends AppCompatActivity {
                 conn.connect();
                 InputStream is = conn.getInputStream();
                 parser.setInput(is, null);
-                returnedResult = getLoadedXmlValues(parser);
+                entity = getLoadedXmlValues(parser);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             }
-            return returnedResult;
+            return entity;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if (!s.equals("")) {
-                Log.d("NICOTEST", s.toString());
+        protected void onPostExecute(BackgroundAsyncTask.Entity entity) {
+            super.onPostExecute(entity);
+            if (entity != null) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetallesParque.this);
+                alertDialog.setTitle("Estacion " + entity.getEstacionNombre())
+                            .setMessage("Bicicletas disponibles: " + entity.getBicicletaDisponibles()
+                                + "\nAnclajes disponibles: " + entity.getAnclajesDisponibles()
+                                + "\nEstación disponible: " + entity.getEstacionDisponible())
+                            .show();
             }
         }
 
-        private String getLoadedXmlValues(XmlPullParser parser) throws XmlPullParserException, IOException {
+        /*
+        * Ejemplo XML
+        * <Estacion>
+        *    <EstacionId>6</EstacionId>
+        *    <EstacionNombre>Parque Lezama</EstacionNombre>
+        *    <BicicletaDisponibles>3</BicicletaDisponibles>
+        *    <EstacionDisponible>SI</EstacionDisponible>
+        *    <Latitud>-34.628233</Latitud>
+        *    <Longitud>-58.369606</Longitud>
+        *    <Numero>0</Numero>
+        *    <Lugar>Martín García e Irala</Lugar>
+        *    <Piso/>
+        *    <AnclajesTotales>19</AnclajesTotales>
+        *    <AnclajesDisponibles>16</AnclajesDisponibles>
+        * </Estacion>
+        */
+        private Entity getLoadedXmlValues(XmlPullParser parser) throws XmlPullParserException, IOException {
             int eventType = parser.getEventType();
-            String name = null;
             Entity mEntity = new Entity();
-            /*while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG) {
-                    name = parser.getName();
-                    if (name.equals("EstacionNombre")) {
-                        mEntity.EstacionNombre = parser.nextText();
-
-
-                    }/* else if (name.equals("ARTIST")) {
-                        mEntity.artist = parser.nextText();
-                    } else if (name.equals("COUNTRY")) {
-                        mEntity.country = parser.nextText();
-                    } else if (name.equals("COMPANY")) {
-                        mEntity.company = parser.nextText();
-                    } else if (name.equals("PRICE")) {
-                        mEntity.price = parser.nextText();
-                    }/* else if (name.equals("YEAR")) {
-                        mEntity.year = parser.nextText();
-                    }
-                }
-                eventType = parser.next();
-            }*/
-
             //tendria que filtrar por el parque que eligió, es decir que la "EstacionNombre" tendria que ser tal
             //esto funca: el start tag seria el <id>, el end tag seria el </id>, el text seria lo que viene despues del starTag.
             //los documents son los tags que abren super cosas
             //la idea seria mostrar los datos en un custom dialog de manera linda
             while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_DOCUMENT) {
-                    Log.d("NICOTEST", "Start document");
-                } else if (eventType == XmlPullParser.END_DOCUMENT) {
-                    Log.d("NICOTEST", "End document");
-                } else if (eventType == XmlPullParser.START_TAG) {
-                    Log.d("NICOTEST", "Start tag " + parser.getName());
-                } else if (eventType == XmlPullParser.END_TAG) {
-                    Log.d("NICOTEST", "End tag " + parser.getName());
-                } else if (eventType == XmlPullParser.TEXT) {
-                    Log.d("NICOTEST", "Text " + parser.getText());
+                if (eventType == XmlPullParser.START_TAG) {
+                    if (parser.getName().equalsIgnoreCase("EstacionNombre") /*&& parser.nextText().equalsIgnoreCase("Parque Lezama")*/) { //variable con el nombre del parque
+                        String estacionNombre = parser.nextText();//hacer el if de si es el parque
+                        if (estacionNombre.equalsIgnoreCase("Parque Lezama")) {
+                            mEntity.setEstacionNombre(estacionNombre);
+                            Log.d("NICOTEST", "Estacion nombre: " + estacionNombre);
+                            parser.nextTag();
+                            if (parser.getName().equalsIgnoreCase("BicicletaDisponibles")) {
+                                String bicisDisp = parser.nextText();
+                                mEntity.setBicicletaDisponibles(bicisDisp);
+                                Log.d("NICOTEST", "Bicis disp: " + bicisDisp);
+                                parser.nextTag();
+                                if (parser.getName().equalsIgnoreCase("EstacionDisponible")) {
+                                    String estacionDisp = parser.nextText();
+                                    mEntity.setEstacionDisponible(estacionDisp);
+                                    Log.d("NICOTEST", "Estacion disp: " + estacionDisp);
+                                    parser.nextTag();
+                                    String tagActual = parser.getName();
+                                    while (!tagActual.equalsIgnoreCase("AnclajesDisponibles")) {  //me muevo por los tags/text hasta anclajesDisponibles
+                                        Log.d("NICOTEST", "tag " + tagActual);
+                                        parser.nextText();
+                                        parser.nextTag();
+                                        tagActual = parser.getName();
+                                    }
+                                    String anclajesDisponibles = parser.nextText();
+                                    mEntity.setAnclajesDisponibles(anclajesDisponibles);
+                                    Log.d("NICOTEST", "Anclajes disp: " + anclajesDisponibles);
+                                }
+                            }
+                        }
+                    }
                 }
                 eventType = parser.next();
             }
-
-            return mEntity.EstacionNombre/* + ", " + mEntity.artist + ", " + mEntity.country + ", " + mEntity.company + ", " + mEntity.price/* + ", " + mEntity.year*/;
+            return mEntity;
         }
 
         public class Entity {
             public String EstacionNombre;
-            /*public String artist;
-            public String country;
-            public String company;
-            public String price;*/
-            //public String year;
+            public String BicicletaDisponibles;
+            public String EstacionDisponible;
+            public String AnclajesDisponibles;
+
+            public String getEstacionNombre() {
+                return EstacionNombre;
+            }
+
+            public void setEstacionNombre(String estacionNombre) {
+                EstacionNombre = estacionNombre;
+            }
+
+            public String getBicicletaDisponibles() {
+                return BicicletaDisponibles;
+            }
+
+            public void setBicicletaDisponibles(String bicicletaDisponibles) {
+                BicicletaDisponibles = bicicletaDisponibles;
+            }
+
+            public String getEstacionDisponible() {
+                return EstacionDisponible;
+            }
+
+            public void setEstacionDisponible(String estacionDisponible) {
+                EstacionDisponible = estacionDisponible;
+            }
+
+            public String getAnclajesDisponibles() {
+                return AnclajesDisponibles;
+            }
+
+            public void setAnclajesDisponibles(String anclajesDisponibles) {
+                AnclajesDisponibles = anclajesDisponibles;
+            }
         }
     }
 }

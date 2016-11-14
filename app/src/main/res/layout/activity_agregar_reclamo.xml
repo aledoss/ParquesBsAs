@@ -7,4 +7,8 @@
     android:orientation="vertical"
     tools:context="com.example.ndiaz.parquesbsas.activities.reclamos.AgregarReclamo">
 
+    <include
+        android:id="@+id/toolbar_agregar_reclamo"
+        layout="@layout/toolbar" />
+
 </LinearLayout>
