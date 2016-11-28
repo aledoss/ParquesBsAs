@@ -45,6 +45,8 @@
     <string name="sin_actividades_cargadas">Sin actividades cargadas</string>
     <string name="sin_actividades_horarios_cargadas">Actividad sin horarios</string>
     <string name="menu_sacar_foto_reclamo">Sacar Foto</string>
+    <string name="agregar_reclamo">Agregar Reclamo</string>
+    <string name="lista_reclamos">Lista Reclamos</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

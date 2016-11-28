@@ -22,7 +22,7 @@ public class ListaReclamos extends AppCompatActivity {
         setContentView(R.layout.activity_lista_reclamos);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("asd");
+        toolbar.setTitle(R.string.lista_reclamos);
     }
 
     @Override

@@ -30,11 +30,60 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         db.execSQL("create table if not exists " + TABLEPARQUES + " (id integer primary key, " + NOMBREPARQUECOLUMNA + " text, " +
                 DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCIONPARQUECOLUMNA + " text, " + IMAGENPARQUECOLUMNA + " text, " +
                 LATITUDPARQUECOLUMNA + " text, " + LONGITUDPARQUECOLUMNA + " text )");
+
+        db.execSQL("create table if not exists " + TABLERECLAMOS + " (id integer primary key, " + NOMBRERECLAMOCOLUMNA + " text, " +
+                NOMBRERECLAMOPQECOLUMNA + " text, " + COMENTARIORECLAMOCOLUMNA + " text, " + FECHACREACIONRECLAMOCOLUMNA + " text, " +
+                LATITUDRECLAMOCOLUMNA + " text, " + LONGITUDRECLAMOCOLUMNA + " text, " + IMAGENRECLAMOCOLUMNA + " text )");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public boolean insertarReclamo(Reclamo reclamo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        try {
+            contentValues.put(NOMBRERECLAMOCOLUMNA, reclamo.getNombre());
+            contentValues.put(NOMBRERECLAMOPQECOLUMNA, reclamo.getParque());
+            contentValues.put(COMENTARIORECLAMOCOLUMNA, reclamo.getComentarios());
+            contentValues.put(FECHACREACIONRECLAMOCOLUMNA, reclamo.getFechaCreacion());
+            contentValues.put(LATITUDRECLAMOCOLUMNA, reclamo.getLatitud());
+            contentValues.put(LONGITUDRECLAMOCOLUMNA, reclamo.getLongitud());
+            contentValues.put(IMAGENRECLAMOCOLUMNA, reclamo.getImagen());
+            db.insert(TABLERECLAMOS, null, contentValues);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ArrayList<Reclamo> getAllReclamos() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Reclamo> listaReclamos = new ArrayList<>();
+        Cursor cur = db.rawQuery("select * from " + TABLERECLAMOS, null);
+        cur.moveToFirst();
+        try {
+            while (!cur.isAfterLast()) {
+                Reclamo reclamo = new Reclamo();
+                reclamo.setId(cur.getInt(cur.getColumnIndex("id")));
+                reclamo.setNombre(cur.getString(cur.getColumnIndex(NOMBRERECLAMOCOLUMNA)));
+                reclamo.setParque(cur.getString(cur.getColumnIndex(NOMBRERECLAMOPQECOLUMNA)));
+                reclamo.setComentarios(cur.getString(cur.getColumnIndex(COMENTARIORECLAMOCOLUMNA)));
+                reclamo.setFechaCreacion(cur.getString(cur.getColumnIndex(FECHACREACIONRECLAMOCOLUMNA)));
+                reclamo.setLatitud(cur.getString(cur.getColumnIndex(LATITUDRECLAMOCOLUMNA)));
+                reclamo.setLongitud(cur.getString(cur.getColumnIndex(LONGITUDRECLAMOCOLUMNA)));
+                reclamo.setImagen(cur.getString(cur.getColumnIndex(IMAGENRECLAMOCOLUMNA)));
+                listaReclamos.add(reclamo);
+                cur.moveToNext();
+            }
+            return listaReclamos;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean insertarUsuario(Usuario usuario) {

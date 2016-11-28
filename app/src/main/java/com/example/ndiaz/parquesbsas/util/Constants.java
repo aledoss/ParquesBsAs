@@ -48,6 +48,17 @@ public interface Constants {
             "id", NOMBREPARQUECOLUMNA, DESCRIPCIONCORTAPARQUECOLUMNA, DESCRIPCIONPARQUECOLUMNA, IMAGENPARQUECOLUMNA, LATITUDPARQUECOLUMNA, LONGITUDPARQUECOLUMNA
     };
 
+    ////Reclamos
+    String TABLERECLAMOS = "Reclamos";
+    String IDRECLAMOCOLUMNA = "Id_Reclamo";
+    String NOMBRERECLAMOCOLUMNA = "Nombre";
+    String NOMBRERECLAMOPQECOLUMNA = "Nombre_Parque";
+    String COMENTARIORECLAMOCOLUMNA = "Comentarios";
+    String FECHACREACIONRECLAMOCOLUMNA = "Fecha_Creacion";
+    String LATITUDRECLAMOCOLUMNA = "Latitud";
+    String LONGITUDRECLAMOCOLUMNA = "Longitud";
+    String IMAGENRECLAMOCOLUMNA = "Imagen";
+
     //Settings
     String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 

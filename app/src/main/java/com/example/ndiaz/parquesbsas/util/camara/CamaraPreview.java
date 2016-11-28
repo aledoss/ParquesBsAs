@@ -35,7 +35,7 @@ public class CamaraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        if (mHolder.getSurface() == null)//no existe surface
+        /*if (mHolder.getSurface() == null)//no existe surface
             return;
         try {
             mCamera.stopPreview();
@@ -47,11 +47,11 @@ public class CamaraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        mCamera.stopPreview();
+        //mCamera.stopPreview();
     }
 }

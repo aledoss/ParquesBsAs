@@ -11,4 +11,48 @@
         android:id="@+id/toolbar_agregar_reclamo"
         layout="@layout/toolbar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/txt_reclamo_nombre_parque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Nombre del parque"
+            android:textSize="@dimen/reclamo_nombre_parque" />
+
+        <Spinner
+            android:id="@+id/spinner_lista_reclamos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/et_reclamos_comentarios"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:paddingTop="5dp"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/btn_generar_reclamo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/generar" />
+
+    </LinearLayout>
+
+
 </LinearLayout>
