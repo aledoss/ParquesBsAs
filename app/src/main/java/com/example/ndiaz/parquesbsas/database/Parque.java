@@ -17,7 +17,6 @@ public class Parque implements Serializable {
     String longitud;
     String barrio;
 
-
     public int getId_parque() {
         return id_parque;
     }

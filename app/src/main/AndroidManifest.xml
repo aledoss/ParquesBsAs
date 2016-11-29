@@ -48,13 +48,19 @@
             android:name=".activities.DetallesParqueOld"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.reclamos.ListaReclamos">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity android:name=".activities.info_parques.DetallesParque">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.info_parques.DetallesParque"></activity>
         <activity android:name=".activities.info_parques.DescGeneralParque" />
         <activity android:name=".activities.info_parques.ListaActividadesParque" />
         <activity android:name=".activities.info_parques.ListaActividadesHorarios" />

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lista_reclamos">
+        <item>Corte y limpieza de césped</item>
+        <item>Instalación de banco</item>
+        <item>Instalación de cestos</item>
+        <item>Instalación de otros</item>
+        <item>Reparación de banco</item>
+        <item>Reparación de cestos</item>
+        <item>Reparación de fuente</item>
+        <item>Reparación de monumento</item>
+        <item>Reparación de patio de juegos</item>
+        <item>Reparación de rejas</item>
+        <item>Reparación de otros</item>
+        <item>Seguridad</item>
+    </string-array>
+</resources>

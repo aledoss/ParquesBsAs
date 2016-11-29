@@ -32,8 +32,6 @@ public class PhotoHandler /*implements Camera.PictureCallback*/ {
         this.data = imagen;
     }
 
-    /*@Override
-    public void onPictureTaken(byte[] data, Camera camera) {*/
     public void procesarImagen() {
         Toast.makeText(context, "Foto sacada", Toast.LENGTH_SHORT).show();
         File pictureFileDir = getDir();
@@ -44,7 +42,7 @@ public class PhotoHandler /*implements Camera.PictureCallback*/ {
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
         String date = dateFormat.format(new Date());
-        String photoFile = "Cupones_" + date + ".jpg";
+        String photoFile = "Reclamo_" + date + ".jpg";
         String fileName = pictureFileDir.getPath() + File.separator + photoFile;//path + \ + \ nombrefoto
         File pictureFile = new File(fileName);
         try {
@@ -64,9 +62,6 @@ public class PhotoHandler /*implements Camera.PictureCallback*/ {
         }
         uploadFileFTP(pictureFile);
     }
-
-    //}
-
 
     private File getDir() {
         File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -91,7 +86,7 @@ public class PhotoHandler /*implements Camera.PictureCallback*/ {
 
         @Override
         public void started() {
-            //btnSacarFoto.setEnabled(false);
+            Log.d("NICOTEST", "started");
             Toast.makeText(context, "Cargando imagen", Toast.LENGTH_SHORT).show();
         }
 
@@ -103,20 +98,19 @@ public class PhotoHandler /*implements Camera.PictureCallback*/ {
 
         @Override
         public void completed() {
-            //btnSacarFoto.setEnabled(true);
             Toast.makeText(context, "Transferencia completa", Toast.LENGTH_SHORT).show();
             Log.d("NICOTEST", "Transferencia completa");
         }
 
         @Override
         public void aborted() {
-            //btnSacarFoto.setEnabled(true);
+            Log.d("NICOTEST", "aborted");
             Toast.makeText(context, "Transferencia abortada", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void failed() {
-            //btnSacarFoto.setEnabled(true);
+            Log.d("NICOTEST", "failed");
             Toast.makeText(context, "Fallo en la transferencia", Toast.LENGTH_SHORT).show();
         }
     }

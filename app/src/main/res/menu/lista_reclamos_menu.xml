@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
+    <!--<item
         android:id="@+id/agregar_reclamo_menu"
         android:icon="@drawable/ic_agregar_parque"
         android:title="@string/menu_agregar_reclamo"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="ifRoom|collapseActionView" />-->
 
 </menu>

@@ -22,14 +22,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Nombre del parque"
+            android:text="@string/nombre_parque"
             android:textSize="@dimen/reclamo_nombre_parque" />
 
-        <Spinner
-            android:id="@+id/spinner_lista_reclamos"
+        <Button
+            android:id="@+id/btn_lista_reclamos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:text="@string/elegir_reclamo" />
 
         <EditText
             android:id="@+id/et_reclamos_comentarios"

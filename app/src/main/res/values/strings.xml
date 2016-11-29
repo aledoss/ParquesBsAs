@@ -47,6 +47,11 @@
     <string name="menu_sacar_foto_reclamo">Sacar Foto</string>
     <string name="agregar_reclamo">Agregar Reclamo</string>
     <string name="lista_reclamos">Lista Reclamos</string>
+    <string name="generar">Generar</string>
+    <string name="detalles">Detalles</string>
+    <string name="reclamos">Reclamos</string>
+    <string name="elegir_reclamo">Elegir reclamo</string>
+    <string name="nombre_parque">Nombre del parque</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

@@ -87,7 +87,7 @@ public class DetallesParqueOld extends AppCompatActivity implements Constants, V
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detalles_parque_menu, menu);
+        getMenuInflater().inflate(R.menu.detalles_parque_menu_old, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
