@@ -20,7 +20,9 @@ import com.example.ndiaz.parquesbsas.database.Parque;
 import com.example.ndiaz.parquesbsas.database.Reclamo;
 import com.example.ndiaz.parquesbsas.util.camara.PhotoHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,6 +138,7 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
                     }
                     insertarReclamoDB();
                     finish();
+                    startActivity(new Intent(AgregarReclamo.this, ListaReclamos.class));
                 }
                 break;
             case R.id.btn_lista_reclamos:
@@ -147,7 +150,7 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
     private boolean datosNoVacios() {
         String comentarios = String.valueOf(etComentarios.getText());
         String elegirReclamoDefecto = getResources().getString(R.string.elegir_reclamo);
-        if (comentarios.equalsIgnoreCase("") && btnListaReclamos.getText().toString().equalsIgnoreCase(elegirReclamoDefecto)) {
+        if (comentarios.equalsIgnoreCase("") || btnListaReclamos.getText().toString().equalsIgnoreCase(elegirReclamoDefecto)) {
             Toast.makeText(this, "Completar reclamo y/o comentarios", Toast.LENGTH_SHORT).show();
             return false;
         } else {
@@ -156,17 +159,18 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
     }
 
     private void insertarReclamoDB() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmm");
+        String date = dateFormat.format(new Date());
         DBHelper db = new DBHelper(this);
         Reclamo reclamo = new Reclamo();
         reclamo.setNombre(reclamoNombre);  //el get que devuelve el contextmenu
         reclamo.setParque(parque.getNombre());
         reclamo.setComentarios(String.valueOf(etComentarios.getText()));
-        if (reclamoConFoto) {   //si se saco una foto..
-            reclamo.setLatitud(String.valueOf(latitud));
-            reclamo.setLongitud(String.valueOf(longitud));
-            reclamo.setImagen(String.valueOf(rutaImagen));
-        }
-        //db.insertarReclamo(reclamo);
+        reclamo.setFechaCreacion(date);
+        reclamo.setLatitud(String.valueOf(latitud));
+        reclamo.setLongitud(String.valueOf(longitud));
+        reclamo.setImagen(String.valueOf(rutaImagen));  //si no se saco foto, la latitud, longitud y la ruta de la imagen, se ponen en 0 y ""
+        db.insertarReclamo(reclamo);
         db.close();
     }
 

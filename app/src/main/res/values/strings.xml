@@ -52,6 +52,8 @@
     <string name="reclamos">Reclamos</string>
     <string name="elegir_reclamo">Elegir reclamo</string>
     <string name="nombre_parque">Nombre del parque</string>
+    <string name="nombre_reclamo">Nombre del reclamo</string>
+    <string name="detalle_reclamo">Detalle Reclamo</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

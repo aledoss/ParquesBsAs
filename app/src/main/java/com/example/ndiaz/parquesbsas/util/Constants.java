@@ -62,6 +62,7 @@ public interface Constants {
     String IMAGENBYTES = "ImagenBytes";
     String LASTLOCATIONLATITUD = "LastLocationLatitud";
     String LASTLOCATIONLONGITUD = "LastLocationLongitud";
+    String RECLAMODETALLES = "ReclamoDetalles";
     //Settings
     String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 

@@ -13,4 +13,7 @@
     <dimen name="title_details_bici">28sp</dimen>
     <dimen name="details_bici">24sp</dimen>
     <dimen name="reclamo_nombre_parque">26sp</dimen>
+    <dimen name="reclamo_nombre">22sp</dimen>
+    <dimen name="reclamo_comentarios">18sp</dimen>
+    <dimen name="reclamo_lat_lng">18sp</dimen>
 </resources>

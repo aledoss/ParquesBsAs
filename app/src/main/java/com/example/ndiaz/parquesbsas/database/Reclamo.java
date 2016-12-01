@@ -1,10 +1,12 @@
 package com.example.ndiaz.parquesbsas.database;
 
+import java.io.Serializable;
+
 /**
  * Created by Lenwe on 28/11/2016.
  */
 
-public class Reclamo {
+public class Reclamo implements Serializable {
 
     private int id;
     private String parque;

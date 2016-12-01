@@ -7,4 +7,69 @@
     android:orientation="vertical"
     tools:context="com.example.ndiaz.parquesbsas.activities.reclamos.DetalleReclamo">
 
+    <include
+        android:id="@+id/toolbar_detalle_reclamo"
+        layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/txt_reclamo_nombre_parque_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/nombre_parque"
+            android:textSize="@dimen/reclamo_nombre_parque" />
+
+        <TextView
+            android:id="@+id/txt_reclamo_nombre_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/nombre_reclamo"
+            android:textSize="@dimen/reclamo_nombre" />
+
+        <TextView
+            android:id="@+id/txt_reclamo_comentarios_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="20dp"
+            android:text="Comentarios.........................................................."
+            android:textSize="@dimen/reclamo_comentarios" />
+
+        <TextView
+            android:id="@+id/txt_reclamo_latitud_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Latitud: 60.901203"
+            android:textSize="@dimen/reclamo_lat_lng" />
+
+        <TextView
+            android:id="@+id/txt_reclamo_longitud_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Longitud: 62.141648"
+            android:textSize="@dimen/reclamo_lat_lng" />
+
+        <TextView
+            android:id="@+id/txt_reclamo_fecha_creacion_detalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Fecha creacion: 2016/12/01"
+            android:textSize="@dimen/reclamo_lat_lng" />
+
+    </LinearLayout>
 </LinearLayout>
