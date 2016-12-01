@@ -59,6 +59,9 @@ public interface Constants {
     String LONGITUDRECLAMOCOLUMNA = "Longitud";
     String IMAGENRECLAMOCOLUMNA = "Imagen";
 
+    String IMAGENBYTES = "ImagenBytes";
+    String LASTLOCATIONLATITUD = "LastLocationLatitud";
+    String LASTLOCATIONLONGITUD = "LastLocationLongitud";
     //Settings
     String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 
@@ -70,6 +73,6 @@ public interface Constants {
 
     //FTP
     String FTP_HOST = "185.28.20.89";
-    String FTP_USER = "u757745325";
-    String FTP_PASS = "pepeveraz16166";
+    String FTP_USER = "android";
+    String FTP_PASS = "Android123";
 }

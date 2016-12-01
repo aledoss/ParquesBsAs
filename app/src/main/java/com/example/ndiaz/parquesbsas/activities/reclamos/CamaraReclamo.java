@@ -1,21 +1,29 @@
 package com.example.ndiaz.parquesbsas.activities.reclamos;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.util.camara.CamaraPreview;
-import com.example.ndiaz.parquesbsas.util.camara.PhotoHandler;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +31,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CamaraReclamo extends AppCompatActivity implements View.OnClickListener{
+import static com.example.ndiaz.parquesbsas.util.Constants.IMAGENBYTES;
+import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLATITUD;
+import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLONGITUD;
+
+public class CamaraReclamo extends AppCompatActivity implements View.OnClickListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
     private Camera mCamera;
     private CamaraPreview camaraPreview;
     private byte[] mImagen;
@@ -36,6 +50,8 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.btnCancelar)
     Button btnCancelar;
     private static final int FOCUS_AREA_SIZE = 300;
+    private GoogleApiClient googleApiClient;
+    Location lastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +61,36 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
         setupUI();
         if (checkCameraHardware(this)) {//si tiene camara..
             mCamera = getCameraInstance();
-            camaraPreview = new CamaraPreview(this, mCamera);
+            camaraPreview = new CamaraPreview(this, mCamera);   //creo la preview de la camara, le paso el contexto y la instancia de la camara
             camaraPreview.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        focusOnTouch(event);
+                        focusOnTouch(event);    //al tocar la preview hace foco
                     }
                     return true;
                 }
             });
-            preview.addView(camaraPreview);
+            preview.addView(camaraPreview); //agrego la vista de la preview al framelayout
+        }
+        setupGoogleApiClient();
+    }
+
+    /**
+     * Creo la instancia de googleapiclient con la api de location services para luego poder
+     * utilizar el metodo getLastLocation()
+     */
+    private void setupGoogleApiClient() {
+        try {
+            if (googleApiClient == null) {
+                googleApiClient = new GoogleApiClient.Builder(this)
+                        .addApi(LocationServices.API)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -67,28 +102,28 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.btnSacarFoto:
-                Toast.makeText(this, "Pum", Toast.LENGTH_SHORT).show();
-                mCamera.takePicture(null, null, mPicture);
+                //take picture: setea los bytes en el mImagen
+                mCamera.takePicture(null, null, mPicture);  //(momento en el que saca la foto, sonido, imagen jpg)
                 btnSacarFoto.setEnabled(false);
                 btnConfirmar.setEnabled(true);
                 btnCancelar.setEnabled(true);
                 break;
             case R.id.btnConfirmar:
-                btnSacarFoto.setEnabled(true);
-                btnConfirmar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                Toast.makeText(this, "Imagen Guardada", Toast.LENGTH_SHORT).show();
-                PhotoHandler handler = new PhotoHandler(getApplicationContext(), getmImagen());
-                handler.procesarImagen();
-                //tendria que hacer el finish, con el activityresult.
+                //Hago el intent para devolver los bytes de la imagen
+                Intent intent = new Intent();
+                intent.putExtra(IMAGENBYTES, getmImagen());
+                intent.putExtra(LASTLOCATIONLATITUD, getLastLocation().getLatitude());
+                intent.putExtra(LASTLOCATIONLONGITUD, getLastLocation().getLongitude());
+                setResult(Activity.RESULT_OK, intent);  //le devuelvo que salio ok, los bytes de la imagen, la latitud y longitud
+                finish();
                 break;
             case R.id.btnCancelar:
                 btnSacarFoto.setEnabled(true);
                 btnConfirmar.setEnabled(false);
                 btnCancelar.setEnabled(false);
-                mCamera.startPreview();
+                mCamera.startPreview(); //vuelvo a mostrar la preview
                 break;
         }
     }
@@ -96,10 +131,10 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
     private static Camera getCameraInstance() {
         Camera c = null;
         try {
-            c = Camera.open(0);
-            Camera.Parameters parameters = c.getParameters();
+            c = Camera.open(0); //abro la camara de atras
+            Camera.Parameters parameters = c.getParameters();   //obtengo los parametros actuales
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            c.setParameters(parameters);
+            c.setParameters(parameters);    //le seteo los parametros
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,7 +157,7 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
 
     private void releaseCamera() {
         if (mCamera != null) {
-            mCamera.release();        // release the camera for other applications
+            mCamera.release();   //finaliza la previsualizacion
             mCamera = null;
         }
     }
@@ -172,9 +207,9 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
         @Override
         public void onAutoFocus(boolean success, Camera camera) {
             if (success) {
-                Log.i("NICOTEST", "success!");
+                Log.i("NICOTEST", "Foco");
             } else {
-                Log.i("NICOTEST", "fail!");
+                Log.i("NICOTEST", "No Foco!");
             }
         }
     };
@@ -182,6 +217,7 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
     Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] bytes, Camera camera) {
+            //seteo los bytes de la foto tomada en la variable mImagen
             setmImagen(bytes);
         }
     };
@@ -192,5 +228,45 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
 
     public void setmImagen(byte[] mImagen) {
         this.mImagen = mImagen;
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        //cuando se conecta el GoogleApiClient, obtiene la ultima ubicacion detectada
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        setLastLocation(lastLocation);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d("GoogleApiClient", "Connection suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d("GoogleApiClient", "Connection failed");
+    }
+
+    @Override
+    protected void onStart() {
+        googleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        googleApiClient.disconnect();
+        super.onStop();
+    }
+
+    public Location getLastLocation() {
+        return lastLocation;
+    }
+
+    public void setLastLocation(Location lastLocation) {
+        this.lastLocation = lastLocation;
     }
 }

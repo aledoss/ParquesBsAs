@@ -23,11 +23,11 @@ import static com.example.ndiaz.parquesbsas.util.Constants.xmlURL;
 public class XMLParserEcoBici {
 
     private XmlPullParser parser;
-    private AppCompatActivity context;
+    private AppCompatActivity activity;
 
-    public XMLParserEcoBici(XmlPullParser parser, AppCompatActivity context){
+    public XMLParserEcoBici(XmlPullParser parser, AppCompatActivity activity){
         this.parser = parser;
-        this.context = context;
+        this.activity = activity;
         XMLParserBackground backgroundAsyncTask = new XMLParserBackground();
         try {
             backgroundAsyncTask.execute(xmlURL);
@@ -70,7 +70,7 @@ public class XMLParserEcoBici {
         @Override
         protected void onPostExecute(EcoBiciEntity ecoBiciEntity) {
             if (ecoBiciEntity != null) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
                 alertDialog.setTitle("Estacion " + ecoBiciEntity.getEstacionNombre())
                         .setMessage("Bicicletas disponibles: " + ecoBiciEntity.getBicicletaDisponibles()
                                 + "\nAnclajes disponibles: " + ecoBiciEntity.getAnclajesDisponibles()
