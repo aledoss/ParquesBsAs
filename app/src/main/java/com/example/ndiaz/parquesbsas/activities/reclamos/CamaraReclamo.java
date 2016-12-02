@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.ndiaz.parquesbsas.util.Constants.IMAGENBYTES;
 import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLATITUD;
 import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLONGITUD;
 
@@ -104,24 +105,26 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btnSacarFoto:
                 //take picture: setea los bytes en el mImagen
-                /*mCamera.takePicture(null, null, mPicture);  //(momento en el que saca la foto, sonido, imagen jpg)
+                mCamera.takePicture(null, null, mPicture);  //(momento en el que saca la foto, sonido, imagen jpg)
                 btnSacarFoto.setEnabled(false);
                 btnConfirmar.setEnabled(true);
-                btnCancelar.setEnabled(true);*/
-                Intent intent = new Intent();
-                intent.putExtra(LASTLOCATIONLATITUD, getLastLocation().getLatitude());
-                intent.putExtra(LASTLOCATIONLONGITUD, getLastLocation().getLongitude());
-                setResult(Activity.RESULT_OK, intent);  //le devuelvo que salio ok, los bytes de la imagen, la latitud y longitud
-                finish();
-                break;
-            case R.id.btnConfirmar:
-                //Hago el intent para devolver los bytes de la imagen
+                btnCancelar.setEnabled(true);
                 /*Intent intent = new Intent();
-                intent.putExtra(IMAGENBYTES, getmImagen());
                 intent.putExtra(LASTLOCATIONLATITUD, getLastLocation().getLatitude());
                 intent.putExtra(LASTLOCATIONLONGITUD, getLastLocation().getLongitude());
                 setResult(Activity.RESULT_OK, intent);  //le devuelvo que salio ok, los bytes de la imagen, la latitud y longitud
                 finish();*/
+                break;
+            case R.id.btnConfirmar:
+                //Hago el intent para devolver los bytes de la imagen
+                Intent intent = new Intent();
+                intent.putExtra(IMAGENBYTES, getmImagen());
+                if (lastLocation != null) { //si el gps está apagado, no le devuelvo nada
+                    intent.putExtra(LASTLOCATIONLATITUD, getLastLocation().getLatitude());
+                    intent.putExtra(LASTLOCATIONLONGITUD, getLastLocation().getLongitude());
+                }
+                setResult(Activity.RESULT_OK, intent);  //le devuelvo que salio ok, los bytes de la imagen, la latitud y longitud
+                finish();
                 break;
             case R.id.btnCancelar:
                 btnSacarFoto.setEnabled(true);

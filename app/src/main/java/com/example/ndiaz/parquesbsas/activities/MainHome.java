@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -23,19 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.database.Parque;
+import com.example.ndiaz.parquesbsas.activities.info_parques.DetallesParque;
+import com.example.ndiaz.parquesbsas.activities.reclamos.ListaReclamos;
 import com.example.ndiaz.parquesbsas.database.Usuario;
 import com.example.ndiaz.parquesbsas.util.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
 
 public class MainHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, Constants {
@@ -176,13 +170,14 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_menu_parques:
-                startActivity(new Intent(MainHome.this, ListaParques.class));
+                //startActivity(new Intent(MainHome.this, ListaParques.class));
+                startActivity(new Intent(MainHome.this, DetallesParque.class));
                 break;
             case R.id.nav_menu_perfil:
                 mostrarSnackbar();
                 break;
             case R.id.nav_menu_reclamos:
-                mostrarSnackbar();
+                startActivity(new Intent(MainHome.this, ListaReclamos.class));
                 break;
             case R.id.nav_menu_settings:
                 startActivity(new Intent(MainHome.this, MySettings.class));
@@ -231,7 +226,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public void onMapReady(GoogleMap googleMap) {
         LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
-        try {
+        /*try {
             DBHelper db = new DBHelper(MainHome.this);
             ArrayList<Parque> listaParques = db.getAllParques();
             LatLng parqueLatLng;
@@ -250,7 +245,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
             db.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 

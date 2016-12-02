@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ndiaz.parquesbsas">
 
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -22,7 +25,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
         <activity
             android:name=".activities.CrearCuenta"
             android:screenOrientation="portrait" />
@@ -64,11 +72,13 @@
         <activity android:name=".activities.info_parques.DescGeneralParque" />
         <activity android:name=".activities.info_parques.ListaActividadesParque" />
         <activity android:name=".activities.info_parques.ListaActividadesHorarios" />
-        <activity android:name=".activities.reclamos.AgregarReclamo"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.reclamos.AgregarReclamo"
+            android:screenOrientation="portrait" />
         <activity android:name=".activities.reclamos.DetalleReclamo" />
         <activity android:name=".activities.PerfilUsuario" />
-        <activity android:name=".activities.reclamos.CamaraReclamo"
+        <activity
+            android:name=".activities.reclamos.CamaraReclamo"
             android:screenOrientation="landscape"></activity>
     </application>
 

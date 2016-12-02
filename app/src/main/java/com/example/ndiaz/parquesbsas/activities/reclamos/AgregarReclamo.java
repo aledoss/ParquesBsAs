@@ -28,6 +28,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.ndiaz.parquesbsas.util.Constants.IMAGENBYTES;
 import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLATITUD;
 import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLONGITUD;
 
@@ -121,7 +122,7 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
             if (resultCode == RESULT_OK) {
                 this.reclamoConFoto = true;
                 //obtengo los bytes[] de la foto y la location
-                //mFotoReclamo = data.getByteArrayExtra(IMAGENBYTES);
+                mFotoReclamo = data.getByteArrayExtra(IMAGENBYTES);
                 latitud = data.getDoubleExtra(LASTLOCATIONLATITUD, 0);
                 longitud = data.getDoubleExtra(LASTLOCATIONLONGITUD, 0);
             }
@@ -136,11 +137,11 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
                 if (datosNoVacios()) {
                     if (reclamoConFoto) {   //si se saco una foto
                         //guardo la imagen en el celu y la subo al ftp
-                        //PhotoHandler handler = new PhotoHandler(getApplicationContext(), mFotoReclamo);
-                        //handler.procesarImagen();
+                        PhotoHandler handler = new PhotoHandler(getApplicationContext(), mFotoReclamo);
+                        handler.procesarImagen();
                     }
                     insertarReclamoDB();
-                    PhotoHandler.showNotif("Reclamo Insertado", this);
+                    //PhotoHandler.showNotif("Reclamo Insertado", this);
                     finish();
                     startActivity(new Intent(AgregarReclamo.this, ListaReclamos.class));
                 }

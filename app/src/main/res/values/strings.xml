@@ -27,7 +27,7 @@
     <string name="menu_parques">Parques</string>
     <string name="menu_reclamos">Reclamos</string>
     <string name="menu_perfil">Perfil</string>
-    <string name="about_me_text">Mi nombre es Nicolás Diaz. Estoy en el 6to cuatrimestre de la Escuela Da Vinci y esta es la app del primer parcial.</string>
+    <string name="about_me_text">Desarrollado por Nicolás Diaz y Victor Paz Frias</string>
     <string name="borrar_parque_menu">Borrar</string>
     <string name="modificar_parque_menu">Editar</string>
     <string name="borrar">Borrar</string>

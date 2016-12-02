@@ -27,7 +27,7 @@ import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, Constants {
 
-    private Button btnIniciarSesion, btnCrearCuenta, btnRecuperarContraseña;
+    Button btnIniciarSesion, btnCrearCuenta, btnRecuperarContraseña;
     private EditText etEmail, etPassword;
     private LinearLayout linearLayout;
     private String email, password;
