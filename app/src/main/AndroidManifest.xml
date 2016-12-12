@@ -26,10 +26,10 @@
         <activity
             android:name=".activities.SplashScreen"
             android:screenOrientation="portrait">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.CrearCuenta"
@@ -48,12 +48,12 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".activities.MySettings" />
-        <activity android:name=".activities.ListaParques" />
+        <activity android:name=".activities.old.ListaParques" />
         <activity
-            android:name=".activities.AgregarParque"
+            android:name=".activities.old.AgregarParque"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.DetallesParqueOld"
+            android:name=".activities.old.DetallesParqueOld"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.reclamos.ListaReclamos">
             <!--<intent-filter>
@@ -63,11 +63,11 @@
             </intent-filter>-->
         </activity>
         <activity android:name=".activities.info_parques.DetallesParque">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".activities.info_parques.DescGeneralParque" />
         <activity android:name=".activities.info_parques.ListaActividadesParque" />

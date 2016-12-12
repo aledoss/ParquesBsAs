@@ -7,15 +7,20 @@ import java.io.Serializable;
  */
 
 public class Parque implements Serializable {
-    int id;
-    int id_parque;
-    String nombre;
-    String descripcionCorta;
-    String descripcion;
-    String imagen;
-    String latitud;
-    String longitud;
-    String barrio;
+    private int id;
+    private int id_parque;
+    private String nombre;
+    private String descripcionCorta;
+    private String descripcion;
+    private String direccion;
+    private String imagen;
+    private String comuna;
+    private String barrio;
+    private String latitud;
+    private String longitud;
+    private int likes;
+    private int hates;
+    private String patioJuegos;
 
     public int getId_parque() {
         return id_parque;
@@ -87,5 +92,45 @@ public class Parque implements Serializable {
 
     public void setBarrio(String barrio) {
         this.barrio = barrio;
+    }
+
+    public String getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(String comuna) {
+        this.comuna = comuna;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getHates() {
+        return hates;
+    }
+
+    public void setHates(int hates) {
+        this.hates = hates;
+    }
+
+    public String getPatioJuegos() {
+        return patioJuegos;
+    }
+
+    public void setPatioJuegos(String patioJuegos) {
+        this.patioJuegos = patioJuegos;
     }
 }

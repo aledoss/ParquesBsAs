@@ -1,9 +1,12 @@
 package com.example.ndiaz.parquesbsas.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -14,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,24 +27,32 @@ import android.widget.TextView;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.activities.info_parques.DetallesParque;
 import com.example.ndiaz.parquesbsas.activities.reclamos.ListaReclamos;
+import com.example.ndiaz.parquesbsas.database.DBHelper;
+import com.example.ndiaz.parquesbsas.database.Parque;
 import com.example.ndiaz.parquesbsas.database.Usuario;
 import com.example.ndiaz.parquesbsas.util.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MainHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback, Constants {
+        OnMapReadyCallback, GoogleMap.OnMarkerClickListener,Constants {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toogle;
-    private NavigationView navigationView;
+    NavigationView navigationView;
     private GoogleMap googleMap;
     private Usuario usuario;
-    private TextView txtNombre, txtEmail;
+    TextView txtNombre, txtEmail;
     private ImageView imgPerfilUsuario;
     private LinearLayout linearLayout;
 
@@ -48,33 +60,11 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
-        verificarDatosParque();
         usuario = obtenerDatosUsuario();
         setupUI();
-
     }
 
-    private void verificarDatosParque() {
-        if(ingresoPrimeraVez()){//me fijo si es la primera vez que ingresa
-            guardarDatosParquesBD();
-        }
-    }
 
-    private void guardarDatosParquesBD() {
-
-    }
-
-    private boolean ingresoPrimeraVez() {
-        SharedPreferences mPrefs = getSharedPreferences(INGRESOPRIMERAVEZ, Context.MODE_PRIVATE);
-        boolean primeraVez = mPrefs.getBoolean(INGRESOPRIMERAVEZ, true);
-        if(primeraVez){
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putBoolean(INGRESOPRIMERAVEZ, false);
-            editor.commit();
-            return true;
-        }
-        return false;
-    }
 
     private Usuario obtenerDatosUsuario() {
         try {
@@ -171,7 +161,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         switch (menuItem.getItemId()) {
             case R.id.nav_menu_parques:
                 //startActivity(new Intent(MainHome.this, ListaParques.class));
-                startActivity(new Intent(MainHome.this, DetallesParque.class));
+                //startActivity(new Intent(MainHome.this, DetallesParque.class));
                 break;
             case R.id.nav_menu_perfil:
                 mostrarSnackbar();
@@ -226,7 +216,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public void onMapReady(GoogleMap googleMap) {
         LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
-        /*try {
+        try {
             DBHelper db = new DBHelper(MainHome.this);
             ArrayList<Parque> listaParques = db.getAllParques();
             LatLng parqueLatLng;
@@ -236,21 +226,46 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
                 Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
                 parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
                 googleMap.addMarker(new MarkerOptions()
-                        .title(parque.getNombre())
-                        .snippet(parque.getDescripcionCorta())
+                        //.title(parque.getNombre())
+                        //.snippet(parque.getDescripcionCorta())
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .position(parqueLatLng)
+                        .zIndex(parque.getId())
                 );
             }
             db.close();
+            googleMap.setOnMarkerClickListener(this);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-
+        }
     }
 
     @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
+    public boolean onMarkerClick(Marker marker) {
+        /**
+         * Obtengo el index del marcador del mapa, lo comparo con el id del mapa que fue tocado
+         * armo el alertdialog y si acepta, le abre los detalles del parque
+         */
+        DBHelper db = new DBHelper(this);
+        final Parque parque = db.getParque((int) marker.getZIndex()); //obtengo el Parque mediante el zindex al tocar un marcador
+        Log.d("MAPA", "nombre parque: " + parque.getNombre());
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainHome.this);
+        builder.setTitle(parque.getNombre())
+                .setMessage(getResources().getString(R.string.mas_informacion))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(MainHome.this, DetallesParque.class);
+                        intent.putExtra(PARQUEDETALLES, (Serializable) parque);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        return false;
     }
+
 }

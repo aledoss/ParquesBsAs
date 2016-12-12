@@ -33,7 +33,6 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_crear_cuenta);
         transparentStatusBar();
         setupUI();
-
     }
 
     private void setupUI() {
@@ -149,5 +148,11 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         dni = etDNI.getText().toString();
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(CrearCuenta.this, MainActivity.class));
+        super.onBackPressed();
     }
 }

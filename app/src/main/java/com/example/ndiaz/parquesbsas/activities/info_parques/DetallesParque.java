@@ -8,18 +8,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.activities.reclamos.AgregarReclamo;
 import com.example.ndiaz.parquesbsas.database.Parque;
 import com.example.ndiaz.parquesbsas.util.async_tasks.XMLParserEcoBici;
+import com.squareup.picasso.Picasso;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.Serializable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.ndiaz.parquesbsas.util.Constants.IMAGENES_PARQUES_URL;
+import static com.example.ndiaz.parquesbsas.util.Constants.PARQUEDETALLES;
 
 public class DetallesParque extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +42,8 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
     Button btnEstSaludableº;
     @BindView(R.id.toolbar_parque_detalles)
     Toolbar toolbar;
+    @BindView(R.id.img_detalle_parque)
+    ImageView imgParque;
     protected XmlPullParserFactory xmlPullParserFactory;
     protected XmlPullParser parser;
     Parque parque;
@@ -44,9 +53,8 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_parque);
         setupXMLParser();
-        setupUI();
         obtenerDatosParque();
-
+        setupUI();
     }
 
     private void setupXMLParser() {
@@ -62,19 +70,31 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
     private void setupUI() {
         ButterKnife.bind(this);
         setupToolbar();
+        cargarImagen();
         btnEcobici.setOnClickListener(this);
     }
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("nombre del parque");
+        getSupportActionBar().setTitle(parque.getNombre());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void cargarImagen() {
+        try {
+            Picasso.with(this)
+                    .load(IMAGENES_PARQUES_URL + parque.getImagen())
+                    .error(R.drawable.parque_ejemplo)
+                    .placeholder(R.drawable.parque_ejemplo)
+                    .into(imgParque);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void obtenerDatosParque() {
         try {
-            Intent intent = getIntent();
-            //parque = intent.getSerializableExtra();
+                parque = (Parque) getIntent().getExtras().getSerializable(PARQUEDETALLES);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +105,7 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_eco_bici_parque_detalle:
                 //llamo al asynctask para obtener el xml (parsearlo), y mostrar en un dialog los datos de la ecobici
-                XMLParserEcoBici xmlParserEcoBici = new XMLParserEcoBici(parser, DetallesParque.this);
+                XMLParserEcoBici xmlParserEcoBici = new XMLParserEcoBici(parser, DetallesParque.this, parque.getNombre());
                 break;
         }
     }
@@ -101,7 +121,9 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
         int id = item.getItemId();
         switch (id) {
             case R.id.agregar_reclamo_menu:
-                startActivity(new Intent(DetallesParque.this, AgregarReclamo.class));
+                Intent intent = new Intent(DetallesParque.this, AgregarReclamo.class);
+                intent.putExtra(PARQUEDETALLES, (Serializable) parque);
+                startActivity(intent);
                 break;
             case android.R.id.home:
                 finish();

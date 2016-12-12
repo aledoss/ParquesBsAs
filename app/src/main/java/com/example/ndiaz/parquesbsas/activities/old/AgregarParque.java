@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.activities;
+package com.example.ndiaz.parquesbsas.activities.old;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

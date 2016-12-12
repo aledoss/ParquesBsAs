@@ -28,8 +28,10 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 PASSWORDUSUARIOCOLUMNA + " text )");
 
         db.execSQL("create table if not exists " + TABLEPARQUES + " (id integer primary key, " + NOMBREPARQUECOLUMNA + " text, " +
-                DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCIONPARQUECOLUMNA + " text, " + IMAGENPARQUECOLUMNA + " text, " +
-                LATITUDPARQUECOLUMNA + " text, " + LONGITUDPARQUECOLUMNA + " text )");
+                DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCIONPARQUECOLUMNA + " text, " + DIRECCIONPARQUECOLUMNA +  " text, " +
+                IMAGENPARQUECOLUMNA + " text, " + LATITUDPARQUECOLUMNA + " text, " + LONGITUDPARQUECOLUMNA + " text, " +
+                BARRIOPARQUECOLUMNA + " text, " + COMUNAPARQUECOLUMNA + " text, " + LIKESPARQUECOLUMNA + " integer, " + HATESPARQUECOLUMNA +
+                " integer, " + PATIOJUEGOSPARQUECOLUMNA + " text )");
 
         db.execSQL("create table if not exists " + TABLERECLAMOS + " (id integer primary key, " + NOMBRERECLAMOCOLUMNA + " text, " +
                 NOMBRERECLAMOPQECOLUMNA + " text, " + COMENTARIORECLAMOCOLUMNA + " text, " + FECHACREACIONRECLAMOCOLUMNA + " text, " +
@@ -155,9 +157,15 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
             contentValues.put(NOMBREPARQUECOLUMNA, parque.getNombre());
             contentValues.put(DESCRIPCIONCORTAPARQUECOLUMNA, parque.getDescripcionCorta());
             contentValues.put(DESCRIPCIONPARQUECOLUMNA, parque.getDescripcion());
+            contentValues.put(DIRECCIONPARQUECOLUMNA, parque.getDireccion());
             contentValues.put(IMAGENPARQUECOLUMNA, parque.getImagen());
             contentValues.put(LATITUDPARQUECOLUMNA, parque.getLatitud());
             contentValues.put(LONGITUDPARQUECOLUMNA, parque.getLongitud());
+            contentValues.put(BARRIOPARQUECOLUMNA, parque.getBarrio());
+            contentValues.put(COMUNAPARQUECOLUMNA, parque.getComuna());
+            contentValues.put(LIKESPARQUECOLUMNA, parque.getLikes());
+            contentValues.put(HATESPARQUECOLUMNA, parque.getHates());
+            contentValues.put(PATIOJUEGOSPARQUECOLUMNA, parque.getPatioJuegos());
             db.insert(TABLEPARQUES, null, contentValues);
             return true;
         } catch (Exception e) {
@@ -178,9 +186,15 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 parque.setNombre(cur.getString(cur.getColumnIndex(NOMBREPARQUECOLUMNA)));
                 parque.setDescripcionCorta(cur.getString(cur.getColumnIndex(DESCRIPCIONCORTAPARQUECOLUMNA)));
                 parque.setDescripcion(cur.getString(cur.getColumnIndex(DESCRIPCIONPARQUECOLUMNA)));
+                parque.setDireccion(cur.getString(cur.getColumnIndex(DIRECCIONPARQUECOLUMNA)));
                 parque.setImagen(cur.getString(cur.getColumnIndex(IMAGENPARQUECOLUMNA)));
                 parque.setLatitud(cur.getString(cur.getColumnIndex(LATITUDPARQUECOLUMNA)));
                 parque.setLongitud(cur.getString(cur.getColumnIndex(LONGITUDPARQUECOLUMNA)));
+                parque.setBarrio(cur.getString(cur.getColumnIndex(BARRIOPARQUECOLUMNA)));
+                parque.setComuna(cur.getString(cur.getColumnIndex(COMUNAPARQUECOLUMNA)));
+                parque.setLikes(cur.getInt(cur.getColumnIndex(LIKESPARQUECOLUMNA)));
+                parque.setHates(cur.getInt(cur.getColumnIndex(HATESPARQUECOLUMNA)));
+                parque.setPatioJuegos(cur.getString(cur.getColumnIndex(PATIOJUEGOSPARQUECOLUMNA)));
                 listaParques.add(parque);
                 cur.moveToNext();
             }
@@ -212,6 +226,34 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public Parque getParque(int id){
+        String whereClause = "id = ?";
+        String[] whereArgs = {String.valueOf(id)};
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur = db.query(TABLEPARQUES, ALL_COLUMNS_PARQUES, whereClause, whereArgs, null, null, null);
+        try {
+            cur.moveToFirst();
+            Parque parque = new Parque();
+            parque.setId(cur.getInt(cur.getColumnIndex("id")));
+            parque.setNombre(cur.getString(cur.getColumnIndex(NOMBREPARQUECOLUMNA)));
+            parque.setDescripcionCorta(cur.getString(cur.getColumnIndex(DESCRIPCIONCORTAPARQUECOLUMNA)));
+            parque.setDescripcion(cur.getString(cur.getColumnIndex(DESCRIPCIONPARQUECOLUMNA)));
+            parque.setDireccion(cur.getString(cur.getColumnIndex(DIRECCIONPARQUECOLUMNA)));
+            parque.setImagen(cur.getString(cur.getColumnIndex(IMAGENPARQUECOLUMNA)));
+            parque.setLatitud(cur.getString(cur.getColumnIndex(LATITUDPARQUECOLUMNA)));
+            parque.setLongitud(cur.getString(cur.getColumnIndex(LONGITUDPARQUECOLUMNA)));
+            parque.setBarrio(cur.getString(cur.getColumnIndex(BARRIOPARQUECOLUMNA)));
+            parque.setComuna(cur.getString(cur.getColumnIndex(COMUNAPARQUECOLUMNA)));
+            parque.setLikes(cur.getInt(cur.getColumnIndex(LIKESPARQUECOLUMNA)));
+            parque.setHates(cur.getInt(cur.getColumnIndex(HATESPARQUECOLUMNA)));
+            parque.setPatioJuegos(cur.getString(cur.getColumnIndex(PATIOJUEGOSPARQUECOLUMNA)));
+            return parque;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

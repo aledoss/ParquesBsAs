@@ -21,9 +21,7 @@ import com.example.ndiaz.parquesbsas.database.Reclamo;
 import com.example.ndiaz.parquesbsas.util.camara.PhotoHandler;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +29,7 @@ import butterknife.ButterKnife;
 import static com.example.ndiaz.parquesbsas.util.Constants.IMAGENBYTES;
 import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLATITUD;
 import static com.example.ndiaz.parquesbsas.util.Constants.LASTLOCATIONLONGITUD;
+import static com.example.ndiaz.parquesbsas.util.Constants.PARQUEDETALLES;
 
 public class AgregarReclamo extends AppCompatActivity implements View.OnClickListener {
 
@@ -57,28 +56,14 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_agregar_reclamo);
         obtenerDatosParque();
         setupUI();
-
     }
 
     private void obtenerDatosParque() {
-        Intent intent = getIntent();
-        //intent.getExtras().getSerializable();
-        Random random = new Random();
-        int idRandom = random.nextInt();
-        DBHelper db = new DBHelper(this);
-        Parque parque = new Parque();
-        parque.setId_parque(idRandom);
-        parque.setNombre("Parque Caballito");
-        parque.setDescripcion("Parque ubicado en.......");
-        parque.setDescripcionCorta("Desc corta");
-        parque.setImagen("http://caballitotequiero.com.ar/portal/wp-content/uploads/2016/06/3-8.jpg");
-        parque.setLatitud("-34.6060982");
-        parque.setLongitud("-58.4354782");
-        parque.setBarrio("Caballito");
-        db.insertarParque(parque);
-        ArrayList<Parque> listaParques = db.getAllParques();
-        this.parque = listaParques.get(0);
-        db.close();
+        try {
+            parque = (Parque) getIntent().getExtras().getSerializable(PARQUEDETALLES);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupUI() {
@@ -142,8 +127,8 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
                     }
                     insertarReclamoDB();
                     //PhotoHandler.showNotif("Reclamo Insertado", this);
-                    finish();
                     startActivity(new Intent(AgregarReclamo.this, ListaReclamos.class));
+                    finish();
                 }
                 break;
             case R.id.btn_lista_reclamos:
@@ -164,7 +149,7 @@ public class AgregarReclamo extends AppCompatActivity implements View.OnClickLis
     }
 
     private void insertarReclamoDB() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = dateFormat.format(new Date());
         DBHelper db = new DBHelper(this);
         Reclamo reclamo = new Reclamo();

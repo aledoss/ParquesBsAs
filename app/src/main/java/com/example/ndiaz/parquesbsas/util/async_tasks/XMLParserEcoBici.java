@@ -24,10 +24,12 @@ public class XMLParserEcoBici {
 
     private XmlPullParser parser;
     private AppCompatActivity activity;
+    private String nombreParque;
 
-    public XMLParserEcoBici(XmlPullParser parser, AppCompatActivity activity){
+    public XMLParserEcoBici(XmlPullParser parser, AppCompatActivity activity, String nombreParque) {
         this.parser = parser;
         this.activity = activity;
+        this.nombreParque = nombreParque;
         XMLParserBackground backgroundAsyncTask = new XMLParserBackground();
         try {
             backgroundAsyncTask.execute(xmlURL);
@@ -37,7 +39,7 @@ public class XMLParserEcoBici {
     }
 
 
-    private class XMLParserBackground extends AsyncTask<String, Void, XMLParserEcoBici.XMLParserBackground.EcoBiciEntity>{
+    private class XMLParserBackground extends AsyncTask<String, Void, XMLParserEcoBici.XMLParserBackground.EcoBiciEntity> {
 
         @Override
         protected XMLParserEcoBici.XMLParserBackground.EcoBiciEntity doInBackground(String... params) {
@@ -69,14 +71,16 @@ public class XMLParserEcoBici {
 
         @Override
         protected void onPostExecute(EcoBiciEntity ecoBiciEntity) {
-            if (ecoBiciEntity != null) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                alertDialog.setTitle("Estacion " + ecoBiciEntity.getEstacionNombre())
-                        .setMessage("Bicicletas disponibles: " + ecoBiciEntity.getBicicletaDisponibles()
-                                + "\nAnclajes disponibles: " + ecoBiciEntity.getAnclajesDisponibles()
-                                + "\nEstación disponible: " + ecoBiciEntity.getEstacionDisponible())
-                        .show();
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+            alertDialog.setTitle("Estacion " + nombreParque);
+            if (ecoBiciEntity.getEstacionNombre() != null) {
+                alertDialog.setMessage("Bicicletas disponibles: " + ecoBiciEntity.getBicicletaDisponibles()
+                        + "\nAnclajes disponibles: " + ecoBiciEntity.getAnclajesDisponibles()
+                        + "\nEstación disponible: " + ecoBiciEntity.getEstacionDisponible());
+            } else {
+                alertDialog.setMessage("No posee estación de ecobici.");
             }
+            alertDialog.show();
             super.onPostExecute(ecoBiciEntity);
         }
 
@@ -91,7 +95,7 @@ public class XMLParserEcoBici {
                 if (eventType == XmlPullParser.START_TAG) {
                     if (parser.getName().equalsIgnoreCase("EstacionNombre") /*&& parser.nextText().equalsIgnoreCase("Parque Lezama")*/) { //variable con el nombre del parque
                         String estacionNombre = parser.nextText();//hacer el if de si es el parque
-                        if (estacionNombre.equalsIgnoreCase("Parque Lezama")) {
+                        if (estacionNombre.equalsIgnoreCase(nombreParque)) {
                             mEntity.setEstacionNombre(estacionNombre);
                             Log.d("NICOTEST", "Estacion nombre: " + estacionNombre);
                             parser.nextTag();

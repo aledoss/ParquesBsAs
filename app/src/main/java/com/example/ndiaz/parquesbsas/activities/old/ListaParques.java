@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.activities;
+package com.example.ndiaz.parquesbsas.activities.old;
 
 import android.content.Intent;
 import android.os.Bundle;

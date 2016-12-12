@@ -20,8 +20,15 @@ import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
+import com.example.ndiaz.parquesbsas.database.Parque;
 import com.example.ndiaz.parquesbsas.database.Usuario;
 import com.example.ndiaz.parquesbsas.util.Constants;
+import com.example.ndiaz.parquesbsas.util.JsonReq;
+import com.example.ndiaz.parquesbsas.util.VolleyCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -41,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         transparentStatusBar();
         setupUI();
+        setupDatosParques();
+    }
+
+    private void setupDefaultSettings() {
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
     }
 
     private void verificarLogin() {
@@ -135,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnCrear_Cuenta_Login:
                 startActivity(new Intent(MainActivity.this, CrearCuenta.class));
+                finish();
                 break;
             case R.id.btnRecuperarContraseña:
                 Snackbar.make(linearLayout, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_LONG).show();
@@ -182,9 +195,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         password = etPassword.getText().toString();
     }
 
-    private void setupDefaultSettings() {
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+    private void setupDatosParques() {
+        if (ingresoPrimeraVez()) {//me fijo si es la primera vez que ingresa
+            guardarDatosParquesBD();
+        }
     }
 
+    private boolean ingresoPrimeraVez() {
+        SharedPreferences mPrefs = getSharedPreferences(INGRESOPRIMERAVEZ, Context.MODE_PRIVATE);
+        boolean primeraVez = mPrefs.getBoolean(INGRESOPRIMERAVEZ, true);
+        if (primeraVez) {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(INGRESOPRIMERAVEZ, false);
+            editor.commit();
+            return true;
+        }
+        return false;
+    }
+
+    private void guardarDatosParquesBD() {
+        JsonReq jsonReq = new JsonReq();
+        jsonReq.callGet(ALL_PARQUES_URL, this, new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(JSONArray result) {
+                Log.d("MainHome", result.toString());
+                DBHelper db = new DBHelper(getApplicationContext());
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject jsonobject = null;
+                    Parque parque = new Parque();
+                    try {
+                        jsonobject = result.getJSONObject(i);
+                        parque.setId_parque(jsonobject.getInt(ID_PARQUE));
+                        parque.setNombre(jsonobject.getString(NOMBRE_PARQUE));
+                        parque.setDescripcionCorta(jsonobject.getString(DESC_CORTA_PARQUE));
+                        parque.setDescripcion(jsonobject.getString(DESC_LARGA_PARQUE));
+                        parque.setDireccion(jsonobject.getString(DIRECCION_PARQUE));
+                        parque.setImagen(jsonobject.getString(IMG_PARQUE));
+                        parque.setComuna(jsonobject.getString(COMUNA_PARQUE));
+                        parque.setBarrio(jsonobject.getString(BARRIO_PARQUE));
+                        parque.setLatitud(jsonobject.getString(LATITUD_PARQUE));
+                        parque.setLongitud(jsonobject.getString(LONGITUD_PARQUE));
+                        parque.setLikes(Integer.parseInt(jsonobject.getString(LIKES_PARQUE)));
+                        parque.setHates(Integer.parseInt(jsonobject.getString(HATES_PARQUE)));
+                        parque.setPatioJuegos(jsonobject.getString(PATIO_JUEGOS_PARQUE));
+                        db.insertarParque(parque);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                db.close();
+            }
+
+            @Override
+            public void onErrorResponse(String result) {
+                Log.d("MainHome", result);
+            }
+        });
+    }
 
 }
