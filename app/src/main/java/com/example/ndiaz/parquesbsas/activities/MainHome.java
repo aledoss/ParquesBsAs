@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.activities.info_parques.DetallesParque;
+import com.example.ndiaz.parquesbsas.activities.old.ListaParques;
 import com.example.ndiaz.parquesbsas.activities.reclamos.ListaReclamos;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.database.Parque;
@@ -160,7 +161,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_menu_parques:
-                //startActivity(new Intent(MainHome.this, ListaParques.class));
+                startActivity(new Intent(MainHome.this, ListaParques.class));
                 //startActivity(new Intent(MainHome.this, DetallesParque.class));
                 break;
             case R.id.nav_menu_perfil:

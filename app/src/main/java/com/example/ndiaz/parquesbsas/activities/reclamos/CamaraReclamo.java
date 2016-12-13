@@ -66,7 +66,11 @@ public class CamaraReclamo extends AppCompatActivity implements View.OnClickList
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        focusOnTouch(event);    //al tocar la preview hace foco
+                        try {
+                            focusOnTouch(event);    //al tocar la preview hace foco
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     return true;
                 }
