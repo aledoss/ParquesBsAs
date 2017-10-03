@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ndiaz.parquesbsas.activities.MySettings">
+    tools:context=".ui.activities.MySettings">
 
     <include
         android:id="@+id/toolbar_settings"

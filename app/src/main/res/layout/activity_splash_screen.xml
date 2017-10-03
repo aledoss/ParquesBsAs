@@ -7,7 +7,7 @@
     android:background="#F1E9D2"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.ndiaz.parquesbsas.activities.SplashScreen">
+    tools:context=".ui.activities.SplashScreen">
 
     <FrameLayout
         android:layout_width="wrap_content"

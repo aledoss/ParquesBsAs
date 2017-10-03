@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
-    tools:context="com.example.ndiaz.parquesbsas.activities.info_parques.DescGeneralParque">
+    tools:context=".ui.activities.info_parques.DescGeneralParque">
 
     <include
         android:id="@+id/toolbar_desc_general_parque"

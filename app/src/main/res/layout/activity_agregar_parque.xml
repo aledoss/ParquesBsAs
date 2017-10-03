@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="@dimen/general_padding"
-    tools:context="com.example.ndiaz.parquesbsas.activities.old.AgregarParque">
+    tools:context=".ui.activities.old.AgregarParque">
 
     <TextView
         android:layout_width="wrap_content"

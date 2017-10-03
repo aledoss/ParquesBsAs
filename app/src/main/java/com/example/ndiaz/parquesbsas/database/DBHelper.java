@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.ndiaz.parquesbsas.util.Constants;
+import com.example.ndiaz.parquesbsas.helpers.Constants;
 
 import java.util.ArrayList;
 

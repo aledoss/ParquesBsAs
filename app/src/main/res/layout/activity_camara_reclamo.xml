@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="100"
-    tools:context="com.example.ndiaz.parquesbsas.activities.reclamos.CamaraReclamo">
+    tools:context=".ui.activities.reclamos.CamaraReclamo">
 
     <FrameLayout
         android:id="@+id/camera_preview"

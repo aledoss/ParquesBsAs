@@ -21,10 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SplashScreen"
+            android:name=".ui.activities.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +32,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CrearCuenta"
+            android:name=".ui.activities.CrearCuenta"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.MainHome"></activity>
+        <activity android:name=".ui.activities.MainHome"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,38 +47,38 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activities.MySettings" />
-        <activity android:name=".activities.old.ListaParques" />
+        <activity android:name=".ui.activities.MySettings" />
+        <activity android:name=".ui.activities.old.ListaParques" />
         <activity
-            android:name=".activities.old.AgregarParque"
+            android:name=".ui.activities.old.AgregarParque"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.old.DetallesParqueOld"
+            android:name=".ui.activities.old.DetallesParqueOld"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.reclamos.ListaReclamos">
+        <activity android:name=".ui.activities.reclamos.ListaReclamos">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".activities.info_parques.DetallesParque">
+        <activity android:name=".ui.activities.info_parques.DetallesParque">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".activities.info_parques.DescGeneralParque" />
-        <activity android:name=".activities.info_parques.ListaActividadesParque" />
-        <activity android:name=".activities.info_parques.ListaActividadesHorarios" />
+        <activity android:name=".ui.activities.info_parques.DescGeneralParque" />
+        <activity android:name=".ui.activities.info_parques.ListaActividadesParque" />
+        <activity android:name=".ui.activities.info_parques.ListaActividadesHorarios" />
         <activity
-            android:name=".activities.reclamos.AgregarReclamo"
+            android:name=".ui.activities.reclamos.AgregarReclamo"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.reclamos.DetalleReclamo" />
-        <activity android:name=".activities.PerfilUsuario" />
+        <activity android:name=".ui.activities.reclamos.DetalleReclamo" />
+        <activity android:name=".ui.activities.PerfilUsuario" />
         <activity
-            android:name=".activities.reclamos.CamaraReclamo"
+            android:name=".ui.activities.reclamos.CamaraReclamo"
             android:screenOrientation="landscape"></activity>
     </application>
 
