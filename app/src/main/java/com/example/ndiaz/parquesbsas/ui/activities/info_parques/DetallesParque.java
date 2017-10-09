@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamo;
-import com.example.ndiaz.parquesbsas.database.Parque;
+import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.helpers.async_tasks.XMLParserEcoBici;
 import com.squareup.picasso.Picasso;
 

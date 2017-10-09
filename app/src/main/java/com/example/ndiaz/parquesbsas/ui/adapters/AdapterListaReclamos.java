@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.database.Reclamo;
+import com.example.ndiaz.parquesbsas.model.Reclamo;
 
 import java.util.ArrayList;
 

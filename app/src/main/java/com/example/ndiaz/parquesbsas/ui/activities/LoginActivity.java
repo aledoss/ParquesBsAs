@@ -3,28 +3,28 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.contract.BasePresenter;
+import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.database.Parque;
-import com.example.ndiaz.parquesbsas.database.Usuario;
 import com.example.ndiaz.parquesbsas.helpers.Constants;
 import com.example.ndiaz.parquesbsas.helpers.JsonReq;
 import com.example.ndiaz.parquesbsas.helpers.VolleyCallback;
+import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
+import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,27 +32,67 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Constants {
+import butterknife.BindView;
+import butterknife.OnClick;
 
-    Button btnIniciarSesion, btnCrearCuenta, btnRecuperarContraseña;
-    private EditText etEmail, etPassword;
-    private LinearLayout linearLayout;
+public class LoginActivity extends BaseActivity<LoginContract.Presenter>
+        implements LoginContract.View, Constants {
+
+    @BindView(R.id.etEmailLogin)
+    EditText etEmail;
+    @BindView(R.id.etPasswordLogin)
+    EditText etPassword;
+
+    @BindView(R.id.login_container_layout)
+    LinearLayout lLContainer;
     private String email, password;
     private boolean recordarDatosLogin;
 
+    @OnClick(R.id.btnIniciar_Sesion)
+    public void onClickIniciarSesion() {
+        obtenerDatosLogin();
+        if (datosNoVacios()) {
+            Usuario usuario = obtenerUsuario();
+            if (usuario != null) {
+                iniciarSesion(usuario, true);
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.DatosIncorrectos), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.DatosVacios), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @OnClick(R.id.btnCrear_Cuenta_Login)
+    public void onClickCrearCuenta() {
+        startActivity(new Intent(LoginActivity.this, CrearCuenta.class));
+        finish();
+    }
+
+    @OnClick(R.id.btnRecuperarContraseña)
+    public void onClickRecuPass() {
+        Snackbar.make(lLContainer, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_LONG).show();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupDefaultSettings();
         verificarLogin();   //se fija si el usuario decidio guardar sus datos y que se loguee automaticamente
         setContentView(R.layout.activity_login);
-        transparentStatusBar();
+        setTransparentStatusBar();
         setupUI();
         setupDatosParques();
     }
 
-    private void setupDefaultSettings() {
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+    @Override
+    protected LoginContract.Presenter createPresenter() {
+        LoginContract.Interactor loginInteractor = new LoginInteractor();
+
+        return new LoginPresenter(this, loginInteractor);
+    }
+
+    private void setupUI() {
+        mostrarOcultarPass();
     }
 
     private void verificarLogin() {
@@ -88,20 +128,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return recordarDatosLogin;
     }
 
-    private void setupUI() {
-        btnIniciarSesion = (Button) findViewById(R.id.btnIniciar_Sesion);
-        btnCrearCuenta = (Button) findViewById(R.id.btnCrear_Cuenta_Login);
-        btnRecuperarContraseña = (Button) findViewById(R.id.btnRecuperarContraseña);
-        etEmail = (EditText) findViewById(R.id.etEmailLogin);
-        etPassword = (EditText) findViewById(R.id.etPasswordLogin);
-        linearLayout = (LinearLayout) findViewById(R.id.activity_main_layout);
-        mostrarOcultarPass();
-
-        btnIniciarSesion.setOnClickListener(this);
-        btnCrearCuenta.setOnClickListener(this);
-        btnRecuperarContraseña.setOnClickListener(this);
-    }
-
     private void mostrarOcultarPass() {
         etPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -122,37 +148,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         });
-    }
-
-    private void transparentStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnIniciar_Sesion:
-                obtenerDatosLogin();
-                if (datosNoVacios()) {
-                    Usuario usuario = obtenerUsuario();
-                    if (usuario != null) {
-                        iniciarSesion(usuario, true);
-                    } else {
-                        Toast.makeText(this, getResources().getString(R.string.DatosIncorrectos), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(this, getResources().getString(R.string.DatosVacios), Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.btnCrear_Cuenta_Login:
-                startActivity(new Intent(LoginActivity.this, CrearCuenta.class));
-                finish();
-                break;
-            case R.id.btnRecuperarContraseña:
-                Snackbar.make(linearLayout, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_LONG).show();
-                break;
-        }
     }
 
     private Usuario obtenerUsuario() {

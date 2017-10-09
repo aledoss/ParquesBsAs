@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.database.Reclamo;
+import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.ui.adapters.AdapterListaReclamos;
 
 import java.io.Serializable;

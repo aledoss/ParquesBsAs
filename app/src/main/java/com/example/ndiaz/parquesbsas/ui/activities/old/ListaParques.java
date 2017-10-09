@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.database.Parque;
+import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.ui.adapters.AdapterListaParques;
 import com.example.ndiaz.parquesbsas.helpers.Constants;
 

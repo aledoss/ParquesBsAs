@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.database;
+package com.example.ndiaz.parquesbsas.model;
 
 import java.io.Serializable;
 

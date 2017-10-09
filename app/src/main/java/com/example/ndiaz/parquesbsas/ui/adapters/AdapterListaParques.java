@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.database.Parque;
+import com.example.ndiaz.parquesbsas.model.Parque;
 
 import java.util.ArrayList;
 

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.database.Usuario;
+import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.helpers.Constants;
 
 import java.io.Serializable;
