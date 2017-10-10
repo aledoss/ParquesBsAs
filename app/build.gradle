@@ -43,4 +43,8 @@ dependencies {
 
     //GSON
     compile 'com.google.code.gson:gson:2.8.2'
+
+    //OKHTTP
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }

@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.List;
 
@@ -16,7 +17,13 @@ public class NetworkServiceImp {
 
     public Single<List<Parque>> getParque() {
         return retrofitService
-                .getJson()
+                .getClient()
                 .getParques();
+    }
+
+    public Single<Usuario> getUser(Usuario usuario){
+        return retrofitService
+                .getClient()
+                .loginUser(usuario);
     }
 }

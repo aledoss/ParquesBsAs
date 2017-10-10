@@ -6,6 +6,7 @@ import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public class BaseInteractorImp implements BaseInteractor {
 
@@ -15,18 +16,25 @@ public class BaseInteractorImp implements BaseInteractor {
     private NetworkServiceImp networkServiceImp;
 
     public BaseInteractorImp() {
-        this.compositeDisposable = new CompositeDisposable();
+        initializeCompositeDisposable();
     }
 
-    public BaseInteractorImp(CompositeDisposable compositeDisposable, DBHelper dbHelper, NetworkServiceImp networkServiceImp) {
-        this.compositeDisposable = compositeDisposable;
+    public BaseInteractorImp(DBHelper dbHelper, NetworkServiceImp networkServiceImp) {
+        initializeCompositeDisposable();
         this.dbHelper = dbHelper;
         this.networkServiceImp = networkServiceImp;
     }
 
-    public BaseInteractorImp(CompositeDisposable compositeDisposable, DBHelper dbHelper,
-                             PreferencesRepository preferencesRepository, NetworkServiceImp networkServiceImp) {
-        this.compositeDisposable = compositeDisposable;
+    public BaseInteractorImp(PreferencesRepository preferencesRepository,
+                             NetworkServiceImp networkServiceImp) {
+        initializeCompositeDisposable();
+        this.preferencesRepository = preferencesRepository;
+        this.networkServiceImp = networkServiceImp;
+    }
+
+    public BaseInteractorImp(DBHelper dbHelper, PreferencesRepository preferencesRepository,
+                             NetworkServiceImp networkServiceImp) {
+        initializeCompositeDisposable();
         this.dbHelper = dbHelper;
         this.preferencesRepository = preferencesRepository;
         this.networkServiceImp = networkServiceImp;
@@ -56,9 +64,17 @@ public class BaseInteractorImp implements BaseInteractor {
         this.networkServiceImp = networkServiceImp;
     }
 
+    public void initializeCompositeDisposable() {
+        this.compositeDisposable = new CompositeDisposable();
+    }
+
     @Override
     public void unsubscribe() {
         compositeDisposable.clear();
+    }
+
+    public void addDisposable(Disposable disposable){
+        this.compositeDisposable.add(disposable);
     }
 
 }

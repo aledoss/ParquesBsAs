@@ -104,7 +104,9 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @Override
     protected LoginContract.Presenter createPresenter() {
-        LoginContract.Interactor loginInteractor = new LoginInteractor();
+        LoginContract.Interactor loginInteractor = new LoginInteractor(
+                defaultPreferencesRepository, networkServiceImp
+        );
 
         return new LoginPresenter(this, loginInteractor);
     }
@@ -112,6 +114,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     private void verificarLogin() {
         try {
+            //pedirlas al presenter e interactor. Si da OK, hacer un loginView.login(datos)
             recordarDatosLogin = obtenerDatosSharedPreferencesSettings();
             if (recordarDatosLogin) {
                 obtenerDatosLoginSharedPreferences();
@@ -241,4 +244,9 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         });
     }
 
+    @Override
+    public void navigateToHome() {
+        startActivity(new Intent(LoginActivity.this, MainHome.class));
+        finish();
+    }
 }
