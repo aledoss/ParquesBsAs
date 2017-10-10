@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.contract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.helpers.Constants;
@@ -34,6 +33,7 @@ import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 
 public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         implements LoginContract.View, Constants {
@@ -74,14 +74,32 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         Snackbar.make(lLContainer, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_LONG).show();
     }
 
+    @OnTouch(R.id.etPasswordLogin)
+    public boolean onTouchPasswordIcon(View v, MotionEvent event){
+        if (!etPassword.getText().toString().equalsIgnoreCase("")) {
+            final int DRAWABLE_RIGHT = 2;
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                    return true;
+                }
+            } else {
+                if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         verificarLogin();   //se fija si el usuario decidio guardar sus datos y que se loguee automaticamente
         setContentView(R.layout.activity_login);
         setTransparentStatusBar();
-        setupUI();
-        setupDatosParques();
+
+        //setupDatosParques(); //los parques se van a obtener desde el mainhome.
     }
 
     @Override
@@ -91,9 +109,6 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         return new LoginPresenter(this, loginInteractor);
     }
 
-    private void setupUI() {
-        mostrarOcultarPass();
-    }
 
     private void verificarLogin() {
         try {
@@ -126,28 +141,6 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         recordarDatosLogin = sharedPrefs.getBoolean(SETTINGS_CHECBOX_INICIO_SESION_AUTO, true);
         Log.d("SETTINGS", "Recordar: " + recordarDatosLogin);
         return recordarDatosLogin;
-    }
-
-    private void mostrarOcultarPass() {
-        etPassword.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (!etPassword.getText().toString().equalsIgnoreCase("")) {
-                    final int DRAWABLE_RIGHT = 2;
-                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-                            return true;
-                        }
-                    } else {
-                        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        }
-                    }
-                }
-                return false;
-            }
-        });
     }
 
     private Usuario obtenerUsuario() {

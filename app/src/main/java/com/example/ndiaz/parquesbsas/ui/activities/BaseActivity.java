@@ -9,17 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.contract.BasePresenter;
-import com.example.ndiaz.parquesbsas.contract.BaseView;
+import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
+import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
 
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
 
+    protected T presenter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupDefaultSettings();
+        presenter = createPresenter();
     }
 
     @Override
