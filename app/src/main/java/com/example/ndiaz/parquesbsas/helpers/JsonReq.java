@@ -19,8 +19,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.MAX_RETRIES;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.TIMEOUT_MS;
+import static com.example.ndiaz.parquesbsas.constants.Constants.MAX_RETRIES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.TIMEOUT_MS;
 
 /**
  * Created by Lenwe on 04/12/2016.

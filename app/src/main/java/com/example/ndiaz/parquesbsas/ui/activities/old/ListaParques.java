@@ -15,7 +15,7 @@ import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.ui.adapters.AdapterListaParques;
-import com.example.ndiaz.parquesbsas.helpers.Constants;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;

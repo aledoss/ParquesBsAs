@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.xmlURL;
+import static com.example.ndiaz.parquesbsas.constants.Constants.xmlURL;
 
 /**
  * Created by Lenwe on 28/11/2016.

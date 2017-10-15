@@ -8,12 +8,17 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
-    int id;
-    String nombre;
-    String apellido;
-    String dni;
-    String email;
-    String password;
+    private int id;
+    private String nombre;
+    private String apellido;
+    private String dni;
+    private String email;
+    private String password;
+
+    public Usuario(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public int getId() {
         return id;

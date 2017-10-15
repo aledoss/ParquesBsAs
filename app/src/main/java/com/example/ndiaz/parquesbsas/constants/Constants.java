@@ -1,15 +1,14 @@
-package com.example.ndiaz.parquesbsas.helpers;
+package com.example.ndiaz.parquesbsas.constants;
 
 /**
  * Created by Lenwe on 13/10/2016.
  */
 
 public interface Constants {
-    //Login
-    String INICIARSESIONUSUARIO = "IniciarSesionUsuario";
-    String EMAILLOGINSAVED = "EmailLoginSaved";
-    String PASSWORDLOGINSAVED = "PasswordLoginSaved";
-    String LOGINPREFERENCES = "LoginPreferences";
+
+    //Edit text validator
+    String LOGIN_ORIGIN = "Login Origin";
+    String CREATE_USER_ORIGIN = "Create User Origin";
 
     //Crear cuenta
     String CREARCUENTAUSUARIO = "CrearCuentaUsuario";

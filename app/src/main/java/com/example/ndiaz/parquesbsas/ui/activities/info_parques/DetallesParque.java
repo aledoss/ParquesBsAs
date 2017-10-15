@@ -25,8 +25,8 @@ import java.io.Serializable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.IMAGENES_PARQUES_URL;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.PARQUEDETALLES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENES_PARQUES_URL;
+import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 
 public class DetallesParque extends AppCompatActivity implements View.OnClickListener {
 

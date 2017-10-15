@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.ui.fragments.SettingsFragment;
-import com.example.ndiaz.parquesbsas.helpers.Constants;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 
 public class MySettings extends AppCompatActivity implements Constants {
 

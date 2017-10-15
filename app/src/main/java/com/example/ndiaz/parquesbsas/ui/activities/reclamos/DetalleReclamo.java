@@ -12,7 +12,7 @@ import com.example.ndiaz.parquesbsas.model.Reclamo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.RECLAMODETALLES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.RECLAMODETALLES;
 
 public class DetalleReclamo extends AppCompatActivity {
 

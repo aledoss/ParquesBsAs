@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.helpers.Constants;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.squareup.picasso.Picasso;
 
 public class DetallesParqueOld extends AppCompatActivity implements Constants, View.OnClickListener {

@@ -10,6 +10,8 @@ public interface LoginContract {
 
     interface View extends BaseView {
         void navigateToHome();
+
+        void showLoginError(String message);
     }
 
     interface Presenter extends BasePresenter {

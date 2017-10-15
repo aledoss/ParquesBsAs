@@ -24,9 +24,9 @@ import java.util.Random;
 import it.sauronsoftware.ftp4j.FTPClient;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.FTP_HOST;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.FTP_PASS;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.FTP_USER;
+import static com.example.ndiaz.parquesbsas.constants.Constants.FTP_HOST;
+import static com.example.ndiaz.parquesbsas.constants.Constants.FTP_PASS;
+import static com.example.ndiaz.parquesbsas.constants.Constants.FTP_USER;
 
 /**
  * Created by Lenwe on 10/11/2016.

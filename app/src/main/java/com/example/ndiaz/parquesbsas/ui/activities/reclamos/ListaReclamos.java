@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.RECLAMODETALLES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.RECLAMODETALLES;
 
 public class ListaReclamos extends AppCompatActivity {
 

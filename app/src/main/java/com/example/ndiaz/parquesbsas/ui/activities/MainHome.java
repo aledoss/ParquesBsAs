@@ -25,13 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.ui.activities.info_parques.DetallesParque;
-import com.example.ndiaz.parquesbsas.ui.activities.old.ListaParques;
-import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamos;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
-import com.example.ndiaz.parquesbsas.helpers.Constants;
+import com.example.ndiaz.parquesbsas.ui.activities.info_parques.DetallesParque;
+import com.example.ndiaz.parquesbsas.ui.activities.old.ListaParques;
+import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamos;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,8 +44,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.EMAILLOGINSAVED;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.INICIARSESIONUSUARIO;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LOGINPREFERENCES;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.PASSWORDLOGINSAVED;
+
 public class MainHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback, GoogleMap.OnMarkerClickListener,Constants {
+        OnMapReadyCallback, GoogleMap.OnMarkerClickListener, Constants {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -64,7 +69,6 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         usuario = obtenerDatosUsuario();
         setupUI();
     }
-
 
 
     private Usuario obtenerDatosUsuario() {

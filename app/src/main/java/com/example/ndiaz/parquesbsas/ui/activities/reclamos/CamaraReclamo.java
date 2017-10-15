@@ -31,9 +31,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.IMAGENBYTES;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.LASTLOCATIONLATITUD;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.LASTLOCATIONLONGITUD;
+import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENBYTES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLATITUD;
+import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLONGITUD;
 
 public class CamaraReclamo extends AppCompatActivity implements View.OnClickListener,
         GoogleApiClient.ConnectionCallbacks,

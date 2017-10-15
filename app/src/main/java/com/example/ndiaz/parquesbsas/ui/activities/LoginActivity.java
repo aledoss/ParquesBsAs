@@ -4,39 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
-import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.helpers.Constants;
-import com.example.ndiaz.parquesbsas.helpers.JsonReq;
-import com.example.ndiaz.parquesbsas.helpers.VolleyCallback;
+import com.example.ndiaz.parquesbsas.edittextvalidator.EditTextValidator;
+import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
 import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
-import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTouch;
 
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.EMAILLOGINSAVED;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.INICIARSESIONUSUARIO;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LOGINPREFERENCES;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.PASSWORDLOGINSAVED;
+
 public class LoginActivity extends BaseActivity<LoginContract.Presenter>
-        implements LoginContract.View, Constants {
+        implements LoginContract.View {
 
     @BindView(R.id.etEmailLogin)
     EditText etEmail;
@@ -50,16 +45,9 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @OnClick(R.id.btnIniciar_Sesion)
     public void onClickIniciarSesion() {
-        obtenerDatosLogin();
-        if (datosNoVacios()) {
-            Usuario usuario = obtenerUsuario();
-            if (usuario != null) {
-                iniciarSesion(usuario, true);
-            } else {
-                Toast.makeText(this, getResources().getString(R.string.DatosIncorrectos), Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.DatosVacios), Toast.LENGTH_SHORT).show();
+        getLoginData();
+        if (isValidData()) {
+            presenter.doLogin(new Usuario(email, password));
         }
     }
 
@@ -71,11 +59,11 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @OnClick(R.id.btnRecuperarContraseña)
     public void onClickRecuPass() {
-        Snackbar.make(lLContainer, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_LONG).show();
+        showMessage(lLContainer, getString(R.string.WorkInProgress));
     }
 
     @OnTouch(R.id.etPasswordLogin)
-    public boolean onTouchPasswordIcon(View v, MotionEvent event){
+    public boolean onTouchPasswordIcon(View v, MotionEvent event) {
         if (!etPassword.getText().toString().equalsIgnoreCase("")) {
             final int DRAWABLE_RIGHT = 2;
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -95,11 +83,11 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        verificarLogin();   //se fija si el usuario decidio guardar sus datos y que se loguee automaticamente
+        //verificarLogin();   // TODO: 14/10/2017 Funcionalidad de autologin.
         setContentView(R.layout.activity_login);
         setTransparentStatusBar();
 
-        //setupDatosParques(); //los parques se van a obtener desde el mainhome.
+        //setupDatosParques(); // TODO: 14/10/2017 Funcionalidad descargar parques. En home tiene que ir.
     }
 
     @Override
@@ -111,7 +99,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         return new LoginPresenter(this, loginInteractor);
     }
 
-
+    // TODO: 14/10/2017 Funcionalidad de autologin.
     private void verificarLogin() {
         try {
             //pedirlas al presenter e interactor. Si da OK, hacer un loginView.login(datos)
@@ -128,6 +116,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         }
     }
 
+    // TODO: 14/10/2017 Funcionalidad de autologin.
     private void obtenerDatosLoginSharedPreferences() {
         try {
             SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
@@ -138,31 +127,41 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         }
     }
 
+    // TODO: 14/10/2017 Funcionalidad de autologin.
     private boolean obtenerDatosSharedPreferencesSettings() {
         //obtengo datos del settings
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        /*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         recordarDatosLogin = sharedPrefs.getBoolean(SETTINGS_CHECBOX_INICIO_SESION_AUTO, true);
         Log.d("SETTINGS", "Recordar: " + recordarDatosLogin);
-        return recordarDatosLogin;
+        return recordarDatosLogin;*/
+        return false;
     }
 
     private Usuario obtenerUsuario() {
+        /*
         DBHelper db = new DBHelper(this);
         Usuario usuario = db.getUsuario(email, password);
         db.close();
         if (usuario != null) {
             return usuario;
-        }
+        }*/
         return null;
     }
 
-    private boolean datosNoVacios() {
-        if (email.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
-            return false;
+    private boolean isValidData() {
+        FactoryEditText factoryEditText = new FactoryEditText(etEmail, etPassword);
+        List<EditTextValidator> editTextValidators = factoryEditText.createEditTextValidators();
+        boolean validData = true;
+
+        for (int i = 0; validData && i <= editTextValidators.size(); i++) {
+            EditTextValidator editText = editTextValidators.get(i);
+            validData = editText.validate();
         }
-        return true;
+
+        return validData;
     }
 
+    // TODO: 14/10/2017 Se realiza desde el presenter
     private void iniciarSesion(Usuario usuario, boolean guardarDatos) {
         if (guardarDatos) {
             try {
@@ -181,31 +180,34 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         finish();
     }
 
-    private void obtenerDatosLogin() {
+    private void getLoginData() {
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
     }
 
+    // TODO: 14/10/2017 Funcionalidad descargar parques. En home tiene que ir.
     private void setupDatosParques() {
         if (ingresoPrimeraVez()) {//me fijo si es la primera vez que ingresa
             guardarDatosParquesBD();
         }
     }
 
+    // TODO: 14/10/2017 Funcionalidad descargar parques. En home tiene que ir. -
     private boolean ingresoPrimeraVez() {
-        SharedPreferences mPrefs = getSharedPreferences(INGRESOPRIMERAVEZ, Context.MODE_PRIVATE);
+        /*SharedPreferences mPrefs = getSharedPreferences(INGRESOPRIMERAVEZ, Context.MODE_PRIVATE);
         boolean primeraVez = mPrefs.getBoolean(INGRESOPRIMERAVEZ, true);
         if (primeraVez) {
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(INGRESOPRIMERAVEZ, false);
             editor.commit();
             return true;
-        }
+        }*/
         return false;
     }
 
+    // TODO: 14/10/2017 Funcionalidad descargar parques. En home tiene que ir.
     private void guardarDatosParquesBD() {
-        JsonReq jsonReq = new JsonReq();
+        /*JsonReq jsonReq = new JsonReq();
         jsonReq.callGet(ALL_PARQUES_URL, this, new VolleyCallback() {
             @Override
             public void onSuccessResponse(JSONArray result) {
@@ -241,12 +243,17 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
             public void onErrorResponse(String result) {
                 Log.d("MainHome", result);
             }
-        });
+        });*/
     }
 
     @Override
     public void navigateToHome() {
         startActivity(new Intent(LoginActivity.this, MainHome.class));
         finish();
+    }
+
+    @Override
+    public void showLoginError(String message) {
+        showMessage(lLContainer, message);
     }
 }

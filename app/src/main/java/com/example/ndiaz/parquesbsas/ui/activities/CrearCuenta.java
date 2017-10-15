@@ -15,11 +15,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Usuario;
-import com.example.ndiaz.parquesbsas.helpers.Constants;
 
 import java.io.Serializable;
+
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.EMAILLOGINSAVED;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LOGINPREFERENCES;
+import static com.example.ndiaz.parquesbsas.constants.LoginConstants.PASSWORDLOGINSAVED;
 
 public class CrearCuenta extends AppCompatActivity implements View.OnClickListener, Constants {
 

@@ -26,10 +26,10 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.ndiaz.parquesbsas.helpers.Constants.IMAGENBYTES;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.LASTLOCATIONLATITUD;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.LASTLOCATIONLONGITUD;
-import static com.example.ndiaz.parquesbsas.helpers.Constants.PARQUEDETALLES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENBYTES;
+import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLATITUD;
+import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLONGITUD;
+import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 
 public class AgregarReclamo extends AppCompatActivity implements View.OnClickListener {
 
