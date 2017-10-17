@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.CrearCuenta"
+            android:name=".ui.activities.CreateUserActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.MainHome"></activity>
         <!--

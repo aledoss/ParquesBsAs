@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -19,12 +20,14 @@ import com.example.ndiaz.parquesbsas.network.RetrofitService;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
 
     protected T presenter;
     protected PreferencesRepository defaultPreferencesRepository;
     protected NetworkServiceImp networkServiceImp;
+    protected Unbinder unbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,5 +64,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void showMessage(View view, String message) {
         Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("NICOTEST", "onDestroy: ");
+        super.onDestroy();
     }
 }

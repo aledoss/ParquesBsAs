@@ -53,8 +53,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @OnClick(R.id.btnCrear_Cuenta_Login)
     public void onClickCrearCuenta() {
-        startActivity(new Intent(LoginActivity.this, CrearCuenta.class));
-        finish();
+        startActivity(new Intent(LoginActivity.this, CreateUserActivity.class));
     }
 
     @OnClick(R.id.btnRecuperarContraseña)
@@ -256,4 +255,5 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     public void showLoginError(String message) {
         showMessage(lLContainer, message);
     }
+
 }

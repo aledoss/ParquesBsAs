@@ -3,19 +3,17 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.constants.Constants;
+import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
@@ -25,20 +23,28 @@ import static com.example.ndiaz.parquesbsas.constants.LoginConstants.EMAILLOGINS
 import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LOGINPREFERENCES;
 import static com.example.ndiaz.parquesbsas.constants.LoginConstants.PASSWORDLOGINSAVED;
 
-public class CrearCuenta extends AppCompatActivity implements View.OnClickListener, Constants {
+public class CreateUserActivity extends BaseActivity<CreateUserContract.Presenter>
+        implements View.OnClickListener, Constants {
 
     private Button btnCrearCuenta;
     private EditText etNombre, etApellido, etDNI, etEmail, etPassword;
     private String nombre, apellido, dni, email, password;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_cuenta);
-        transparentStatusBar();
+        setTransparentStatusBar();
         setupUI();
     }
 
+    @Override
+    protected CreateUserContract.Presenter createPresenter() {
+        // TODO: 16/10/2017 Agregar el new del Presenter
+        return null;
+    }
+
+    //Butterknife
     private void setupUI() {
         btnCrearCuenta = (Button) findViewById(R.id.btnCrear_Cuenta);
         etNombre = (EditText) findViewById(R.id.etNombreCrearCuenta);
@@ -51,6 +57,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         btnCrearCuenta.setOnClickListener(this);
     }
 
+    //Butterknife
     private void mostrarOcultarPass() {
         etPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -73,11 +80,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-    private void transparentStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    }
-
+    //Butterknife
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -97,18 +100,20 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    //Funcionalidad de autologin + acceder al home
     private void accederHome(Usuario usuario) {
         SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(EMAILLOGINSAVED, email);
         editor.putString(PASSWORDLOGINSAVED, password);
         editor.commit();
-        Intent intent = new Intent(CrearCuenta.this, MainHome.class);
+        Intent intent = new Intent(CreateUserActivity.this, MainHome.class);
         intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
         startActivity(intent);
         finish();
     }
 
+    //Esto vendría del servidor
     private boolean cuentaDuplicada() {
         boolean cuentaDuplicada;
         DBHelper db = new DBHelper(this);
@@ -123,6 +128,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         return cuentaDuplicada;
     }
 
+    // Lo maneja el servidor
     private Usuario crearCuenta() {
         DBHelper db = new DBHelper(this);
         Usuario usuario = new Usuario();
@@ -138,6 +144,7 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         return usuario;
     }
 
+    //Validar con los EditTextValidator
     private boolean datosNoVacios() {
         if (nombre.equalsIgnoreCase("") || apellido.equalsIgnoreCase("") ||
                 email.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
@@ -154,9 +161,4 @@ public class CrearCuenta extends AppCompatActivity implements View.OnClickListen
         password = etPassword.getText().toString();
     }
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(CrearCuenta.this, LoginActivity.class));
-        super.onBackPressed();
-    }
 }
