@@ -2,18 +2,15 @@ package com.example.ndiaz.parquesbsas.model;
 
 import java.io.Serializable;
 
-/**
- * Created by Lenwe on 13/10/2016.
- */
-
 public class Usuario implements Serializable {
 
     private int id;
     private String nombre;
     private String apellido;
-    private String dni;
     private String email;
     private String password;
+    private String dni;
+    private String tipoDoc;
 
     public Usuario() {
     }
@@ -21,6 +18,15 @@ public class Usuario implements Serializable {
     public Usuario(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public Usuario(String nombre, String apellido, String email, String password, String dni, String tipoDoc) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.password = password;
+        this.dni = dni;
+        this.tipoDoc = tipoDoc;
     }
 
     public int getId() {
