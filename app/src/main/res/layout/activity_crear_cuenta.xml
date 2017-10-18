@@ -46,9 +46,9 @@
                 android:drawablePadding="6dp"
                 android:hint="@string/nombreHint"
                 android:inputType="text"
-                android:text="poasfk"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="poasfk"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
@@ -58,7 +58,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="aosgkoga"
                 android:background="#87000000"
                 android:drawableLeft="@drawable/ic_usuario"
                 android:drawablePadding="6dp"
@@ -66,30 +65,51 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="aosgkoga"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
 
-            <EditText
-                android:id="@+id/etDNICrearCuenta"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#87000000"
-                android:hint="@string/DNIHint"
-                android:inputType="number"
-                android:maxLines="1"
-                android:text="123456"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/LoginEdittext" />
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spiDocType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="50"
+                    android:background="@drawable/spinner_doctype_bg"
+                    android:gravity="center"
+                    android:popupBackground="#263238" />
+
+                <EditText
+                    android:id="@+id/etDNICrearCuenta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="50"
+                    android:background="#87000000"
+                    android:hint="@string/DNIHint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="123456"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="@dimen/LoginEdittext" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/etEmailCrearCuenta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="asd@asd.com"
                 android:layout_marginTop="10dp"
                 android:background="#87000000"
                 android:drawableLeft="@drawable/ic_email"
@@ -98,6 +118,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="asd@asd.com"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
@@ -113,9 +134,9 @@
                 android:drawableRight="@drawable/ic_ver_password"
                 android:hint="@string/PasswordHint"
                 android:inputType="textPassword"
-                android:text="Asd1234$"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="Asd1234$"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />

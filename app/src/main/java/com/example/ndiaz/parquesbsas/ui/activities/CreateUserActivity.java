@@ -2,8 +2,10 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -35,8 +37,11 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     EditText etEmail;
     @BindView(R.id.etPasswordCrearCuenta)
     EditText etPassword;
+    @BindView(R.id.spiDocType)
+    AppCompatSpinner spiDocType;
 
     private String nombre, apellido, docNumber, email, password;
+    private String[] docTypes;
     private LoginCreateViewHelper loginCreateViewHelper;
 
     @OnClick(R.id.btnCrear_Cuenta)
@@ -60,6 +65,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         setContentView(R.layout.activity_crear_cuenta);
         setTransparentStatusBar();
         loginCreateViewHelper = new LoginCreateViewHelper();
+        presenter.doGetDocTypes();
     }
 
     @Override
@@ -138,5 +144,13 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     @Override
     public void showCreateUserError(String message) {
         showMessage(lLContainer, message);
+    }
+
+    @Override
+    public void fillSpinner(String[] docTypes) {
+        this.docTypes = docTypes;
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_doctype_item,
+                docTypes);
+        spiDocType.setAdapter(adapter);
     }
 }

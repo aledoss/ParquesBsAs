@@ -14,4 +14,11 @@
         <item>Reparación de otros</item>
         <item>Seguridad</item>
     </string-array>
+    
+    <string-array name="docTypes">
+        <item>DNI</item>
+        <item>LC</item>
+        <item>Pasaporte</item>
+    </string-array>
+    
 </resources>

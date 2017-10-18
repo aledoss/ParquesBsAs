@@ -31,4 +31,19 @@ public class CreateUserPresenter extends BasePresenterImp
             }
         });
     }
+
+    @Override
+    public void doGetDocTypes() {
+        createUserInteractor.getDocTypes(new BaseCallback<String[]>() {
+            @Override
+            public void onSuccess(String[] docTypes) {
+                createUserView.fillSpinner(docTypes);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
 }
