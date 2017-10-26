@@ -1,5 +1,7 @@
 package com.example.ndiaz.parquesbsas.interactor;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
+import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
 import com.example.ndiaz.parquesbsas.model.Usuario;
@@ -22,5 +24,12 @@ public class CreateUserInteractor extends BaseInteractorImp
     @Override
     public void createUser(Usuario usuario, BaseCallback<Boolean> callback) {
 
+    }
+
+    @Override
+    public void getDocTypes(BaseCallback<String[]> callback) {
+        // TODO: 18/10/2017 Se obtiene a partir de la base de datos
+        String[] docTypes = ParquesApplication.getInstance().getApplicationContext().getResources().getStringArray(R.array.docTypes);
+        callback.onSuccess(docTypes);
     }
 }

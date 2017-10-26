@@ -5,10 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by Lenwe on 13/10/2016.
- */
-
 public class Usuario implements Serializable {
 
     @SerializedName("id_usuario")

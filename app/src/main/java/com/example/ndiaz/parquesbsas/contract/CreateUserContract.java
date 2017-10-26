@@ -12,14 +12,20 @@ public interface CreateUserContract {
         void navigateToHome();
 
         void showCreateUserError(String message);
+
+        void fillSpinner(String[] docTypes);
     }
 
     interface Presenter extends BasePresenter {
         void doCreateUser(Usuario usuario);
+
+        void doGetDocTypes();
     }
 
     interface Interactor extends BaseInteractor {
         void createUser(Usuario usuario, BaseCallback<Boolean> callback);
+
+        void getDocTypes(BaseCallback<String[]> callback);
     }
 
 }

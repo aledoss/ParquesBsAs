@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -12,14 +11,13 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
-import com.example.ndiaz.parquesbsas.edittextvalidator.EditTextValidator;
 import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
+import com.example.ndiaz.parquesbsas.helpers.LoginCreateViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
 
 import java.io.Serializable;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,11 +35,11 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     EditText etEmail;
     @BindView(R.id.etPasswordLogin)
     EditText etPassword;
-
-    @BindView(R.id.login_container_layout)
+    @BindView(R.id.loginContainerLayout)
     LinearLayout lLContainer;
     private String email, password;
     private boolean recordarDatosLogin;
+    private LoginCreateViewHelper loginCreateViewHelper;
 
     @OnClick(R.id.btnIniciar_Sesion)
     public void onClickIniciarSesion() {
@@ -63,20 +61,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @OnTouch(R.id.etPasswordLogin)
     public boolean onTouchPasswordIcon(View v, MotionEvent event) {
-        if (!etPassword.getText().toString().equalsIgnoreCase("")) {
-            final int DRAWABLE_RIGHT = 2;
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-                    return true;
-                }
-            } else {
-                if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
-            }
-        }
-        return false;
+        return loginCreateViewHelper.tooglePasswordTextType(etPassword, event);
     }
 
     @Override
@@ -85,6 +70,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         //verificarLogin();   // TODO: 14/10/2017 Funcionalidad de autologin.
         setContentView(R.layout.activity_login);
         setTransparentStatusBar();
+        loginCreateViewHelper = new LoginCreateViewHelper();
 
         //setupDatosParques(); // TODO: 14/10/2017 Funcionalidad descargar parques. En home tiene que ir.
     }
@@ -148,16 +134,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     }
 
     private boolean isValidData() {
-        FactoryEditText factoryEditText = new FactoryEditText(etEmail, etPassword);
-        List<EditTextValidator> editTextValidators = factoryEditText.createEditTextValidators();
-        boolean validData = true;
-
-        for (int i = 0; validData && i < editTextValidators.size(); i++) {
-            EditTextValidator editText = editTextValidators.get(i);
-            validData = editText.validate();
-        }
-
-        return validData;
+        return loginCreateViewHelper.isValidData(new FactoryEditText(etEmail, etPassword));
     }
 
     // TODO: 14/10/2017 Se realiza desde el presenter

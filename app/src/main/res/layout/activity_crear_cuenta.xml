@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_crear_cuenta_layout"
+    android:id="@+id/createAccountContainerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_home_img_original"
@@ -48,6 +48,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="poasfk"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
@@ -64,23 +65,46 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="aosgkoga"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
 
-            <EditText
-                android:id="@+id/etDNICrearCuenta"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#87000000"
-                android:hint="@string/DNIHint"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/LoginEdittext" />
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spiDocType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="50"
+                    android:background="@drawable/spinner_doctype_bg"
+                    android:gravity="center"
+                    android:popupBackground="#263238" />
+
+                <EditText
+                    android:id="@+id/etDNICrearCuenta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="50"
+                    android:background="#87000000"
+                    android:hint="@string/DNIHint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="123456"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="@dimen/LoginEdittext" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/etEmailCrearCuenta"
@@ -94,6 +118,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="asd@asd.com"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
@@ -111,6 +136,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:text="Asd1234$"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
