@@ -1,5 +1,8 @@
 package com.example.ndiaz.parquesbsas.network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -10,16 +13,25 @@ import static com.example.ndiaz.parquesbsas.constants.Constants.URL;
 
 public class RetrofitService {
 
+    private Retrofit retrofit;
+
     public RetrofitService() {
     }
 
     public RetrofitApi getClient() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(getOkHttpClient()   )
-                .build();
+        //if(retrofit != null){
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(getOkHttpClient())
+                    .build();
+        //}
+
         return retrofit.create(RetrofitApi.class);
     }
 

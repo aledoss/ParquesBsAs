@@ -1,5 +1,8 @@
 package com.example.ndiaz.parquesbsas.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,11 +11,26 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
-    private int id;
+    @SerializedName("id_usuario")
+    @Expose
+    private Integer id;
+    @SerializedName("nombre")
+    @Expose
     private String nombre;
+    @SerializedName("apellido")
+    @Expose
     private String apellido;
-    private String dni;
+    @SerializedName("numero_documento")
+    @Expose
+    private String numeroDoc;
+    @SerializedName("tipo_doc")
+    @Expose
+    public String tipoDoc;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("contrasenia")
+    @Expose
     private String password;
 
     public Usuario() {
@@ -23,11 +41,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,12 +65,12 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
     }
 
-    public String getDni() {
-        return dni;
+    public String getNumeroDoc() {
+        return numeroDoc;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setNumeroDoc(String numeroDoc) {
+        this.numeroDoc = numeroDoc;
     }
 
     public String getEmail() {
@@ -69,5 +87,13 @@ public class Usuario implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTipoDoc() {
+        return tipoDoc;
+    }
+
+    public void setTipoDoc(String tipoDoc) {
+        this.tipoDoc = tipoDoc;
     }
 }

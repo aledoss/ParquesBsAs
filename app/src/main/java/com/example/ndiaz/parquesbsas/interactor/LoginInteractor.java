@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.interactor;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
+import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
@@ -29,14 +30,14 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
                 .getUser(usuario)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Usuario>() {
+                .subscribe(new SingleObserver<NetworkResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(@NonNull Usuario usuario) {
+                    public void onSuccess(@NonNull NetworkResponse usuario) {
                         callback.onSuccess(usuario);
                     }
 

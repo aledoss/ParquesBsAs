@@ -134,7 +134,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-        usuario.setDni(dni);
+        usuario.setNumeroDoc(dni);
         usuario.setEmail(email);
         usuario.setPassword(password);
 

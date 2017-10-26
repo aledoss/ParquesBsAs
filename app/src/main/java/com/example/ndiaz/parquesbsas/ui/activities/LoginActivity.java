@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         List<EditTextValidator> editTextValidators = factoryEditText.createEditTextValidators();
         boolean validData = true;
 
-        for (int i = 0; validData && i <= editTextValidators.size(); i++) {
+        for (int i = 0; validData && i < editTextValidators.size(); i++) {
             EditTextValidator editText = editTextValidators.get(i);
             validData = editText.validate();
         }

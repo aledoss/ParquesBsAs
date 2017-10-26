@@ -97,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         try {
             contentValues.put(NOMBREUSUARIOCOLUMNA, usuario.getNombre());
             contentValues.put(APELLIDOUSUARIOCOLUMNA, usuario.getApellido());
-            contentValues.put(DNIUSUARIOCOLUMNA, usuario.getDni());
+            contentValues.put(DNIUSUARIOCOLUMNA, usuario.getNumeroDoc());
             contentValues.put(EMAILUSUARIOCOLUMNA, usuario.getEmail());
             contentValues.put(PASSWORDUSUARIOCOLUMNA, usuario.getPassword());
             db.insert(TABLEUSUARIOS, null, contentValues);
@@ -119,7 +119,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 usuario.setId(cur.getInt(cur.getColumnIndex("id")));
                 usuario.setNombre(cur.getString(cur.getColumnIndex(NOMBREUSUARIOCOLUMNA)));
                 usuario.setApellido(cur.getString(cur.getColumnIndex(APELLIDOUSUARIOCOLUMNA)));
-                usuario.setDni(cur.getString(cur.getColumnIndex(DNIUSUARIOCOLUMNA)));
+                usuario.setNumeroDoc(cur.getString(cur.getColumnIndex(DNIUSUARIOCOLUMNA)));
                 usuario.setEmail(cur.getString(cur.getColumnIndex(EMAILUSUARIOCOLUMNA)));
                 usuario.setPassword(cur.getString(cur.getColumnIndex(PASSWORDUSUARIOCOLUMNA)));
                 listaUsuarios.add(usuario);
@@ -143,7 +143,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
             usuario.setId(cur.getInt(cur.getColumnIndex("id")));
             usuario.setNombre(cur.getString(cur.getColumnIndex(NOMBREUSUARIOCOLUMNA)));
             usuario.setApellido(cur.getString(cur.getColumnIndex(APELLIDOUSUARIOCOLUMNA)));
-            usuario.setDni(cur.getString(cur.getColumnIndex(DNIUSUARIOCOLUMNA)));
+            usuario.setNumeroDoc(cur.getString(cur.getColumnIndex(DNIUSUARIOCOLUMNA)));
             usuario.setEmail(cur.getString(cur.getColumnIndex(EMAILUSUARIOCOLUMNA)));
             usuario.setPassword(cur.getString(cur.getColumnIndex(PASSWORDUSUARIOCOLUMNA)));
             return usuario;

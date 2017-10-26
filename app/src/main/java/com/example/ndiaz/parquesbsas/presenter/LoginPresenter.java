@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
+import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 public class LoginPresenter implements LoginContract.Presenter {
@@ -20,11 +21,15 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(Usuario usuario) {
-        loginInteractor.login(usuario, new BaseCallback<Usuario>() {
+        loginInteractor.login(usuario, new BaseCallback<NetworkResponse>() {
             @Override
-            public void onSuccess(Usuario usuario) {
-                loginView.navigateToHome();
-                ParquesApplication.getInstance().setUser(usuario);
+            public void onSuccess(NetworkResponse response) {
+                if(response.getResponse() != null){
+                    //loginView.navigateToHome();
+                    ParquesApplication.getInstance().setUser((Usuario) response.getResponse());
+                }else{
+                    loginView.showLoginError(response.getMessage());
+                }
             }
 
             @Override

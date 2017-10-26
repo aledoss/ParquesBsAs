@@ -106,7 +106,7 @@ public interface Constants {
     int MAX_RETRIES = 3;
 
     //REQUEST URLS
-    String URL = "http://appweb158.hol.es";
+    String URL = "http://192.168.0.103/nico/index.php/";
     //String ALL_PARQUES_URL = "http://192.168.0.104/parques/index.php/ws_parques/todos";
     String ALL_PARQUES_URL = "http://appweb158.hol.es/ws_parques/todos";
     //String ALL_PARQUES_URL = "http://webapp321.eshost.com.ar/ws_parques/todos";
