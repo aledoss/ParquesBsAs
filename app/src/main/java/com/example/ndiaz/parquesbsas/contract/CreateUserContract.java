@@ -4,7 +4,11 @@ import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
+import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
+
+import java.util.List;
 
 public interface CreateUserContract {
 
@@ -14,6 +18,8 @@ public interface CreateUserContract {
         void showCreateUserError(String message);
 
         void fillSpinner(String[] docTypes);
+
+        void setDocTypes(List<TiposDocumento> tiposDocumentos);
     }
 
     interface Presenter extends BasePresenter {
@@ -23,9 +29,9 @@ public interface CreateUserContract {
     }
 
     interface Interactor extends BaseInteractor {
-        void createUser(Usuario usuario, BaseCallback<Boolean> callback);
+        void createUser(Usuario usuario, BaseCallback<NetworkResponse> callback);
 
-        void getDocTypes(BaseCallback<String[]> callback);
+        void getDocTypes(BaseCallback<NetworkResponse<List<TiposDocumento>>> callback);
     }
 
 }

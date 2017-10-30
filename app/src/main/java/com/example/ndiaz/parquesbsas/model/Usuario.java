@@ -22,6 +22,9 @@ public class Usuario implements Serializable {
     @SerializedName("tipo_doc")
     @Expose
     public String tipoDoc;
+    @SerializedName("id_tipo_documento")
+    @Expose
+    private int idTipoDoc;
     @SerializedName("email")
     @Expose
     private String email;
@@ -42,6 +45,15 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
         this.numeroDoc = numeroDoc;
         this.tipoDoc = tipoDoc;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Usuario(String nombre, String apellido, String numeroDoc, int idTipoDoc, String email, String password) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.numeroDoc = numeroDoc;
+        this.idTipoDoc = idTipoDoc;
         this.email = email;
         this.password = password;
     }
@@ -100,5 +112,13 @@ public class Usuario implements Serializable {
 
     public void setTipoDoc(String tipoDoc) {
         this.tipoDoc = tipoDoc;
+    }
+
+    public int getIdTipoDoc() {
+        return idTipoDoc;
+    }
+
+    public void setIdTipoDoc(int idTipoDoc) {
+        this.idTipoDoc = idTipoDoc;
     }
 }

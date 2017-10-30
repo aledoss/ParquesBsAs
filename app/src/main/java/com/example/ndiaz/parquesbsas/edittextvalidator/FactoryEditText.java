@@ -64,6 +64,7 @@ public class FactoryEditText {
             case LC:
                 break;
             default:
+                editTextValidator = new EditTextDNIValidator(etDocNum);
                 break;
         }
         return editTextValidator;

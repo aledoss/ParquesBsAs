@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.List;
@@ -26,5 +27,17 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .loginUser(usuario);
+    }
+
+    public Single<NetworkResponse<List<TiposDocumento>>> getDocTypes(){
+        return retrofitService
+                .getClient()
+                .getDocTypes();
+    }
+
+    public Single<NetworkResponse> createUser(Usuario usuario){
+        return retrofitService
+                .getClient()
+                .createUser(usuario);
     }
 }

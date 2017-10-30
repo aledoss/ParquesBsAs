@@ -3,7 +3,13 @@ package com.example.ndiaz.parquesbsas.presenter;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
+import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
+
+import java.util.List;
+
+import static com.example.ndiaz.parquesbsas.constants.HTTPConstants.STATUS_OK;
 
 public class CreateUserPresenter extends BasePresenterImp
         implements CreateUserContract.Presenter {
@@ -18,11 +24,15 @@ public class CreateUserPresenter extends BasePresenterImp
 
     @Override
     public void doCreateUser(final Usuario usuario) {
-        createUserInteractor.createUser(usuario, new BaseCallback<Boolean>() {
+        createUserInteractor.createUser(usuario, new BaseCallback<NetworkResponse>() {
             @Override
-            public void onSuccess(Boolean value) {
-                ParquesApplication.getInstance().setUser(usuario);
-                createUserView.navigateToHome();
+            public void onSuccess(NetworkResponse networkResponse) {
+                if (networkResponse.getStatus() == STATUS_OK) {
+                    ParquesApplication.getInstance().setUser(usuario);
+                    createUserView.navigateToHome();
+                } else {
+                    createUserView.showCreateUserError(networkResponse.getMessage());
+                }
             }
 
             @Override
@@ -34,15 +44,25 @@ public class CreateUserPresenter extends BasePresenterImp
 
     @Override
     public void doGetDocTypes() {
-        createUserInteractor.getDocTypes(new BaseCallback<String[]>() {
+        createUserInteractor.getDocTypes(new BaseCallback<NetworkResponse<List<TiposDocumento>>>() {
             @Override
-            public void onSuccess(String[] docTypes) {
-                createUserView.fillSpinner(docTypes);
+            public void onSuccess(NetworkResponse<List<TiposDocumento>> tiposDocumentosNetworkResponse) {
+                if(tiposDocumentosNetworkResponse.getStatus() == STATUS_OK){
+                    List<TiposDocumento> tiposDocumentos = tiposDocumentosNetworkResponse.getResponse();
+                    String[] docTypes = new String[tiposDocumentos.size()];
+                    for(int i = 0; i < tiposDocumentos.size(); i++){
+                        docTypes[i] = tiposDocumentos.get(i).getTipoDocumento();
+                    }
+                    createUserView.fillSpinner(docTypes);
+                    createUserView.setDocTypes(tiposDocumentos);
+                }else{
+                    createUserView.showCreateUserError(tiposDocumentosNetworkResponse.getMessage());
+                }
             }
 
             @Override
             public void onError(String message) {
-
+                createUserView.showCreateUserError(message);
             }
         });
     }

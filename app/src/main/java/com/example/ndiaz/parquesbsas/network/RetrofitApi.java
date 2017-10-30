@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.List;
@@ -16,6 +17,12 @@ public interface RetrofitApi {
     @GET("/getTodos")
     Single<List<Parque>> getParques();
 
+    @GET("parquesapi/getDocTypes")
+    Single<NetworkResponse<List<TiposDocumento>>> getDocTypes();
+
     @POST("parquesapi/login")
     Single<NetworkResponse<Usuario>> loginUser(@Body Usuario usuario);
+
+    @POST("parquesapi/createUser")
+    Single<NetworkResponse> createUser(@Body Usuario usuario);
 }

@@ -15,8 +15,11 @@ import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.LoginCreateViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.CreateUserInteractor;
+import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.CreateUserPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,17 +44,17 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     AppCompatSpinner spiDocType;
 
     private String nombre, apellido, docNumber, email, password;
-    private String[] docTypes;
+    private TiposDocumento docType;
     private LoginCreateViewHelper loginCreateViewHelper;
+    private List<TiposDocumento> tiposDocumentos;
 
     @OnClick(R.id.btnCrear_Cuenta)
     public void onClickCreateUser() {
         getFieldsData();
         if (isValidData()) {
-            presenter.doCreateUser(new Usuario(nombre, apellido, email, password, docNumber,
-                    "DNI"));
+            presenter.doCreateUser(new Usuario(nombre, apellido, docNumber, docType.getId(), email,
+                    password));
         }
-        navigateToHome();
     }
 
     @OnTouch(R.id.etPasswordCrearCuenta)
@@ -72,13 +75,12 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     protected CreateUserContract.Presenter createPresenter() {
         CreateUserInteractor interactor = new CreateUserInteractor(
                 defaultPreferencesRepository, networkServiceImp);
-        // TODO: 16/10/2017 Agregar el new del Presenter
         return new CreateUserPresenter(this, interactor);
     }
 
     private boolean isValidData() {
         FactoryEditText factoryEditText = new FactoryEditText(etNombre, etApellido, etEmail,
-                etPassword, etDocNumber, "DNI");// TODO: 17/10/2017 Spinner del doctype
+                etPassword, etDocNumber, docType.getTipoDocumento());
         return loginCreateViewHelper.isValidData(factoryEditText);
     }
 
@@ -132,6 +134,18 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         docNumber = etDocNumber.getText().toString();
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
+        String docTypeSelected = spiDocType.getSelectedItem().toString();
+        docType = new TiposDocumento(getDocTypeId(docTypeSelected), docTypeSelected);
+    }
+
+    private int getDocTypeId(String docTypeSelected) {
+        int docTypeId = 1;
+        for (TiposDocumento tiposDocumento : tiposDocumentos){
+            if(tiposDocumento.getTipoDocumento().equalsIgnoreCase(docTypeSelected)){
+                docTypeId = tiposDocumento.getId();
+            }
+        }
+        return docTypeId;
     }
 
     @Override
@@ -148,9 +162,13 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
 
     @Override
     public void fillSpinner(String[] docTypes) {
-        this.docTypes = docTypes;
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_doctype_item,
                 docTypes);
         spiDocType.setAdapter(adapter);
+    }
+
+    @Override
+    public void setDocTypes(List<TiposDocumento> tiposDocumentos) {
+        this.tiposDocumentos = tiposDocumentos;
     }
 }

@@ -43,7 +43,7 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        callback.onError(e.getCause().getMessage());
+                        callback.onError(e.getMessage());
                     }
                 });
 

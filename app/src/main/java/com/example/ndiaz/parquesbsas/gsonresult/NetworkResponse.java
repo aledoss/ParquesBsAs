@@ -16,7 +16,7 @@ public class NetworkResponse<T> {
     @SerializedName("message")
     @Expose
     public String message;
-    @SerializedName("usuario")
+    @SerializedName("response")
     @Expose
     @Nullable
     public T response;
