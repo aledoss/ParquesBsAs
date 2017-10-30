@@ -24,7 +24,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(Usuario usuario) {
-        loginInteractor.login(usuario, new BaseCallback<NetworkResponse>() {
+        loginInteractor.login(usuario, new BaseCallback<NetworkResponse<List<TiposDocumento>>>() {
             @Override
             public void onSuccess(NetworkResponse<List<TiposDocumento>> response) {
                 if(response.getResponse() != null){
