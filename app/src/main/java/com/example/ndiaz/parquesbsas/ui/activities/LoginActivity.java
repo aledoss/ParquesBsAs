@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
                 e.printStackTrace();
             }
         }
-        Intent intent = new Intent(LoginActivity.this, MainHome.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         intent.putExtra(INICIARSESIONUSUARIO, (Serializable) usuario);
         startActivity(intent);
         finish();
@@ -187,7 +187,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         jsonReq.callGet(ALL_PARQUES_URL, this, new VolleyCallback() {
             @Override
             public void onSuccessResponse(JSONArray result) {
-                Log.d("MainHome", result.toString());
+                Log.d("HomeActivity", result.toString());
                 DBHelper db = new DBHelper(getApplicationContext());
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject jsonobject = null;
@@ -217,14 +217,14 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
             @Override
             public void onErrorResponse(String result) {
-                Log.d("MainHome", result);
+                Log.d("HomeActivity", result);
             }
         });*/
     }
 
     @Override
     public void navigateToHome() {
-        startActivity(new Intent(LoginActivity.this, MainHome.class));
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
         finish();
     }
 

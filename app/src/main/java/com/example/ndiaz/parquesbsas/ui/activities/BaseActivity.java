@@ -15,19 +15,19 @@ import android.view.WindowManager;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
+import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.network.RetrofitService;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
 
     protected T presenter;
     protected PreferencesRepository defaultPreferencesRepository;
     protected NetworkServiceImp networkServiceImp;
-    protected Unbinder unbinder;
+    protected RXDBInteractor rxdbInteractor;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         setupDefaultSettings();
         defaultPreferencesRepository = PreferencesRepository.getDefaultSharedPref(this);
         networkServiceImp = new NetworkServiceImp(new RetrofitService());
+        rxdbInteractor = new RXDBInteractor(this);
     }
 
     @Override
@@ -60,6 +61,18 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     protected abstract T createPresenter();
+
+    public PreferencesRepository getDefaultPreferencesRepository() {
+        return defaultPreferencesRepository;
+    }
+
+    public NetworkServiceImp getNetworkServiceImp() {
+        return networkServiceImp;
+    }
+
+    public RXDBInteractor getRxdbInteractor() {
+        return rxdbInteractor;
+    }
 
     @Override
     public void showMessage(View view, String message) {

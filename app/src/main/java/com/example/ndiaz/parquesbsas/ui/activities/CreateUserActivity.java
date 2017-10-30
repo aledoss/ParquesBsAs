@@ -91,7 +91,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         editor.putString(EMAILLOGINSAVED, email);
         editor.putString(PASSWORDLOGINSAVED, password);
         editor.commit();
-        Intent intent = new Intent(CreateUserActivity.this, MainHome.class);
+        Intent intent = new Intent(CreateUserActivity.this, HomeActivity.class);
         intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
         startActivity(intent);
         finish();*/
@@ -150,7 +150,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
 
     @Override
     public void navigateToHome() {
-        Intent intent = new Intent(CreateUserActivity.this, MainHome.class);
+        Intent intent = new Intent(CreateUserActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

@@ -22,6 +22,9 @@ public class Parque implements Serializable {
     private int hates;
     private String patioJuegos;
 
+    public Parque() {
+    }
+
     public int getId_parque() {
         return id_parque;
     }

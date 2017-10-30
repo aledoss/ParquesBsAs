@@ -22,7 +22,6 @@ public class CreateUserInteractor extends BaseInteractorImp
     private NetworkServiceImp networkServiceImp;
 
     public CreateUserInteractor(PreferencesRepository preferencesRepository, NetworkServiceImp networkServiceImp) {
-        super(preferencesRepository, networkServiceImp);
         this.preferencesRepository = preferencesRepository;
         this.networkServiceImp = networkServiceImp;
     }

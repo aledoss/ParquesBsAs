@@ -15,9 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,10 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.constants.Constants;
-import com.example.ndiaz.parquesbsas.database.DBHelper;
+import com.example.ndiaz.parquesbsas.contract.HomeContract;
+import com.example.ndiaz.parquesbsas.interactor.HomeInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.presenter.HomePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.DetallesParque;
 import com.example.ndiaz.parquesbsas.ui.activities.old.ListaParques;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamos;
@@ -42,50 +41,50 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.BindView;
+
+import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 import static com.example.ndiaz.parquesbsas.constants.LoginConstants.EMAILLOGINSAVED;
-import static com.example.ndiaz.parquesbsas.constants.LoginConstants.INICIARSESIONUSUARIO;
 import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LOGINPREFERENCES;
 import static com.example.ndiaz.parquesbsas.constants.LoginConstants.PASSWORDLOGINSAVED;
 
-public class MainHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback, GoogleMap.OnMarkerClickListener, Constants {
+public class HomeActivity extends BaseActivity<HomeContract.Presenter> implements HomeContract.View,
+        NavigationView.OnNavigationItemSelectedListener,
+        OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle toogle;
+    @BindView(R.id.toolbar_home)
+    Toolbar toolbar;
+    @BindView(R.id.main_activity_drawer_layout)
+    DrawerLayout drawerLayout;
     NavigationView navigationView;
+    @BindView(R.id.linear_layout_home)
+    LinearLayout lLContainer;
+
+    private TextView txtNombre, txtEmail;
+    private ImageView imgPerfilUsuario;
+    private ActionBarDrawerToggle toogle;
     private GoogleMap googleMap;
     private Usuario usuario;
-    TextView txtNombre, txtEmail;
-    private ImageView imgPerfilUsuario;
-    private LinearLayout linearLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_home);
-        usuario = obtenerDatosUsuario();
+        setContentView(R.layout.activity_home);
+        //usuario = obtenerDatosUsuario();
         setupUI();
     }
 
+    @Override
+    protected HomeContract.Presenter createPresenter() {
+        HomeContract.Interactor homeInteractor = new HomeInteractor(getNetworkServiceImp(),
+                getRxdbInteractor());
 
-    private Usuario obtenerDatosUsuario() {
-        try {
-            usuario = (Usuario) getIntent().getExtras().getSerializable(INICIARSESIONUSUARIO);
-            if (usuario == null) {
-                usuario = (Usuario) getIntent().getExtras().getSerializable(CREARCUENTAUSUARIO);
-            }
-            return usuario;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new HomePresenter(this, homeInteractor);
     }
 
     private void setupUI() {
-        linearLayout = (LinearLayout) findViewById(R.id.linear_layout_home);
         setupToolbar();
         setupDrawerLayout();
         setupNavigationHeader();
@@ -93,14 +92,12 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
     }
 
     private void setupDrawerLayout() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_layout);
         toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_closed) {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -157,7 +154,6 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         if (toogle.onOptionsItemSelected(item)) {
             return true;
         }
-        //int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
@@ -165,17 +161,17 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_menu_parques:
-                startActivity(new Intent(MainHome.this, ListaParques.class));
-                //startActivity(new Intent(MainHome.this, DetallesParque.class));
+                startActivity(new Intent(HomeActivity.this, ListaParques.class));
+                //startActivity(new Intent(HomeActivity.this, DetallesParque.class));
                 break;
             case R.id.nav_menu_perfil:
                 mostrarSnackbar();
                 break;
             case R.id.nav_menu_reclamos:
-                startActivity(new Intent(MainHome.this, ListaReclamos.class));
+                startActivity(new Intent(HomeActivity.this, ListaReclamos.class));
                 break;
             case R.id.nav_menu_settings:
-                startActivity(new Intent(MainHome.this, MySettings.class));
+                startActivity(new Intent(HomeActivity.this, MySettings.class));
                 break;
             case R.id.nav_menu_about_me:
                 mostrarDialogAboutMe();
@@ -193,14 +189,14 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void mostrarDialogAboutMe() {
-        AlertDialog dialog = new AlertDialog.Builder(MainHome.this).create();
+        AlertDialog dialog = new AlertDialog.Builder(HomeActivity.this).create();
         dialog.setTitle(getResources().getString(R.string.menu_about_me));
         dialog.setMessage(getResources().getString(R.string.about_me_text));
         dialog.show();
     }
 
     private void mostrarSnackbar() {
-        Snackbar.make(linearLayout, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(lLContainer, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_SHORT).show();
     }
 
     private void logout() {
@@ -214,15 +210,17 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
             e.printStackTrace();
         }
         finish();
-        startActivity(new Intent(MainHome.this, LoginActivity.class));
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
+        this.googleMap = googleMap;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
-        try {
-            DBHelper db = new DBHelper(MainHome.this);
+
+        /*try {
+            DBHelper db = new DBHelper(HomeActivity.this);
             ArrayList<Parque> listaParques = db.getAllParques();
             LatLng parqueLatLng;
             for (Parque parque : listaParques) {
@@ -242,7 +240,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
             googleMap.setOnMarkerClickListener(this);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -251,15 +249,56 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
          * Obtengo el index del marcador del mapa, lo comparo con el id del mapa que fue tocado
          * armo el alertdialog y si acepta, le abre los detalles del parque
          */
-        DBHelper db = new DBHelper(this);
+        presenter.doGetParque((int) marker.getZIndex());
+        /*DBHelper db = new DBHelper(this);
         final Parque parque = db.getParque((int) marker.getZIndex()); //obtengo el Parque mediante el zindex al tocar un marcador
         Log.d("MAPA", "nombre parque: " + parque.getNombre());
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainHome.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
         builder.setTitle(parque.getNombre())
                 .setMessage(getResources().getString(R.string.mas_informacion))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(MainHome.this, DetallesParque.class);
+                        Intent intent = new Intent(HomeActivity.this, DetallesParque.class);
+                        intent.putExtra(PARQUEDETALLES, (Serializable) parque);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();*/
+        return false;
+    }
+
+    @Override
+    public void loadParques(List<Parque> parques) {
+        LatLng parqueLatLng;
+        for (Parque parque : parques) {
+            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
+            Bitmap b = bitmapdraw.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
+            parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
+            googleMap.addMarker(new MarkerOptions()
+                    //.title(parque.getNombre())
+                    //.snippet(parque.getDescripcionCorta())
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                    .position(parqueLatLng)
+                    .zIndex(parque.getId())
+            );
+        }
+        googleMap.setOnMarkerClickListener(this);
+    }
+
+    @Override
+    public void showParquesDialog(final Parque parque) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+        builder.setTitle(parque.getNombre())
+                .setMessage(getResources().getString(R.string.mas_informacion))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(HomeActivity.this, DetallesParque.class);
                         intent.putExtra(PARQUEDETALLES, (Serializable) parque);
                         startActivity(intent);
                     }
@@ -270,7 +309,10 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        return false;
     }
 
+    @Override
+    public void showMessage(String message) {
+        showMessage(lLContainer, message);
+    }
 }

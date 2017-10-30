@@ -17,7 +17,7 @@ public class NetworkServiceImp {
         this.retrofitService = retrofitService;
     }
 
-    public Single<List<Parque>> getParque() {
+    public Single<List<Parque>> getParques() {
         return retrofitService
                 .getClient()
                 .getParques();

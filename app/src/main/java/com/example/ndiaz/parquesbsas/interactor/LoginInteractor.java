@@ -19,7 +19,6 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
     private NetworkServiceImp networkServiceImp;
 
     public LoginInteractor(PreferencesRepository preferencesRepository, NetworkServiceImp networkServiceImp) {
-        super(preferencesRepository, networkServiceImp);
         this.preferencesRepository = preferencesRepository;
         this.networkServiceImp = networkServiceImp;
     }

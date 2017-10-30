@@ -1,0 +1,77 @@
+package com.example.ndiaz.parquesbsas.interactor;
+
+import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.contract.HomeContract;
+import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
+
+import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+/**
+ * Created by nicolasd on 30/10/2017.
+ */
+
+public class HomeInteractor extends BaseInteractorImp implements HomeContract.Interactor {
+
+    private NetworkServiceImp networkServiceImp;
+    private RXDBInteractor rxdbInteractor;
+
+    public HomeInteractor(NetworkServiceImp networkServiceImp, RXDBInteractor rxdbInteractor) {
+        this.networkServiceImp = networkServiceImp;
+        this.rxdbInteractor = rxdbInteractor;
+    }
+
+    @Override
+    public void getParques(final BaseCallback<List<Parque>> callback) {
+        networkServiceImp
+                .getParques()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Parque>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<Parque> parques) {
+                        callback.onSuccess(parques);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        callback.onError(e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void getParque(int parqueId, final BaseCallback<Parque> callback) {
+        rxdbInteractor
+                .getParque(parqueId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Parque>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull Parque parque) {
+                        callback.onSuccess(parque);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        callback.onError(e.getMessage());
+                    }
+                });
+    }
+}
