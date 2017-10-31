@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.ui.activities;
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,6 +29,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected PreferencesRepository defaultPreferencesRepository;
     protected NetworkServiceImp networkServiceImp;
     protected RXDBInteractor rxdbInteractor;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         defaultPreferencesRepository = PreferencesRepository.getDefaultSharedPref(this);
         networkServiceImp = new NetworkServiceImp(new RetrofitService());
         rxdbInteractor = new RXDBInteractor(this);
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -72,6 +75,18 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public RXDBInteractor getRxdbInteractor() {
         return rxdbInteractor;
+    }
+
+    @Override
+    public void showProgressDialog(){
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog(){
+        if(progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
     }
 
     @Override

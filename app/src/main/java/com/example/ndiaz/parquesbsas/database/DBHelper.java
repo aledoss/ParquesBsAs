@@ -12,6 +12,7 @@ import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Lenwe on 13/10/2016.
@@ -31,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 PASSWORDUSUARIOCOLUMNA + " text )");
 
         db.execSQL("create table if not exists " + TABLEPARQUES + " (id integer primary key, " + NOMBREPARQUECOLUMNA + " text, " +
-                DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCIONPARQUECOLUMNA + " text, " + DIRECCIONPARQUECOLUMNA +  " text, " +
+                DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCIONPARQUECOLUMNA + " text, " + DIRECCIONPARQUECOLUMNA + " text, " +
                 IMAGENPARQUECOLUMNA + " text, " + LATITUDPARQUECOLUMNA + " text, " + LONGITUDPARQUECOLUMNA + " text, " +
                 BARRIOPARQUECOLUMNA + " text, " + COMUNAPARQUECOLUMNA + " text, " + LIKESPARQUECOLUMNA + " integer, " + HATESPARQUECOLUMNA +
                 " integer, " + PATIOJUEGOSPARQUECOLUMNA + " text )");
@@ -232,7 +233,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
         }
     }
 
-    public Parque getParque(int id){
+    public Parque getParque(int id) {
         String whereClause = "id = ?";
         String[] whereArgs = {String.valueOf(id)};
         SQLiteDatabase db = this.getReadableDatabase();
@@ -261,4 +262,29 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
     }
 
 
+    public Boolean insertarParques(List<Parque> parques) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            for (Parque parque : parques) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(NOMBREPARQUECOLUMNA, parque.getNombre());
+                contentValues.put(DESCRIPCIONCORTAPARQUECOLUMNA, parque.getDescripcionCorta());
+                contentValues.put(DESCRIPCIONPARQUECOLUMNA, parque.getDescripcion());
+                contentValues.put(DIRECCIONPARQUECOLUMNA, parque.getDireccion());
+                contentValues.put(IMAGENPARQUECOLUMNA, parque.getImagen());
+                contentValues.put(LATITUDPARQUECOLUMNA, parque.getLatitud());
+                contentValues.put(LONGITUDPARQUECOLUMNA, parque.getLongitud());
+                contentValues.put(BARRIOPARQUECOLUMNA, parque.getBarrio());
+                contentValues.put(COMUNAPARQUECOLUMNA, parque.getComuna());
+                contentValues.put(LIKESPARQUECOLUMNA, parque.getLikes());
+                contentValues.put(HATESPARQUECOLUMNA, parque.getHates());
+                contentValues.put(PATIOJUEGOSPARQUECOLUMNA, parque.getPatioJuegos());
+                db.insert(TABLEPARQUES, null, contentValues);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

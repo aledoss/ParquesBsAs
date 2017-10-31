@@ -1,5 +1,7 @@
 package com.example.ndiaz.parquesbsas.interactor;
 
+import android.util.Log;
+
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.HomeContract;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -19,6 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomeInteractor extends BaseInteractorImp implements HomeContract.Interactor {
 
+    private static final String TAG = HomeInteractor.class.getSimpleName();
     private NetworkServiceImp networkServiceImp;
     private RXDBInteractor rxdbInteractor;
 
@@ -29,6 +32,34 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
 
     @Override
     public void getParques(final BaseCallback<List<Parque>> callback) {
+        rxdbInteractor
+                .getParques()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Parque>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<Parque> parques) {
+                        if (parques == null || parques.isEmpty()) {
+                            getParquesFromNetwork(callback);
+                        }else{
+                            callback.onSuccess(parques);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        getParquesFromNetwork(callback);
+                        Log.e(TAG, "getParques, onError: " + e.getMessage());
+                    }
+                });
+    }
+
+    private void getParquesFromNetwork(final BaseCallback<List<Parque>> callback){
         networkServiceImp
                 .getParques()
                 .subscribeOn(Schedulers.io())
@@ -42,11 +73,13 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
                     @Override
                     public void onSuccess(@NonNull List<Parque> parques) {
                         callback.onSuccess(parques);
+                        rxdbInteractor.saveParques(parques);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         callback.onError(e.getMessage());
+                        Log.e(TAG, "getParquesFromNetwork, onError: " + e.getMessage());
                     }
                 });
     }

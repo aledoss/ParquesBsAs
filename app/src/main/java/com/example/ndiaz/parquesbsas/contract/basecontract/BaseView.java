@@ -8,4 +8,8 @@ public interface BaseView {
     void setFullscreenMode();
 
     void showMessage(View view, String message);
+
+    void showProgressDialog();
+
+    void hideProgressDialog();
 }

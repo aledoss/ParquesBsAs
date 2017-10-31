@@ -1,9 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,9 +44,6 @@ import java.util.List;
 import butterknife.BindView;
 
 import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
-import static com.example.ndiaz.parquesbsas.constants.LoginConstants.EMAILLOGINSAVED;
-import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LOGINPREFERENCES;
-import static com.example.ndiaz.parquesbsas.constants.LoginConstants.PASSWORDLOGINSAVED;
 
 public class HomeActivity extends BaseActivity<HomeContract.Presenter> implements HomeContract.View,
         NavigationView.OnNavigationItemSelectedListener,
@@ -67,6 +62,8 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     private ActionBarDrawerToggle toogle;
     private GoogleMap googleMap;
     private Usuario usuario;
+    private boolean canLoadParques;
+    private List<Parque> parques;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +71,8 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         setContentView(R.layout.activity_home);
         //usuario = obtenerDatosUsuario();
         setupUI();
+        canLoadParques = false;
+        presenter.doGetParques();
     }
 
     @Override
@@ -200,7 +199,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     }
 
     private void logout() {
-        try {
+        /*try {
             SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(EMAILLOGINSAVED, "");
@@ -208,17 +207,20 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
             editor.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         finish();
         startActivity(new Intent(HomeActivity.this, LoginActivity.class));
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        canLoadParques = true;
         LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
         this.googleMap = googleMap;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
-
+        if (parques != null) {
+            loadParques(parques);
+        }
         /*try {
             DBHelper db = new DBHelper(HomeActivity.this);
             ArrayList<Parque> listaParques = db.getAllParques();
@@ -274,21 +276,25 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
 
     @Override
     public void loadParques(List<Parque> parques) {
-        LatLng parqueLatLng;
-        for (Parque parque : parques) {
-            BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
-            Bitmap b = bitmapdraw.getBitmap();
-            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
-            parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
-            googleMap.addMarker(new MarkerOptions()
-                    //.title(parque.getNombre())
-                    //.snippet(parque.getDescripcionCorta())
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                    .position(parqueLatLng)
-                    .zIndex(parque.getId())
-            );
+        if(canLoadParques){
+            LatLng parqueLatLng;
+            for (Parque parque : parques) {
+                BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
+                Bitmap b = bitmapdraw.getBitmap();
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
+                parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
+                googleMap.addMarker(new MarkerOptions()
+                        //.title(parque.getNombre())
+                        //.snippet(parque.getDescripcionCorta())
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                        .position(parqueLatLng)
+                        .zIndex(parque.getId())
+                );
+            }
+            googleMap.setOnMarkerClickListener(this);
+            hideProgressDialog();
         }
-        googleMap.setOnMarkerClickListener(this);
+        this.parques = parques;
     }
 
     @Override

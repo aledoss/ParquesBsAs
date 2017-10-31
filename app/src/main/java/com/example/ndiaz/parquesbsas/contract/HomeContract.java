@@ -21,7 +21,7 @@ public interface HomeContract {
     }
 
     interface Presenter extends BasePresenter {
-        void doGetParques(List<Parque> parques);
+        void doGetParques();
         void doGetParque(int parqueId);
     }
 

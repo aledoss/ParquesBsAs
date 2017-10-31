@@ -21,7 +21,8 @@ public class HomePresenter extends BasePresenterImp implements HomeContract.Pres
     }
 
     @Override
-    public void doGetParques(List<Parque> parques) {
+    public void doGetParques() {
+        homeView.showProgressDialog();
         homeInteractor.getParques(new BaseCallback<List<Parque>>() {
             @Override
             public void onSuccess(List<Parque> parques) {
@@ -31,6 +32,7 @@ public class HomePresenter extends BasePresenterImp implements HomeContract.Pres
             @Override
             public void onError(String message) {
                 homeView.showMessage(message);
+                homeView.hideProgressDialog();
             }
         });
     }
