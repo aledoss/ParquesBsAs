@@ -1,6 +1,6 @@
 package com.example.ndiaz.parquesbsas.network;
 
-import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
@@ -17,7 +17,7 @@ public class NetworkServiceImp {
         this.retrofitService = retrofitService;
     }
 
-    public Single<List<Parque>> getParques() {
+    public Single<NetworkResponse<List<Parque>>> getParques() {
         return retrofitService
                 .getClient()
                 .getParques();

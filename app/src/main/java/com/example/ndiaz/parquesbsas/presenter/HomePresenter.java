@@ -26,7 +26,7 @@ public class HomePresenter extends BasePresenterImp implements HomeContract.Pres
         homeInteractor.getParques(new BaseCallback<List<Parque>>() {
             @Override
             public void onSuccess(List<Parque> parques) {
-                homeView.loadParques(parques);
+                //homeView.loadParques(parques);
             }
 
             @Override

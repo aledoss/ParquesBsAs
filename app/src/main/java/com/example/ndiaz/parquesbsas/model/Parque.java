@@ -1,5 +1,9 @@
 package com.example.ndiaz.parquesbsas.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.io.Serializable;
 
 /**
@@ -7,29 +11,43 @@ import java.io.Serializable;
  */
 
 public class Parque implements Serializable {
-    private int id;
-    private int id_parque;
+    private Integer id;
+    @JsonProperty("id_parque")
+    private Integer id_parque;
+    @JsonProperty("comuna")
+    private String comuna;
+    @JsonProperty("barrio")
+    private String barrio;
+    @JsonProperty("nombre")
     private String nombre;
     private String descripcionCorta;
+    @JsonProperty("descripcion")
     private String descripcion;
+    @JsonProperty("direccion")
     private String direccion;
+    @JsonProperty("imagen")
     private String imagen;
-    private String comuna;
-    private String barrio;
+    @JsonProperty("latitud")
     private String latitud;
+    @JsonProperty("longitud")
     private String longitud;
+    @JsonProperty("likes")
     private int likes;
+    @JsonProperty("hates")
     private int hates;
+    @JsonProperty("patio_juegos")
     private String patioJuegos;
+    @JsonProperty("wifi")
+    private Boolean hasWifi;
 
     public Parque() {
     }
 
-    public int getId_parque() {
+    public Integer getId_parque() {
         return id_parque;
     }
 
-    public void setId_parque(int id_parque) {
+    public void setId_parque(Integer id_parque) {
         this.id_parque = id_parque;
     }
 
@@ -41,11 +59,11 @@ public class Parque implements Serializable {
         this.longitud = longitud;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -135,5 +153,23 @@ public class Parque implements Serializable {
 
     public void setPatioJuegos(String patioJuegos) {
         this.patioJuegos = patioJuegos;
+    }
+
+    @JsonSetter("wifi")
+    public void setJsonHasWifi(String wifi) {
+        hasWifi = wifi.equals("1");
+    }
+
+    @JsonGetter("wifi")
+    public String getJsonHasWifi() {
+        return (hasWifi) ? "1" : "0";
+    }
+
+    public Boolean getHasWifi() {
+        return hasWifi;
+    }
+
+    public void setHasWifi(Boolean hasWifi) {
+        this.hasWifi = hasWifi;
     }
 }

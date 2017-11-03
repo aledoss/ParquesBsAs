@@ -4,7 +4,7 @@ import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
-import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 

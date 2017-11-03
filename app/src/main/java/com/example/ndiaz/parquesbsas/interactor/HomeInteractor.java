@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.HomeContract;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
@@ -46,7 +47,7 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
                     public void onSuccess(@NonNull List<Parque> parques) {
                         if (parques == null || parques.isEmpty()) {
                             getParquesFromNetwork(callback);
-                        }else{
+                        } else {
                             callback.onSuccess(parques);
                         }
                     }
@@ -59,21 +60,22 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
                 });
     }
 
-    private void getParquesFromNetwork(final BaseCallback<List<Parque>> callback){
+    private void getParquesFromNetwork(final BaseCallback<List<Parque>> callback) {
         networkServiceImp
                 .getParques()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Parque>>() {
+                .subscribe(new SingleObserver<NetworkResponse<List<Parque>>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<Parque> parques) {
-                        callback.onSuccess(parques);
-                        rxdbInteractor.saveParques(parques);
+                    public void onSuccess(@NonNull NetworkResponse<List<Parque>> parques) {
+                        callback.onSuccess(parques.getResponse());
+                        //rxdbInteractor.saveParques(parques.getResponse()); // TODO: 03/11/2017 Activar para que almacene los parques en la db
+                        Log.i(TAG, "onSuccess: " + parques.getMessage());
                     }
 
                     @Override

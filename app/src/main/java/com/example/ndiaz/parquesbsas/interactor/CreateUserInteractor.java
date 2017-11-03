@@ -2,7 +2,7 @@ package com.example.ndiaz.parquesbsas.interactor;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
-import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;

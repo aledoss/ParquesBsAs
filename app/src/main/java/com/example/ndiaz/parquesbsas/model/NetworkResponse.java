@@ -1,23 +1,16 @@
-package com.example.ndiaz.parquesbsas.gsonresult;
+package com.example.ndiaz.parquesbsas.model;
 
 import android.support.annotation.Nullable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-/**
- * Created by Lenwe on 23/10/2017.
- */
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NetworkResponse<T> {
-    @SerializedName("status")
-    @Expose
+
+    @JsonProperty("status")
     public Integer status;
-    @SerializedName("message")
-    @Expose
+    @JsonProperty("message")
     public String message;
-    @SerializedName("response")
-    @Expose
+    @JsonProperty("response")
     @Nullable
     public T response;
 

@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
-import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
@@ -38,7 +38,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onError(String message) {
                 loginView.showLoginError(message);
-                Log.d(TAG, "onError: " + message);
+                Log.e(TAG, "doLogin onError: " + message);
             }
         });
     }

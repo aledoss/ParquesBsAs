@@ -1,6 +1,6 @@
 package com.example.ndiaz.parquesbsas.network;
 
-import com.example.ndiaz.parquesbsas.gsonresult.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
@@ -14,8 +14,8 @@ import retrofit2.http.POST;
 
 public interface RetrofitApi {
 
-    @GET("/getTodos")
-    Single<List<Parque>> getParques();
+    @GET("parquesapi/getParques")
+    Single<NetworkResponse<List<Parque>>> getParques();
 
     @GET("parquesapi/getDocTypes")
     Single<NetworkResponse<List<TiposDocumento>>> getDocTypes();

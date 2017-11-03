@@ -1,7 +1,6 @@
 package com.example.ndiaz.parquesbsas.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by Lenwe on 26/10/2017.
@@ -9,11 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class TiposDocumento {
 
-    @SerializedName("id_tipo_documento")
-    @Expose
+    @JsonProperty("id_tipo_documento")
     private int id;
-    @SerializedName("descripcion")
-    @Expose
+    @JsonProperty("descripcion")
     private String tipoDocumento;
 
     public TiposDocumento() {

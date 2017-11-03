@@ -1,35 +1,26 @@
 package com.example.ndiaz.parquesbsas.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
-    @SerializedName("id_usuario")
-    @Expose
+    @JsonProperty("id_usuario")
     private Integer id;
-    @SerializedName("nombre")
-    @Expose
+    @JsonProperty("nombre")
     private String nombre;
-    @SerializedName("apellido")
-    @Expose
+    @JsonProperty("apellido")
     private String apellido;
-    @SerializedName("numero_documento")
-    @Expose
+    @JsonProperty("numero_documento")
     private String numeroDoc;
-    @SerializedName("tipo_doc")
-    @Expose
+    @JsonProperty("tipo_doc")
     public String tipoDoc;
-    @SerializedName("id_tipo_documento")
-    @Expose
+    @JsonProperty("id_tipo_documento")
     private int idTipoDoc;
-    @SerializedName("email")
-    @Expose
+    @JsonProperty("email")
     private String email;
-    @SerializedName("contrasenia")
-    @Expose
+    @JsonProperty("contrasenia")
     private String password;
 
     public Usuario() {
