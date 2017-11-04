@@ -35,36 +35,34 @@ public interface Constants {
     };
 
     ////Parques
-    String TABLEPARQUES = "Parques";
+    String TABLE_PARQUES = "Parques";
     String IDPARQUECOLUMNA = "Id_Parque";
-    String NOMBREPARQUECOLUMNA = "Nombre";
+    String NOMBRE_PARQUE = "Nombre";
     String DESCRIPCIONCORTAPARQUECOLUMNA = "Descripcion_Corta";
-    String DESCRIPCIONPARQUECOLUMNA = "Descripcion";
-    String DIRECCIONPARQUECOLUMNA = "Direccion";
-    String IMAGENPARQUECOLUMNA = "Imagen";
-    String LATITUDPARQUECOLUMNA = "Latitud";
-    String LONGITUDPARQUECOLUMNA = "Longitud";
-    String BARRIOPARQUECOLUMNA = "Barrio";
-    String COMUNAPARQUECOLUMNA = "Comuna";
-    String LIKESPARQUECOLUMNA = "Likes";
-    String HATESPARQUECOLUMNA = "Hates";
-    String PATIOJUEGOSPARQUECOLUMNA = "Patio_Juegos";
+    String DESCRIPCION_PARQUE = "Descripcion";
+    String DIRECCION_PARQUE = "Direccion";
+    String IMAGEN_PARQUE = "Imagen";
+    String LATITUD_PARQUE = "Latitud";
+    String LONGITUD_PARQUE = "Longitud";
+    String BARRIO_PARQUE = "Barrio";
+    String COMUNA_PARQUE = "Comuna";
+    String PATIO_JUEGOS_PARQUE = "Patio_Juegos";
+    String WIFI_PARQUE = "WiFi";
     String ALL_COLUMNS_PARQUES[] = {
-            "id", NOMBREPARQUECOLUMNA, DESCRIPCIONCORTAPARQUECOLUMNA, DESCRIPCIONPARQUECOLUMNA, DIRECCIONPARQUECOLUMNA, IMAGENPARQUECOLUMNA,
-            LATITUDPARQUECOLUMNA, LONGITUDPARQUECOLUMNA, BARRIOPARQUECOLUMNA, COMUNAPARQUECOLUMNA, LIKESPARQUECOLUMNA ,
-            HATESPARQUECOLUMNA, PATIOJUEGOSPARQUECOLUMNA
+            "id", NOMBRE_PARQUE, DESCRIPCIONCORTAPARQUECOLUMNA, DESCRIPCION_PARQUE, DIRECCION_PARQUE, IMAGEN_PARQUE,
+            LATITUD_PARQUE, LONGITUD_PARQUE, BARRIO_PARQUE, COMUNA_PARQUE, PATIO_JUEGOS_PARQUE
     };
 
     ////Reclamos
-    String TABLERECLAMOS = "Reclamos";
+    String TABLE_RECLAMOS = "Reclamos";
     String IDRECLAMOCOLUMNA = "Id_Reclamo";
-    String NOMBRERECLAMOCOLUMNA = "Nombre";
-    String NOMBRERECLAMOPQECOLUMNA = "Nombre_Parque";
-    String COMENTARIORECLAMOCOLUMNA = "Comentarios";
-    String FECHACREACIONRECLAMOCOLUMNA = "Fecha_Creacion";
-    String LATITUDRECLAMOCOLUMNA = "Latitud";
-    String LONGITUDRECLAMOCOLUMNA = "Longitud";
-    String IMAGENRECLAMOCOLUMNA = "Imagen";
+    String NOMBRE_RECLAMO = "Nombre";
+    String NOMBRE_RECLAMO_PQE = "Nombre_Parque";
+    String COMENTARIO_RECLAMO = "Comentarios";
+    String FECHA_CREACION_RECLAMO = "Fecha_Creacion";
+    String LATITUD_RECLAMO = "Latitud";
+    String LONGITUD_RECLAMO = "Longitud";
+    String IMAGEN_RECLAMO = "Imagen";
 
     String IMAGENBYTES = "ImagenBytes";
     String LASTLOCATIONLATITUD = "LastLocationLatitud";

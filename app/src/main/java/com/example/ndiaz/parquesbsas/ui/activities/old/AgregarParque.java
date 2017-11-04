@@ -10,9 +10,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.constants.Constants;
 
 public class AgregarParque extends AppCompatActivity implements Constants {
 
@@ -45,12 +45,12 @@ public class AgregarParque extends AppCompatActivity implements Constants {
         DBHelper db = new DBHelper(this);
         Parque parque = new Parque();
         parque.setNombre(nombre);
-        parque.setDescripcionCorta(descCorta);
+        //parque.setDescripcionCorta(descCorta);
         parque.setDescripcion(desc);
         parque.setLatitud(latitud);
         parque.setLongitud(longitud);
         parque.setImagen("http://caballitotequiero.com.ar/portal/wp-content/uploads/2016/06/3-8.jpg");  //imagen por defecto
-        db.insertarParque(parque);
+        //db.insertarParque(parque);
         db.close();
         return parque;
     }

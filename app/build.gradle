@@ -36,8 +36,10 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:$PLAY_SERVICES_VERSION"
     compile "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
 
+    //Otros
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.facebook.stetho:stetho:1.5.0'
 
     //Butterknife
     compile "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"

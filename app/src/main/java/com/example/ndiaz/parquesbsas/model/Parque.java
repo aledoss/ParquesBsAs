@@ -11,7 +11,6 @@ import java.io.Serializable;
  */
 
 public class Parque implements Serializable {
-    private Integer id;
     @JsonProperty("id_parque")
     private Integer id_parque;
     @JsonProperty("comuna")
@@ -36,7 +35,7 @@ public class Parque implements Serializable {
     @JsonProperty("hates")
     private Integer hates;
     @JsonProperty("patio_juegos")
-    private String patioJuegos;
+    private Boolean hasPatioJuegos;
     @JsonProperty("wifi")
     private Boolean hasWifi;
 
@@ -57,14 +56,6 @@ public class Parque implements Serializable {
 
     public void setLongitud(String longitud) {
         this.longitud = longitud;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -143,12 +134,22 @@ public class Parque implements Serializable {
         this.hates = hates;
     }
 
-    public String getPatioJuegos() {
-        return patioJuegos;
+    public Boolean getHasPatioJuegos() {
+        return hasPatioJuegos;
     }
 
-    public void setPatioJuegos(String patioJuegos) {
-        this.patioJuegos = patioJuegos;
+    public void setHasPatioJuegos(Boolean hasPatioJuegos) {
+        this.hasPatioJuegos = hasPatioJuegos;
+    }
+
+    @JsonSetter("patio_juegos")
+    public void setJsonHasPatioJuegos(String hasPatioJuegos) {
+        this.hasPatioJuegos = hasPatioJuegos.equals("1");
+    }
+
+    @JsonGetter("patio_juegos")
+    public String getJsonHasPatioJuegos() {
+        return (hasPatioJuegos) ? "1" : "0";
     }
 
     @JsonSetter("wifi")

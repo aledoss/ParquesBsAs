@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas;
 import android.app.Application;
 
 import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.facebook.stetho.Stetho;
 
 public class ParquesApplication extends Application{
 
@@ -13,6 +14,9 @@ public class ParquesApplication extends Application{
     public void onCreate() {
         super.onCreate();
         instance = this;
+        if(BuildConfig.DEBUG){
+            Stetho.initializeWithDefaults(this);
+        }
     }
 
     public static ParquesApplication getInstance() {

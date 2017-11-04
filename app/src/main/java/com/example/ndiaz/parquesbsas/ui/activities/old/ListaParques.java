@@ -12,10 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.ui.adapters.AdapterListaParques;
-import com.example.ndiaz.parquesbsas.constants.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class ListaParques extends AppCompatActivity implements Constants {
         DBHelper db = new DBHelper(this);
         final ArrayList<Parque> listaParques = db.getAllParques();
         try {
-            Log.d("ListaParques", "parque: ID: " + listaParques.get(0).getId() + " nombre " + listaParques.get(0).getNombre() +
+            Log.d("ListaParques", "parque: ID: " + listaParques.get(0).getId_parque() + " nombre " + listaParques.get(0).getNombre() +
                     " desc corta " + listaParques.get(0).getDescripcionCorta());
         } catch (Exception e) {
             e.printStackTrace();

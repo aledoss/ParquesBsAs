@@ -74,7 +74,7 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
                     @Override
                     public void onSuccess(@NonNull NetworkResponse<List<Parque>> parques) {
                         callback.onSuccess(parques.getResponse());
-                        //rxdbInteractor.saveParques(parques.getResponse()); // TODO: 03/11/2017 Activar para que almacene los parques en la db
+                        rxdbInteractor.saveParques(parques.getResponse());
                         Log.i(TAG, "onSuccess: " + parques.getMessage());
                     }
 

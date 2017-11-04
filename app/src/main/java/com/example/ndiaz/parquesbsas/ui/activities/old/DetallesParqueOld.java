@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.squareup.picasso.Picasso;
 
 public class DetallesParqueOld extends AppCompatActivity implements Constants, View.OnClickListener {
@@ -119,7 +119,7 @@ public class DetallesParqueOld extends AppCompatActivity implements Constants, V
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 DBHelper db = new DBHelper(DetallesParqueOld.this);
-                db.deleteParque(parque);
+                //db.deleteParque(parque);
                 db.close();
                 finish();
             }
@@ -140,7 +140,7 @@ public class DetallesParqueOld extends AppCompatActivity implements Constants, V
                 DBHelper db = new DBHelper(DetallesParqueOld.this);
                 parque.setDescripcion(etDesc.getText().toString());
                 txtDesc.setText(parque.getDescripcion());
-                db.updateParque(parque);
+                //db.updateParque(parque);
                 btnCancelar.performClick();
                 Toast.makeText(this, "Modificado", Toast.LENGTH_SHORT).show();
                 break;
