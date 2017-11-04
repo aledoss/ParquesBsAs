@@ -71,22 +71,6 @@ public interface Constants {
     String LASTLOCATIONLONGITUD = "LastLocationLongitud";
     String RECLAMODETALLES = "ReclamoDetalles";
 
-    //JSONREQUEST
-    ////Parques
-    String ID_PARQUE = "id_parque";
-    String NOMBRE_PARQUE = "nombre";
-    String DESC_CORTA_PARQUE = "desc_corta";
-    String DESC_LARGA_PARQUE = "desc_larga";
-    String DIRECCION_PARQUE = "direccion";
-    String IMG_PARQUE = "img";
-    String COMUNA_PARQUE = "comuna";
-    String BARRIO_PARQUE = "barrio";
-    String LATITUD_PARQUE = "latitud";
-    String LONGITUD_PARQUE = "longitud";
-    String LIKES_PARQUE = "likes";
-    String HATES_PARQUE = "hates";
-    String PATIO_JUEGOS_PARQUE = "patio_juegos";
-
     //Settings
     String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 

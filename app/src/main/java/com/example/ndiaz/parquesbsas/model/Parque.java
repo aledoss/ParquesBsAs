@@ -32,9 +32,9 @@ public class Parque implements Serializable {
     @JsonProperty("longitud")
     private String longitud;
     @JsonProperty("likes")
-    private int likes;
+    private Integer likes;
     @JsonProperty("hates")
-    private int hates;
+    private Integer hates;
     @JsonProperty("patio_juegos")
     private String patioJuegos;
     @JsonProperty("wifi")
@@ -76,11 +76,7 @@ public class Parque implements Serializable {
     }
 
     public String getDescripcionCorta() {
-        return descripcionCorta;
-    }
-
-    public void setDescripcionCorta(String descripcionCorta) {
-        this.descripcionCorta = descripcionCorta;
+        return "Ubicado en el barrio de " + getBarrio();
     }
 
     public String getDescripcion() {
@@ -131,19 +127,19 @@ public class Parque implements Serializable {
         this.direccion = direccion;
     }
 
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
-    public int getHates() {
+    public Integer getHates() {
         return hates;
     }
 
-    public void setHates(int hates) {
+    public void setHates(Integer hates) {
         this.hates = hates;
     }
 

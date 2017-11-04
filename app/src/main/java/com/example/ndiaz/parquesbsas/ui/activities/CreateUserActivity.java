@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
-import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.LoginCreateViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.CreateUserInteractor;
@@ -95,37 +94,6 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
         startActivity(intent);
         finish();*/
-    }
-
-    //Esto vendría del servidor
-    private boolean cuentaDuplicada() {
-        boolean cuentaDuplicada;
-        DBHelper db = new DBHelper(this);
-        Usuario usuario = db.getUsuario(email, password);
-        if (usuario == null) {
-            db.close();
-            cuentaDuplicada = false;
-        } else {
-            db.close();
-            cuentaDuplicada = true;
-        }
-        return cuentaDuplicada;
-    }
-
-    // Lo maneja el servidor
-    private Usuario crearCuenta() {
-        DBHelper db = new DBHelper(this);
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setNumeroDoc(docNumber);
-        usuario.setEmail(email);
-        usuario.setPassword(password);
-
-        db.insertarUsuario(usuario);
-        db.close();
-
-        return usuario;
     }
 
     private void getFieldsData() {
