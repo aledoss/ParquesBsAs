@@ -53,7 +53,7 @@ public class ListaParques extends AppCompatActivity implements Constants {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Parque parque = listaParques.get(position);
-                Intent intent = new Intent(ListaParques.this, DetallesParqueOld.class);
+                Intent intent = new Intent();
                 intent.putExtra(PARQUEDETALLES, (Serializable) parque);
                 startActivity(intent);
             }
@@ -82,7 +82,7 @@ public class ListaParques extends AppCompatActivity implements Constants {
                 finish();
                 break;
             case R.id.agregar_parque_menu:
-                startActivity(new Intent(ListaParques.this, AgregarParque.class));
+                startActivity(new Intent());
                 break;
         }
         return super.onOptionsItemSelected(item);
