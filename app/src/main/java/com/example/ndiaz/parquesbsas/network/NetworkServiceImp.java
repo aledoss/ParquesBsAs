@@ -23,6 +23,12 @@ public class NetworkServiceImp {
                 .getParques();
     }
 
+    public Single<NetworkResponse<Parque>> getParque(int idParque) {
+        return retrofitService
+                .getClient()
+                .getParque(idParque);
+    }
+
     public Single<NetworkResponse<Usuario>> getUser(Usuario usuario){
         return retrofitService
                 .getClient()

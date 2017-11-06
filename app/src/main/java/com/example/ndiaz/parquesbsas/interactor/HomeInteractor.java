@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.interactor;
 import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.HomeContract;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -15,10 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
-/**
- * Created by nicolasd on 30/10/2017.
- */
 
 public class HomeInteractor extends BaseInteractorImp implements HomeContract.Interactor {
 
@@ -75,7 +72,7 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
                     public void onSuccess(@NonNull NetworkResponse<List<Parque>> parques) {
                         callback.onSuccess(parques.getResponse());
                         rxdbInteractor.saveParques(parques.getResponse());
-                        Log.i(TAG, "onSuccess: " + parques.getMessage());
+                        Log.i(TAG, "getParquesFromNetwork: " + parques.getMessage());
                     }
 
                     @Override
@@ -87,25 +84,33 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
     }
 
     @Override
-    public void getParque(int parqueId, final BaseCallback<Parque> callback) {
-        rxdbInteractor
+    public void getParqueNetwork(int parqueId, final BaseCallback<Parque> callback) {
+        networkServiceImp
                 .getParque(parqueId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Parque>() {
+                .subscribe(new SingleObserver<NetworkResponse<Parque>>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(@NonNull Parque parque) {
-                        callback.onSuccess(parque);
+                    public void onSuccess(NetworkResponse<Parque> parqueNetworkResponse) {
+                        String message = parqueNetworkResponse.getMessage();
+                        if (parqueNetworkResponse.status == HTTPConstants.STATUS_OK) {
+                            callback.onSuccess(parqueNetworkResponse.getResponse());
+                            Log.i(TAG, "getParqueNetwork: " + message);
+                        } else {
+                            callback.onError(message);
+                            Log.e(TAG, "getParqueNetwork: " + message);
+                        }
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(Throwable e) {
                         callback.onError(e.getMessage());
+                        Log.e(TAG, "getParqueNetwork, onError: " + e.getMessage());
                     }
                 });
     }

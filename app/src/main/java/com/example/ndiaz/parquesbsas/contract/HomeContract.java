@@ -8,10 +8,6 @@ import com.example.ndiaz.parquesbsas.model.Parque;
 
 import java.util.List;
 
-/**
- * Created by nicolasd on 30/10/2017.
- */
-
 public interface HomeContract {
 
     interface View extends BaseView {
@@ -22,12 +18,12 @@ public interface HomeContract {
 
     interface Presenter extends BasePresenter {
         void doGetParques();
-        void doGetParque(int parqueId);
+        void doGetParqueFromNetw(int parqueId);
     }
 
     interface Interactor extends BaseInteractor {
         void getParques(BaseCallback<List<Parque>> callback);
-        void getParque(int parqueId, BaseCallback<Parque> callback);
+        void getParqueNetwork(int parqueId, BaseCallback<Parque> callback);
     }
 
 }

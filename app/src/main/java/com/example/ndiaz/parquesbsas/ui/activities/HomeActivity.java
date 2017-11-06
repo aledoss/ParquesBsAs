@@ -221,56 +221,11 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         if (parques != null) {
             loadParques(parques);
         }
-        /*try {
-            DBHelper db = new DBHelper(HomeActivity.this);
-            ArrayList<Parque> listaParques = db.getAllParques();
-            LatLng parqueLatLng;
-            for (Parque parque : listaParques) {
-                BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
-                Bitmap b = bitmapdraw.getBitmap();
-                Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
-                parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
-                googleMap.addMarker(new MarkerOptions()
-                        //.title(parque.getNombre())
-                        //.snippet(parque.getDescripcionCorta())
-                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                        .position(parqueLatLng)
-                        .zIndex(parque.getId())
-                );
-            }
-            db.close();
-            googleMap.setOnMarkerClickListener(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        /**
-         * Obtengo el index del marcador del mapa, lo comparo con el id del mapa que fue tocado
-         * armo el alertdialog y si acepta, le abre los detalles del parque
-         */
-        presenter.doGetParque((int) marker.getZIndex());
-        /*DBHelper db = new DBHelper(this);
-        final Parque parque = db.getParque((int) marker.getZIndex()); //obtengo el Parque mediante el zindex al tocar un marcador
-        Log.d("MAPA", "nombre parque: " + parque.getNombre());
-        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-        builder.setTitle(parque.getNombre())
-                .setMessage(getResources().getString(R.string.mas_informacion))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(HomeActivity.this, DetallesParque.class);
-                        intent.putExtra(PARQUEDETALLES, (Serializable) parque);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();*/
+        presenter.doGetParqueFromNetw((int) marker.getZIndex());
         return false;
     }
 
@@ -313,8 +268,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        builder.create().show();
     }
 
     @Override

@@ -11,11 +11,15 @@ import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface RetrofitApi {
 
     @GET("parquesapi/getParques")
     Single<NetworkResponse<List<Parque>>> getParques();
+
+    @GET("parquesapi/getParque/{id}")
+    Single<NetworkResponse<Parque>> getParque(@Path("id") int idParque);
 
     @GET("parquesapi/getDocTypes")
     Single<NetworkResponse<List<TiposDocumento>>> getDocTypes();

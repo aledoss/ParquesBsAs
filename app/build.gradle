@@ -23,7 +23,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     final SUPPORT_LIBRARY_VERSION = '25.4.0'
-    final PLAY_SERVICES_VERSION = '11.4.2'
+    final PLAY_SERVICES_VERSION = '10.0.+'
     final OK_HTTP_VERSION = '3.4.1'
     final RETROFIT_VERSION = '2.3.0'
     final BUTTERKNIFE_VERSION = '8.8.1'
