@@ -19,6 +19,10 @@ public class BaseInteractorImp implements BaseInteractor {
         initializeCompositeDisposable();
     }
 
+    public BaseInteractorImp(NetworkServiceImp networkServiceImp) {
+        this.networkServiceImp = networkServiceImp;
+    }
+
     public BaseInteractorImp(DBHelper dbHelper, NetworkServiceImp networkServiceImp) {
         initializeCompositeDisposable();
         this.dbHelper = dbHelper;

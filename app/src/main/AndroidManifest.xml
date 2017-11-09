@@ -68,7 +68,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name=".ui.activities.info_parques.DetallesParque">
+        <activity android:name=".ui.activities.info_parques.ParqueActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

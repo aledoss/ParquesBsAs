@@ -2,18 +2,21 @@ package com.example.ndiaz.parquesbsas.ui.activities.info_parques;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamo;
+import com.example.ndiaz.parquesbsas.contract.ParqueContract;
+import com.example.ndiaz.parquesbsas.interactor.ParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.helpers.async_tasks.XMLParserEcoBici;
+import com.example.ndiaz.parquesbsas.model.ParqueComponentes;
+import com.example.ndiaz.parquesbsas.presenter.ParquePresenter;
+import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
+import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamo;
 import com.squareup.picasso.Picasso;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -21,6 +24,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,33 +32,35 @@ import butterknife.ButterKnife;
 import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENES_PARQUES_URL;
 import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 
-public class DetallesParque extends AppCompatActivity implements View.OnClickListener {
+public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> implements ParqueContract.View {
 
-    @BindView(R.id.btn_desc_general_parque_detalle)
-    Button btnDescGral;
-    @BindView(R.id.btn_actividad_parque_detalle)
-    Button btnActividad;
-    @BindView(R.id.btn_feria_parque_detalle)
-    Button btnFeria;
-    @BindView(R.id.btn_eco_bici_parque_detalle)
-    Button btnEcobici;
-    @BindView(R.id.btn_est_saludable_parque_detalle)
-    Button btnEstSaludableº;
+    protected XmlPullParserFactory xmlPullParserFactory;
+    protected XmlPullParser parser;
+    @BindView(R.id.llContainer)
+    LinearLayout llContainer;
     @BindView(R.id.toolbar_parque_detalles)
     Toolbar toolbar;
     @BindView(R.id.img_detalle_parque)
     ImageView imgParque;
-    protected XmlPullParserFactory xmlPullParserFactory;
-    protected XmlPullParser parser;
-    Parque parque;
+    @BindView(R.id.rvParqueComponentes)
+    RecyclerView rvParqueComponentes;
+    private Parque parque;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalles_parque);
-        setupXMLParser();
+        setContentView(R.layout.activity_parque);
+        //setupXMLParser();
         obtenerDatosParque();
         setupUI();
+        presenter.doGetParqueComponents();
+    }
+
+    @Override
+    protected ParqueContract.Presenter createPresenter() {
+        ParqueContract.Interactor parqueInteractor = new ParqueInteractor(getNetworkServiceImp());
+
+        return new ParquePresenter(this, parqueInteractor);
     }
 
     private void setupXMLParser() {
@@ -71,7 +77,6 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
         ButterKnife.bind(this);
         setupToolbar();
         cargarImagen();
-        btnEcobici.setOnClickListener(this);
     }
 
     private void setupToolbar() {
@@ -94,19 +99,9 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
 
     private void obtenerDatosParque() {
         try {
-                parque = (Parque) getIntent().getExtras().getSerializable(PARQUEDETALLES);
+            parque = (Parque) getIntent().getExtras().getSerializable(PARQUEDETALLES);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_eco_bici_parque_detalle:
-                //llamo al asynctask para obtener el xml (parsearlo), y mostrar en un dialog los datos de la ecobici
-                XMLParserEcoBici xmlParserEcoBici = new XMLParserEcoBici(parser, DetallesParque.this, parque.getNombre());
-                break;
         }
     }
 
@@ -121,7 +116,7 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
         int id = item.getItemId();
         switch (id) {
             case R.id.agregar_reclamo_menu:
-                Intent intent = new Intent(DetallesParque.this, AgregarReclamo.class);
+                Intent intent = new Intent(ParqueActivity.this, AgregarReclamo.class);
                 intent.putExtra(PARQUEDETALLES, (Serializable) parque);
                 startActivity(intent);
                 break;
@@ -130,5 +125,15 @@ public class DetallesParque extends AppCompatActivity implements View.OnClickLis
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showParqueComponents(List<ParqueComponentes> componentes) {
+        // TODO: 09/11/2017 Llenar el recyclerview
+    }
+
+    @Override
+    public void showMessage(String message) {
+        showMessage(llContainer, message);
     }
 }
