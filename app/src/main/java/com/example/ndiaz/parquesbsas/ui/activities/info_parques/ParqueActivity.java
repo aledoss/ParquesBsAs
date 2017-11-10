@@ -57,7 +57,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
         //setupXMLParser();
         obtenerDatosParque();
         setupUI();
-        presenter.doGetParqueComponents();
+        presenter.doGetParqueComponents(parque.getId_parque());
     }
 
     @Override

@@ -17,11 +17,11 @@ public interface ParqueContract {
     }
 
     interface Presenter extends BasePresenter {
-        void doGetParqueComponents();
+        void doGetParqueComponents(int idParque);
     }
 
     interface Interactor extends BaseInteractor {
-        void getParqueComponents(BaseCallback<List<ParqueComponente>> callback);
+        void getParqueComponents(int idParque, BaseCallback<List<ParqueComponente>> callback);
     }
 
 }

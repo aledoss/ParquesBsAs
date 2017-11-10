@@ -20,9 +20,9 @@ public class ParquePresenter extends BasePresenterImp implements ParqueContract.
         this.parqueInteractor = parqueInteractor;
     }
 
-    public void doGetParqueComponents() {
+    public void doGetParqueComponents(int idParque) {
         parqueInteractor
-                .getParqueComponents(new BaseCallback<List<ParqueComponente>>() {
+                .getParqueComponents(idParque, new BaseCallback<List<ParqueComponente>>() {
                     @Override
                     public void onSuccess(List<ParqueComponente> componentes) {
                         parqueView.get().showParqueComponents(componentes);
