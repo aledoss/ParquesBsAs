@@ -6,17 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
+import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 import com.example.ndiaz.parquesbsas.presenter.ParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamo;
+import com.example.ndiaz.parquesbsas.ui.adapters.ParqueComponentesAdapter;
 import com.squareup.picasso.Picasso;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -45,6 +48,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     @BindView(R.id.rvParqueComponentes)
     RecyclerView rvParqueComponentes;
     private Parque parque;
+    private ParqueComponentesAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,8 +132,17 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     }
 
     @Override
-    public void showParqueComponents(List<ParqueComponente> componentes) {
-        // TODO: 09/11/2017 Llenar el recyclerview
+    public void showParqueComponents(List<ParqueComponente> parqueComponentes) {
+        adapter = new ParqueComponentesAdapter(parqueComponentes);
+        rvParqueComponentes.setAdapter(adapter);
+        rvParqueComponentes.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ParqueComponente parqueComponente = adapter.getitem(position);
+                parqueComponente.setIdParque(parque.getId_parque());
+                parqueComponente.navigateToActivity(ParqueActivity.this);
+            }
+        }));
     }
 
     @Override

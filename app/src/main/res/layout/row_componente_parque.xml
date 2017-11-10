@@ -12,6 +12,7 @@
         android:layout_height="64dp">
 
         <TextView
+            android:id="@+id/txtComponente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"

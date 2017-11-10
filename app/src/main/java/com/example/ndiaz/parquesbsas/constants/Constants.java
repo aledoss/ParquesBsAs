@@ -36,7 +36,7 @@ public interface Constants {
 
     ////Parques
     String TABLE_PARQUES = "Parques";
-    String IDPARQUECOLUMNA = "Id_Parque";
+    String ID_PARQUE = "Id_Parque";
     String NOMBRE_PARQUE = "Nombre";
     String DESCRIPCIONCORTAPARQUECOLUMNA = "Descripcion_Corta";
     String DESCRIPCION_PARQUE = "Descripcion";
