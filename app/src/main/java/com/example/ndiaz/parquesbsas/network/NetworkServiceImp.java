@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
@@ -15,18 +16,6 @@ public class NetworkServiceImp {
 
     public NetworkServiceImp(RetrofitService retrofitService) {
         this.retrofitService = retrofitService;
-    }
-
-    public Single<NetworkResponse<List<Parque>>> getParques() {
-        return retrofitService
-                .getClient()
-                .getParques();
-    }
-
-    public Single<NetworkResponse<Parque>> getParque(int idParque) {
-        return retrofitService
-                .getClient()
-                .getParque(idParque);
     }
 
     public Single<NetworkResponse<Usuario>> getUser(Usuario usuario){
@@ -45,5 +34,23 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .createUser(usuario);
+    }
+
+    public Single<NetworkResponse<List<Parque>>> getParques() {
+        return retrofitService
+                .getClient()
+                .getParques();
+    }
+
+    public Single<NetworkResponse<Parque>> getParque(int idParque) {
+        return retrofitService
+                .getClient()
+                .getParque(idParque);
+    }
+
+    public Single<NetworkResponse<List<ParqueComponente>>> getParqueComponentes(int idParque){
+        return retrofitService
+                .getClient()
+                .getParqueComponentes(idParque);
     }
 }

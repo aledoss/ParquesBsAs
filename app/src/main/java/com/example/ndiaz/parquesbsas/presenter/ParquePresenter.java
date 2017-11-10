@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
-import com.example.ndiaz.parquesbsas.model.ParqueComponentes;
+import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -22,9 +22,9 @@ public class ParquePresenter extends BasePresenterImp implements ParqueContract.
 
     public void doGetParqueComponents() {
         parqueInteractor
-                .getParqueComponents(new BaseCallback<List<ParqueComponentes>>() {
+                .getParqueComponents(new BaseCallback<List<ParqueComponente>>() {
                     @Override
-                    public void onSuccess(List<ParqueComponentes> componentes) {
+                    public void onSuccess(List<ParqueComponente> componentes) {
                         parqueView.get().showParqueComponents(componentes);
                     }
 

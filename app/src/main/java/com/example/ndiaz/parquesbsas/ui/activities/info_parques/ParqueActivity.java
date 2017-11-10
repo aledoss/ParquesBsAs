@@ -13,7 +13,7 @@ import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
 import com.example.ndiaz.parquesbsas.interactor.ParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.model.ParqueComponentes;
+import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 import com.example.ndiaz.parquesbsas.presenter.ParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamo;
@@ -128,7 +128,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     }
 
     @Override
-    public void showParqueComponents(List<ParqueComponentes> componentes) {
+    public void showParqueComponents(List<ParqueComponente> componentes) {
         // TODO: 09/11/2017 Llenar el recyclerview
     }
 
