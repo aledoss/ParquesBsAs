@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.ui.activities.info_parques;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -47,6 +48,8 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     ImageView imgParque;
     @BindView(R.id.rvParqueComponentes)
     RecyclerView rvParqueComponentes;
+    @BindView(R.id.emptyContainer)
+    LinearLayout emptyContainer;
     private Parque parque;
     private ParqueComponentesAdapter adapter;
 
@@ -133,6 +136,9 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
 
     @Override
     public void showParqueComponents(List<ParqueComponente> parqueComponentes) {
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+        rvParqueComponentes.setLayoutManager(mLayoutManager);
         adapter = new ParqueComponentesAdapter(parqueComponentes);
         rvParqueComponentes.setAdapter(adapter);
         rvParqueComponentes.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -140,13 +146,20 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
             public void onItemClick(View view, int position) {
                 ParqueComponente parqueComponente = adapter.getitem(position);
                 parqueComponente.setIdParque(parque.getId_parque());
-                parqueComponente.navigateToActivity(ParqueActivity.this);
+                //parqueComponente.navigateToActivity(ParqueActivity.this);
             }
         }));
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void showMessage(String message) {
         showMessage(llContainer, message);
+    }
+
+    @Override
+    public void showEmptyContainer() {
+        emptyContainer.setVisibility(View.VISIBLE);
+        rvParqueComponentes.setVisibility(View.GONE);
     }
 }

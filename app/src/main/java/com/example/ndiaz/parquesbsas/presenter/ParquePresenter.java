@@ -1,7 +1,5 @@
 package com.example.ndiaz.parquesbsas.presenter;
 
-import android.util.Log;
-
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
@@ -30,8 +28,8 @@ public class ParquePresenter extends BasePresenterImp implements ParqueContract.
 
                     @Override
                     public void onError(String message) {
+                        parqueView.get().showEmptyContainer();
                         parqueView.get().showMessage(message);
-                        Log.e(TAG, "doGetParqueComponents, onError: " + message);
                     }
                 });
     }

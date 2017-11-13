@@ -52,8 +52,8 @@ public class ParqueComponentesAdapter extends RecyclerView.Adapter<ParqueCompone
         return parqueComponentes.size();
     }
 
-    public ParqueComponente getitem(int position){
-        if(parqueComponentes != null){
+    public ParqueComponente getitem(int position) {
+        if (parqueComponentes != null) {
             return parqueComponentes.get(position);
         }
         return null;

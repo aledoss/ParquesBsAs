@@ -12,8 +12,14 @@
     <dimen name="row_list_padding">8dp</dimen>
     <dimen name="title_details_bici">28sp</dimen>
     <dimen name="details_bici">24sp</dimen>
+
+    <!-- Reclamos -->
     <dimen name="reclamo_nombre_parque">26sp</dimen>
     <dimen name="reclamo_nombre">22sp</dimen>
     <dimen name="reclamo_comentarios">18sp</dimen>
     <dimen name="reclamo_lat_lng">18sp</dimen>
+
+    <!-- Empty Adapter -->
+    <dimen name="empty_text">24sp</dimen>
+
 </resources>

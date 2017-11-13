@@ -7,6 +7,7 @@ import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.model.ParqueComponentes.ParqueComponentesFactory;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
 import java.util.List;
@@ -42,7 +43,10 @@ public class ParqueInteractor extends BaseInteractorImp implements ParqueContrac
                     public void onSuccess(@NonNull NetworkResponse<List<ParqueComponente>> parqueComponenteNetworkResponse) {
                         String message = parqueComponenteNetworkResponse.getMessage();
                         if (parqueComponenteNetworkResponse.status == HTTPConstants.STATUS_OK) {
-                            callback.onSuccess(parqueComponenteNetworkResponse.getResponse());
+                            ParqueComponentesFactory factory = new ParqueComponentesFactory();
+                            List<ParqueComponente> parqueComponentes = factory.getParqueComponentes(parqueComponenteNetworkResponse.getResponse());
+
+                            callback.onSuccess(parqueComponentes);
                             Log.i(TAG, "getParqueComponents: " + message);
                         } else {
                             callback.onError(message);
