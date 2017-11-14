@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.network;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
@@ -14,7 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface RetrofitApi {
+interface RetrofitApi {
 
     @GET("parquesapi/getDocTypes")
     Single<NetworkResponse<List<TiposDocumento>>> getDocTypes();
@@ -33,4 +34,7 @@ public interface RetrofitApi {
 
     @GET("parquesapi/getParqueComponents/{id}")
     Single<NetworkResponse<List<ParqueComponente>>> getParqueComponentes(@Path("id") int idParque);
+
+    @GET("parquesapi/getReclamosByParque/{id}")
+    Single<NetworkResponse<List<Reclamo>>> getReclamosByParque(@Path("id") int idParque);
 }

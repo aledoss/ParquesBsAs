@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/llContainer"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.ndiaz.parquesbsas.ui.activities.ListaReclamosParqueActivity">
+
+    <include
+        android:id="@+id/toolbar_lista_reclamos_parque"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvReclamosParque"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_300"
+            android:padding="2dp"
+            android:scrollbars="vertical" />
+
+        <include
+            android:id="@+id/emptyContainer"
+            layout="@layout/empty_adapter"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</LinearLayout>

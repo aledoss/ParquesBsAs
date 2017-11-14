@@ -29,6 +29,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,10 +37,11 @@
             android:name=".ui.activities.CreateUserActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.HomeActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -62,18 +64,24 @@
             android:name=".ui.activities.old.DetallesParqueOld"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.reclamos.ListaReclamos">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".ui.activities.info_parques.ParqueActivity">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".ui.activities.info_parques.DescGeneralParque" />
         <activity android:name=".ui.activities.info_parques.ListaActividadesParque" />
@@ -85,7 +93,8 @@
         <activity android:name=".ui.activities.PerfilUsuario" />
         <activity
             android:name=".ui.activities.reclamos.CamaraReclamo"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.activities.ListaReclamosParqueActivity"></activity>
     </application>
 
 </manifest>

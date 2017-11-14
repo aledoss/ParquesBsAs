@@ -41,6 +41,9 @@ public class ParqueComponentesFactory {
                     break;
             }
         }
+        parqueComponentes.add(new ParqueComponenteReclamo(null));
+        parqueComponentes.add(new ParqueComponenteEncuesta(null));
+        parqueComponentes.add(new ParqueComponenteDescGeneral(null));
 
         return parqueComponentes;
     }

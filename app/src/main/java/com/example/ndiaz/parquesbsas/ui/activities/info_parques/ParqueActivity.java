@@ -31,7 +31,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENES_PARQUES_URL;
 import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
@@ -81,7 +80,6 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     }
 
     private void setupUI() {
-        ButterKnife.bind(this);
         setupToolbar();
         cargarImagen();
     }
