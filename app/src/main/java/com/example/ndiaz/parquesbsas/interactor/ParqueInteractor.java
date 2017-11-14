@@ -28,7 +28,7 @@ public class ParqueInteractor extends BaseInteractorImp implements ParqueContrac
     }
 
     @Override
-    public void getParqueComponents(int idParque, final BaseCallback<List<ParqueComponente>> callback) {
+    public void getParqueComponents(final int idParque, final BaseCallback<List<ParqueComponente>> callback) {
         networkServiceImp
                 .getParqueComponentes(idParque)
                 .subscribeOn(Schedulers.io())
@@ -44,7 +44,8 @@ public class ParqueInteractor extends BaseInteractorImp implements ParqueContrac
                         String message = parqueComponenteNetworkResponse.getMessage();
                         if (parqueComponenteNetworkResponse.status == HTTPConstants.STATUS_OK) {
                             ParqueComponentesFactory factory = new ParqueComponentesFactory();
-                            List<ParqueComponente> parqueComponentes = factory.getParqueComponentes(parqueComponenteNetworkResponse.getResponse());
+                            List<ParqueComponente> parqueComponentes = factory.getParqueComponentes(
+                                    parqueComponenteNetworkResponse.getResponse(), idParque);
 
                             callback.onSuccess(parqueComponentes);
                             Log.i(TAG, "getParqueComponents: " + message);

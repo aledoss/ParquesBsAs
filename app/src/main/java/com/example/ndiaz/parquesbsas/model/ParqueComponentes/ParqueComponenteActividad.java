@@ -10,10 +10,6 @@ import static com.example.ndiaz.parquesbsas.constants.Constants.ID_PARQUE;
 
 class ParqueComponenteActividad extends ParqueComponente {
 
-    public ParqueComponenteActividad(ParqueComponente parqueComponente) {
-        super.setParqueComponente(parqueComponente);
-    }
-
     @Override
     public void navigateToActivity(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
