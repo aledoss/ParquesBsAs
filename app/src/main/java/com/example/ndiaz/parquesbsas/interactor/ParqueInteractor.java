@@ -3,7 +3,6 @@ package com.example.ndiaz.parquesbsas.interactor;
 import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
-import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
@@ -42,17 +41,12 @@ public class ParqueInteractor extends BaseInteractorImp implements ParqueContrac
                     @Override
                     public void onSuccess(@NonNull NetworkResponse<List<ParqueComponente>> parqueComponenteNetworkResponse) {
                         String message = parqueComponenteNetworkResponse.getMessage();
-                        if (parqueComponenteNetworkResponse.status == HTTPConstants.STATUS_OK) {
-                            ParqueComponentesFactory factory = new ParqueComponentesFactory();
-                            List<ParqueComponente> parqueComponentes = factory.getParqueComponentes(
-                                    parqueComponenteNetworkResponse.getResponse(), idParque);
+                        ParqueComponentesFactory factory = new ParqueComponentesFactory();
+                        List<ParqueComponente> parqueComponentes = factory.getParqueComponentes(
+                                parqueComponenteNetworkResponse.getResponse(), idParque);
 
-                            callback.onSuccess(parqueComponentes);
-                            Log.i(TAG, "getParqueComponents: " + message);
-                        } else {
-                            callback.onError(message);
-                            Log.e(TAG, "getParqueComponents: " + message);
-                        }
+                        callback.onSuccess(parqueComponentes);
+                        Log.i(TAG, "getParqueComponents: " + message);
                     }
 
                     @Override

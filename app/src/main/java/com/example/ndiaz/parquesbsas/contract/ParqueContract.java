@@ -14,8 +14,6 @@ public interface ParqueContract {
         void showParqueComponents(List<ParqueComponente> componentes);
 
         void showMessage(String message);
-
-        void showEmptyContainer();
     }
 
     interface Presenter extends BasePresenter {

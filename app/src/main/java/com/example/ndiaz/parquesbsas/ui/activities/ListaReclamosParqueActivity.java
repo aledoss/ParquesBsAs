@@ -18,6 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.example.ndiaz.parquesbsas.constants.Constants.ID_PARQUE;
+
 public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqueContract.Presenter>
         implements ListaReclamosParqueContract.View {
 
@@ -35,8 +37,15 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_reclamos_parque);
-        //obtener del bundle el id del parque
-        //presenter.doGetReclamos(idParque);
+        assignBundleVariables();
+        presenter.doGetReclamos(idParque);
+    }
+
+    private void assignBundleVariables() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            idParque = bundle.getInt(ID_PARQUE, 0);
+        }
     }
 
     @Override

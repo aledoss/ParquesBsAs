@@ -28,7 +28,6 @@ public class ParquePresenter extends BasePresenterImp implements ParqueContract.
 
                     @Override
                     public void onError(String message) {
-                        parqueView.get().showEmptyContainer();
                         parqueView.get().showMessage(message);
                     }
                 });

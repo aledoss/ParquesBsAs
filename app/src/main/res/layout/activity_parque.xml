@@ -18,24 +18,13 @@
         android:scaleType="centerCrop"
         android:src="@drawable/parque_ejemplo" />
 
-    <FrameLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvParqueComponentes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="70">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvParqueComponentes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gray_300"
-            android:padding="2dp"
-            android:scrollbars="vertical" />
-
-        <include
-            android:id="@+id/emptyContainer"
-            layout="@layout/empty_adapter"
-            android:visibility="gone" />
-
-    </FrameLayout>
+        android:layout_weight="70"
+        android:background="@color/gray_300"
+        android:padding="2dp"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

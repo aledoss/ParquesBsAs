@@ -20,31 +20,33 @@ public class ParqueComponentesFactory {
         List<ParqueComponente> parqueComponentes = new ArrayList<>();
         parqueComponentes.add(crearParqueComponenteDescGeneral(idParque));
 
-        for (int i = 0; i < response.size(); i++) {
-            ParqueComponente parqueComponente = response.get(i);
-            String nombreComponente = parqueComponente.getNombreComponente();
+        if (response != null) {
+            for (int i = 0; i < response.size(); i++) {
+                ParqueComponente parqueComponente = response.get(i);
+                String nombreComponente = parqueComponente.getNombreComponente();
 
-            switch (nombreComponente) {
-                case PARQUE_COMPONENTE_ACTIVIDAD:
-                    parqueComponentes.add(new ParqueComponenteActividad());
-                    break;
-                case PARQUE_COMPONENTE_FERIA:
-                    parqueComponentes.add(new ParqueComponenteFeria());
-                    break;
-                case PARQUE_COMPONENTE_FERIA_ITINERANTE:
-                    parqueComponentes.add(new ParqueComponenteFeriaItinerante());
-                    break;
-                case PARQUE_COMPONENTE_ESTACION_SALUDABLE:
-                    parqueComponentes.add(new ParqueComponenteEstacionSaludable());
-                    break;
-                case PARQUE_COMPONENTE_PUNTO_VERDE:
-                    parqueComponentes.add(new ParqueComponentePuntoVerde());
-                    break;
-                default:
-                    break;
+                switch (nombreComponente) {
+                    case PARQUE_COMPONENTE_ACTIVIDAD:
+                        parqueComponentes.add(new ParqueComponenteActividad());
+                        break;
+                    case PARQUE_COMPONENTE_FERIA:
+                        parqueComponentes.add(new ParqueComponenteFeria());
+                        break;
+                    case PARQUE_COMPONENTE_FERIA_ITINERANTE:
+                        parqueComponentes.add(new ParqueComponenteFeriaItinerante());
+                        break;
+                    case PARQUE_COMPONENTE_ESTACION_SALUDABLE:
+                        parqueComponentes.add(new ParqueComponenteEstacionSaludable());
+                        break;
+                    case PARQUE_COMPONENTE_PUNTO_VERDE:
+                        parqueComponentes.add(new ParqueComponentePuntoVerde());
+                        break;
+                    default:
+                        break;
+                }
+                parqueComponentes.get(i + 1).setIdParque(idParque);
+                parqueComponentes.get(i + 1).setNombreComponente(parqueComponente.getNombreComponente());
             }
-            parqueComponentes.get(i+1).setIdParque(idParque);
-            parqueComponentes.get(i+1).setNombreComponente(parqueComponente.getNombreComponente());
         }
 
         parqueComponentes.add(crearParqueComponenteReclamo(idParque));

@@ -47,8 +47,6 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     ImageView imgParque;
     @BindView(R.id.rvParqueComponentes)
     RecyclerView rvParqueComponentes;
-    @BindView(R.id.emptyContainer)
-    LinearLayout emptyContainer;
     private Parque parque;
     private ParqueComponentesAdapter adapter;
 
@@ -143,7 +141,6 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
             @Override
             public void onItemClick(View view, int position) {
                 ParqueComponente parqueComponente = adapter.getitem(position);
-                parqueComponente.setIdParque(parque.getId_parque());
                 parqueComponente.navigateToActivity(ParqueActivity.this);
             }
         }));
@@ -155,9 +152,4 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
         showMessage(llContainer, message);
     }
 
-    @Override
-    public void showEmptyContainer() {
-        emptyContainer.setVisibility(View.VISIBLE);
-        rvParqueComponentes.setVisibility(View.GONE);
-    }
 }
