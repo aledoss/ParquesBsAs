@@ -144,7 +144,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
             public void onItemClick(View view, int position) {
                 ParqueComponente parqueComponente = adapter.getitem(position);
                 parqueComponente.setIdParque(parque.getId_parque());
-                //parqueComponente.navigateToActivity(ParqueActivity.this);
+                parqueComponente.navigateToActivity(ParqueActivity.this);
             }
         }));
         adapter.notifyDataSetChanged();

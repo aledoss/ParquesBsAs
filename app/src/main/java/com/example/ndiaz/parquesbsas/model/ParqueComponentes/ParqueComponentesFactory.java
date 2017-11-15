@@ -21,7 +21,7 @@ public class ParqueComponentesFactory {
         parqueComponentes.add(crearParqueComponenteDescGeneral(idParque));
 
         for (int i = 0; i < response.size(); i++) {
-            ParqueComponente parqueComponente = parqueComponentes.get(i);
+            ParqueComponente parqueComponente = response.get(i);
             String nombreComponente = parqueComponente.getNombreComponente();
 
             switch (nombreComponente) {
@@ -43,8 +43,8 @@ public class ParqueComponentesFactory {
                 default:
                     break;
             }
-            parqueComponentes.get(i).setIdParque(idParque);
-            parqueComponentes.get(i).setNombreComponente(parqueComponente.getNombreComponente());
+            parqueComponentes.get(i+1).setIdParque(idParque);
+            parqueComponentes.get(i+1).setNombreComponente(parqueComponente.getNombreComponente());
         }
 
         parqueComponentes.add(crearParqueComponenteReclamo(idParque));
