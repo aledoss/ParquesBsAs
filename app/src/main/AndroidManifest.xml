@@ -44,8 +44,6 @@
             <!-- </intent-filter> -->
         </activity>
         <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
@@ -57,12 +55,6 @@
 
         <activity android:name=".ui.activities.MySettings" />
         <activity android:name=".ui.activities.old.ListaParques" />
-        <activity
-            android:name=".ui.activities.old.AgregarParque"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activities.old.DetallesParqueOld"
-            android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.reclamos.ListaReclamos">
 
             <!--
@@ -94,7 +86,7 @@
         <activity
             android:name=".ui.activities.reclamos.CamaraReclamo"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activities.ListaReclamosParqueActivity"></activity>
+        <activity android:name=".ui.activities.ListaReclamosParqueActivity" />
     </application>
 
 </manifest>
