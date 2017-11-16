@@ -24,7 +24,7 @@ public class ReclamosParqueAdapter extends RecyclerView.Adapter<ReclamosParqueAd
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_simple_title,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reclamo_parque,
                 parent, false);
         return new ReclamosParqueAdapter.MyViewHolder(v);
     }
@@ -32,9 +32,9 @@ public class ReclamosParqueAdapter extends RecyclerView.Adapter<ReclamosParqueAd
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Reclamo reclamo = reclamos.get(position);
-        TextView txtTitulo = holder.txtTitulo;
 
-        txtTitulo.setText(reclamo.getNombre());
+        holder.txtTitulo.setText(reclamo.getNombre());
+        holder.txtCantReclamos.setText("(" + reclamo.getCantidad() + ")");
     }
 
     @Override
@@ -52,6 +52,8 @@ public class ReclamosParqueAdapter extends RecyclerView.Adapter<ReclamosParqueAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.txtTitulo)
         TextView txtTitulo;
+        @BindView(R.id.txtCantidadReclamos)
+        TextView txtCantReclamos;
 
         public MyViewHolder(View itemView) {
             super(itemView);

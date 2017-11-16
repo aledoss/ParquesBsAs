@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/llContainer"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.ndiaz.parquesbsas.ui.activities.ListaReclamosParqueActivity">
@@ -21,12 +22,23 @@
             android:layout_height="match_parent"
             android:background="@color/gray_300"
             android:padding="2dp"
+            android:paddingBottom="60dp"
             android:scrollbars="vertical" />
 
         <include
             android:id="@+id/emptyContainer"
             layout="@layout/empty_adapter"
             android:visibility="gone" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_agregar_parque"
+            app:elevation="4dp"
+            app:backgroundTint="@color/colorAccent"
+            app:fabSize="normal" />
 
     </FrameLayout>
 

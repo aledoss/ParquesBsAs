@@ -3,12 +3,13 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosParqueContract;
-import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosParquePresenter;
@@ -29,6 +30,8 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
     LinearLayout emptyContainer;
     @BindView(R.id.rvReclamosParque)
     RecyclerView rvReclamosParque;
+    @BindView(R.id.toolbar_lista_reclamos_parque)
+    Toolbar toolbar;
 
     private ReclamosParqueAdapter adapter;
     private int idParque;
@@ -38,7 +41,14 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_reclamos_parque);
         assignBundleVariables();
-        presenter.doGetReclamos(idParque);
+        setupToolbar();
+        presenter.doGetReclamos(1);
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.lista_reclamos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void assignBundleVariables() {
@@ -63,19 +73,20 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         rvReclamosParque.setLayoutManager(mLayoutManager);
         adapter = new ReclamosParqueAdapter(reclamos);
         rvReclamosParque.setAdapter(adapter);
-        rvReclamosParque.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Reclamo reclamo = adapter.getItem(position);
-                //ir a detalles del reclamo.
-            }
-        }));
-
     }
 
     @Override
     public void showMessage(String message) {
         showMessage(llContainer, message);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.ndiaz.parquesbsas.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 /**
@@ -10,12 +12,20 @@ public class Reclamo implements Serializable {
 
     private int id;
     private String parque;
+    @JsonProperty("descripcion")
     private String nombre;
+    @JsonProperty("comentarios")
     private String comentarios;
+    @JsonProperty("fecha_creacion")
     private String fechaCreacion;
+    @JsonProperty("latitud")
     private String latitud;
+    @JsonProperty("longitud")
     private String longitud;
+    @JsonProperty("imagen")
     private String imagen;
+    @JsonProperty("cantidad")
+    private Integer cantidad;
 
     public int getId() {
         return id;
@@ -79,5 +89,13 @@ public class Reclamo implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 }
