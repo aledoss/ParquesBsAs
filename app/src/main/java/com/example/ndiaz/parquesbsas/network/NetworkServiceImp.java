@@ -60,4 +60,10 @@ public class NetworkServiceImp {
                 .getClient()
                 .getReclamosByParque(idParque);
     }
+
+    public Single<NetworkResponse<List<Reclamo>>> getReclamos(){
+        return retrofitService
+                .getClient()
+                .getReclamos();
+    }
 }
