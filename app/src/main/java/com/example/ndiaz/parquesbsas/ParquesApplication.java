@@ -2,19 +2,21 @@ package com.example.ndiaz.parquesbsas;
 
 import android.app.Application;
 
+import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.facebook.stetho.Stetho;
 
-public class ParquesApplication extends Application{
+public class ParquesApplication extends Application {
 
     private static ParquesApplication instance;
     private Usuario user;
+    private Parque parque;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
     }
@@ -29,5 +31,13 @@ public class ParquesApplication extends Application{
 
     public void setUser(Usuario user) {
         this.user = user;
+    }
+
+    public Parque getParque() {
+        return parque;
+    }
+
+    public void setParque(Parque parque) {
+        this.parque = parque;
     }
 }

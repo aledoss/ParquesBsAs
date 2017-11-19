@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
-import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
-import com.example.ndiaz.parquesbsas.helpers.LoginCreateViewHelper;
+import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
+import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.CreateUserInteractor;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
@@ -44,7 +44,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
 
     private String nombre, apellido, docNumber, email, password;
     private TiposDocumento docType;
-    private LoginCreateViewHelper loginCreateViewHelper;
+    private ViewHelper viewHelper;
     private List<TiposDocumento> tiposDocumentos;
 
     @OnClick(R.id.btnCrear_Cuenta)
@@ -58,7 +58,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
 
     @OnTouch(R.id.etPasswordCrearCuenta)
     public boolean onTouchPasswordIcon(View v, MotionEvent event) {
-        return loginCreateViewHelper.tooglePasswordTextType(etPassword, event);
+        return viewHelper.tooglePasswordTextType(etPassword, event);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_cuenta);
         setTransparentStatusBar();
-        loginCreateViewHelper = new LoginCreateViewHelper();
+        viewHelper = new ViewHelper();
         presenter.doGetDocTypes();
     }
 
@@ -78,9 +78,9 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     }
 
     private boolean isValidData() {
-        FactoryEditText factoryEditText = new FactoryEditText(etNombre, etApellido, etEmail,
+        UserFactoryEditText factoryEditText = new UserFactoryEditText(etNombre, etApellido, etEmail,
                 etPassword, etDocNumber, docType.getTipoDocumento());
-        return loginCreateViewHelper.isValidData(factoryEditText);
+        return viewHelper.isValidData(factoryEditText);
     }
 
     //Funcionalidad de autologin + acceder al home

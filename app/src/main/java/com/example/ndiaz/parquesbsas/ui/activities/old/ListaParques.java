@@ -42,7 +42,7 @@ public class ListaParques extends AppCompatActivity implements Constants {
         DBHelper db = new DBHelper(this);
         final ArrayList<Parque> listaParques = db.getAllParques();
         try {
-            Log.d("ListaParques", "parque: ID: " + listaParques.get(0).getId_parque() + " nombre " + listaParques.get(0).getNombre() +
+            Log.d("ListaParques", "parque: ID: " + listaParques.get(0).getIdParque() + " nombre " + listaParques.get(0).getNombre() +
                     " desc corta " + listaParques.get(0).getDescripcionCorta());
         } catch (Exception e) {
             e.printStackTrace();

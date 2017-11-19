@@ -9,7 +9,7 @@ import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
 
 import java.util.List;
 
-public class LoginCreateViewHelper {
+public class ViewHelper {
 
     public boolean isValidData(FactoryEditText factoryEditText) {
         List<EditTextValidator> editTextValidators = factoryEditText.createEditTextValidators();
@@ -23,7 +23,7 @@ public class LoginCreateViewHelper {
         return validData;
     }
 
-    public boolean tooglePasswordTextType(EditText etPassword, MotionEvent event){
+    public boolean tooglePasswordTextType(EditText etPassword, MotionEvent event) {
         if (!etPassword.getText().toString().equalsIgnoreCase("")) {
             final int DRAWABLE_RIGHT = 2;
             if (event.getAction() == MotionEvent.ACTION_DOWN) {

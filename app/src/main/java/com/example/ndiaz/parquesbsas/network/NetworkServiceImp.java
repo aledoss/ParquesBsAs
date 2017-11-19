@@ -66,4 +66,10 @@ public class NetworkServiceImp {
                 .getClient()
                 .getReclamos();
     }
+
+    public Single<NetworkResponse> insertReclamo(Reclamo reclamo) {
+        return retrofitService
+                .getClient()
+                .insertReclamo(reclamo);
+    }
 }

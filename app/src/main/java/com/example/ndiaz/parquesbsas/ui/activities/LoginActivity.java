@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
-import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
-import com.example.ndiaz.parquesbsas.helpers.LoginCreateViewHelper;
+import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
+import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     LinearLayout lLContainer;
     private String email, password;
     private boolean recordarDatosLogin;
-    private LoginCreateViewHelper loginCreateViewHelper;
+    private ViewHelper loginCreateViewHelper;
 
     @OnClick(R.id.btnIniciar_Sesion)
     public void onClickIniciarSesion() {
@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         //verificarLogin();   // TODO: 14/10/2017 Funcionalidad de autologin.
         setContentView(R.layout.activity_login);
         setTransparentStatusBar();
-        loginCreateViewHelper = new LoginCreateViewHelper();
+        loginCreateViewHelper = new ViewHelper();
     }
 
     @Override
@@ -132,7 +132,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     }
 
     private boolean isValidData() {
-        return loginCreateViewHelper.isValidData(new FactoryEditText(etEmail, etPassword));
+        return loginCreateViewHelper.isValidData(new UserFactoryEditText(etEmail, etPassword));
     }
 
     // TODO: 14/10/2017 Se realiza desde el presenter

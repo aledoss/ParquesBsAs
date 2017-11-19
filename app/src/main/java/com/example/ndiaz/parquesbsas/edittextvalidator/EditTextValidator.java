@@ -4,7 +4,7 @@ import com.example.ndiaz.parquesbsas.helpers.strings.TextValidator;
 
 public abstract class EditTextValidator {
 
-    TextValidator textValidator = new TextValidator();
+    public TextValidator textValidator = new TextValidator();
 
     public abstract boolean validate();
 

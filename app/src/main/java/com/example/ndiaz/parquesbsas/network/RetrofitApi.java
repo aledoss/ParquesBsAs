@@ -40,4 +40,7 @@ interface RetrofitApi {
 
     @GET("parquesapi/getReclamos")
     Single<NetworkResponse<List<Reclamo>>> getReclamos();
+
+    @POST("parquesapi/insertReclamo")
+    Single<NetworkResponse> insertReclamo(@Body Reclamo reclamo);
 }

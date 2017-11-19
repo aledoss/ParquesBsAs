@@ -10,6 +10,7 @@
     <string name="invalid_length">Longitud inválida</string>
     <string name="only_alpha">Se deben ingresar sólo caracteres alfabéticos</string>
     <string name="invalid_password_text">La contraseña debe contener mas de 8 caracteres de los cuales tienen que ser 1 mayúscula, 1 minúscula y un caracter especial</string>
+    <string name="invalid_comentario">Comentario inválido</string>
 
     <string name="emailHint">Email</string>
     <string name="PasswordHint">Password</string>

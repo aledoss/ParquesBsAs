@@ -3,15 +3,18 @@ package com.example.ndiaz.parquesbsas.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-
-/**
- * Created by Lenwe on 28/11/2016.
- */
+import java.util.List;
 
 public class Reclamo implements Serializable {
 
-    private int id;
     private String parque;
+
+    @JsonProperty("id_reclamo")
+    private int idReclamo;
+    @JsonProperty("id_parque")
+    private Integer idParque;
+    @JsonProperty("id_usuario")
+    private Integer idUsuario;
     @JsonProperty("descripcion")
     private String nombre;
     @JsonProperty("comentarios")
@@ -27,12 +30,28 @@ public class Reclamo implements Serializable {
     @JsonProperty("cantidad")
     private Integer cantidad;
 
-    public int getId() {
-        return id;
+    public int getIdReclamo() {
+        return idReclamo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdReclamo(int idReclamo) {
+        this.idReclamo = idReclamo;
+    }
+
+    public Integer getIdParque() {
+        return idParque;
+    }
+
+    public void setIdParque(Integer idParque) {
+        this.idParque = idParque;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getParque() {
@@ -97,5 +116,15 @@ public class Reclamo implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public static String[] toArray(List<Reclamo> reclamos) {
+        String[] descReclamos = new String[reclamos.size()];
+
+        for (int i = 0; i < reclamos.size(); i++) {
+            descReclamos[i] = reclamos.get(i).nombre;
+        }
+
+        return descReclamos;
     }
 }

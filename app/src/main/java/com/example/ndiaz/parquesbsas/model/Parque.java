@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 public class Parque implements Serializable {
     @JsonProperty("id_parque")
-    private Integer id_parque;
+    private Integer idParque;
     @JsonProperty("comuna")
     private String comuna;
     @JsonProperty("barrio")
@@ -42,12 +42,12 @@ public class Parque implements Serializable {
     public Parque() {
     }
 
-    public Integer getId_parque() {
-        return id_parque;
+    public Integer getIdParque() {
+        return idParque;
     }
 
-    public void setId_parque(Integer id_parque) {
-        this.id_parque = id_parque;
+    public void setIdParque(Integer id_parque) {
+        this.idParque = id_parque;
     }
 
     public String getLongitud() {

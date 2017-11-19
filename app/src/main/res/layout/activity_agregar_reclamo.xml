@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_agregar_reclamo"
+    android:id="@+id/lLContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.reclamos.AgregarReclamo">
+    tools:context=".ui.activities.reclamos.AgregarReclamoActivity">
 
     <include
         android:id="@+id/toolbar_agregar_reclamo"
@@ -19,19 +19,22 @@
 
         <TextView
             android:id="@+id/txt_reclamo_nombre_parque"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/nombre_parque"
+            android:textAlignment="center"
             android:textSize="@dimen/reclamo_nombre_parque" />
 
         <Button
-            android:id="@+id/btn_lista_reclamos"
+            android:id="@+id/btn_elegir_reclamo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@color/white"
-            android:text="@string/elegir_reclamo" />
+            android:enabled="false"
+            android:text="@string/elegir_reclamo"
+            android:textSize="@dimen/title_row" />
 
         <EditText
             android:id="@+id/et_reclamos_comentarios"
@@ -42,6 +45,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="top|left"
+            android:hint="Ingresar comentario.."
             android:inputType="textMultiLine"
             android:maxLines="10"
             android:paddingTop="5dp"

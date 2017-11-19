@@ -1,9 +1,10 @@
-package com.example.ndiaz.parquesbsas.edittextvalidator;
+package com.example.ndiaz.parquesbsas.edittextvalidator.usuario;
 
 import android.content.Context;
 import android.widget.EditText;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.edittextvalidator.EditTextValidator;
 
 import static com.example.ndiaz.parquesbsas.constants.LoginConstants.LAST_NAME;
 

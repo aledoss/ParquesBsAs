@@ -11,16 +11,21 @@ import java.util.List;
 public interface AgregarReclamoContract {
 
     interface View extends BaseView {
-        void fillReclamos(List<Reclamo> reclamos);
+        void setReclamos(List<Reclamo> reclamos);
+
         void showMessage(String message);
     }
 
     interface Presenter extends BasePresenter {
         void doGetReclamos();
+
+        void doInsertReclamo(Reclamo reclamo);
     }
 
     interface Interactor extends BaseInteractor {
         void getReclamos(BaseCallback<List<Reclamo>> callback);
+
+        void insertReclamo(Reclamo reclamo, BaseCallback<String> callback);
     }
 
 }

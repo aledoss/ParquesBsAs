@@ -1,26 +1,15 @@
 package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.database.DBHelper;
-import com.example.ndiaz.parquesbsas.model.Reclamo;
-import com.example.ndiaz.parquesbsas.ui.adapters.AdapterListaReclamos;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.ndiaz.parquesbsas.constants.Constants.RECLAMODETALLES;
 
 public class ListaReclamos extends AppCompatActivity {
 
@@ -49,8 +38,8 @@ public class ListaReclamos extends AppCompatActivity {
     }
 
     private void setupLista() {
-        DBHelper db = new DBHelper(this);
-        final ArrayList<Reclamo> listaReclamos = db.getAllReclamos();   //obtengo los reclamos de la db
+        /*DBHelper db = new DBHelper(this);
+        //final ArrayList<Reclamo> listaReclamos = db.getAllReclamos();   //obtengo los reclamos de la db
         AdapterListaReclamos adapter = new AdapterListaReclamos(this, listaReclamos);   //creo el adapter
         listViewReclamos.setAdapter(adapter);   //muestro el adapter
         listViewReclamos.setOnItemClickListener(new AdapterView.OnItemClickListener() { //onclick lo llevo al detalle del reclamo tocado
@@ -62,7 +51,7 @@ public class ListaReclamos extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        db.close();
+        db.close();*/
     }
 
     @Override

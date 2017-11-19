@@ -58,4 +58,37 @@ public class AgregarReclamoInteractor extends BaseInteractorImp
                     }
                 });
     }
+
+    @Override
+    public void insertReclamo(Reclamo reclamo, final BaseCallback<String> callback) {
+        networkServiceImp
+                .insertReclamo(reclamo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(NetworkResponse networkResponse) {
+                        String message = networkResponse.getMessage();
+                        if(networkResponse.getStatus() == HTTPConstants.STATUS_OK){
+                            callback.onSuccess(message);
+                            Log.i(TAG, "insertReclamo, onSuccess");
+                        }else{
+                            callback.onError(message);
+                            Log.e(TAG, "insertReclamo, onSuccess: " + message );
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        String message = e.getMessage();
+                        callback.onError(message);
+                        Log.e(TAG, "insertReclamo, onError: " + message );
+                    }
+                });
+    }
 }

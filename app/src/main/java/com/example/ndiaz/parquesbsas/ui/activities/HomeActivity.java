@@ -243,7 +243,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
                         //.snippet(parque.getDescripcionCorta())
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .position(parqueLatLng)
-                        .zIndex(parque.getId_parque())
+                        .zIndex(parque.getIdParque())
                 );
             }
             googleMap.setOnMarkerClickListener(this);

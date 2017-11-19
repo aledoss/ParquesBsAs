@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
 import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
@@ -19,7 +20,7 @@ import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 import com.example.ndiaz.parquesbsas.presenter.ParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
-import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamo;
+import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamoActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ParqueComponentesAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -56,8 +57,9 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
         setContentView(R.layout.activity_parque);
         //setupXMLParser();
         obtenerDatosParque();
+        ParquesApplication.getInstance().setParque(parque);
         setupUI();
-        presenter.doGetParqueComponents(parque.getId_parque());
+        presenter.doGetParqueComponents(parque.getIdParque());
     }
 
     @Override
@@ -119,7 +121,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
         int id = item.getItemId();
         switch (id) {
             case R.id.agregar_reclamo_menu:
-                Intent intent = new Intent(ParqueActivity.this, AgregarReclamo.class);
+                Intent intent = new Intent(ParqueActivity.this, AgregarReclamoActivity.class);
                 intent.putExtra(PARQUEDETALLES, (Serializable) parque);
                 startActivity(intent);
                 break;
