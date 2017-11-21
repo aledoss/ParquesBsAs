@@ -24,8 +24,6 @@ import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.presenter.AgregarReclamoPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,7 +56,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private Parque parque;
     private ViewHelper viewHelper;
     boolean reclamoConFoto = false;
-    String reclamoNombre = "", rutaImagen = "";
+    String rutaImagen = "";
     byte[] mFotoReclamo;
     double latitud = 0, longitud = 0;
 
@@ -157,7 +155,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     }
 
     private boolean datosValidos() {
-        return viewHelper.isValidData(new ReclamoFactoryEditText(etComentarios, btnGenerarReclamo));
+        return viewHelper.isValidData(new ReclamoFactoryEditText(etComentarios, btnListaReclamos));
     }
 
     private void mostrarListaReclamos() {
@@ -166,8 +164,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
                 .setItems(reclamosDesc, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
-                        reclamoNombre = reclamosDesc[position];
-                        btnListaReclamos.setText(reclamoNombre);
+                        btnListaReclamos.setText(reclamosDesc[position]);
                     }
                 })
                 .show();
@@ -184,26 +181,24 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     }
 
     private Reclamo getDatosReclamo() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String date = dateFormat.format(new Date());
         Reclamo reclamo = new Reclamo();
 
         int userId = ParquesApplication.getInstance().getUser().getId();
         reclamo.setIdUsuario(userId);
         reclamo.setIdParque(parque.getIdParque());
         reclamo.setIdReclamo(getReclamoId());
-        reclamo.setNombre(reclamoNombre);
         reclamo.setComentarios(String.valueOf(etComentarios.getText()));
-        reclamo.setFechaCreacion(date);
         reclamo.setLatitud(String.valueOf(latitud));
         reclamo.setLongitud(String.valueOf(longitud));
         reclamo.setImagen(String.valueOf(rutaImagen));  //si no se saco foto, la latitud, longitud y la ruta de la imagen, se ponen en 0 y ""
+
         return reclamo;
     }
 
     @Override
     public void setReclamos(List<Reclamo> reclamos) {
         this.reclamos = reclamos;
+        this.reclamosDesc = Reclamo.toArray(reclamos);
         btnListaReclamos.setEnabled(true);
     }
 

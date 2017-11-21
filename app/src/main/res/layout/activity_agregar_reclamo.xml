@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:text="@string/nombre_parque"
             android:textAlignment="center"
             android:textSize="@dimen/reclamo_nombre_parque" />
@@ -47,9 +48,9 @@
             android:gravity="top|left"
             android:hint="Ingresar comentario.."
             android:inputType="textMultiLine"
-            android:maxLines="10"
             android:paddingTop="5dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:textSize="@dimen/reclamo_comentarios" />
 
         <Button
             android:id="@+id/btn_generar_reclamo"

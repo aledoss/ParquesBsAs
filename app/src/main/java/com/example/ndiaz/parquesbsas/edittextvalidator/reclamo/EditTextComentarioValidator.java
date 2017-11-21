@@ -11,7 +11,7 @@ public class EditTextComentarioValidator extends EditTextValidator {
     private EditText etComentario;
     private Context context;
 
-    public EditTextComentarioValidator(EditText etComentario) {
+    EditTextComentarioValidator(EditText etComentario) {
         this.etComentario = etComentario;
         this.context = etComentario.getContext();
     }

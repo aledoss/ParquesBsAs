@@ -12,7 +12,7 @@ public class ButtonReclamoValidator extends EditTextValidator {
     private Button btnReclamo;
     private Context context;
 
-    public ButtonReclamoValidator(Button btnReclamo) {
+    ButtonReclamoValidator(Button btnReclamo) {
         this.btnReclamo = btnReclamo;
         this.context = btnReclamo.getContext();
     }
@@ -20,11 +20,13 @@ public class ButtonReclamoValidator extends EditTextValidator {
     @Override
     public boolean validate() {
         String reclamo = btnReclamo.getText().toString().trim();
+        String defaultMensaje = context.getString(R.string.elegir_reclamo);
         boolean isValid = true;
 
-        if (reclamo.equalsIgnoreCase(context.getString(R.string.elegir_reclamo))) {
+        if (reclamo.equalsIgnoreCase(defaultMensaje)) {
             isValid = false;
-            Toast.makeText(context, context.getString(R.string.elegir_reclamo), Toast.LENGTH_SHORT).show();
+            btnReclamo.setError(defaultMensaje);
+            Toast.makeText(context, defaultMensaje, Toast.LENGTH_LONG).show();
         }
 
         return isValid;
