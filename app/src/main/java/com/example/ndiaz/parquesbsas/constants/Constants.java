@@ -94,4 +94,7 @@ public interface Constants {
     //String ALL_PARQUES_URL = "http://webapp321.eshost.com.ar/ws_parques/todos";
     String IMAGENES_PARQUES_URL = "http://appweb158.hol.es/public/img/parques/";
 
+    //Intent, extras
+    String MESSAGE = "Message";
+
 }

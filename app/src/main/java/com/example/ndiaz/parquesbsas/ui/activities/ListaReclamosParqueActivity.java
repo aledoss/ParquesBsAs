@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.example.ndiaz.parquesbsas.constants.Constants.ID_PARQUE;
+import static com.example.ndiaz.parquesbsas.constants.Constants.MESSAGE;
 
 public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqueContract.Presenter>
         implements ListaReclamosParqueContract.View {
@@ -41,7 +42,8 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
 
     @OnClick(R.id.btnAgregarReclamo)
     void btnAgregarReclamo() {
-        startActivity(new Intent(ListaReclamosParqueActivity.this, AgregarReclamoActivity.class));
+        startActivityForResult(new Intent(ListaReclamosParqueActivity.this, AgregarReclamoActivity.class),
+                AgregarReclamoActivity.RESULT_CODE_RECLAMO);
     }
 
     @Override
@@ -50,7 +52,7 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         setContentView(R.layout.activity_lista_reclamos_parque);
         assignBundleVariables();
         setupToolbar();
-        presenter.doGetReclamos(1);
+        presenter.doGetReclamos(idParque, false);
     }
 
     private void setupToolbar() {
@@ -62,7 +64,7 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
     private void assignBundleVariables() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            idParque = bundle.getInt(ID_PARQUE, 0);
+            idParque = bundle.getInt(ID_PARQUE, idParque);
         }
     }
 
@@ -76,10 +78,12 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
 
     @Override
     public void showReclamos(List<Reclamo> reclamos) {
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        if (adapter == null) {
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            rvReclamosParque.setLayoutManager(mLayoutManager);
+            adapter = new ReclamosParqueAdapter(reclamos);
+        }
 
-        rvReclamosParque.setLayoutManager(mLayoutManager);
-        adapter = new ReclamosParqueAdapter(reclamos);
         rvReclamosParque.setAdapter(adapter);
     }
 
@@ -98,8 +102,25 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AgregarReclamoActivity.RESULT_CODE_RECLAMO) {
+            if (data != null) {
+                showMessage(data.getStringExtra(MESSAGE));
+                presenter.doGetReclamos(idParque, true);
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
     public void showEmptyContainer() {
         emptyContainer.setVisibility(View.VISIBLE);
         rvReclamosParque.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void refreshReclamos(List<Reclamo> reclamos) {
+        adapter.setItemList(reclamos);
+        adapter.notifyDataSetChanged();
     }
 }

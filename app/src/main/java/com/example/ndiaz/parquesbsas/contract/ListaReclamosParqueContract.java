@@ -16,10 +16,12 @@ public interface ListaReclamosParqueContract {
         void showMessage(String message);
 
         void showEmptyContainer();
+
+        void refreshReclamos(List<Reclamo> reclamos);
     }
 
     interface Presenter extends BasePresenter {
-        void doGetReclamos(int idParque);
+        void doGetReclamos(int idParque, boolean refreshData);
     }
 
     interface Interactor extends BaseInteractor {

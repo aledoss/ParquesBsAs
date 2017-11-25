@@ -32,10 +32,12 @@ import butterknife.OnClick;
 import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENBYTES;
 import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLATITUD;
 import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLONGITUD;
+import static com.example.ndiaz.parquesbsas.constants.Constants.MESSAGE;
 
 public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.Presenter>
         implements AgregarReclamoContract.View {
 
+    public static final int RESULT_CODE_RECLAMO = 1;
     private static int REQUEST_CODE_CAMERA = 123;
 
     @BindView(R.id.toolbar_agregar_reclamo)
@@ -205,5 +207,13 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     @Override
     public void showMessage(String message) {
         showMessage(lLContainer, message);
+    }
+
+    @Override
+    public void navegarAListaReclamos(String value) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(MESSAGE, value);
+        setResult(RESULT_CODE_RECLAMO, returnIntent);
+        finish();
     }
 }

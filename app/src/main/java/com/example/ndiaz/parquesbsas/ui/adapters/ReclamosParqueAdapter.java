@@ -60,4 +60,8 @@ public class ReclamosParqueAdapter extends RecyclerView.Adapter<ReclamosParqueAd
             ButterKnife.bind(this, itemView);
         }
     }
+
+    public void setItemList(List<Reclamo> reclamos){
+        this.reclamos = reclamos;
+    }
 }

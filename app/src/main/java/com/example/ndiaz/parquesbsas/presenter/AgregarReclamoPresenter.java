@@ -40,15 +40,19 @@ public class AgregarReclamoPresenter extends BasePresenterImp
 
     @Override
     public void doInsertReclamo(Reclamo reclamo) {
+        agregarReclamoView.get().showProgressDialog();
         agregarReclamoInteractor
                 .insertReclamo(reclamo, new BaseCallback<String>() {
                     @Override
                     public void onSuccess(String value) {
-                        //mostrar mensaje de reclamo insertado
+                        agregarReclamoView.get().hideProgressDialog();
+                        agregarReclamoView.get().navegarAListaReclamos(value);
                     }
 
                     @Override
                     public void onError(String message) {
+                        agregarReclamoView.get().hideProgressDialog();
+                        //agregar al message la opcion de reintentar
                         agregarReclamoView.get().showMessage(message);
                     }
                 });

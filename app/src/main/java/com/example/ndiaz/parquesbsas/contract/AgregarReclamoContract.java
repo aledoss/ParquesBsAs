@@ -14,6 +14,8 @@ public interface AgregarReclamoContract {
         void setReclamos(List<Reclamo> reclamos);
 
         void showMessage(String message);
+
+        void navegarAListaReclamos(String value);
     }
 
     interface Presenter extends BasePresenter {
