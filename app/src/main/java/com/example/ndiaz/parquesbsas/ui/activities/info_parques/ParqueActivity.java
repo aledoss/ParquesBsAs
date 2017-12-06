@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.ui.activities.info_parques;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
@@ -41,7 +41,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     protected XmlPullParserFactory xmlPullParserFactory;
     protected XmlPullParser parser;
     @BindView(R.id.llContainer)
-    LinearLayout llContainer;
+    CoordinatorLayout llContainer;
     @BindView(R.id.toolbar_parque_detalles)
     Toolbar toolbar;
     @BindView(R.id.img_detalle_parque)
