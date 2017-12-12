@@ -1,41 +1,39 @@
 package com.example.ndiaz.parquesbsas.ui.activities.old;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaParquesContract;
+import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaParquesInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.presenter.ListaParquesPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
-import com.example.ndiaz.parquesbsas.ui.adapters.AdapterListaParques;
+import com.example.ndiaz.parquesbsas.ui.adapters.ParquesAdapter;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
-
-import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 
 public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Presenter> implements
         ListaParquesContract.View {
 
     @BindView(R.id.lLContainer)
     LinearLayout lLContainer;
-    @BindView(R.id.list_view_parques)
-    ListView listViewParques;
+    @BindView(R.id.rvParques)
+    RecyclerView rvParques;
     @BindView(R.id.toolbar_lista_parques)
     Toolbar toolbar;
 
-    private AdapterListaParques adapter;
+    private ParquesAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,19 +52,26 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
     }
 
     private void setupAdapter() {
-        adapter = new AdapterListaParques(this);
-        listViewParques.setAdapter(adapter);
-        listViewParques.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Parque parque = adapter.getListaParques().get(position);
-                Intent intent = new Intent();
-                intent.putExtra(PARQUEDETALLES, (Serializable) parque);
-                startActivity(intent);
-            }
-        });
+        if (adapter == null) {
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            rvParques.setLayoutManager(mLayoutManager);
+            adapter = new ParquesAdapter();
+            rvParques.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    /*Parque parque = adapter.getParques().get(position);
+                    Intent intent = new Intent();
+                    intent.putExtra(PARQUEDETALLES, parque);
+                    startActivity(intent);*/
+                    Toast.makeText(ListaParquesActivity.this, adapter.getParques().get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                }
+            }));
+        }
+
+        rvParques.setAdapter(adapter);
     }
 
+    @Override
     public void showParques(List<Parque> parques) {
         adapter.setItemList(parques);
         adapter.notifyDataSetChanged();
