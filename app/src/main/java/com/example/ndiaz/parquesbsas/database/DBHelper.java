@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
     public ArrayList<Parque> getAllParques() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Parque> listaParques = new ArrayList<>();
-        Cursor cur = db.rawQuery("select * from " + TABLE_PARQUES, null);
+        Cursor cur = db.rawQuery("select * from " + TABLE_PARQUES + " ORDER BY " + NOMBRE_PARQUE, null);
         cur.moveToFirst();
         try {
             while (!cur.isAfterLast()) {

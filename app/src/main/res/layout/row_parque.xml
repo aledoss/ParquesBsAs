@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#FFF">
+    android:background="#FFF"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,9 +12,9 @@
         android:weightSum="100">
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="56dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/row_parque_img"
@@ -25,10 +25,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="90"
+            android:layout_weight="85"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -50,19 +50,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="10">
+            android:layout_weight="15">
 
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="10dp"
                 android:gravity="center_vertical"
-                android:text=">"
+                android:src="@drawable/ic_acceder"
                 android:textSize="20sp" />
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </LinearLayout>

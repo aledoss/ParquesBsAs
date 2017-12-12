@@ -27,7 +27,7 @@ import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.HomePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
-import com.example.ndiaz.parquesbsas.ui.activities.old.ListaParques;
+import com.example.ndiaz.parquesbsas.ui.activities.old.ListaParquesActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamos;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -160,8 +160,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_menu_parques:
-                startActivity(new Intent(HomeActivity.this, ListaParques.class));
-                //startActivity(new Intent(HomeActivity.this, ParqueActivity.class));
+                startActivity(new Intent(HomeActivity.this, ListaParquesActivity.class));
                 break;
             case R.id.nav_menu_perfil:
                 mostrarSnackbar();

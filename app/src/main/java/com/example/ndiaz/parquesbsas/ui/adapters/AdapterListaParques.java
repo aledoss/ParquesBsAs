@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.ui.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +13,16 @@ import android.widget.TextView;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.model.Parque;
 
-import java.util.ArrayList;
-
-/**
- * Created by Lenwe on 19/10/2016.
- */
+import java.util.List;
 
 public class AdapterListaParques extends ArrayAdapter<Parque> {
 
-    Context context;
-    ArrayList<Parque> listaParques = new ArrayList<>();
+    private Context context;
+    private List<Parque> listaParques;
 
-    public AdapterListaParques(Context context, ArrayList<Parque> listaParques) {
-        super(context, R.layout.row_parque, listaParques);
+    public AdapterListaParques(Context context) {
+        super(context, R.layout.row_parque);
         this.context = context;
-        this.listaParques = listaParques;
     }
 
     @NonNull
@@ -51,6 +47,25 @@ public class AdapterListaParques extends ArrayAdapter<Parque> {
         viewHolder.txtDescripcionParque.setText(parque.getDescripcionCorta());
 
         return convertView;
+    }
+
+    public void setItemList(List<Parque> parques) {
+        this.listaParques = parques;
+    }
+
+    public List<Parque> getListaParques() {
+        return listaParques;
+    }
+
+    @Override
+    public int getCount() {
+        return listaParques != null ? this.listaParques.size() : 0;
+    }
+
+    @Nullable
+    @Override
+    public Parque getItem(int position) {
+        return this.listaParques.get(position);
     }
 
     private static class ViewHolder {
