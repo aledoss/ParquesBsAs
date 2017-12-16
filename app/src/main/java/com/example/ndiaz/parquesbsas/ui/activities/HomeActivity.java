@@ -38,7 +38,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -259,7 +258,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(HomeActivity.this, ParqueActivity.class);
-                        intent.putExtra(PARQUEDETALLES, (Serializable) parque);
+                        intent.putExtra(PARQUEDETALLES, parque);
                         startActivity(intent);
                     }
                 })

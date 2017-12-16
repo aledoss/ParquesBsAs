@@ -21,7 +21,26 @@ public class ListaParquesPresenter extends BasePresenterImp implements ListaParq
         listaParquesInteractor.getParques(new BaseCallback<List<Parque>>() {
             @Override
             public void onSuccess(List<Parque> parques) {
-                listaParquesView.get().showParques(parques);
+                listaParquesView.get().showParques(parques, false);
+            }
+
+            @Override
+            public void onError(String message) {
+                listaParquesView.get().showMessage(message);
+            }
+        });
+    }
+
+    @Override
+    public void doGetParquesFiltered(List<Parque> itemList, String newText) {
+        listaParquesInteractor.getParquesFiltered(itemList, newText, new BaseCallback<List<Parque>>() {
+            @Override
+            public void onSuccess(List<Parque> parques) {
+                if (parques.isEmpty()) {
+                    listaParquesView.get().showEmptyAdapter();
+                } else {
+                    listaParquesView.get().showParques(parques, true);
+                }
             }
 
             @Override

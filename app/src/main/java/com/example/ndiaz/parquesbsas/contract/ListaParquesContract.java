@@ -11,17 +11,23 @@ import java.util.List;
 public interface ListaParquesContract {
 
     interface View extends BaseView {
-        void showParques(List<Parque> parques);
+        void showEmptyAdapter();
+
+        void showParques(List<Parque> parques, boolean refreshData);
 
         void showMessage(String message);
     }
 
     interface Presenter extends BasePresenter {
         void doGetParques();
+
+        void doGetParquesFiltered(List<Parque> itemList, String newText);
     }
 
     interface Interactor extends BaseInteractor {
         void getParques(BaseCallback<List<Parque>> callback);
+
+        void getParquesFiltered(List<Parque> itemList, String newText, BaseCallback<List<Parque>> callback);
     }
 
 

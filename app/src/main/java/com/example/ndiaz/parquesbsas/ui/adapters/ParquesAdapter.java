@@ -19,6 +19,10 @@ public class ParquesAdapter extends RecyclerView.Adapter<ParquesAdapter.MyViewHo
 
     private List<Parque> parques;
 
+    public ParquesAdapter() {
+        this.parques = new ArrayList<>();
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_parque,
@@ -44,7 +48,7 @@ public class ParquesAdapter extends RecyclerView.Adapter<ParquesAdapter.MyViewHo
         this.parques = parques;
     }
 
-    public List<Parque> getParques() {
+    public List<Parque> getItemList() {
         return this.parques != null ? this.parques : new ArrayList<Parque>();
     }
 
