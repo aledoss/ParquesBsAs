@@ -7,4 +7,7 @@
 
     <color name="white">#FFF</color>
     <color name="gray_300">#E0E0E0</color>
+
+
+    <color name="edit_text_background">#87000000</color>
 </resources>

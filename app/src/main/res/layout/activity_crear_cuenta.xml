@@ -38,36 +38,26 @@
 
             <EditText
                 android:id="@+id/etNombreCrearCuenta"
+                style="@style/CrearCuentaEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#87000000"
                 android:drawableLeft="@drawable/ic_usuario"
                 android:drawablePadding="6dp"
                 android:hint="@string/nombreHint"
                 android:inputType="text"
-                android:maxLines="1"
-                android:padding="8dp"
                 android:text="poasfk"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
 
             <EditText
                 android:id="@+id/etApellidoCrearCuenta"
+                style="@style/CrearCuentaEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#87000000"
                 android:drawableLeft="@drawable/ic_usuario"
                 android:drawablePadding="6dp"
                 android:hint="@string/apellidoHint"
                 android:inputType="text"
-                android:maxLines="1"
-                android:padding="8dp"
                 android:text="aosgkoga"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
 
             <LinearLayout
@@ -108,37 +98,27 @@
 
             <EditText
                 android:id="@+id/etEmailCrearCuenta"
+                style="@style/CrearCuentaEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#87000000"
                 android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="6dp"
                 android:hint="@string/emailHint"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:padding="8dp"
                 android:text="asd@asd.com"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
 
             <EditText
                 android:id="@+id/etPasswordCrearCuenta"
+                style="@style/CrearCuentaEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#87000000"
                 android:drawableLeft="@drawable/ic_password"
                 android:drawablePadding="6dp"
                 android:drawableRight="@drawable/ic_ver_password"
                 android:hint="@string/PasswordHint"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:padding="8dp"
                 android:text="Asd1234$"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
                 android:textSize="@dimen/LoginEdittext" />
 
             <Button

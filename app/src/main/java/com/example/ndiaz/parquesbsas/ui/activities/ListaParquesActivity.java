@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.ui.activities.old;
+package com.example.ndiaz.parquesbsas.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaParquesInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.presenter.ListaParquesPresenter;
-import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ParquesAdapter;
 
