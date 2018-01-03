@@ -95,6 +95,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
+    public void showEmptyAdapter(View llEmptyAdapter, View viewToHide) {
+        if (llEmptyAdapter.getVisibility() == View.GONE) {
+            llEmptyAdapter.setVisibility(View.VISIBLE);
+            viewToHide.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         Log.d("NICOTEST", "onDestroy: ");
         super.onDestroy();

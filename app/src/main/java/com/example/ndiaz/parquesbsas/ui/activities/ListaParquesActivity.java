@@ -130,12 +130,13 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        for (Parque parque : adapter.getItemList()) {
-            if (parque.getNombre().equalsIgnoreCase(query)) {
-                navigateToParqueDetails(parque);
-                return true;
+        if (!query.isEmpty())
+            for (Parque parque : adapter.getItemList()) {
+                if (parque.getNombre().equalsIgnoreCase(query)) {
+                    navigateToParqueDetails(parque);
+                    return true;
+                }
             }
-        }
         return false;
     }
 
@@ -152,10 +153,7 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
 
     @Override
     public void showEmptyAdapter() {
-        if (llEmptyAdapter.getVisibility() == View.GONE) {
-            llEmptyAdapter.setVisibility(View.VISIBLE);
-            rvParques.setVisibility(View.GONE);
-        }
+        showEmptyAdapter(llEmptyAdapter, rvParques);
     }
 
     private void handleAdapterVisibility() {

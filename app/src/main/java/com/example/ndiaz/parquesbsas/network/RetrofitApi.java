@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.network;
 
+import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
@@ -43,4 +44,7 @@ interface RetrofitApi {
 
     @POST("parquesapi/createReclamo")
     Single<NetworkResponse> insertReclamo(@Body Reclamo reclamo);
+
+    @GET("parquesapi/getActividadesByParque/{id}")
+    Single<NetworkResponse<List<Actividad>>> getActividades(@Path("id") int idParque);
 }

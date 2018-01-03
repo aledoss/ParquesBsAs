@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.network;
 
+import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
@@ -71,5 +72,11 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .insertReclamo(reclamo);
+    }
+
+    public Single<NetworkResponse<List<Actividad>>> getActividades(int idParque) {
+        return retrofitService
+                .getClient()
+                .getActividades(idParque);
     }
 }

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_lista_actividades_parque"
+    android:id="@+id/lLContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.info_parques.ListaActividadesParque">
+    tools:context=".ui.activities.componentes_parque.ListaActividadesActivity">
 
     <include
-        android:id="@+id/toolbar_lista_actividades"
+        android:id="@+id/toolbar_lista_actividades_parque"
         layout="@layout/toolbar" />
 
-    <ListView
-        android:id="@+id/list_view_actividades"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvActividadesParque"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="4dp">
 
-    <TextView
-        android:id="@+id/txt_empty_actividades"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/sin_actividades_cargadas"
-        android:textSize="18sp" />
+    </android.support.v7.widget.RecyclerView>
+
+    <include
+        android:id="@+id/llEmptyAdapter"
+        layout="@layout/empty_adapter"
+        android:visibility="gone" />
+
 </LinearLayout>

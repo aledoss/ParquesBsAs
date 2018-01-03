@@ -4,30 +4,24 @@ import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
-import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.model.Actividad;
 
 import java.util.List;
 
-public interface ListaParquesContract {
+public interface ListaActividadesContract {
 
     interface View extends BaseView {
-        void showEmptyAdapter();
-
-        void showParques(List<Parque> parques, boolean refreshData);
+        void showActividades(List<Actividad> actividades);
 
         void showMessage(String message);
     }
 
     interface Presenter extends BasePresenter {
-        void doGetParques();
-
-        void doGetParquesFiltered(List<Parque> itemList, String newText);
+        void doGetActividades(int idParque);
     }
 
     interface Interactor extends BaseInteractor {
-        void getParques(BaseCallback<List<Parque>> callback);
-
-        void getParquesFiltered(List<Parque> itemList, String newText, BaseCallback<List<Parque>> callback);
+        void getActividades(int idParque, BaseCallback<List<Actividad>> callback);
     }
 
 }
