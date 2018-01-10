@@ -47,4 +47,8 @@ interface RetrofitApi {
 
     @GET("parquesapi/getActividadesByParque/{id}")
     Single<NetworkResponse<List<Actividad>>> getActividades(@Path("id") int idParque);
+
+    @GET("parquesapi/getHorariosByParqueActividad/{idParque}/{idActividad}")
+    Single<NetworkResponse<List<Actividad>>> getHorarios(@Path("idParque") int idParque,
+                                                         @Path("idActividad") int idActividad);
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -26,11 +25,9 @@ import butterknife.BindView;
 public class ListaActividadesActivity extends BaseActivity<ListaActividadesContract.Presenter> implements
         ListaActividadesContract.View {
 
-    public static final String ID_ACTIVIDAD = "ID_ACTIVIDAD";
+    public static final String ACTIVIDAD = "ACTIVIDAD";
     @BindView(R.id.lLContainer)
     LinearLayout llContainer;
-    @BindView(R.id.llEmptyAdapter)
-    LinearLayout llEmptyAdapter;
     @BindView(R.id.rvActividadesParque)
     RecyclerView rvActividadesParque;
     @BindView(R.id.toolbar_lista_actividades_parque)
@@ -73,8 +70,8 @@ public class ListaActividadesActivity extends BaseActivity<ListaActividadesContr
     }
 
     private void navigateToActividadHorarios(Actividad actividad) {
-        Intent intent = new Intent(ListaActividadesActivity.this, ListaActividadesHorarios.class);
-        intent.putExtra(ID_ACTIVIDAD, actividad.getId());
+        Intent intent = new Intent(ListaActividadesActivity.this, ListaActividadesHorariosActivity.class);
+        intent.putExtra(ACTIVIDAD, actividad);
         startActivity(intent);
     }
 
@@ -95,11 +92,4 @@ public class ListaActividadesActivity extends BaseActivity<ListaActividadesContr
         showMessage(llContainer, message);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

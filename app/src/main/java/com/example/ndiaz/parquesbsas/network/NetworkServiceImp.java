@@ -62,7 +62,7 @@ public class NetworkServiceImp {
                 .getReclamosByParque(idParque);
     }
 
-    public Single<NetworkResponse<List<Reclamo>>> getReclamos(){
+    public Single<NetworkResponse<List<Reclamo>>> getReclamos() {
         return retrofitService
                 .getClient()
                 .getReclamos();
@@ -78,5 +78,11 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .getActividades(idParque);
+    }
+
+    public Single<NetworkResponse<List<Actividad>>> getHorarios(int idParque, int idActividad) {
+        return retrofitService
+                .getClient()
+                .getHorarios(idParque, idActividad);
     }
 }

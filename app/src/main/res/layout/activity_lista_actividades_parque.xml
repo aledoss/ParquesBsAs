@@ -19,9 +19,4 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <include
-        android:id="@+id/llEmptyAdapter"
-        layout="@layout/empty_adapter"
-        android:visibility="gone" />
-
 </LinearLayout>
