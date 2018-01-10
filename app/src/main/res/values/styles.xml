@@ -17,4 +17,15 @@
         <item name="android:background">@color/edit_text_background</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
+
+    <style name="PrimaryText" parent="AppTheme">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SecondaryText" parent="AppTheme">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
