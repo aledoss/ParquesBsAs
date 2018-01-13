@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="450dp"
     app:elevation="8dp"
+    card_view:cardBackgroundColor="@color/gray_100"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="3dp"
     card_view:cardUseCompatPadding="true">
@@ -40,14 +41,26 @@
 
         </RelativeLayout>
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/mapa_feria"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="55"
-            tools:context="com.example.ndiaz.parquesbsas.MapsActivity" />
+            android:layout_weight="55">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imgMapaFeria"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="mapa"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/txtComoLlego"

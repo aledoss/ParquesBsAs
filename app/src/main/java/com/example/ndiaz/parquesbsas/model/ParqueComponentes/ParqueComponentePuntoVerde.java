@@ -2,7 +2,9 @@ package com.example.ndiaz.parquesbsas.model.ParqueComponentes;
 
 import android.content.Context;
 
-class ParqueComponentePuntoVerde extends com.example.ndiaz.parquesbsas.model.ParqueComponente {
+import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+
+class ParqueComponentePuntoVerde extends ParqueComponente {
 
     @Override
     public void navigateToActivity(Context context) {

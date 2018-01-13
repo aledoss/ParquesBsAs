@@ -5,7 +5,7 @@
     android:id="@+id/llContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_300"
+    android:background="@color/colorPrimaryLight"
     tools:context=".ui.activities.info_parques.ParqueActivity">
 
     <android.support.design.widget.AppBarLayout
