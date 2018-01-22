@@ -8,46 +8,39 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.contract.ListaFeriasContract;
-import com.example.ndiaz.parquesbsas.interactor.ListaFeriasInteractor;
-import com.example.ndiaz.parquesbsas.model.Feria;
+import com.example.ndiaz.parquesbsas.contract.ListaEstSaludContract;
+import com.example.ndiaz.parquesbsas.interactor.ListaEstSaludInteractor;
+import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.presenter.ListaFeriasPresenter;
+import com.example.ndiaz.parquesbsas.presenter.ListaEstSaludPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
-import com.example.ndiaz.parquesbsas.ui.adapters.FeriasAdapter;
+import com.example.ndiaz.parquesbsas.ui.adapters.EstSaludAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 
-public class ListaFeriasActivity extends BaseActivity<ListaFeriasContract.Presenter>
-        implements ListaFeriasContract.View {
+public class ListaEstSaludActivity extends BaseActivity<ListaEstSaludContract.Presenter>
+        implements ListaEstSaludContract.View{
 
+    @BindView(R.id.toolbar_lista_est_salud)
+    Toolbar toolbar;
     @BindView(R.id.llContainer)
     LinearLayout llContainer;
-    @BindView(R.id.toolbar_lista_ferias)
-    Toolbar toolbar;
-    @BindView(R.id.rvFeriasParque)
-    RecyclerView rvFeriasParque;
+    @BindView(R.id.rvEstSaludParque)
+    RecyclerView rvEstSaludParque;
 
     private Parque parque;
-    private FeriasAdapter adapter;
+    private EstSaludAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_ferias);
+        setContentView(R.layout.activity_lista_est_salud);
         initializeVariables();
         setupToolbar();
         initializeAdapter();
-        presenter.doGetFerias(parque.getIdParque());
-    }
-
-    @Override
-    protected ListaFeriasContract.Presenter createPresenter() {
-        ListaFeriasInteractor interactor = new ListaFeriasInteractor(getNetworkServiceImp());
-
-        return new ListaFeriasPresenter(this, interactor);
+        presenter.doGetEstSalud(parque.getIdParque());
     }
 
     private void initializeVariables() {
@@ -56,20 +49,27 @@ public class ListaFeriasActivity extends BaseActivity<ListaFeriasContract.Presen
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.ferias);
+        getSupportActionBar().setTitle(R.string.estaciones_saludables);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initializeAdapter() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        rvFeriasParque.setLayoutManager(mLayoutManager);
-        adapter = new FeriasAdapter(parque);
-        rvFeriasParque.setAdapter(adapter);
+        rvEstSaludParque.setLayoutManager(mLayoutManager);
+        adapter = new EstSaludAdapter(parque);
+        rvEstSaludParque.setAdapter(adapter);
     }
 
     @Override
-    public void showFerias(List<Feria> ferias) {
-        adapter.setItemList(ferias);
+    protected ListaEstSaludContract.Presenter createPresenter() {
+        ListaEstSaludInteractor interactor = new ListaEstSaludInteractor(getNetworkServiceImp());
+
+        return new ListaEstSaludPresenter(this, interactor);
+    }
+
+    @Override
+    public void showEstSalud(List<EstacionSaludable> estSaludables) {
+        adapter.setItemList(estSaludables);
         adapter.notifyDataSetChanged();
     }
 

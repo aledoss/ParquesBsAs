@@ -54,6 +54,7 @@
     <string name="eco_bici">Eco Bici</string>
     <string name="seguridad">Seguridad:</string>
     <string name="estacion_saludable">Estación saludable</string>
+    <string name="estaciones_saludables">Estaciones saludables</string>
     <string name="sin_actividades_cargadas">Sin actividades cargadas</string>
     <string name="sin_actividades_horarios_cargadas">Actividad sin horarios</string>
     <string name="menu_sacar_foto_reclamo">Sacar Foto</string>

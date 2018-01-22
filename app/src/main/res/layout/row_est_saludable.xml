@@ -10,6 +10,28 @@
         android:orientation="vertical"
         android:weightSum="100">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="55"
+            android:paddingLeft="@dimen/map_padding"
+            android:paddingRight="@dimen/map_padding"
+            android:paddingTop="@dimen/map_padding">
+
+            <include
+                android:id="@+id/progressBarEstSaludable"
+                layout="@layout/progress_bar_default" />
+
+            <ImageView
+                android:id="@+id/imgMapaEstSaludable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="mapa"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -22,40 +44,20 @@
                 style="@style/PrimaryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MANUALIDADES Y ARTESANIAS" />
+                android:text="Servicios"
+                android:textSize="@dimen/s_font_size" />
 
             <TextView
-                android:id="@+id/txtDescripcion"
+                android:id="@+id/txtSubtitulo"
                 style="@style/SecondaryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTitulo"
                 android:layout_marginTop="20dp"
-                android:text="SABADO, DOMINGOS Y FERIADOS" />
+                android:text="Atencion"
+                android:textSize="@dimen/xs_font_size" />
 
         </RelativeLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="55"
-            android:paddingBottom="@dimen/map_padding"
-            android:paddingLeft="@dimen/map_padding"
-            android:paddingRight="@dimen/map_padding">
-
-            <include
-                android:id="@+id/progressBarFeria"
-                layout="@layout/progress_bar_default" />
-
-            <ImageView
-                android:id="@+id/imgMapaFeria"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="mapa"
-                android:scaleType="fitXY"
-                android:visibility="gone" />
-
-        </FrameLayout>
 
         <include layout="@layout/divider" />
 

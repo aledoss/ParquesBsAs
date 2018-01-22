@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.model.Actividad;
+import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Feria;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -91,5 +92,11 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .getFerias(idParque);
+    }
+
+    public Single<NetworkResponse<List<EstacionSaludable>>> getEstSaludables(int idParque) {
+        return retrofitService
+                .getClient()
+                .getEstSaludables(idParque);
     }
 }
