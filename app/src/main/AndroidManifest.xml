@@ -27,15 +27,22 @@
         <activity
             android:name=".ui.activities.SplashScreen"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.CreateUserActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.HomeActivity" />
+        <activity android:name=".ui.activities.HomeActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+<!---->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <!--
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
@@ -63,6 +70,7 @@
             android:screenOrientation="landscape" />
         <activity android:name=".ui.activities.ListaReclamosParqueActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaFeriasActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />
     </application>
 
 </manifest>
