@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ndiaz.parquesbsas.ui.activities.ListaReclamosParqueActivity">
+    tools:context="com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamosParqueActivity">
 
     <include
         android:id="@+id/toolbar_lista_reclamos_parque"

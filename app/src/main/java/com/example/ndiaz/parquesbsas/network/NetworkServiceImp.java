@@ -99,4 +99,10 @@ public class NetworkServiceImp {
                 .getClient()
                 .getEstSaludables(idParque);
     }
+
+    public Single<NetworkResponse<List<Reclamo>>> getReclamosByUsuario(int idUsuario) {
+        return retrofitService
+                .getClient()
+                .getReclamosByUsuario(idUsuario);
+    }
 }

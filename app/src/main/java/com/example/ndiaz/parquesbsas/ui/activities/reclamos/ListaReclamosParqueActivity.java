@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.ui.activities;
+package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import com.example.ndiaz.parquesbsas.contract.ListaReclamosParqueContract;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosParquePresenter;
-import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamoActivity;
+import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ReclamosParqueAdapter;
 
 import java.util.List;

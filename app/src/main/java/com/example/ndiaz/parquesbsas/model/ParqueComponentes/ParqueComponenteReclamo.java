@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
-import com.example.ndiaz.parquesbsas.ui.activities.ListaReclamosParqueActivity;
+import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamosParqueActivity;
 
 import static com.example.ndiaz.parquesbsas.constants.Constants.ID_PARQUE;
 

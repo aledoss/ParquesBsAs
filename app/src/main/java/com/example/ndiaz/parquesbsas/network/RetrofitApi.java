@@ -59,4 +59,7 @@ interface RetrofitApi {
 
     @GET("parquesapi/getEstSaludablesByParque/{id}")
     Single<NetworkResponse<List<EstacionSaludable>>> getEstSaludables(@Path("id") int idParque);
+
+    @GET("parquesapi/getReclamosByUsuario/{id}")
+    Single<NetworkResponse<List<Reclamo>>> getReclamosByUsuario(@Path("id") int idUsuario);
 }

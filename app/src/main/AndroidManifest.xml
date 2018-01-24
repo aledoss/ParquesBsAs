@@ -55,7 +55,7 @@
 
         <activity android:name=".ui.activities.MySettings" />
         <activity android:name=".ui.activities.ListaParquesActivity" />
-        <activity android:name=".ui.activities.reclamos.ListaReclamos" />
+        <activity android:name=".ui.activities.reclamos.ListaReclamosUsuarioActivity" />
         <activity android:name=".ui.activities.info_parques.ParqueActivity" />
         <activity android:name=".ui.activities.info_parques.DescGeneralParque" />
         <activity android:name=".ui.activities.componentes_parque.ListaActividadesActivity" />
@@ -68,7 +68,7 @@
         <activity
             android:name=".ui.activities.reclamos.CamaraReclamo"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activities.ListaReclamosParqueActivity" />
+        <activity android:name=".ui.activities.reclamos.ListaReclamosParqueActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaFeriasActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />
     </application>

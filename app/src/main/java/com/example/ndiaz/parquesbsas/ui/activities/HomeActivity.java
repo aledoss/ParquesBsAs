@@ -27,7 +27,7 @@ import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.HomePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
-import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamos;
+import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamosUsuarioActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -164,7 +164,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
                 mostrarSnackbar();
                 break;
             case R.id.nav_menu_reclamos:
-                startActivity(new Intent(HomeActivity.this, ListaReclamos.class));
+                startActivity(new Intent(HomeActivity.this, ListaReclamosUsuarioActivity.class));
                 break;
             case R.id.nav_menu_settings:
                 startActivity(new Intent(HomeActivity.this, MySettings.class));

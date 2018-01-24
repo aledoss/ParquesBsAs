@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.activities.reclamos.ListaReclamosUsuarioActivity">
+
+    <include
+        android:id="@+id/toolbar_lista_reclamos_usuario"
+        layout="@layout/toolbar" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshReclamosUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvReclamosUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey_300"
+                android:padding="2dp"
+                android:scrollbars="vertical" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <include
+            android:id="@+id/emptyContainer"
+            layout="@layout/empty_adapter"
+            android:visibility="gone" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>
