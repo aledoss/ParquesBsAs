@@ -22,7 +22,7 @@ public class AdapterListaReclamos extends ArrayAdapter<Reclamo> {
     private ArrayList<Reclamo> listaReclamos = new ArrayList<>();
 
     public AdapterListaReclamos(Context context, ArrayList<Reclamo> listaReclamos) {
-        super(context, R.layout.row_reclamo, listaReclamos);
+        super(context, R.layout.row_reclamo_usuario, listaReclamos);
         this.context = context;
         this.listaReclamos = listaReclamos;
     }
@@ -35,7 +35,7 @@ public class AdapterListaReclamos extends ArrayAdapter<Reclamo> {
         if (convertView == null) {
             viewHolder = new AdapterListaReclamos.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.row_reclamo, parent, false);
+            convertView = inflater.inflate(R.layout.row_reclamo_usuario, parent, false);
             viewHolder.txtNombreParque = (TextView) convertView.findViewById(R.id.row_reclamo_txt_nombre_parque);
             viewHolder.txtNombreReclamo = (TextView) convertView.findViewById(R.id.row_reclamo_txt_nombre_reclamo);
 

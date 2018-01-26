@@ -14,6 +14,10 @@
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_400">#BDBDBD</color>
 
+    <color name="reclamo_en_proceso">#ffee58</color>
+    <color name="reclamo_procesado">#9ccc65</color>
+    <color name="reclamo_expirado">#ff7043</color>
+
 
     <color name="edit_text_background">#87000000</color>
 </resources>
