@@ -36,15 +36,15 @@ public class AdapterListaReclamos extends ArrayAdapter<Reclamo> {
             viewHolder = new AdapterListaReclamos.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.row_reclamo_usuario, parent, false);
-            viewHolder.txtNombreParque = (TextView) convertView.findViewById(R.id.row_reclamo_txt_nombre_parque);
-            viewHolder.txtNombreReclamo = (TextView) convertView.findViewById(R.id.row_reclamo_txt_nombre_reclamo);
+            /*viewHolder.txtNombreParque = (TextView) convertView.findViewById(R.id.row_reclamo_txt_nombre_parque);
+            viewHolder.txtNombreReclamo = (TextView) convertView.findViewById(R.id.row_reclamo_txt_nombre_reclamo);*/
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (AdapterListaReclamos.ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtNombreParque.setText(reclamo.getParque());
+        viewHolder.txtNombreParque.setText(reclamo.getNombreParque());
         viewHolder.txtNombreReclamo.setText(reclamo.getNombre());
 
         return convertView;

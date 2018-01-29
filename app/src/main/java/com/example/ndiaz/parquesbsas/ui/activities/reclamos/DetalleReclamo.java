@@ -44,7 +44,7 @@ public class DetalleReclamo extends AppCompatActivity {
     private void obtenerReclamo() {
         try {
             reclamo = (Reclamo) getIntent().getExtras().getSerializable(RECLAMODETALLES);
-            nombreParque = reclamo.getParque();
+            nombreParque = reclamo.getNombreParque();
             nombreReclamo = reclamo.getNombre();
             comentarios = reclamo.getComentarios();
             latitud = reclamo.getLatitud();

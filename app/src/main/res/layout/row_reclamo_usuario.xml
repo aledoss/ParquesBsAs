@@ -17,7 +17,7 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/txtTitulo"
+                android:id="@+id/txtDescReclamo"
                 style="@style/PrimaryText"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -28,7 +28,7 @@
                 android:text="Instalación de banco" />
 
             <TextView
-                android:id="@+id/txtSubtitulo"
+                android:id="@+id/txtNombreParque"
                 style="@style/SecondaryText"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"

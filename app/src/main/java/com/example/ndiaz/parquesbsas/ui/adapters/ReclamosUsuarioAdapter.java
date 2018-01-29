@@ -1,5 +1,8 @@
 package com.example.ndiaz.parquesbsas.ui.adapters;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +27,7 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reclamo_parque,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reclamo_usuario,
                 parent, false);
         return new ReclamosUsuarioAdapter.MyViewHolder(v);
     }
@@ -33,10 +36,15 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Reclamo reclamo = reclamos.get(position);
 
-        holder.txtTitulo.setText(reclamo.getNombre());
-        //estado
-        //fecha
-        //holder.txtCantReclamos.setText("(" + reclamo.getCantidad() + ")");
+        holder.txtDescReclamo.setText(reclamo.getNombre());
+        holder.txtNombreParque.setText(reclamo.getNombreParque());
+        changeEstadoReclamoColor(holder.viewEstadoReclamo, reclamo.getColorEstado());
+        // TODO: 29/1/2018 fecha (como cabecera de la lista)
+    }
+
+    private void changeEstadoReclamoColor(View viewEstadoReclamo, String colorEstado) {
+        Drawable background = viewEstadoReclamo.getBackground();
+        ((ShapeDrawable)background).getPaint().setColor(Color.parseColor(colorEstado));
     }
 
     @Override
@@ -52,10 +60,12 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.txtTitulo)
-        TextView txtTitulo;
-        @BindView(R.id.txtCantidadReclamos)
-        TextView txtCantReclamos;
+        @BindView(R.id.txtDescReclamo)
+        TextView txtDescReclamo;
+        @BindView(R.id.txtNombreParque)
+        TextView txtNombreParque;
+        @BindView(R.id.circleState)
+        View viewEstadoReclamo;
 
         public MyViewHolder(View itemView) {
             super(itemView);

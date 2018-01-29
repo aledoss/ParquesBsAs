@@ -7,8 +7,6 @@ import java.util.List;
 
 public class Reclamo implements Serializable {
 
-    private String parque;
-
     @JsonProperty("id_reclamo")
     private int idReclamo;
     @JsonProperty("id_parque")
@@ -29,6 +27,12 @@ public class Reclamo implements Serializable {
     private String imagen;
     @JsonProperty("cantidad")
     private Integer cantidad;
+    @JsonProperty("nombre_parque")
+    private String nombreParque;
+    @JsonProperty("estado")
+    private String estado;
+    @JsonProperty("color_estado")
+    private String colorEstado;
 
     public int getIdReclamo() {
         return idReclamo;
@@ -54,12 +58,12 @@ public class Reclamo implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public String getParque() {
-        return parque;
+    public String getNombreParque() {
+        return nombreParque;
     }
 
-    public void setParque(String parque) {
-        this.parque = parque;
+    public void setNombreParque(String nombreParque) {
+        this.nombreParque = nombreParque;
     }
 
     public String getNombre() {
@@ -116,6 +120,22 @@ public class Reclamo implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getColorEstado() {
+        return colorEstado;
+    }
+
+    public void setColorEstado(String colorEstado) {
+        this.colorEstado = colorEstado;
     }
 
     public static String[] toArray(List<Reclamo> reclamos) {
