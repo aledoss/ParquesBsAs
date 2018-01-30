@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,7 +12,7 @@ import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosUsuarioInteractor;
-import com.example.ndiaz.parquesbsas.model.Reclamo;
+import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosUsuarioPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
@@ -42,7 +43,7 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
         setContentView(R.layout.activity_lista_reclamos_usuario);
         initializeVariables();
         setupToolbar();
-        presenter.doGetReclamos(usuario.getId(), false);
+        presenter.doGetReclamosConFechas(usuario.getId(), false);
     }
 
     @Override
@@ -63,14 +64,14 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     }
 
     @Override
-    public void showReclamos(List<Reclamo> reclamos) {
-        /*if (adapter == null) {
+    public void showReclamosConFechas(List<ReclamoFecha> reclamosFechas) {
+        if (adapter == null) {
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             rvReclamosUsuario.setLayoutManager(mLayoutManager);
-            adapter = new ReclamosUsuarioAdapter(reclamos);
+            adapter = new ReclamosUsuarioAdapter(reclamosFechas);
         }
 
-        rvReclamosUsuario.setAdapter(adapter);*/
+        rvReclamosUsuario.setAdapter(adapter);
     }
 
     @Override
@@ -85,13 +86,13 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     }
 
     @Override
-    public void refreshReclamos(List<Reclamo> reclamos) {
-        /*adapter.setItemList(reclamos);
-        adapter.notifyDataSetChanged();*/
+    public void refreshReclamos(List<ReclamoFecha> reclamosFechas) {
+        adapter.setItemList(reclamosFechas);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onRefresh() {
-        presenter.doGetReclamos(usuario.getId(), true);
+        presenter.doGetReclamosConFechas(usuario.getId(), true);
     }
 }

@@ -2,7 +2,7 @@ package com.example.ndiaz.parquesbsas.presenter;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
-import com.example.ndiaz.parquesbsas.model.Reclamo;
+import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -20,17 +20,17 @@ public class ListaReclamosUsuarioPresenter extends BasePresenterImp implements
     }
 
     @Override
-    public void doGetReclamos(int idParque, final boolean refreshData) {
-        interactor.getReclamos(idParque, new BaseCallback<List<Reclamo>>() {
+    public void doGetReclamosConFechas(int idParque, final boolean refreshData) {
+        interactor.getReclamosFecha(idParque, new BaseCallback<List<ReclamoFecha>>() {
             @Override
-            public void onSuccess(List<Reclamo> reclamos) {
-                if (reclamos.isEmpty()) {
+            public void onSuccess(List<ReclamoFecha> reclamosFechas) {
+                if (reclamosFechas.isEmpty()) {
                     view.get().showEmptyContainer();
                 } else {
                     if (!refreshData) {
-                        view.get().showReclamos(reclamos);
+                        view.get().showReclamosConFechas(reclamosFechas);
                     } else {
-                        view.get().refreshReclamos(reclamos);
+                        view.get().refreshReclamos(reclamosFechas);
                     }
                 }
             }

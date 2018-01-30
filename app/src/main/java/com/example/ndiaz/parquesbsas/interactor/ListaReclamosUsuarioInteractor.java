@@ -5,8 +5,10 @@ import android.util.Log;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
+import com.example.ndiaz.parquesbsas.helpers.ReclamoFechaBuilder;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
+import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
 import java.util.List;
@@ -22,13 +24,14 @@ public class ListaReclamosUsuarioInteractor extends BaseInteractorImp
 
     private static final String TAG = ListaReclamosUsuarioInteractor.class.getSimpleName();
     private NetworkServiceImp networkServiceImp;
+    private ReclamoFechaBuilder reclamoFechaBuilder;
 
     public ListaReclamosUsuarioInteractor(NetworkServiceImp networkServiceImp) {
         this.networkServiceImp = networkServiceImp;
     }
 
     @Override
-    public void getReclamos(int idUsuario, final BaseCallback<List<Reclamo>> callback) {
+    public void getReclamosFecha(int idUsuario, final BaseCallback<List<ReclamoFecha>> callback) {
         networkServiceImp
                 .getReclamosByUsuario(idUsuario)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -43,11 +46,12 @@ public class ListaReclamosUsuarioInteractor extends BaseInteractorImp
                     public void onSuccess(@NonNull NetworkResponse<List<Reclamo>> listNetworkResponse) {
                         String message = listNetworkResponse.getMessage();
                         if (listNetworkResponse.getStatus() == HTTPConstants.STATUS_OK) {
-                            callback.onSuccess(listNetworkResponse.getResponse());
-                            Log.i(TAG, "getReclamos, onSuccess: " + message);
+                            reclamoFechaBuilder = new ReclamoFechaBuilder();
+                            callback.onSuccess(reclamoFechaBuilder.build(listNetworkResponse.getResponse()));
+                            Log.i(TAG, "getReclamosFecha, onSuccess: " + message);
                         } else {
                             callback.onError(message);
-                            Log.e(TAG, "getReclamos, onSuccess: " + message);
+                            Log.e(TAG, "getReclamosFecha, onSuccess: " + message);
                         }
                     }
 
@@ -55,7 +59,7 @@ public class ListaReclamosUsuarioInteractor extends BaseInteractorImp
                     public void onError(@NonNull Throwable e) {
                         String message = e.getMessage();
                         callback.onError(message);
-                        Log.e(TAG, "getReclamos, onError: " + message);
+                        Log.e(TAG, "getReclamosFecha, onError: " + message);
                     }
                 });
     }
