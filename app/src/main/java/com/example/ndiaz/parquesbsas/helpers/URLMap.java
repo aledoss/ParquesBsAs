@@ -18,7 +18,7 @@ public class URLMap {
         this.longitudMarker = builder.longitudMarker;
         this.zoom = 18;
         this.width = 640;   //default value for free
-        this.height = 550;
+        this.height = 640;
     }
 
     public String getUrl() {
