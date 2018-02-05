@@ -31,7 +31,7 @@ public class Reclamo implements Serializable {
     private String nombreParque;
     @JsonProperty("estado")
     private String estado;
-    @JsonProperty("color_estado")
+    @JsonProperty("color")
     private String colorEstado;
 
     public int getIdReclamo() {

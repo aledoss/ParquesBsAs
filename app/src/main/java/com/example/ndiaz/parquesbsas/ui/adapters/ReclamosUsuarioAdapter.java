@@ -2,7 +2,7 @@ package com.example.ndiaz.parquesbsas.ui.adapters;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +14,15 @@ import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuarioAdapter.MyViewHolder> {
 
+    private static final int FECHA = 1;
+    private static final int RECLAMO = 2;
     private List<ReclamoFecha> reclamosFechas;
 
     public ReclamosUsuarioAdapter(List<ReclamoFecha> reclamosFechas) {
@@ -27,32 +31,50 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Depende el viewtype se va a inflar determinada vista (reclamo o fecha)
+        View v;
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reclamo_usuario,
-                parent, false);
+        if (viewType == FECHA) {
+            // TODO: 05/02/2018 Mejorar vista
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_fecha,
+                    parent, false);
+        } else {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reclamo_usuario,
+                    parent, false);
+        }
+
         return new ReclamosUsuarioAdapter.MyViewHolder(v);
     }
 
     @Override
     public int getItemViewType(int position) {
-        // TODO: 30/1/2018 Obtener el item de la lista mediante la posición y devolver un entero (definir constantes) referenciando a la vista que debería inflar
-        return super.getItemViewType(position);
+        int type;
+
+        if (reclamosFechas.get(position).isFecha()) {
+            type = FECHA;
+        } else {
+            type = RECLAMO;
+        }
+
+        return type;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ReclamoFecha reclamoFecha = reclamosFechas.get(position);
 
-        /*holder.txtDescReclamo.setText(reclamoFecha.getNombre());
-        holder.txtNombreParque.setText(reclamoFecha.getNombreParque());
-        changeEstadoReclamoColor(holder.viewEstadoReclamo, reclamoFecha.getColorEstado());*/
-        // TODO: 29/1/2018 fecha (como cabecera de la lista)
+        if (reclamoFecha.isFecha()) {
+            holder.txtFecha.setText(reclamoFecha.getFormattedDate());
+        } else {
+            holder.txtDescReclamo.setText(reclamoFecha.getReclamo().getNombre());
+            holder.txtNombreParque.setText(reclamoFecha.getReclamo().getNombreParque());
+            changeEstadoReclamoColor(holder.viewEstadoReclamo, reclamoFecha.getReclamo().getColorEstado());
+        }
+
     }
 
     private void changeEstadoReclamoColor(View viewEstadoReclamo, String colorEstado) {
         Drawable background = viewEstadoReclamo.getBackground();
-        ((ShapeDrawable)background).getPaint().setColor(Color.parseColor(colorEstado));
+        ((GradientDrawable) background).setColor(Color.parseColor("#" + colorEstado));
     }
 
     @Override
@@ -68,12 +90,18 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        @Nullable
         @BindView(R.id.txtDescReclamo)
         TextView txtDescReclamo;
+        @Nullable
         @BindView(R.id.txtNombreParque)
         TextView txtNombreParque;
+        @Nullable
         @BindView(R.id.circleState)
         View viewEstadoReclamo;
+        @Nullable
+        @BindView(R.id.txtFecha)
+        TextView txtFecha;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -81,7 +109,7 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
         }
     }
 
-    public void setItemList(List<ReclamoFecha> reclamosFechas){
+    public void setItemList(List<ReclamoFecha> reclamosFechas) {
         this.reclamosFechas = reclamosFechas;
     }
 }

@@ -3,7 +3,10 @@ package com.example.ndiaz.parquesbsas.helpers;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReclamoFechaBuilder {
@@ -41,9 +44,18 @@ public class ReclamoFechaBuilder {
     }
 
     private String getDia(String fechaCreacion) {
-        String [] dateParts = fechaCreacion.split("."); //identificador para cortar la fecha
+        // TODO: 04/02/2018 Arreglar, ver de manejar la fecha con unix
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        String dia = "";
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(formatter.parse(fechaCreacion));
+            dia = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        return dateParts[0];
+        return dia;
     }
 
 }
