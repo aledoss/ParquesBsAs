@@ -31,6 +31,7 @@ public class ListaReclamosUsuarioPresenter extends BasePresenterImp implements
                         view.get().showReclamosConFechas(reclamosFechas);
                     } else {
                         view.get().refreshReclamos(reclamosFechas);
+                        view.get().hideSwipeRefresh();
                     }
                 }
             }

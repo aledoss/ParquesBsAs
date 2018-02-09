@@ -18,6 +18,8 @@ public interface ListaReclamosUsuarioContract {
         void showEmptyContainer();
 
         void refreshReclamos(List<ReclamoFecha> reclamosFechas);
+
+        void hideSwipeRefresh();
     }
 
     interface Presenter extends BasePresenter {

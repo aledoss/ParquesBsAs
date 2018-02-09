@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -62,6 +63,7 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
         if (adapter == null) {
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             rvParques.setLayoutManager(mLayoutManager);
+            rvParques.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             adapter = new ParquesAdapter();
             rvParques.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override

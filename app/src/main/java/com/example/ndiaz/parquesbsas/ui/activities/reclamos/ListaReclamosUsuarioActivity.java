@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +34,8 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     LinearLayout llContainer;
     @BindView(R.id.emptyContainer)
     LinearLayout emptyContainer;
+    @BindView(R.id.swipeRefreshReclamosUsuario)
+    SwipeRefreshLayout swipeRefresh;
 
     private Usuario usuario;
     private ReclamosUsuarioAdapter adapter;
@@ -42,6 +45,7 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_reclamos_usuario);
         initializeVariables();
+        initializeViews();
         setupToolbar();
         presenter.doGetReclamosConFechas(usuario.getId(), false);
     }
@@ -57,6 +61,10 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
         this.usuario = ParquesApplication.getInstance().getUser();
     }
 
+    private void initializeViews() {
+        swipeRefresh.setOnRefreshListener(this);
+    }
+
     private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.lista_mis_reclamos);
@@ -67,6 +75,7 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     public void showReclamosConFechas(List<ReclamoFecha> reclamosFechas) {
         if (adapter == null) {
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            rvReclamosUsuario.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             rvReclamosUsuario.setLayoutManager(mLayoutManager);
             adapter = new ReclamosUsuarioAdapter(reclamosFechas);
         }
@@ -94,5 +103,10 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     @Override
     public void onRefresh() {
         presenter.doGetReclamosConFechas(usuario.getId(), true);
+    }
+
+    @Override
+    public void hideSwipeRefresh() {
+        swipeRefresh.setRefreshing(false);
     }
 }
