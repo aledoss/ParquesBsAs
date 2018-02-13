@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ndiaz.parquesbsas.ui.dialogs.ReclamoDialogFragment">
+
+    <TextView
+        android:id="@+id/txtNombreReclamo"
+        style="@style/PrimaryTextDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginTop="@dimen/general_margin"
+        android:text="Reparación de banco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNombreParque"
+        style="@style/SecondaryTextDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginTop="32dp"
+        android:text="Parque Rivadavia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreReclamo" />
+
+    <TextView
+        android:id="@+id/txtFechaCreacion"
+        style="@style/SecondaryTextDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginTop="@dimen/general_margin"
+        android:text="Creado el 20/06/2010"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreParque" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/SecondaryTextDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
+        android:text="@string/estado"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtEstadoReclamo"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtComentarios"
+        style="@style/SecondaryTextDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/general_margin"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:layout_marginStart="@dimen/general_margin"
+        android:layout_marginTop="@dimen/general_margin"
+        android:text="Lorem ipsum loasgplasg parque asopfgask pasto largo akgoagkok deberian cortarlo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtEstadoReclamo"
+        style="@style/SecondaryTextDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/general_margin"
+        android:text="procesado"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/txtFechaCreacion" />
+
+    <View
+        android:id="@+id/viewEstado"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="@dimen/general_margin"
+        android:layout_marginEnd="@dimen/general_margin"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="@dimen/general_margin"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/general_margin"
+        android:background="@drawable/circle"
+        app:layout_constraintBottom_toTopOf="@+id/txtComentarios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txtEstadoReclamo"
+        app:layout_constraintTop_toBottomOf="@+id/txtFechaCreacion" />
+
+</android.support.constraint.ConstraintLayout>

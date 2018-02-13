@@ -40,4 +40,15 @@
         <item name="android:textSize">@dimen/s_font_size</item>
     </style>
 
+    <style name="PrimaryTextDialog" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/xl_font_size</item>
+    </style>
+
+    <style name="SecondaryTextDialog" parent="AppTheme">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/m_font_size</item>
+    </style>
+
 </resources>

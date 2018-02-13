@@ -1,13 +1,20 @@
 package com.example.ndiaz.parquesbsas.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class ReclamoFecha {
+public class ReclamoFecha implements Parcelable {
 
     private Reclamo reclamo;
     private String fecha;
+
+    public ReclamoFecha() {
+        //Required for parcelable
+    }
 
     public Reclamo getReclamo() {
         return reclamo;
@@ -47,4 +54,32 @@ public class ReclamoFecha {
         return fecha != null && !fecha.isEmpty();
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.reclamo, flags);
+        dest.writeString(this.fecha);
+    }
+
+    protected ReclamoFecha(Parcel in) {
+        this.reclamo = in.readParcelable(Reclamo.class.getClassLoader());
+        this.fecha = in.readString();
+    }
+
+    public static final Creator<ReclamoFecha> CREATOR = new Creator<ReclamoFecha>() {
+        @Override
+        public ReclamoFecha createFromParcel(Parcel source) {
+            return new ReclamoFecha(source);
+        }
+
+        @Override
+        public ReclamoFecha[] newArray(int size) {
+            return new ReclamoFecha[size];
+        }
+    };
 }

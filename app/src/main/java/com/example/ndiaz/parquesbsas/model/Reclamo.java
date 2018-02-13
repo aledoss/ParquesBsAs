@@ -1,12 +1,16 @@
 package com.example.ndiaz.parquesbsas.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Reclamo implements Serializable {
+public class Reclamo implements Parcelable {
 
+    public static final String RECLAMO_KEY = "ReclamoKey";
+    public static final String DEFAULT_LAT_LNG_VALUE = "0.0";
     @JsonProperty("id_reclamo")
     private int idReclamo;
     @JsonProperty("id_parque")
@@ -33,6 +37,10 @@ public class Reclamo implements Serializable {
     private String estado;
     @JsonProperty("color")
     private String colorEstado;
+
+    public Reclamo() {
+        //Required for parcelable
+    }
 
     public int getIdReclamo() {
         return idReclamo;
@@ -147,4 +155,55 @@ public class Reclamo implements Serializable {
 
         return descReclamos;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.idReclamo);
+        dest.writeValue(this.idParque);
+        dest.writeValue(this.idUsuario);
+        dest.writeString(this.nombre);
+        dest.writeString(this.comentarios);
+        dest.writeString(this.fechaCreacion);
+        dest.writeString(this.latitud);
+        dest.writeString(this.longitud);
+        dest.writeString(this.imagen);
+        dest.writeValue(this.cantidad);
+        dest.writeString(this.nombreParque);
+        dest.writeString(this.estado);
+        dest.writeString(this.colorEstado);
+    }
+
+    protected Reclamo(Parcel in) {
+        this.idReclamo = in.readInt();
+        this.idParque = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.idUsuario = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.nombre = in.readString();
+        this.comentarios = in.readString();
+        this.fechaCreacion = in.readString();
+        this.latitud = in.readString();
+        this.longitud = in.readString();
+        this.imagen = in.readString();
+        this.cantidad = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.nombreParque = in.readString();
+        this.estado = in.readString();
+        this.colorEstado = in.readString();
+    }
+
+    public static final Creator<Reclamo> CREATOR = new Creator<Reclamo>() {
+        @Override
+        public Reclamo createFromParcel(Parcel source) {
+            return new Reclamo(source);
+        }
+
+        @Override
+        public Reclamo[] newArray(int size) {
+            return new Reclamo[size];
+        }
+    };
 }

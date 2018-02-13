@@ -76,6 +76,7 @@
     <string name="parque_no_encontrado">Parque no encontrado</string>
     <string name="actividades_horarios">Días y horarios</string>
     <string name="lista_mis_reclamos">Mis reclamos</string>
+    <string name="estado">Estado</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

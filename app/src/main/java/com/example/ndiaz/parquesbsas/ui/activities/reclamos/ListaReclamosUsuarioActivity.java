@@ -12,12 +12,14 @@ import android.widget.LinearLayout;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
+import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosUsuarioInteractor;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosUsuarioPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ReclamosUsuarioAdapter;
+import com.example.ndiaz.parquesbsas.ui.dialogs.ReclamoDialogFragment;
 
 import java.util.List;
 
@@ -77,6 +79,19 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             rvReclamosUsuario.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             rvReclamosUsuario.setLayoutManager(mLayoutManager);
+            rvReclamosUsuario.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    /*Intent intent = new Intent(ListaReclamosUsuarioActivity.this, ReclamoActivity.class);
+                    intent.putExtra(RECLAMO_KEY, adapter.getItem(position));
+                    startActivity(intent);*/
+                    ReclamoFecha reclamoFecha = adapter.getItem(position);
+                    if (reclamoFecha.getReclamo() != null) {
+                        ReclamoDialogFragment dialog = ReclamoDialogFragment.newInstance(reclamoFecha.getReclamo());
+                        dialog.show(getSupportFragmentManager(), ReclamoDialogFragment.class.getSimpleName());
+                    }
+                }
+            }));
             adapter = new ReclamosUsuarioAdapter(reclamosFechas);
         }
 

@@ -1,6 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="general_padding">20dp</dimen>
+    <dimen name="general_margin">16dp</dimen>
     <dimen name="map_padding">10dp</dimen>
 
     <dimen name="LoginTitle">36sp</dimen>
@@ -28,7 +29,8 @@
     <dimen name="simple_row_height">64dp</dimen>
 
     <!-- Font size-->
-    <dimen name="l_font_size">19.5sp</dimen>
+    <dimen name="xl_font_size">23sp</dimen>
+    <dimen name="l_font_size">20sp</dimen>
     <dimen name="m_font_size">18sp</dimen>
     <dimen name="s_font_size">16sp</dimen>
     <dimen name="xs_font_size">14sp</dimen>
