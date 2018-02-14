@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.helpers.URLMap;
+import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.squareup.picasso.Callback;
@@ -28,7 +28,7 @@ public class EstSaludAdapter extends RecyclerView.Adapter<EstSaludAdapter.MyView
     private static final String TAG = EstSaludAdapter.class.getSimpleName();
     private List<EstacionSaludable> estSaludables;
     private Parque parque;
-    private URLMap.Builder builder;
+    private URLMapImage.Builder builder;
 
     public EstSaludAdapter(Parque parque) {
         this.parque = parque;
@@ -45,7 +45,7 @@ public class EstSaludAdapter extends RecyclerView.Adapter<EstSaludAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EstacionSaludable estacionSaludable = estSaludables.get(position);
-        builder = new URLMap.Builder();
+        builder = new URLMapImage.Builder();
 
         holder.txtTitulo.setText(estacionSaludable.getServicios());
         holder.txtSubtitulo.setText(estacionSaludable.getFecha());
@@ -71,7 +71,7 @@ public class EstSaludAdapter extends RecyclerView.Adapter<EstSaludAdapter.MyView
                 });
     }
 
-    private URLMap getMapUrl(EstacionSaludable estacionSaludable) {
+    private URLMapImage getMapUrl(EstacionSaludable estacionSaludable) {
         return builder
                 .setLatitudCenter(parque.getLatitud())
                 .setLongitudCenter(parque.getLongitud())

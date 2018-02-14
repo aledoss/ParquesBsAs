@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.helpers.URLMap;
+import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.model.Feria;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.squareup.picasso.Callback;
@@ -28,7 +28,7 @@ public class FeriasAdapter extends RecyclerView.Adapter<FeriasAdapter.MyViewHold
     private static final String TAG = FeriasAdapter.class.getSimpleName();
     private List<Feria> ferias;
     private Parque parque;
-    private URLMap.Builder builder;
+    private URLMapImage.Builder builder;
 
     public FeriasAdapter(Parque parque) {
         this.parque = parque;
@@ -45,7 +45,7 @@ public class FeriasAdapter extends RecyclerView.Adapter<FeriasAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Feria feria = ferias.get(position);
-        builder = new URLMap.Builder();
+        builder = new URLMapImage.Builder();
 
         holder.txtTitulo.setText(feria.getTipo());
         holder.txtDescripcion.setText(feria.getFecha());
@@ -71,7 +71,7 @@ public class FeriasAdapter extends RecyclerView.Adapter<FeriasAdapter.MyViewHold
                 });
     }
 
-    private URLMap getMapUrl(Feria feria) {
+    private URLMapImage getMapUrl(Feria feria) {
         return builder
                 .setLatitudCenter(parque.getLatitud())
                 .setLongitudCenter(parque.getLongitud())

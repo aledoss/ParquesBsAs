@@ -30,6 +30,7 @@
     <string name="drawer_closed">Drawer Closed</string>
 
     <string name="title_activity_maps">Map</string>
+    <string name="map">Mapa</string>
 
     <string name="configuracion">Configuración</string>
     <string name="settings_inicio_sesion_auto_default">true</string>
@@ -65,6 +66,7 @@
     <string name="lista_reclamos">Lista Reclamos</string>
     <string name="generar">Generar</string>
     <string name="detalles">Detalles</string>
+    <string name="image">Imagen</string>
     <string name="reclamos">Reclamos</string>
     <string name="elegir_reclamo">Elegir reclamo</string>
     <string name="nombre_parque">Nombre del parque</string>
@@ -77,6 +79,8 @@
     <string name="actividades_horarios">Días y horarios</string>
     <string name="lista_mis_reclamos">Mis reclamos</string>
     <string name="estado">Estado</string>
+    <string name="share">Compartir</string>
+    <string name="error_maps_package_not_found">No se encontró la aplicación de mapas instalada</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

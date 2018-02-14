@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.dialogs;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -10,8 +11,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.callbacks.PackageCallback;
+import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 
 import butterknife.BindView;
@@ -21,7 +25,7 @@ import butterknife.Unbinder;
 import static com.example.ndiaz.parquesbsas.model.Reclamo.DEFAULT_LAT_LNG_VALUE;
 import static com.example.ndiaz.parquesbsas.model.Reclamo.RECLAMO_KEY;
 
-public class ReclamoDialogFragment extends DialogFragment {
+public class ReclamoDialogFragment extends DialogFragment implements PackageCallback.Maps {
 
     @BindView(R.id.txtNombreParque)
     TextView txtNombreParque;
@@ -36,6 +40,7 @@ public class ReclamoDialogFragment extends DialogFragment {
 
     private Reclamo reclamo;
     private Unbinder unbinder;
+    private IntentMap intentMap;
 
     public static ReclamoDialogFragment newInstance(Reclamo reclamo) {
 
@@ -54,28 +59,34 @@ public class ReclamoDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_reclamo, null);
         builder.setView(view);
-        initializeBundleVariables();
+        initializeVariables();
         initializeButtons(builder);
 
         return builder.create();
     }
 
-    private void initializeBundleVariables() {
+    private void initializeVariables() {
         Bundle bundle = getArguments();
         reclamo = bundle.getParcelable(RECLAMO_KEY);
+        intentMap = new IntentMap(getContext(), this);
     }
 
     private void initializeButtons(AlertDialog.Builder builder) {
         // TODO: 13/02/2018 Los listeners de las acciones del botón
         if (!reclamo.getImagen().isEmpty()) {
-            builder.setPositiveButton("Imagen", null);
+            builder.setPositiveButton(getString(R.string.image), null);
         }
 
         if (!reclamo.getLatitud().isEmpty() && !reclamo.getLatitud().equalsIgnoreCase(DEFAULT_LAT_LNG_VALUE)) {
-            builder.setNegativeButton("Mapa", null);
+            builder.setNegativeButton(getString(R.string.map), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    intentMap.navigateToMapsWithMarker(reclamo.getLatitud(), reclamo.getLongitud(), reclamo.getNombre());
+                }
+            });
         }
 
-        builder.setNeutralButton("Compartir", null);
+        builder.setNeutralButton(getString(R.string.share), null);
     }
 
     private void initializeViews() {
@@ -99,5 +110,10 @@ public class ReclamoDialogFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onMapsPackageNotFound() {
+        Toast.makeText(getActivity(), getString(R.string.error_maps_package_not_found), Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,6 +1,6 @@
-package com.example.ndiaz.parquesbsas.helpers;
+package com.example.ndiaz.parquesbsas.helpers.maps;
 
-public class URLMap {
+public class URLMapImage {
 
     private static final String BEGINING_URL = "https://maps.googleapis.com/maps/api/staticmap?center=";
     private String latitudCenter;
@@ -11,7 +11,7 @@ public class URLMap {
     private int height;
     private int width;
 
-    public URLMap(Builder builder) {
+    public URLMapImage(Builder builder) {
         this.latitudCenter = builder.latitudCenter;
         this.longitudCenter = builder.longitudCenter;
         this.latitudMarker = builder.latitudMarker;
@@ -86,8 +86,8 @@ public class URLMap {
             return this;
         }
 
-        public URLMap build() {
-            return new URLMap(this);
+        public URLMapImage build() {
+            return new URLMapImage(this);
         }
     }
 }
