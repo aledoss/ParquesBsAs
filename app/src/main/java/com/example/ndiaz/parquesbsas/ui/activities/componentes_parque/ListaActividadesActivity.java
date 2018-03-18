@@ -85,6 +85,7 @@ public class ListaActividadesActivity extends BaseActivity<ListaActividadesContr
     @Override
     public void showActividades(List<Actividad> actividades) {
         adapter.setItemList(actividades);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

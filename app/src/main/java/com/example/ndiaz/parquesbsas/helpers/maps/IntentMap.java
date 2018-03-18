@@ -28,7 +28,7 @@ public class IntentMap {
     }
 
     public void navigateToMapsWithTravellInstructions() {
-
+        //https://developers.google.com/maps/documentation/urls/android-intents
     }
 
     private boolean hasMapsInstalled(Intent mapIntent) {

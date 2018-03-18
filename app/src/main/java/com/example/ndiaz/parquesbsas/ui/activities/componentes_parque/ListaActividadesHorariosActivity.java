@@ -63,7 +63,7 @@ public class ListaActividadesHorariosActivity extends BaseActivity<ListaActivida
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(actividad.getNombre() + " " + getString(R.string.actividades_horarios));
+        getSupportActionBar().setTitle(actividad.getNombre() + " - " + getString(R.string.actividades_horarios));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -77,6 +77,7 @@ public class ListaActividadesHorariosActivity extends BaseActivity<ListaActivida
     @Override
     public void showHorarios(List<Actividad> actividades) {
         adapter.setItemList(actividades);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

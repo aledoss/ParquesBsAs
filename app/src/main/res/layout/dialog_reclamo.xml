@@ -86,8 +86,8 @@
 
     <View
         android:id="@+id/viewEstado"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_marginBottom="@dimen/general_margin"
         android:layout_marginEnd="@dimen/general_margin"
         android:layout_marginLeft="8dp"
