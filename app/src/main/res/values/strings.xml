@@ -81,6 +81,7 @@
     <string name="estado">Estado</string>
     <string name="share">Compartir</string>
     <string name="error_maps_package_not_found">No se encontró la aplicación de mapas instalada</string>
+    <string name="ferias_itinerantes">Ferias Itinerantes</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>

@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.network;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Feria;
+import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
@@ -56,6 +57,9 @@ interface RetrofitApi {
 
     @GET("parquesapi/getFeriasByParque/{id}")
     Single<NetworkResponse<List<Feria>>> getFerias(@Path("id") int idParque);
+
+    @GET("parquesapi/getFeriasItinerantesByParque/{id}")
+    Single<NetworkResponse<List<FeriaItinerante>>> getFeriasItinerantes(@Path("id") int idParque);
 
     @GET("parquesapi/getEstSaludablesByParque/{id}")
     Single<NetworkResponse<List<EstacionSaludable>>> getEstSaludables(@Path("id") int idParque);
