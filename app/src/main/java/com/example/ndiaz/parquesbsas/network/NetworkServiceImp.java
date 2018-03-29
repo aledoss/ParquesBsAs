@@ -7,6 +7,7 @@ import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.model.PuntoVerde;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
@@ -111,5 +112,11 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .getReclamosByUsuario(idUsuario);
+    }
+
+    public Single<NetworkResponse<List<PuntoVerde>>> getPuntosVerdes(int idParque) {
+        return retrofitService
+                .getClient()
+                .getPuntosVerdes(idParque);
     }
 }

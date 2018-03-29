@@ -7,6 +7,7 @@ import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.model.PuntoVerde;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
@@ -66,4 +67,7 @@ interface RetrofitApi {
 
     @GET("parquesapi/getReclamosByUsuario/{id}")
     Single<NetworkResponse<List<Reclamo>>> getReclamosByUsuario(@Path("id") int idUsuario);
+
+    @GET("parquesapi/getPuntosVerdesByParque/{id}")
+    Single<NetworkResponse<List<PuntoVerde>>> getPuntosVerdes(@Path("id") int idParque);
 }

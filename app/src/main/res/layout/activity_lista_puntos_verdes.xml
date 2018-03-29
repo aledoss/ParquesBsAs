@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/DefaultBackground"
+    android:orientation="vertical"
+    tools:context="com.example.ndiaz.parquesbsas.ui.activities.componentes_parque.ListaFeriasActivity">
+
+    <include
+        android:id="@+id/toolbar_lista_puntos_verdes"
+        layout="@layout/toolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvPuntosVerdesParque"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:padding="4dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
