@@ -54,7 +54,9 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".ui.activities.MySettings" />
-        <activity android:name=".ui.activities.ListaParquesActivity" />
+        <activity
+            android:name=".ui.activities.ListaParquesActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.activities.reclamos.ListaReclamosUsuarioActivity" />
         <activity android:name=".ui.activities.info_parques.ParqueActivity" />
         <activity android:name=".ui.activities.info_parques.DescGeneralParque" />
@@ -71,6 +73,8 @@
         <activity android:name=".ui.activities.reclamos.ListaReclamosParqueActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaFeriasActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaFeriasItinerantesActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaPuntosVerdesActivity" />
     </application>
 
 </manifest>
