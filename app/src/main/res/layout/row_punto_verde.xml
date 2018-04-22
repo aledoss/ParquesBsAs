@@ -53,7 +53,7 @@
             android:paddingRight="@dimen/map_padding">
 
             <ImageView
-                android:id="@+id/imgMapaFeria"
+                android:id="@+id/imgMapaPuntoVerde"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="mapa"
@@ -61,7 +61,7 @@
                 android:visibility="gone" />
 
             <include
-                android:id="@+id/progressBarFeria"
+                android:id="@+id/progressBarPuntoVerde"
                 layout="@layout/progress_bar_default" />
 
         </FrameLayout>

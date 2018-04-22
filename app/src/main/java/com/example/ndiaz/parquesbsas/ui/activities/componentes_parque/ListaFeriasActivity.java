@@ -63,7 +63,7 @@ public class ListaFeriasActivity extends BaseActivity<ListaFeriasContract.Presen
     private void initializeAdapter() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         rvFeriasParque.setLayoutManager(mLayoutManager);
-        adapter = new FeriasAdapter(parque);
+        adapter = new FeriasAdapter(this, parque);
         rvFeriasParque.setAdapter(adapter);
     }
 

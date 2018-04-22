@@ -63,7 +63,7 @@ public class ListaPuntosVerdesActivity extends BaseActivity<ListaPuntosVerdesCon
     private void initializeAdapter() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         rvPuntosVerdesParque.setLayoutManager(mLayoutManager);
-        adapter = new PuntosVerdesAdapter(parque);
+        adapter = new PuntosVerdesAdapter(this, parque);
         rvPuntosVerdesParque.setAdapter(adapter);
     }
 

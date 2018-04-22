@@ -1,8 +1,5 @@
 package com.example.ndiaz.parquesbsas.ui.adapters;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
 import java.util.List;
@@ -24,6 +22,7 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
     private static final int FECHA = 1;
     private static final int RECLAMO = 2;
     private List<ReclamoFecha> reclamosFechas;
+    private ViewHelper viewHelper;
 
     public ReclamosUsuarioAdapter(List<ReclamoFecha> reclamosFechas) {
         this.reclamosFechas = reclamosFechas;
@@ -67,14 +66,8 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
         } else {
             holder.txtDescReclamo.setText(reclamoFecha.getReclamo().getNombre());
             holder.txtNombreParque.setText(reclamoFecha.getReclamo().getNombreParque());
-            changeEstadoReclamoColor(holder.viewEstadoReclamo, reclamoFecha.getReclamo().getColorEstado());
+            viewHelper.changeXMLViewColor(holder.viewEstadoReclamo, reclamoFecha.getReclamo().getColorEstado());
         }
-
-    }
-
-    private void changeEstadoReclamoColor(View viewEstadoReclamo, String colorEstado) {
-        Drawable background = viewEstadoReclamo.getBackground();
-        ((GradientDrawable) background).setColor(Color.parseColor("#" + colorEstado));
     }
 
     @Override
@@ -106,6 +99,7 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            viewHelper = new ViewHelper();
         }
     }
 

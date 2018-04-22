@@ -48,12 +48,9 @@
             android:layout_height="match_parent"
             android:layout_weight="15">
 
-            <View
+            <include
                 android:id="@+id/circleState"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circle" />
+                layout="@layout/circle_state" />
 
         </FrameLayout>
 

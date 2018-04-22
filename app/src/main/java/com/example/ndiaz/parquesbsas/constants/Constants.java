@@ -53,24 +53,10 @@ public interface Constants {
             LATITUD_PARQUE, LONGITUD_PARQUE, BARRIO_PARQUE, COMUNA_PARQUE, PATIO_JUEGOS_PARQUE
     };
 
-    ////Reclamos
-    String TABLE_RECLAMOS = "Reclamos";
-    String IDRECLAMOCOLUMNA = "Id_Reclamo";
-    String NOMBRE_RECLAMO = "Nombre";
-    String NOMBRE_RECLAMO_PQE = "Nombre_Parque";
-    String COMENTARIO_RECLAMO = "Comentarios";
-    String FECHA_CREACION_RECLAMO = "Fecha_Creacion";
-    String LATITUD_RECLAMO = "Latitud";
-    String LONGITUD_RECLAMO = "Longitud";
-    String IMAGEN_RECLAMO = "Imagen";
-
     String IMAGENBYTES = "ImagenBytes";
     String LASTLOCATIONLATITUD = "LastLocationLatitud";
     String LASTLOCATIONLONGITUD = "LastLocationLongitud";
     String RECLAMODETALLES = "ReclamoDetalles";
-
-    //Settings
-    String SETTINGS_CHECBOX_INICIO_SESION_AUTO = "settings_checkbox_inicio_sesion_auto";
 
     //XML
     String xmlURL = "https://recursos-data.buenosaires.gob.ar/ckan2/ecobici/estado-ecobici.xml";

@@ -1,12 +1,11 @@
 package com.example.ndiaz.parquesbsas.model.ParqueComponentes;
 
-import android.content.Context;
-
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 
 public class ParqueComponenteJacksonMapper extends ParqueComponente{
     @Override
-    public void navigateToActivity(Context context) {
+    public void navigateToActivity(BaseActivity baseActivity) {
 
     }
 }

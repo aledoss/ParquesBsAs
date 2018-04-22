@@ -1,7 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +9,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.PuntoVerde;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,14 @@ import butterknife.ButterKnife;
 
 public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapter.MyViewHolder> {
 
-    private static final String TAG = PuntosVerdesAdapter.class.getSimpleName();
     private List<PuntoVerde> puntosVerdes;
     private Parque parque;
     private URLMapImage.Builder builder;
+    private ViewHelper viewHelper;
+    private Context context;
 
-    public PuntosVerdesAdapter(Parque parque) {
+    public PuntosVerdesAdapter(Context context, Parque parque) {
+        this.context = context;
         this.parque = parque;
     }
 
@@ -50,26 +50,8 @@ public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapte
         holder.txtTitulo.setText(puntoVerde.getTipo());
         holder.txtDescripcion1.setText(puntoVerde.getDiasHorarios());
         holder.txtDescripcion2.setText(puntoVerde.getMateriales());
-        loadMapImage(holder, puntoVerde);
-    }
-
-    private void loadMapImage(final MyViewHolder holder, PuntoVerde puntoVerde) {
-        Picasso
-                .with(ParquesApplication.getInstance().getApplicationContext())
-                .load(getMapUrl(puntoVerde).getUrl())
-                .into(holder.imgMapaFeria, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        holder.imgMapaFeria.setVisibility(View.VISIBLE);
-                        holder.progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError() {
-                        holder.progressBar.setVisibility(View.GONE);
-                        Log.e(TAG, "loadMapImage, onError");
-                    }
-                });
+        viewHelper.loadMapImage(context, holder.imgMapaPuntoVerde, holder.progressBar, getMapUrl(puntoVerde),
+                PuntosVerdesAdapter.class.getSimpleName());
     }
 
     private URLMapImage getMapUrl(PuntoVerde puntoVerde) {
@@ -101,14 +83,15 @@ public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapte
         TextView txtDescripcion1;
         @BindView(R.id.txtDescripcion2)
         TextView txtDescripcion2;
-        @BindView(R.id.imgMapaFeria)
-        ImageView imgMapaFeria;
-        @BindView(R.id.progressBarFeria)
+        @BindView(R.id.imgMapaPuntoVerde)
+        ImageView imgMapaPuntoVerde;
+        @BindView(R.id.progressBarPuntoVerde)
         ProgressBar progressBar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            viewHelper = new ViewHelper();
         }
     }
 

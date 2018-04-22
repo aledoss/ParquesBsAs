@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
@@ -103,10 +104,12 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     }
 
     private void obtenerDatosParque() {
-        try {
-            parque = (Parque) getIntent().getExtras().getSerializable(PARQUEDETALLES);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            parque = (Parque) bundle.getSerializable(PARQUEDETALLES);
+        } else {
+            finish();
+            Toast.makeText(this, "No se puede mostrar el parque", Toast.LENGTH_SHORT).show();
         }
     }
 

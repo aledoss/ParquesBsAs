@@ -63,7 +63,7 @@ public class ListaFeriasItinerantesActivity extends BaseActivity<ListaFeriasItin
     private void initializeAdapter() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         rvFeriasItinerantesParque.setLayoutManager(mLayoutManager);
-        adapter = new FeriasItinerantesAdapter(parque);
+        adapter = new FeriasItinerantesAdapter(this, parque);
         rvFeriasItinerantesParque.setAdapter(adapter);
     }
 

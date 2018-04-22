@@ -1,11 +1,22 @@
 package com.example.ndiaz.parquesbsas.helpers;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.ndiaz.parquesbsas.edittextvalidator.EditTextValidator;
 import com.example.ndiaz.parquesbsas.edittextvalidator.FactoryEditText;
+import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,6 +49,31 @@ public class ViewHelper {
             }
         }
         return false;
+    }
+
+    public void loadMapImage(final Context context, final ImageView imgMapa, final ProgressBar progressBar,
+                              URLMapImage urlMapImage, final String className) {
+        Picasso
+                .with(context)
+                .load(urlMapImage.getUrl())
+                .into(imgMapa, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        imgMapa.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+                        progressBar.setVisibility(View.GONE);
+                        Log.e(className, "loadMapImage, onError");
+                    }
+                });
+    }
+
+    public void changeXMLViewColor(View view, String color) {
+        Drawable background = view.getBackground();
+        ((GradientDrawable) background).setColor(Color.parseColor("#" + color));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +9,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,14 @@ import butterknife.ButterKnife;
 
 public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinerantesAdapter.MyViewHolder> {
 
-    private static final String TAG = FeriasItinerantesAdapter.class.getSimpleName();
     private List<FeriaItinerante> feriasItinerantes;
     private Parque parque;
     private URLMapImage.Builder builder;
+    private Context context;
+    private ViewHelper viewHelper;
 
-    public FeriasItinerantesAdapter(Parque parque) {
+    public FeriasItinerantesAdapter(Context context, Parque parque) {
+        this.context = context;
         this.parque = parque;
     }
 
@@ -49,26 +49,8 @@ public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinera
 
         holder.txtTitulo.setText(feria.getFecha());
         holder.txtDescripcion.setText(feria.getDireccion());
-        loadMapImage(holder, feria);
-    }
-
-    private void loadMapImage(final MyViewHolder holder, FeriaItinerante feria) {
-        Picasso
-                .with(ParquesApplication.getInstance().getApplicationContext())
-                .load(getMapUrl(feria).getUrl())
-                .into(holder.imgMapaFeria, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        holder.imgMapaFeria.setVisibility(View.VISIBLE);
-                        holder.progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError() {
-                        holder.progressBar.setVisibility(View.GONE);
-                        Log.e(TAG, "loadMapImage, onError" );
-                    }
-                });
+        viewHelper.loadMapImage(context, holder.imgMapaFeria, holder.progressBar, getMapUrl(feria),
+                FeriasItinerantesAdapter.class.getSimpleName());
     }
 
     private URLMapImage getMapUrl(FeriaItinerante feria) {
@@ -106,6 +88,7 @@ public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinera
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            viewHelper = new ViewHelper();
         }
     }
 

@@ -1,8 +1,7 @@
 package com.example.ndiaz.parquesbsas.model;
 
-import android.content.Context;
-
 import com.example.ndiaz.parquesbsas.model.ParqueComponentes.ParqueComponenteJacksonMapper;
+import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -36,10 +35,6 @@ public abstract class ParqueComponente {
         this.idParque = idParque;
     }
 
-    public abstract void navigateToActivity(Context context);
+    public abstract void navigateToActivity(BaseActivity baseActivity);
 
-    public void setParqueComponente(ParqueComponente parqueComponente) {
-        this.nombreComponente = parqueComponente.getNombreComponente();
-        this.idParque = parqueComponente.getIdParque();
-    }
 }

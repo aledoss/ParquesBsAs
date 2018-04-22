@@ -56,7 +56,7 @@ public class ListaEstSaludActivity extends BaseActivity<ListaEstSaludContract.Pr
     private void initializeAdapter() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         rvEstSaludParque.setLayoutManager(mLayoutManager);
-        adapter = new EstSaludAdapter(parque);
+        adapter = new EstSaludAdapter(this, parque);
         rvEstSaludParque.setAdapter(adapter);
     }
 

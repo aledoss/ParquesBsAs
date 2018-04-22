@@ -1,15 +1,14 @@
 package com.example.ndiaz.parquesbsas.model.ParqueComponentes;
 
-import android.content.Context;
-
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 
 class ParqueComponenteEncuesta extends ParqueComponente{
 
     @Override
-    public void navigateToActivity(Context context) {
-        /*Intent intent = new Intent(context, ListaEncuestasParqueActivity.class);
+    public void navigateToActivity(BaseActivity baseActivity) {
+        /*Intent intent = new Intent(baseActivity, ListaEncuestasParqueActivity.class);
         intent.putExtra(ID_PARQUE, getIdParque());
-        context.startActivity(intent);*/
+        baseActivity.startActivity(intent);*/
     }
 }
