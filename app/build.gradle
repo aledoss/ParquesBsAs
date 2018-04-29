@@ -20,11 +20,11 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    final SUPPORT_LIBRARY_VERSION = '27.1.0'
-    final PLAY_SERVICES_VERSION = '10.0.+'
+    final SUPPORT_LIBRARY_VERSION = '27.1.1'
+    final PLAY_SERVICES_VERSION = '15.0.0'
     final OK_HTTP_VERSION = '3.4.1'
     final RETROFIT_VERSION = '2.3.0'
     final BUTTERKNIFE_VERSION = '8.8.1'
