@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
+import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.network.RetrofitService;
@@ -31,6 +32,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected NetworkServiceImp networkServiceImp;
     protected RXDBInteractor rxdbInteractor;
     private ProgressDialog progressDialog;
+    private PermissionsManager permissionsManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         networkServiceImp = new NetworkServiceImp(new RetrofitService());
         rxdbInteractor = new RXDBInteractor(this);
         progressDialog = new ProgressDialog(this);
+        permissionsManager = new PermissionsManager(this);
     }
 
     @Override
@@ -101,6 +104,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             llEmptyAdapter.setVisibility(View.VISIBLE);
             viewToHide.setVisibility(View.GONE);
         }
+    }
+
+    public PermissionsManager getPermissionsManager() {
+        return permissionsManager;
     }
 
     @Override

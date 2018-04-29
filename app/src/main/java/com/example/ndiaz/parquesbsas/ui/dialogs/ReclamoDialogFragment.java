@@ -11,10 +11,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.callbacks.PackageCallback;
 import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 
@@ -25,7 +23,7 @@ import butterknife.Unbinder;
 import static com.example.ndiaz.parquesbsas.model.Reclamo.DEFAULT_LAT_LNG_VALUE;
 import static com.example.ndiaz.parquesbsas.model.Reclamo.RECLAMO_KEY;
 
-public class ReclamoDialogFragment extends DialogFragment implements PackageCallback.Maps {
+public class ReclamoDialogFragment extends DialogFragment {
 
     @BindView(R.id.txtNombreParque)
     TextView txtNombreParque;
@@ -68,7 +66,7 @@ public class ReclamoDialogFragment extends DialogFragment implements PackageCall
     private void initializeVariables() {
         Bundle bundle = getArguments();
         reclamo = bundle.getParcelable(RECLAMO_KEY);
-        intentMap = new IntentMap(getContext(), this);
+        intentMap = new IntentMap(getContext());
     }
 
     private void initializeButtons(AlertDialog.Builder builder) {
@@ -112,8 +110,4 @@ public class ReclamoDialogFragment extends DialogFragment implements PackageCall
         unbinder.unbind();
     }
 
-    @Override
-    public void onMapsPackageNotFound() {
-        Toast.makeText(getActivity(), getString(R.string.error_maps_package_not_found), Toast.LENGTH_SHORT).show();
-    }
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -51,4 +51,12 @@
         <item name="android:textSize">@dimen/m_font_size</item>
     </style>
 
+    <style name="TextComoLlego" parent="AppTheme">
+        <item name="android:text">@string/como_llego</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <string name="como_llego">Cómo llego?</string>
 </resources>

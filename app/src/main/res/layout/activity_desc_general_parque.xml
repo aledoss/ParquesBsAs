@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/clContainer"
     tools:context=".ui.activities.info_parques.DescGeneralParqueActivity">
 
     <include
@@ -42,11 +42,11 @@
         android:id="@+id/imgBtnThumbsUp"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:contentDescription="thumbs_up"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtThumbsUp"
         app:layout_constraintTop_toBottomOf="@+id/flMapContainer"
         app:srcCompat="@drawable/ic_thumb_up" />
 
@@ -54,11 +54,11 @@
         android:id="@+id/imgBtnThumbsDown"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:contentDescription="thumbs_down"
-        app:layout_constraintStart_toEndOf="@+id/txtThumbsUp"
+        app:layout_constraintEnd_toStartOf="@+id/txtThumbsDown"
         app:layout_constraintTop_toBottomOf="@+id/flMapContainer"
         app:srcCompat="@drawable/ic_thumb_down" />
 
@@ -66,22 +66,22 @@
         android:id="@+id/txtThumbsUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginTop="24dp"
         android:text="(21)"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnThumbsUp"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnThumbsDown"
         app:layout_constraintTop_toBottomOf="@+id/flMapContainer" />
 
     <TextView
         android:id="@+id/txtThumbsDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="24dp"
         android:text="(3)"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnThumbsDown"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flMapContainer" />
 
     <TextView
@@ -167,6 +167,19 @@
         app:layout_constraintStart_toEndOf="@+id/txtPatioJuegos"
         app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
 
+    <TextView
+        android:id="@+id/txtComoLlego"
+        style="@style/TextComoLlego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/include"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flMapContainer" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -63,15 +63,12 @@
 
         <TextView
             android:id="@+id/txtComoLlego"
+            style="@style/TextComoLlego"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="15"
-            android:elevation="4dp"
             android:gravity="center"
-            android:padding="@dimen/general_padding"
-            android:text="Cómo llego?"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp" />
+            android:padding="@dimen/general_padding" />
 
     </LinearLayout>
 

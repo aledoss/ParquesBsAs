@@ -83,6 +83,10 @@
     <string name="error_maps_package_not_found">No se encontró la aplicación de mapas instalada</string>
     <string name="ferias_itinerantes">Ferias Itinerantes</string>
     <string name="puntos_verdes">Puntos Verdes</string>
+    <string name="default_permission_rejected">Se debe aceptar el permiso para acceder a la funcionalidad</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">CANCELAR</string>
+    <string name="showing_maps_route_confirmation">Se abrirá el Maps para mostrar el recorrido hacia el parque</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>
