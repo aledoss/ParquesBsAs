@@ -88,6 +88,8 @@
     <string name="dialog_cancel">CANCELAR</string>
     <string name="showing_maps_route_confirmation">Se abrirá el Maps para mostrar el recorrido hacia el parque</string>
 
+    <string name="como_llego">Cómo llego?</string>
+
     <string-array name="lat_entries">
         <item>-34.6060982</item>
         <item>-34.6178287</item>

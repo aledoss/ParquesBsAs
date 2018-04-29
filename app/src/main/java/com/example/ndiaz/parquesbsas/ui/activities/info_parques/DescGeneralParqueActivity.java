@@ -3,7 +3,6 @@ package com.example.ndiaz.parquesbsas.ui.activities.info_parques;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.DescGralContract;
+import com.example.ndiaz.parquesbsas.helpers.AlertDialogBuilder;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
@@ -70,6 +70,7 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
     private ViewHelper viewHelper;
     private ParqueLike parqueLike;
     private IntentMap intentMap;
+    private AlertDialogBuilder dialogBuilder;
 
     @OnClick(R.id.imgBtnThumbsUp)
     public void onThumbsUpClick() {
@@ -87,7 +88,9 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
 
     @OnClick(R.id.txtComoLlego)
     public void onTxtComoLlegoClick() {
-        showConfirmationToNavigateMessage();
+        dialogBuilder.buildConfirmationDialogToNavigateMapsWI(this, intentMap, parque.getLatitud(),
+                parque.getLongitud())
+                .show();
     }
 
     @Override
@@ -112,6 +115,7 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
         this.usuario = ParquesApplication.getInstance().getUser();
         this.viewHelper = new ViewHelper();
         this.intentMap = new IntentMap(this);
+        this.dialogBuilder = new AlertDialogBuilder();
         createDefaultParqueLike();
     }
 
@@ -235,18 +239,6 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
         parque.setHates(Integer.valueOf(txtThumbsDown.getText().toString()));
 
         ParquesApplication.getInstance().setParque(parque);
-    }
-
-    private void showConfirmationToNavigateMessage() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.showing_maps_route_confirmation)
-                .setPositiveButton(getString(R.string.dialog_ok), (dialog, which) -> navigateToMapsWithTravellInstruction())
-                .setNegativeButton(getString(R.string.dialog_cancel), (dialog, which) -> dialog.dismiss());
-        builder.show();
-    }
-
-    private void navigateToMapsWithTravellInstruction() {
-        intentMap.navigateToMapsWithTravellInstructions(parque.getLatitud(), parque.getLongitud());
     }
 
 }

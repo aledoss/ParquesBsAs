@@ -10,7 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.helpers.AlertDialogBuilder;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
+import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -28,6 +30,8 @@ public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinera
     private URLMapImage.Builder builder;
     private Context context;
     private ViewHelper viewHelper;
+    private AlertDialogBuilder dialogBuilder;
+    private IntentMap intentMap;
 
     public FeriasItinerantesAdapter(Context context, Parque parque) {
         this.context = context;
@@ -49,6 +53,8 @@ public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinera
 
         holder.txtTitulo.setText(feria.getFecha());
         holder.txtDescripcion.setText(feria.getDireccion());
+        holder.txtComoLlego.setOnClickListener(v -> dialogBuilder.buildConfirmationDialogToNavigateMapsWI(context, intentMap,
+                feria.getLatitud(), feria.getLongitud()).show());
         viewHelper.loadMapImage(context, holder.imgMapaFeria, holder.progressBar, getMapUrl(feria),
                 FeriasItinerantesAdapter.class.getSimpleName());
     }
@@ -80,6 +86,8 @@ public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinera
         TextView txtTitulo;
         @BindView(R.id.txtDescripcion)
         TextView txtDescripcion;
+        @BindView(R.id.txtComoLlego)
+        TextView txtComoLlego;
         @BindView(R.id.imgMapaFeria)
         ImageView imgMapaFeria;
         @BindView(R.id.progressBarFeria)
@@ -89,6 +97,8 @@ public class FeriasItinerantesAdapter extends RecyclerView.Adapter<FeriasItinera
             super(itemView);
             ButterKnife.bind(this, itemView);
             viewHelper = new ViewHelper();
+            dialogBuilder = new AlertDialogBuilder();
+            intentMap = new IntentMap(context);
         }
     }
 

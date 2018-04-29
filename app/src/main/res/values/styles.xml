@@ -58,5 +58,4 @@
         <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
     </style>
 
-    <string name="como_llego">Cómo llego?</string>
 </resources>

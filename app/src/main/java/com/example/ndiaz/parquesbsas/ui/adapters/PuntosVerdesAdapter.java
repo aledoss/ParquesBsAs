@@ -10,7 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.helpers.AlertDialogBuilder;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
+import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.PuntoVerde;
@@ -28,6 +30,8 @@ public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapte
     private URLMapImage.Builder builder;
     private ViewHelper viewHelper;
     private Context context;
+    private AlertDialogBuilder dialogBuilder;
+    private IntentMap intentMap;
 
     public PuntosVerdesAdapter(Context context, Parque parque) {
         this.context = context;
@@ -50,6 +54,8 @@ public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapte
         holder.txtTitulo.setText(puntoVerde.getTipo());
         holder.txtDescripcion1.setText(puntoVerde.getDiasHorarios());
         holder.txtDescripcion2.setText(puntoVerde.getMateriales());
+        holder.txtComoLlego.setOnClickListener(v -> dialogBuilder.buildConfirmationDialogToNavigateMapsWI(context, intentMap,
+                puntoVerde.getLatitud(), puntoVerde.getLongitud()).show());
         viewHelper.loadMapImage(context, holder.imgMapaPuntoVerde, holder.progressBar, getMapUrl(puntoVerde),
                 PuntosVerdesAdapter.class.getSimpleName());
     }
@@ -83,6 +89,8 @@ public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapte
         TextView txtDescripcion1;
         @BindView(R.id.txtDescripcion2)
         TextView txtDescripcion2;
+        @BindView(R.id.txtComoLlego)
+        TextView txtComoLlego;
         @BindView(R.id.imgMapaPuntoVerde)
         ImageView imgMapaPuntoVerde;
         @BindView(R.id.progressBarPuntoVerde)
@@ -92,6 +100,8 @@ public class PuntosVerdesAdapter extends RecyclerView.Adapter<PuntosVerdesAdapte
             super(itemView);
             ButterKnife.bind(this, itemView);
             viewHelper = new ViewHelper();
+            dialogBuilder = new AlertDialogBuilder();
+            intentMap = new IntentMap(context);
         }
     }
 

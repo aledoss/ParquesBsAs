@@ -8,5 +8,4 @@ public interface GoogleLocationListener {
 
     void onConnectionFailed(ConnectionResult connectionResult);
 
-
 }
