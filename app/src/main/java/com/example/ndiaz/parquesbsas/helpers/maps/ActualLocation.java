@@ -1,58 +1,91 @@
 package com.example.ndiaz.parquesbsas.helpers.maps;
 
+import android.Manifest;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 
-import com.example.ndiaz.parquesbsas.listeners.GoogleLocationListener;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 
-public class ActualLocation implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+/**
+ * https://guides.codepath.com/android/Retrieving-Location-with-LocationServices-API
+ */
+public class ActualLocation {
 
-    private GoogleApiClient mGoogleApiClient;
+    private static final long UPDATE_INTERVAL = 10 * 1200;
     private Context context;
-    private GoogleLocationListener googleLocationListener;
+    private FusedLocationProviderClient locationProviderClient;
+    private LocationRequest mLocationRequest;
+    private Location lastLocation;
+    private LocationCallback locationCallback;
+    private LocationSettingsRequest locationSettingsRequest;
+    private SettingsClient settingsClient;
 
-    public ActualLocation(Context context, GoogleLocationListener googleLocationListener) {
+    public ActualLocation(Context context) {
         this.context = context;
-        this.googleLocationListener = googleLocationListener;
-        this.configureConnection();
+        configureLocationUpdates();
     }
 
-    private void configureConnection() {
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(context)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API).build();
+    private void configureLocationUpdates() {
+        createLocationRequest();
+        createLocationCallback();
+        createLocationSettingsRequest();
+
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+        settingsClient = LocationServices.getSettingsClient(context);
+    }
+
+    private void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+    }
+
+    private void createLocationCallback() {
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                onLocationChanged(locationResult.getLastLocation());
+            }
+        };
+    }
+
+    private void createLocationSettingsRequest() {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        locationSettingsRequest = builder.build();
+    }
+
+    public void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+        settingsClient.checkLocationSettings(locationSettingsRequest);
+
+        locationProviderClient.requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper());
+
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        //https://www.journaldev.com/13347/android-location-google-play-services
-        //http://droidmentor.com/get-the-current-location-in-android/
+    public void stopLocationUpdates() {
+        locationProviderClient.removeLocationUpdates(locationCallback);
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-        googleLocationListener.onConnectionSuspended();
+    private void onLocationChanged(Location lastLocation) {
+        this.lastLocation = lastLocation;
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        googleLocationListener.onConnectionFailed(connectionResult);
+    public Location getActualLocation() {
+        return this.lastLocation;
     }
 
-    public void connect() {
-        mGoogleApiClient.connect();
-    }
-
-    public void disconnect() {
-        mGoogleApiClient.disconnect();
-    }
 }

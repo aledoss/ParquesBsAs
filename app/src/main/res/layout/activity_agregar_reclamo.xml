@@ -48,6 +48,7 @@
             android:gravity="top|left"
             android:hint="Ingresar comentario.."
             android:inputType="textMultiLine"
+            android:maxLength="512"
             android:paddingTop="5dp"
             android:scrollbars="vertical"
             android:textSize="@dimen/reclamo_comentarios" />
@@ -60,6 +61,5 @@
             android:text="@string/generar" />
 
     </LinearLayout>
-
 
 </LinearLayout>

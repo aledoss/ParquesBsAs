@@ -1,8 +1,8 @@
 package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,29 +16,31 @@ import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.AgregarReclamoContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.reclamo.ReclamoFactoryEditText;
+import com.example.ndiaz.parquesbsas.helpers.FileManager;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
+import com.example.ndiaz.parquesbsas.helpers.camara.IntentCamera;
 import com.example.ndiaz.parquesbsas.helpers.camara.PhotoHandler;
+import com.example.ndiaz.parquesbsas.helpers.maps.ActualLocation;
+import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.AgregarReclamoInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.presenter.AgregarReclamoPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENBYTES;
-import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLATITUD;
-import static com.example.ndiaz.parquesbsas.constants.Constants.LASTLOCATIONLONGITUD;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static com.example.ndiaz.parquesbsas.constants.Constants.MESSAGE;
 
 public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.Presenter>
         implements AgregarReclamoContract.View {
 
     public static final int RESULT_CODE_RECLAMO = 1;
-    private static int REQUEST_CODE_CAMERA = 123;
 
     @BindView(R.id.toolbar_agregar_reclamo)
     Toolbar toolbar;
@@ -57,6 +59,9 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private String[] reclamosDesc;
     private Parque parque;
     private ViewHelper viewHelper;
+    private IntentCamera intentCamera;
+    private FileManager fileManager;
+    private ActualLocation actualLocation;
     boolean reclamoConFoto = false;
     String rutaImagen = "";
     byte[] mFotoReclamo;
@@ -85,9 +90,22 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_reclamo);
+        getPermissionsManager().askForLocationPermission(this);
         obtenerDatos();
         setupUI();
         initializeVariables();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        actualLocation.startLocationUpdates();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        actualLocation.stopLocationUpdates();
     }
 
     @Override
@@ -113,7 +131,11 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     }
 
     private void initializeVariables() {
+        intentCamera = new IntentCamera(this);
+        fileManager = new FileManager(this);
         viewHelper = new ViewHelper();
+        actualLocation = new ActualLocation(this);
+
         if (reclamos != null && !reclamos.isEmpty()) {
             reclamosDesc = Reclamo.toArray(reclamos);
         } else {
@@ -132,8 +154,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         int id = item.getItemId();
         switch (id) {
             case R.id.sacar_foto_reclamo_menu:
-                //inicio la activity de la camara y le mando el codigo por parametro para tomarlo
-                startActivityForResult(new Intent(AgregarReclamoActivity.this, CamaraReclamo.class), REQUEST_CODE_CAMERA);
+                takePicture();
                 break;
             case android.R.id.home:
                 finish();
@@ -142,17 +163,37 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_CAMERA) {
-            if (resultCode == RESULT_OK) {
-                this.reclamoConFoto = true;
-                //obtengo los bytes[] de la foto y la location
-                mFotoReclamo = data.getByteArrayExtra(IMAGENBYTES);
-                latitud = data.getDoubleExtra(LASTLOCATIONLATITUD, 0);
-                longitud = data.getDoubleExtra(LASTLOCATIONLONGITUD, 0);
+    private void takePicture() {
+        askPermissionsToTakePicture();
+        if (hasPermissionsToTakePicture()) {
+            File imageFile = fileManager.createImageFile();
+            if (imageFile != null && imageFile.exists()) {
+                intentCamera.navigateToCamera(imageFile);
             }
         }
+    }
+
+    private void askPermissionsToTakePicture() {
+        getPermissionsManager().askForCameraPermission(this);
+        getPermissionsManager().askForStoragePermission(this);
+    }
+
+    private boolean hasPermissionsToTakePicture() {
+        return getPermissionsManager().hasCameraPermission()
+                && getPermissionsManager().hasStoragePermission();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == IntentCamera.REQUEST_CODE_CAMERA && resultCode == RESULT_OK) {
+            String fileName = fileManager.getImageFileName();
+            if (fileName != null && !fileName.isEmpty()) {
+                this.reclamoConFoto = true;
+                //Obtener imagen ubicada en mCurrentPhotoPath y enviarla al servidor
+                //fileName;
+            }
+        }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -163,12 +204,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private void mostrarListaReclamos() {
         AlertDialog.Builder builder = new AlertDialog.Builder(AgregarReclamoActivity.this);
         builder.setTitle(R.string.reclamos)
-                .setItems(reclamosDesc, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int position) {
-                        btnListaReclamos.setText(reclamosDesc[position]);
-                    }
-                })
+                .setItems(reclamosDesc, (dialog, position) -> btnListaReclamos.setText(reclamosDesc[position]))
                 .show();
     }
 
@@ -216,4 +252,25 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         setResult(RESULT_CODE_RECLAMO, returnIntent);
         finish();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PermissionsManager.ACCESS_CAMERA_REQUEST_CODE
+                || requestCode == PermissionsManager.ACCESS_STORAGE_REQUEST_CODE) {
+            if (permissions.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                takePicture();
+            } else {
+                showMessage(getString(R.string.default_permission_rejected));
+            }
+        } else if (requestCode == PermissionsManager.ACCESS_FINE_LOCATION_REQUEST_CODE) {
+            if (permissions.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+                actualLocation.startLocationUpdates();
+            } else {
+                showMessage("La ubicación se utiliza para saber precisamente dónde se encuentra el problema");
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 }

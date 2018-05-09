@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_weight="35"
             android:elevation="4dp"
             android:padding="@dimen/general_padding">
 
@@ -27,27 +27,33 @@
             <TextView
                 android:id="@+id/txtDescripcion1"
                 style="@style/SecondaryText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTitulo"
                 android:layout_marginTop="20dp"
                 android:text="SABADO, DOMINGOS Y FERIADOS" />
 
-            <TextView
-                android:id="@+id/txtDescripcion2"
-                style="@style/SecondaryText"
-                android:layout_width="wrap_content"
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtDescripcion1"
-                android:layout_marginTop="10dp"
-                android:text="SABADO, DOMINGOS Y FERIADOS" />
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txtDescripcion2"
+                    style="@style/SecondaryText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SABADO, DOMINGOS Y FERIADOS" />
+
+            </android.support.v4.widget.NestedScrollView>
 
         </RelativeLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="55"
+            android:layout_weight="50"
             android:paddingBottom="@dimen/map_padding"
             android:paddingLeft="@dimen/map_padding"
             android:paddingRight="@dimen/map_padding">
