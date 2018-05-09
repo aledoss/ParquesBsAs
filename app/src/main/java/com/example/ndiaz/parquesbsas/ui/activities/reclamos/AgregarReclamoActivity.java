@@ -175,7 +175,6 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
 
     private void askPermissionsToTakePicture() {
         getPermissionsManager().askForCameraPermission(this);
-        getPermissionsManager().askForStoragePermission(this);
     }
 
     private boolean hasPermissionsToTakePicture() {
@@ -255,9 +254,9 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PermissionsManager.ACCESS_CAMERA_REQUEST_CODE
-                || requestCode == PermissionsManager.ACCESS_STORAGE_REQUEST_CODE) {
-            if (permissions.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
+        if (requestCode == PermissionsManager.ACCESS_CAMERA_REQUEST_CODE) {
+            if (permissions.length > 0 && grantResults[0] == PERMISSION_GRANTED && grantResults[1] == PERMISSION_GRANTED &&
+                    grantResults[2] == PERMISSION_GRANTED) {
                 takePicture();
             } else {
                 showMessage(getString(R.string.default_permission_rejected));
@@ -266,7 +265,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
             if (permissions.length > 0 && grantResults[0] == PERMISSION_GRANTED) {
                 actualLocation.startLocationUpdates();
             } else {
-                showMessage("La ubicación se utiliza para saber precisamente dónde se encuentra el problema");
+                showMessage("La ubicación se utiliza para saber precisamente dónde se encuentra el problema al momento de sacar la foto");
             }
         }
 

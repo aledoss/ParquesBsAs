@@ -29,7 +29,8 @@ public class PermissionsManager {
     public void askForCameraPermission(BaseActivity baseActivity) {
         if (!hasCameraPermission()) {
             ActivityCompat.requestPermissions(baseActivity,
-                    new String[]{Manifest.permission.CAMERA},
+                    new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE},
                     ACCESS_CAMERA_REQUEST_CODE);
         }
     }
