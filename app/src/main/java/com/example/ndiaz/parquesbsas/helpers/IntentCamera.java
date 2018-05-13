@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.helpers.camara;
+package com.example.ndiaz.parquesbsas.helpers;
 
 import android.content.Intent;
 import android.net.Uri;

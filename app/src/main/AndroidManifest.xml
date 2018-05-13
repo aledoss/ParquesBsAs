@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
@@ -43,6 +44,36 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+        <activity android:name=".ui.activities.MySettings" />
+        <activity
+            android:name=".ui.activities.ListaParquesActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activities.reclamos.ListaReclamosUsuarioActivity" />
+        <activity android:name=".ui.activities.info_parques.ParqueActivity" />
+        <activity android:name=".ui.activities.info_parques.DescGeneralParqueActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaActividadesActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaActividadesHorariosActivity" />
+        <activity
+            android:name=".ui.activities.reclamos.AgregarReclamoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.reclamos.DetalleReclamo" />
+        <activity android:name=".ui.activities.PerfilUsuario" />
+        <activity android:name=".ui.activities.reclamos.ListaReclamosParqueActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaFeriasActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaFeriasItinerantesActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaPuntosVerdesActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!--
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
@@ -53,28 +84,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.activities.MySettings" />
-        <activity
-            android:name=".ui.activities.ListaParquesActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.reclamos.ListaReclamosUsuarioActivity" />
-        <activity android:name=".ui.activities.info_parques.ParqueActivity" />
-        <activity android:name=".ui.activities.info_parques.DescGeneralParque" />
-        <activity android:name=".ui.activities.componentes_parque.ListaActividadesActivity" />
-        <activity android:name=".ui.activities.componentes_parque.ListaActividadesHorariosActivity" />
-        <activity
-            android:name=".ui.activities.reclamos.AgregarReclamoActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.reclamos.DetalleReclamo" />
-        <activity android:name=".ui.activities.PerfilUsuario" />
-        <activity
-            android:name=".ui.activities.reclamos.CamaraReclamo"
-            android:screenOrientation="landscape" />
-        <activity android:name=".ui.activities.reclamos.ListaReclamosParqueActivity" />
-        <activity android:name=".ui.activities.componentes_parque.ListaFeriasActivity" />
-        <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />
-        <activity android:name=".ui.activities.componentes_parque.ListaFeriasItinerantesActivity" />
-        <activity android:name=".ui.activities.componentes_parque.ListaPuntosVerdesActivity" />
     </application>
 
 </manifest>

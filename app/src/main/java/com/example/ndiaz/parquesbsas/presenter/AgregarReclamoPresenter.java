@@ -2,6 +2,7 @@ package com.example.ndiaz.parquesbsas.presenter;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.AgregarReclamoContract;
+import com.example.ndiaz.parquesbsas.interactor.AgregarReclamoInteractor;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 
 import java.lang.ref.WeakReference;
@@ -56,5 +57,29 @@ public class AgregarReclamoPresenter extends BasePresenterImp
                         agregarReclamoView.get().showMessage(message);
                     }
                 });
+    }
+
+    @Override
+    public void doInsertReclamoWithPhoto(Reclamo reclamo) {
+        agregarReclamoView.get().showProgressDialog();
+        agregarReclamoInteractor
+                .uploadPhoto(reclamo, new BaseCallback<String>() {
+                    @Override
+                    public void onSuccess(String value) {
+                        agregarReclamoView.get().hideProgressDialog();
+                        agregarReclamoView.get().navegarAListaReclamos(value);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        agregarReclamoView.get().hideProgressDialog();
+                        if (message.equals(AgregarReclamoInteractor.UPLOADING_PHOTO_ERROR)) {
+                            agregarReclamoView.get().showRetryUploadingPhoto(reclamo);
+                        } else {
+                            agregarReclamoView.get().showMessage(message);
+                        }
+                    }
+                });
+
     }
 }

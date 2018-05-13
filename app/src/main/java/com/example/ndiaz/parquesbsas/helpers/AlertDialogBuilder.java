@@ -9,7 +9,7 @@ import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 public class AlertDialogBuilder {
 
     /**
-     * Builds a dialog. When confirms, it opens maps with navigation travell instructions.
+     * Builds a dialog. When confirms, it opens maps with navigation travel instructions.
      *
      * @param context
      * @return The dialog was built

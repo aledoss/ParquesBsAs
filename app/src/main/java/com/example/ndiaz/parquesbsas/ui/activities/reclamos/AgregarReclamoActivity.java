@@ -17,9 +17,8 @@ import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.AgregarReclamoContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.reclamo.ReclamoFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.FileManager;
+import com.example.ndiaz.parquesbsas.helpers.IntentCamera;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
-import com.example.ndiaz.parquesbsas.helpers.camara.IntentCamera;
-import com.example.ndiaz.parquesbsas.helpers.camara.PhotoHandler;
 import com.example.ndiaz.parquesbsas.helpers.maps.ActualLocation;
 import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.AgregarReclamoInteractor;
@@ -64,20 +63,16 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private ActualLocation actualLocation;
     boolean reclamoConFoto = false;
     String rutaImagen = "";
-    byte[] mFotoReclamo;
     double latitud = 0, longitud = 0;
 
     @OnClick(R.id.btn_generar_reclamo)
     public void onBtnGenerarReclamo() {
-
         if (datosValidos()) {
-            if (reclamoConFoto) {   //si se saco una foto
-                //guardo la imagen en el celu y la subo al ftp
-                PhotoHandler handler = new PhotoHandler(getApplicationContext(), mFotoReclamo);
-                handler.procesarImagen();
+            if (reclamoConFoto) {
+                presenter.doInsertReclamoWithPhoto(getDatosReclamo());
+            } else {
+                doInsertReclamo();
             }
-            presenter.doInsertReclamo(getDatosReclamo());
-            //PhotoHandler.showNotif("Reclamo Insertado", this);
         }
     }
 
@@ -143,6 +138,10 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         }
     }
 
+    private void doInsertReclamo() {
+        presenter.doInsertReclamo(getDatosReclamo());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.agregar_reclamo_menu, menu);
@@ -154,7 +153,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         int id = item.getItemId();
         switch (id) {
             case R.id.sacar_foto_reclamo_menu:
-                takePicture();
+                openCamera();
                 break;
             case android.R.id.home:
                 finish();
@@ -163,9 +162,9 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         return super.onOptionsItemSelected(item);
     }
 
-    private void takePicture() {
-        askPermissionsToTakePicture();
-        if (hasPermissionsToTakePicture()) {
+    private void openCamera() {
+        askPermissionsToOpenCamera();
+        if (hasPermissionsToOpenCamera()) {
             File imageFile = fileManager.createImageFile();
             if (imageFile != null && imageFile.exists()) {
                 intentCamera.navigateToCamera(imageFile);
@@ -173,11 +172,11 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         }
     }
 
-    private void askPermissionsToTakePicture() {
+    private void askPermissionsToOpenCamera() {
         getPermissionsManager().askForCameraPermission(this);
     }
 
-    private boolean hasPermissionsToTakePicture() {
+    private boolean hasPermissionsToOpenCamera() {
         return getPermissionsManager().hasCameraPermission()
                 && getPermissionsManager().hasStoragePermission();
     }
@@ -188,8 +187,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
             String fileName = fileManager.getImageFileName();
             if (fileName != null && !fileName.isEmpty()) {
                 this.reclamoConFoto = true;
-                //Obtener imagen ubicada en mCurrentPhotoPath y enviarla al servidor
-                //fileName;
+                this.rutaImagen = fileName;
             }
         }
 
@@ -253,11 +251,16 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     }
 
     @Override
+    public void showRetryUploadingPhoto(Reclamo reclamo) {
+        // TODO: 13/05/2018 Mostrar dialog con opcion de: "Hubo un inconveniente al querer cargar la foto. Desea generar el reclamo sin foto? si : reintentar"
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionsManager.ACCESS_CAMERA_REQUEST_CODE) {
             if (permissions.length > 0 && grantResults[0] == PERMISSION_GRANTED && grantResults[1] == PERMISSION_GRANTED &&
                     grantResults[2] == PERMISSION_GRANTED) {
-                takePicture();
+                openCamera();
             } else {
                 showMessage(getString(R.string.default_permission_rejected));
             }

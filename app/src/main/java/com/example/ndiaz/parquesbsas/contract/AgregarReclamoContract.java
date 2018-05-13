@@ -16,18 +16,24 @@ public interface AgregarReclamoContract {
         void showMessage(String message);
 
         void navegarAListaReclamos(String value);
+
+        void showRetryUploadingPhoto(Reclamo reclamo);
     }
 
     interface Presenter extends BasePresenter {
         void doGetReclamos();
 
         void doInsertReclamo(Reclamo reclamo);
+
+        void doInsertReclamoWithPhoto(Reclamo reclamo);
     }
 
     interface Interactor extends BaseInteractor {
         void getReclamos(BaseCallback<List<Reclamo>> callback);
 
         void insertReclamo(Reclamo reclamo, BaseCallback<String> callback);
+
+        void uploadPhoto(Reclamo reclamo, BaseCallback<String> baseCallback);
     }
 
 }

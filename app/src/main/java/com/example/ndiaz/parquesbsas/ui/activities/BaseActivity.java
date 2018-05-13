@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -82,13 +81,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    public void showProgressDialog(){
+    public void showProgressDialog() {
         progressDialog.show();
     }
 
     @Override
-    public void hideProgressDialog(){
-        if(progressDialog.isShowing()){
+    public void hideProgressDialog() {
+        if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }
@@ -108,12 +107,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public PermissionsManager getPermissionsManager() {
         return permissionsManager;
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d("NICOTEST", "onDestroy: ");
-        super.onDestroy();
     }
 
     @Override
