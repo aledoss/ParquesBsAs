@@ -66,8 +66,9 @@ public interface Constants {
 
     //FTP
     String FTP_HOST = "185.28.20.89";
-    String FTP_USER = "android";
-    String FTP_PASS = "Android123";
+    String FTP_USER = ""; //configurar
+    String FTP_PASS = ""; //configurar
+    String FTP_ANDROID_IMAGE_DIRECTORY = "public/img/android/";
 
     //Json Request
     int TIMEOUT_MS = 10000;
