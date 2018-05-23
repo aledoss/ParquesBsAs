@@ -84,9 +84,11 @@
     <string name="ferias_itinerantes">Ferias Itinerantes</string>
     <string name="puntos_verdes">Puntos Verdes</string>
     <string name="default_permission_rejected">Se debe aceptar el permiso para acceder a la funcionalidad</string>
+    <string name="showing_maps_route_confirmation">Se abrirá el Maps para mostrar el recorrido hacia el parque</string>
+
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">CANCELAR</string>
-    <string name="showing_maps_route_confirmation">Se abrirá el Maps para mostrar el recorrido hacia el parque</string>
+    <string name="dialog_reintent">REINTENTAR</string>
 
     <string name="como_llego">Cómo llego?</string>
 

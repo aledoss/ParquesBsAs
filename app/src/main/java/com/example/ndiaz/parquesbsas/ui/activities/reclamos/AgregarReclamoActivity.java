@@ -252,7 +252,12 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
 
     @Override
     public void showRetryUploadingPhoto(Reclamo reclamo) {
-        // TODO: 13/05/2018 Mostrar dialog con opcion de: "Hubo un inconveniente al querer cargar la foto. Desea generar el reclamo sin foto? si : reintentar"
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Hubo un inconveniente al querer cargar la foto. Desea generar el reclamo sin foto?")
+                .setPositiveButton(getString(R.string.dialog_ok), (dialog, which) -> presenter.doInsertReclamo(reclamo))
+                .setNegativeButton(getString(R.string.dialog_cancel), (dialog, which) -> dialog.dismiss())
+                .setNeutralButton(getString(R.string.dialog_reintent), (dialog, which) -> presenter.doInsertReclamoWithPhoto(reclamo))
+                .show();
     }
 
     @Override
