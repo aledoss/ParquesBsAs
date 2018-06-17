@@ -78,6 +78,9 @@
     <string name="parque_no_encontrado">Parque no encontrado</string>
     <string name="actividades_horarios">Días y horarios</string>
     <string name="lista_mis_reclamos">Mis reclamos</string>
+    <string name="lista_encuestas">Encuestas</string>
+    <string name="encuesta">Encuesta</string>
+    <string name="calificacion">Calificación</string>
     <string name="estado">Estado</string>
     <string name="share">Compartir</string>
     <string name="error_maps_package_not_found">No se encontró la aplicación de mapas instalada</string>

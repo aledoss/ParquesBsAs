@@ -1,5 +1,8 @@
 package com.example.ndiaz.parquesbsas.interactor;
 
+import android.util.Log;
+
+import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
@@ -79,6 +82,13 @@ public class BaseInteractorImp implements BaseInteractor {
 
     public void addDisposable(Disposable disposable){
         this.compositeDisposable.add(disposable);
+    }
+
+    // TODO: 17/06/2018 Reemplazar los default de los onError de los interactor correspondientes
+    <T> void onErrorDefault(Throwable e, String tag, String msg, BaseCallback<T> callback){
+        String message = e.getMessage();
+        callback.onError(message);
+        Log.e(tag, msg + ", onError: " + message, e);
     }
 
 }

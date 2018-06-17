@@ -212,9 +212,10 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     @Override
     public void onMapReady(GoogleMap googleMap) {
         canLoadParques = true;
-        LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
+//        LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
+        LatLng capitalFederal = new LatLng(-34.6182053,-58.4386018);
         this.googleMap = googleMap;
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11.5f));
         if (parques != null) {
             loadParques(parques);
         }
@@ -222,8 +223,9 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 14.5f));
         presenter.doGetParqueFromNetw((int) marker.getZIndex());
-        return false;
+        return true;
     }
 
     @Override

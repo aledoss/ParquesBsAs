@@ -33,7 +33,6 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
         View v;
 
         if (viewType == FECHA) {
-            // TODO: 05/02/2018 Mejorar vista
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_fecha,
                     parent, false);
         } else {

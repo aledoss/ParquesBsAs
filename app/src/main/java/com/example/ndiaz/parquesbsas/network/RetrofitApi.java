@@ -1,6 +1,9 @@
 package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.model.Actividad;
+import com.example.ndiaz.parquesbsas.model.Calificacion;
+import com.example.ndiaz.parquesbsas.model.CalificacionEncuesta;
+import com.example.ndiaz.parquesbsas.model.Encuesta;
 import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Feria;
 import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
@@ -74,4 +77,21 @@ interface RetrofitApi {
 
     @POST("parquesapi/updateParqueLike/")
     Single<NetworkResponse> updateParqueLike(@Body ParqueLikeBody parqueLikeBody);
+
+    @GET("parquesapi/getEncuestasParaCalificarByParqueAndUsuario/{idParque}/{idEncuesta}")
+    Single<NetworkResponse<List<Encuesta>>> getEncuestasParaCalificar(@Path("idParque") int idParque,
+                                                                      @Path("idEncuesta") int idUsuario);
+
+    @GET("parquesapi/getCalificaciones/")
+    Single<NetworkResponse<List<Calificacion>>> getCalificaciones();
+
+    @GET("parquesapi/getEncuestasByParque/{id}")
+    Single<NetworkResponse<List<Encuesta>>> getEncuestasByParque(@Path("id") int idParque);
+
+    @GET("parquesapi/getEstadisticasEncuestaByParque/{idParque}/{idEncuesta}")
+    Single<NetworkResponse<Calificacion>> getEstadisticasEncuesta(@Path("idParque") int idParque,
+                                                                  @Path("idEncuesta") int idEncuesta);
+
+    @POST("parquesapi/insertarCalificacionEncuesta")
+    Single<NetworkResponse<Boolean>> createCalificacionEncuesta(@Body CalificacionEncuesta calificacionEncuesta);
 }

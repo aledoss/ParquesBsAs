@@ -1,6 +1,9 @@
 package com.example.ndiaz.parquesbsas.network;
 
 import com.example.ndiaz.parquesbsas.model.Actividad;
+import com.example.ndiaz.parquesbsas.model.Calificacion;
+import com.example.ndiaz.parquesbsas.model.CalificacionEncuesta;
+import com.example.ndiaz.parquesbsas.model.Encuesta;
 import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Feria;
 import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
@@ -125,5 +128,35 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .updateParqueLike(parqueLikeBody);
+    }
+
+    public Single<NetworkResponse<List<Encuesta>>> getEncuestasParaCalificar(int idParque, int idUsuario) {
+        return retrofitService
+                .getClient()
+                .getEncuestasParaCalificar(idParque, idUsuario);
+    }
+
+    public Single<NetworkResponse<List<Calificacion>>> getCalificaciones() {
+        return retrofitService
+                .getClient()
+                .getCalificaciones();
+    }
+
+    public Single<NetworkResponse<List<Encuesta>>> getEncuestasByParque(int idParque) {
+        return retrofitService
+                .getClient()
+                .getEncuestasByParque(idParque);
+    }
+
+    public Single<NetworkResponse<Calificacion>> getEstadisticasEncuesta(int idParque, int idEncuesta) {
+        return retrofitService
+                .getClient()
+                .getEstadisticasEncuesta(idParque, idEncuesta);
+    }
+
+    public Single<NetworkResponse<Boolean>> createCalificacionEncuesta(CalificacionEncuesta calificacionEncuesta) {
+        return retrofitService
+                .getClient()
+                .createCalificacionEncuesta(calificacionEncuesta);
     }
 }

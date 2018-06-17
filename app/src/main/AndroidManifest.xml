@@ -29,10 +29,10 @@
             android:name=".ui.activities.SplashScreen"
             android:screenOrientation="portrait">
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.CreateUserActivity"
@@ -63,6 +63,7 @@
         <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaFeriasItinerantesActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaPuntosVerdesActivity" />
+        <activity android:name=".ui.activities.componentes_parque.ListaEncuestasParqueActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

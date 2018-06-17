@@ -15,4 +15,5 @@
     <color name="grey_400">#BDBDBD</color>
 
     <color name="edit_text_background">#87000000</color>
+    <color name="text_error_color">#e53935</color>
 </resources>

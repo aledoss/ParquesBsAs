@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="320dp"
+    tools:context="com.example.ndiaz.parquesbsas.ui.dialogs.EstadisticasEncuestasDialogFragment">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/estadisticasEncuestasChart"
+        android:layout_width="320dp"
+        android:layout_height="320dp" />
+
+</android.support.constraint.ConstraintLayout>

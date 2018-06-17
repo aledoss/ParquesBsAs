@@ -79,17 +79,11 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             rvReclamosUsuario.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             rvReclamosUsuario.setLayoutManager(mLayoutManager);
-            rvReclamosUsuario.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    /*Intent intent = new Intent(ListaReclamosUsuarioActivity.this, ReclamoActivity.class);
-                    intent.putExtra(RECLAMO_KEY, adapter.getItem(position));
-                    startActivity(intent);*/
-                    ReclamoFecha reclamoFecha = adapter.getItem(position);
-                    if (reclamoFecha.getReclamo() != null) {
-                        ReclamoDialogFragment dialog = ReclamoDialogFragment.newInstance(reclamoFecha.getReclamo());
-                        dialog.show(getSupportFragmentManager(), ReclamoDialogFragment.class.getSimpleName());
-                    }
+            rvReclamosUsuario.addOnItemTouchListener(new RecyclerItemClickListener(this, (view, position) -> {
+                ReclamoFecha reclamoFecha = adapter.getItem(position);
+                if (reclamoFecha.getReclamo() != null) {
+                    ReclamoDialogFragment dialog = ReclamoDialogFragment.newInstance(reclamoFecha.getReclamo());
+                    dialog.show(getSupportFragmentManager(), ReclamoDialogFragment.class.getSimpleName());
                 }
             }));
             adapter = new ReclamosUsuarioAdapter(reclamosFechas);
