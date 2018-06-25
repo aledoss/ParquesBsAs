@@ -42,6 +42,7 @@ public interface Constants {
     String DESCRIPCION_PARQUE = "Descripcion";
     String DIRECCION_PARQUE = "Direccion";
     String IMAGEN_PARQUE = "Imagen";
+    String IMAGEN_ANDROID_PARQUE = "Imagen_Android";
     String LATITUD_PARQUE = "Latitud";
     String LONGITUD_PARQUE = "Longitud";
     String BARRIO_PARQUE = "Barrio";
@@ -50,7 +51,7 @@ public interface Constants {
     String WIFI_PARQUE = "WiFi";
     String ALL_COLUMNS_PARQUES[] = {
             "id", NOMBRE_PARQUE, DESCRIPCIONCORTAPARQUECOLUMNA, DESCRIPCION_PARQUE, DIRECCION_PARQUE, IMAGEN_PARQUE,
-            LATITUD_PARQUE, LONGITUD_PARQUE, BARRIO_PARQUE, COMUNA_PARQUE, PATIO_JUEGOS_PARQUE
+            IMAGEN_ANDROID_PARQUE, LATITUD_PARQUE, LONGITUD_PARQUE, BARRIO_PARQUE, COMUNA_PARQUE, PATIO_JUEGOS_PARQUE
     };
 
     String IMAGENBYTES = "ImagenBytes";
@@ -75,11 +76,12 @@ public interface Constants {
     int MAX_RETRIES = 3;
 
     //REQUEST URLS
-    String URL = "http://192.168.0.100/nico/index.php/";
+    String BASE_URL = "http://192.168.0.100/nico/";
+    String API_URL = BASE_URL + "index.php/";
+    String IMAGENES_PARQUES_URL = BASE_URL + "public/img/parques/";
     //String ALL_PARQUES_URL = "http://192.168.0.104/parques/index.php/ws_parques/todos";
     String ALL_PARQUES_URL = "http://appweb158.hol.es/ws_parques/todos";
     //String ALL_PARQUES_URL = "http://webapp321.eshost.com.ar/ws_parques/todos";
-    String IMAGENES_PARQUES_URL = "http://appweb158.hol.es/public/img/parques/";
 
     //Intent, extras
     String MESSAGE = "Message";

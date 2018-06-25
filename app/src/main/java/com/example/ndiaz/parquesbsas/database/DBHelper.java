@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table if not exists " + TABLE_PARQUES + " (id integer primary key, " + NOMBRE_PARQUE + " text, " +
                 DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCION_PARQUE + " text, " + DIRECCION_PARQUE + " text, " +
-                IMAGEN_PARQUE + " text, " + LATITUD_PARQUE + " text, " + LONGITUD_PARQUE + " text, " +
+                IMAGEN_PARQUE + " text, " + IMAGEN_ANDROID_PARQUE + " text, " + LATITUD_PARQUE + " text, " + LONGITUD_PARQUE + " text, " +
                 BARRIO_PARQUE + " text, " + COMUNA_PARQUE + " text, " + PATIO_JUEGOS_PARQUE + " integer, " +
                 WIFI_PARQUE + " integer )");
     }
@@ -47,6 +47,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 parque.setDescripcion(cur.getString(cur.getColumnIndex(DESCRIPCION_PARQUE)));
                 parque.setDireccion(cur.getString(cur.getColumnIndex(DIRECCION_PARQUE)));
                 parque.setImagen(cur.getString(cur.getColumnIndex(IMAGEN_PARQUE)));
+                parque.setImagenAndroid(cur.getString(cur.getColumnIndex(IMAGEN_ANDROID_PARQUE)));
                 parque.setLatitud(cur.getString(cur.getColumnIndex(LATITUD_PARQUE)));
                 parque.setLongitud(cur.getString(cur.getColumnIndex(LONGITUD_PARQUE)));
                 parque.setBarrio(cur.getString(cur.getColumnIndex(BARRIO_PARQUE)));
@@ -79,6 +80,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 parque.setDescripcion(cur.getString(cur.getColumnIndex(DESCRIPCION_PARQUE)));
                 parque.setDireccion(cur.getString(cur.getColumnIndex(DIRECCION_PARQUE)));
                 parque.setImagen(cur.getString(cur.getColumnIndex(IMAGEN_PARQUE)));
+                parque.setImagenAndroid(cur.getString(cur.getColumnIndex(IMAGEN_ANDROID_PARQUE)));
                 parque.setLatitud(cur.getString(cur.getColumnIndex(LATITUD_PARQUE)));
                 parque.setLongitud(cur.getString(cur.getColumnIndex(LONGITUD_PARQUE)));
                 parque.setBarrio(cur.getString(cur.getColumnIndex(BARRIO_PARQUE)));
@@ -106,6 +108,7 @@ public class DBHelper extends SQLiteOpenHelper implements Constants {
                 contentValues.put(DESCRIPCION_PARQUE, parque.getDescripcion());
                 contentValues.put(DIRECCION_PARQUE, parque.getDireccion());
                 contentValues.put(IMAGEN_PARQUE, parque.getImagen());
+                contentValues.put(IMAGEN_ANDROID_PARQUE, parque.getImagenAndroid());
                 contentValues.put(LATITUD_PARQUE, parque.getLatitud());
                 contentValues.put(LONGITUD_PARQUE, parque.getLongitud());
                 contentValues.put(BARRIO_PARQUE, parque.getBarrio());

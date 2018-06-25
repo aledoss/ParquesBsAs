@@ -26,6 +26,8 @@ public class Parque implements Serializable {
     private String direccion;
     @JsonProperty("imagen")
     private String imagen;
+    @JsonProperty("imagen_android")
+    private String imagenAndroid;
     @JsonProperty("latitud")
     private String latitud;
     @JsonProperty("longitud")
@@ -168,5 +170,13 @@ public class Parque implements Serializable {
 
     public void setHasWifi(Boolean hasWifi) {
         this.hasWifi = hasWifi;
+    }
+
+    public String getImagenAndroid() {
+        return imagenAndroid;
+    }
+
+    public void setImagenAndroid(String imagenAndroid) {
+        this.imagenAndroid = imagenAndroid;
     }
 }

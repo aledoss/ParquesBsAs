@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import static com.example.ndiaz.parquesbsas.constants.Constants.URL;
+import static com.example.ndiaz.parquesbsas.constants.Constants.API_URL;
 
 public class RetrofitService {
 
@@ -21,7 +21,7 @@ public class RetrofitService {
 
         if (api == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(URL)
+                    .baseUrl(API_URL)
                     .addConverterFactory(JacksonConverterFactory.create(JSONConvert.getMapper()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(getOkHttpClient())

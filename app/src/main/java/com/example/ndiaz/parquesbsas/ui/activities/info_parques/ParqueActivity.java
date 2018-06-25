@@ -94,9 +94,9 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     private void cargarImagen() {
         try {
             Picasso.with(this)
-                    .load(IMAGENES_PARQUES_URL + parque.getImagen())
-                    .error(R.drawable.parque_ejemplo)
-                    .placeholder(R.drawable.parque_ejemplo)
+                    .load(IMAGENES_PARQUES_URL + parque.getImagenAndroid())
+                    .error(R.drawable.place_holder_parque)
+                    .placeholder(R.drawable.place_holder_parque)
                     .into(imgParque);
         } catch (Exception e) {
             e.printStackTrace();
