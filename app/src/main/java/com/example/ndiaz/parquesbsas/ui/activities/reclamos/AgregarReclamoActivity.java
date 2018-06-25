@@ -24,6 +24,7 @@ import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.AgregarReclamoInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
+import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.AgregarReclamoPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 
@@ -40,6 +41,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         implements AgregarReclamoContract.View {
 
     public static final int RESULT_CODE_RECLAMO = 1;
+    public static final int RESULT_CODE_SIN_DOCUMENTO = 2;
 
     @BindView(R.id.toolbar_agregar_reclamo)
     Toolbar toolbar;
@@ -57,6 +59,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private List<Reclamo> reclamos;
     private String[] reclamosDesc;
     private Parque parque;
+    private Usuario usuario;
     private ViewHelper viewHelper;
     private IntentCamera intentCamera;
     private FileManager fileManager;
@@ -85,8 +88,9 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_reclamo);
-        getPermissionsManager().askForLocationPermission(this);
         obtenerDatos();
+        validateUser();
+        getPermissionsManager().askForLocationPermission(this);
         setupUI();
         initializeVariables();
     }
@@ -111,7 +115,15 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     }
 
     private void obtenerDatos() {
+        usuario = ParquesApplication.getInstance().getUser();
         parque = ParquesApplication.getInstance().getParque();
+    }
+
+    private void validateUser() {
+        if (!usuario.hasDocument()) {
+            setResult(RESULT_CODE_SIN_DOCUMENTO);
+            finish();
+        }
     }
 
     private void setupUI() {
@@ -218,8 +230,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private Reclamo getDatosReclamo() {
         Reclamo reclamo = new Reclamo();
 
-        int userId = ParquesApplication.getInstance().getUser().getId();
-        reclamo.setIdUsuario(userId);
+        reclamo.setIdUsuario(usuario.getId());
         reclamo.setIdParque(parque.getIdParque());
         reclamo.setIdReclamo(getReclamoId());
         reclamo.setComentarios(String.valueOf(etComentarios.getText()));

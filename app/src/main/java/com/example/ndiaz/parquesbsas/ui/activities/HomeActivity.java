@@ -28,6 +28,7 @@ import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.HomePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamosUsuarioActivity;
+import com.example.ndiaz.parquesbsas.ui.dialogs.RateItDialogFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -69,6 +70,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         setContentView(R.layout.activity_home);
         //usuario = obtenerDatosUsuario();
         setupUI();
+        initializeViews();
         canLoadParques = false;
         presenter.doGetParques();
     }
@@ -79,6 +81,10 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
                 getRxdbInteractor());
 
         return new HomePresenter(this, homeInteractor);
+    }
+
+    private void initializeViews() {
+        RateItDialogFragment.show(this, getSupportFragmentManager());
     }
 
     private void setupUI() {

@@ -8,10 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosParqueContract;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
+import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ReclamosParqueAdapter;
@@ -38,18 +40,23 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
 
     private ReclamosParqueAdapter adapter;
     private int idParque;
+    private Usuario usuario;
 
     @OnClick(R.id.btnAgregarReclamo)
     void btnAgregarReclamo() {
-        startActivityForResult(new Intent(ListaReclamosParqueActivity.this, AgregarReclamoActivity.class),
-                AgregarReclamoActivity.RESULT_CODE_RECLAMO);
+        if (usuario.hasDocument()) {
+            startActivityForResult(new Intent(ListaReclamosParqueActivity.this, AgregarReclamoActivity.class),
+                    AgregarReclamoActivity.RESULT_CODE_RECLAMO);
+        } else {
+            showSinDocumentoMessage();
+        }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_reclamos_parque);
-        assignBundleVariables();
+        obtenerDatos();
         setupToolbar();
         presenter.doGetReclamos(idParque, false);
     }
@@ -60,11 +67,12 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void assignBundleVariables() {
+    private void obtenerDatos() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             idParque = bundle.getInt(ID_PARQUE, idParque);
         }
+        this.usuario = ParquesApplication.getInstance().getUser();
     }
 
     @Override
@@ -99,7 +107,13 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
                 presenter.doGetReclamos(idParque, true);
                 adapter.notifyDataSetChanged();
             }
+        } else if (requestCode == AgregarReclamoActivity.RESULT_CODE_SIN_DOCUMENTO) {
+            showSinDocumentoMessage();
         }
+    }
+
+    private void showSinDocumentoMessage() {
+        showMessage(getString(R.string.reclamo_sin_documento));
     }
 
     @Override

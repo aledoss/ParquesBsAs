@@ -15,7 +15,7 @@ public class Usuario implements Serializable {
     @JsonProperty("numero_documento")
     private String numeroDoc;
     @JsonProperty("tipo_doc")
-    public String tipoDoc;
+    private String tipoDoc;
     @JsonProperty("id_tipo_documento")
     private int idTipoDoc;
     @JsonProperty("email")
@@ -115,5 +115,9 @@ public class Usuario implements Serializable {
 
     public void setIdTipoDoc(int idTipoDoc) {
         this.idTipoDoc = idTipoDoc;
+    }
+
+    public boolean hasDocument (){
+        return getNumeroDoc() != null && getNumeroDoc().isEmpty();
     }
 }

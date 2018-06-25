@@ -89,11 +89,20 @@
     <string name="default_permission_rejected">Se debe aceptar el permiso para acceder a la funcionalidad</string>
     <string name="showing_maps_route_confirmation">Se abrirá el Maps para mostrar el recorrido hacia el parque</string>
 
+    <!-- Dialog Buttons-->
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">CANCELAR</string>
     <string name="dialog_reintent">REINTENTAR</string>
+    <string name="dialog_later">LUEGO</string>
+    <string name="dialog_no_thanks">NO, GRACIAS</string>
+    <string name="dialog_rate">CALIFICAR</string>
 
     <string name="como_llego">Cómo llego?</string>
+    <string name="reclamo_sin_documento">Debe haber agregado su documento para poder generar un reclamo</string>
+
+    <!-- Rate It Dialog -->
+    <string name="rate_title">Califica esta aplicación</string>
+    <string name="rate_message">Si disfrutas utilizar esta aplicación, te tomarías un momento para calificarla? No te llevará más de un minuto. Gracias por tu apoyo!</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>
