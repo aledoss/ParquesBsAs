@@ -6,13 +6,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.ndiaz.parquesbsas.constants.Constants;
 import com.example.ndiaz.parquesbsas.model.Parque;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper implements Constants {
+import static com.example.ndiaz.parquesbsas.database.DBConfig.ALL_COLUMNS_PARQUES;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.BARRIO_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.COMUNA_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.DATABASE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.DESCRIPCIONCORTAPARQUECOLUMNA;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.DESCRIPCION_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.DIRECCION_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.IMAGEN_ANDROID_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.IMAGEN_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.LATITUD_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.LONGITUD_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.NOMBRE_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.PATIO_JUEGOS_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.TABLE_PARQUES;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.VERSIONDB;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.WIFI_PARQUE;
+
+public class DBHelper extends SQLiteOpenHelper {
 
 
     public DBHelper(Context context) {
