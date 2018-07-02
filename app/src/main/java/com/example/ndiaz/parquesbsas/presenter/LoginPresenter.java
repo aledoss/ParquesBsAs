@@ -5,8 +5,8 @@ import android.util.Log;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
+import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
-import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.List;
@@ -24,9 +24,9 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(Usuario usuario) {
-        loginInteractor.login(usuario, new BaseCallback<NetworkResponse<List<TiposDocumento>>>() {
+        loginInteractor.login(usuario, new BaseCallback<NetworkResponse<List<Documento>>>() {
             @Override
-            public void onSuccess(NetworkResponse<List<TiposDocumento>> response) {
+            public void onSuccess(NetworkResponse<List<Documento>> response) {
                 if(response.getResponse() != null){
                     loginView.navigateToHome();
                     ParquesApplication.getInstance().setUser((Usuario) response.getResponse());

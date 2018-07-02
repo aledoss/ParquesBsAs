@@ -13,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
 import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
+import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.network.RetrofitService;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
@@ -115,5 +117,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Usuario getUsuario() {
+        return ParquesApplication.getInstance().getUser();
     }
 }

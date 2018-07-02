@@ -167,7 +167,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
                 startActivity(new Intent(HomeActivity.this, ListaParquesActivity.class));
                 break;
             case R.id.nav_menu_perfil:
-                mostrarSnackbar();
+                startActivity(new Intent(HomeActivity.this, PerfilUsuarioActivity.class));
                 break;
             case R.id.nav_menu_reclamos:
                 startActivity(new Intent(HomeActivity.this, ListaReclamosUsuarioActivity.class));

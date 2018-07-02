@@ -37,4 +37,8 @@
     <dimen name="fecha_height">40dp</dimen>
     <dimen name="marginLeftRightRow">16dp</dimen>
 
+    <!-- User profile -->
+    <dimen name="up_default_margin">16dp</dimen>
+    <dimen name="ic_edit_size">24dp</dimen>
+
 </resources>

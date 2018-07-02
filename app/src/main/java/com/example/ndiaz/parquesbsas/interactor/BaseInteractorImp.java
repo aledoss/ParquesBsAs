@@ -3,8 +3,10 @@ package com.example.ndiaz.parquesbsas.interactor;
 import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
 
@@ -80,15 +82,26 @@ public class BaseInteractorImp implements BaseInteractor {
         compositeDisposable.clear();
     }
 
-    public void addDisposable(Disposable disposable){
+    public void addDisposable(Disposable disposable) {
         this.compositeDisposable.add(disposable);
     }
 
     // TODO: 17/06/2018 Reemplazar los default de los onError de los interactor correspondientes
-    <T> void onErrorDefault(Throwable e, String tag, String msg, BaseCallback<T> callback){
+    <T> void onErrorDefault(Throwable e, String tag, String msg, BaseCallback<T> callback) {
         String message = e.getMessage();
         callback.onError(message);
         Log.e(tag, msg + ", onError: " + message, e);
+    }
+
+    <T> void onSuccessDefault(NetworkResponse<T> response, String tag, String methodName, BaseCallback<T> callback) {
+        String message = response.getMessage();
+        if (response.getStatus() == HTTPConstants.STATUS_OK) {
+            callback.onSuccess(response.getResponse());
+            Log.i(tag, methodName + ", onSuccess: " + message);
+        } else {
+            callback.onError(message);
+            Log.e(tag, methodName + ", onSuccess: " + message);
+        }
     }
 
 }

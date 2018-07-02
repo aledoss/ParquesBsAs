@@ -14,7 +14,7 @@ import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.CreateUserInteractor;
-import com.example.ndiaz.parquesbsas.model.TiposDocumento;
+import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.CreateUserPresenter;
 
@@ -43,16 +43,16 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     AppCompatSpinner spiDocType;
 
     private String nombre, apellido, docNumber, email, password;
-    private TiposDocumento docType;
+    private Documento docType;
     private ViewHelper viewHelper;
-    private List<TiposDocumento> tiposDocumentos;
+    private List<Documento> documentos;
 
     @OnClick(R.id.btnCrear_Cuenta)
     public void onClickCreateUser() {
         getFieldsData();
         if (isValidData()) {
-            presenter.doCreateUser(new Usuario(nombre, apellido, docNumber, docType.getId(), email,
-                    password));
+            presenter.doCreateUser(new Usuario(nombre, apellido, docNumber, docType.getId(),
+                    docType.getTipoDocumento(), email, password));
         }
     }
 
@@ -103,14 +103,14 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
         String docTypeSelected = spiDocType.getSelectedItem().toString();
-        docType = new TiposDocumento(getDocTypeId(docTypeSelected), docTypeSelected);
+        docType = new Documento(getDocTypeId(docTypeSelected), docTypeSelected);
     }
 
     private int getDocTypeId(String docTypeSelected) {
         int docTypeId = 1;
-        for (TiposDocumento tiposDocumento : tiposDocumentos){
-            if(tiposDocumento.getTipoDocumento().equalsIgnoreCase(docTypeSelected)){
-                docTypeId = tiposDocumento.getId();
+        for (Documento documento : documentos) {
+            if (documento.getTipoDocumento().equalsIgnoreCase(docTypeSelected)) {
+                docTypeId = documento.getId();
             }
         }
         return docTypeId;
@@ -130,13 +130,13 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
 
     @Override
     public void fillSpinner(String[] docTypes) {
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_doctype_item,
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_doctype_item_white,
                 docTypes);
         spiDocType.setAdapter(adapter);
     }
 
     @Override
-    public void setDocTypes(List<TiposDocumento> tiposDocumentos) {
-        this.tiposDocumentos = tiposDocumentos;
+    public void setDocTypes(List<Documento> documentos) {
+        this.documentos = documentos;
     }
 }

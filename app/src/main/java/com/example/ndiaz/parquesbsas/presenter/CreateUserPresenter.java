@@ -3,8 +3,8 @@ package com.example.ndiaz.parquesbsas.presenter;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
+import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
-import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.List;
@@ -44,17 +44,17 @@ public class CreateUserPresenter extends BasePresenterImp
 
     @Override
     public void doGetDocTypes() {
-        createUserInteractor.getDocTypes(new BaseCallback<NetworkResponse<List<TiposDocumento>>>() {
+        createUserInteractor.getDocTypes(new BaseCallback<NetworkResponse<List<Documento>>>() {
             @Override
-            public void onSuccess(NetworkResponse<List<TiposDocumento>> tiposDocumentosNetworkResponse) {
+            public void onSuccess(NetworkResponse<List<Documento>> tiposDocumentosNetworkResponse) {
                 if(tiposDocumentosNetworkResponse.getStatus() == STATUS_OK){
-                    List<TiposDocumento> tiposDocumentos = tiposDocumentosNetworkResponse.getResponse();
-                    String[] docTypes = new String[tiposDocumentos.size()];
-                    for(int i = 0; i < tiposDocumentos.size(); i++){
-                        docTypes[i] = tiposDocumentos.get(i).getTipoDocumento();
+                    List<Documento> documentos = tiposDocumentosNetworkResponse.getResponse();
+                    String[] docTypes = new String[documentos.size()];
+                    for(int i = 0; i < documentos.size(); i++){
+                        docTypes[i] = documentos.get(i).getTipoDocumento();
                     }
                     createUserView.fillSpinner(docTypes);
-                    createUserView.setDocTypes(tiposDocumentos);
+                    createUserView.setDocTypes(documentos);
                 }else{
                     createUserView.showCreateUserError(tiposDocumentosNetworkResponse.getMessage());
                 }

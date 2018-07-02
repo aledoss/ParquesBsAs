@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.network;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.Calificacion;
 import com.example.ndiaz.parquesbsas.model.CalificacionEncuesta;
+import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.Encuesta;
 import com.example.ndiaz.parquesbsas.model.EstacionSaludable;
 import com.example.ndiaz.parquesbsas.model.Feria;
@@ -13,7 +14,6 @@ import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 import com.example.ndiaz.parquesbsas.model.ParqueLikeBody;
 import com.example.ndiaz.parquesbsas.model.PuntoVerde;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
-import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class NetworkServiceImp {
                 .loginUser(usuario);
     }
 
-    public Single<NetworkResponse<List<TiposDocumento>>> getDocTypes() {
+    public Single<NetworkResponse<List<Documento>>> getDocTypes() {
         return retrofitService
                 .getClient()
                 .getDocTypes();

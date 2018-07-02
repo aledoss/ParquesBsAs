@@ -88,6 +88,7 @@
                     android:background="#87000000"
                     android:hint="@string/DNIHint"
                     android:inputType="text"
+                    android:maxLength="@integer/max_cant_caracteres_documento"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:text="123456"

@@ -2,8 +2,8 @@ package com.example.ndiaz.parquesbsas.interactor;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.CreateUserContract;
+import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
-import com.example.ndiaz.parquesbsas.model.TiposDocumento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
@@ -52,19 +52,19 @@ public class CreateUserInteractor extends BaseInteractorImp
     }
 
     @Override
-    public void getDocTypes(final BaseCallback<NetworkResponse<List<TiposDocumento>>> callback) {
+    public void getDocTypes(final BaseCallback<NetworkResponse<List<Documento>>> callback) {
         networkServiceImp
                 .getDocTypes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<NetworkResponse<List<TiposDocumento>>>() {
+                .subscribe(new SingleObserver<NetworkResponse<List<Documento>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(NetworkResponse<List<TiposDocumento>> tiposDocumentoNetworkResponse) {
+                    public void onSuccess(NetworkResponse<List<Documento>> tiposDocumentoNetworkResponse) {
                         callback.onSuccess(tiposDocumentoNetworkResponse);
                     }
 

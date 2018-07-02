@@ -4,4 +4,5 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:text="Pasaporte"
+    android:textColor="@color/white"
     android:textSize="@dimen/LoginEdittext" />

@@ -29,20 +29,20 @@
             android:name=".ui.activities.SplashScreen"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activities.CreateUserActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.HomeActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-<!---->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activities.MySettings" />
         <activity
@@ -57,7 +57,7 @@
             android:name=".ui.activities.reclamos.AgregarReclamoActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activities.reclamos.DetalleReclamo" />
-        <activity android:name=".ui.activities.PerfilUsuario" />
+        <activity android:name=".ui.activities.PerfilUsuarioActivity" />
         <activity android:name=".ui.activities.reclamos.ListaReclamosParqueActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaFeriasActivity" />
         <activity android:name=".ui.activities.componentes_parque.ListaEstSaludActivity" />

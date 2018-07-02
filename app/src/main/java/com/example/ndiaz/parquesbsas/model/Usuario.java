@@ -35,19 +35,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public Usuario(String nombre, String apellido, String numeroDoc, String tipoDoc, String email, String password) {
+    public Usuario(String nombre, String apellido, String numeroDoc, int idTipoDoc, String tipoDoc, String email, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.numeroDoc = numeroDoc;
         this.tipoDoc = tipoDoc;
-        this.email = email;
-        this.password = password;
-    }
-
-    public Usuario(String nombre, String apellido, String numeroDoc, int idTipoDoc, String email, String password) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.numeroDoc = numeroDoc;
         this.idTipoDoc = idTipoDoc;
         this.email = email;
         this.password = password;
@@ -117,7 +109,7 @@ public class Usuario implements Serializable {
         this.idTipoDoc = idTipoDoc;
     }
 
-    public boolean hasDocument (){
+    public boolean hasDocument() {
         return getNumeroDoc() != null && getNumeroDoc().isEmpty();
     }
 }
