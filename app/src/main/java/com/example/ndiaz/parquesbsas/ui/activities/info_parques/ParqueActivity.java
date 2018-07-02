@@ -1,13 +1,10 @@
 package com.example.ndiaz.parquesbsas.ui.activities.info_parques;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,7 +18,6 @@ import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
 import com.example.ndiaz.parquesbsas.presenter.ParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
-import com.example.ndiaz.parquesbsas.ui.activities.reclamos.AgregarReclamoActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ParqueComponentesAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +25,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -111,28 +106,6 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
             finish();
             Toast.makeText(this, "No se puede mostrar el parque", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detalles_parque_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.agregar_reclamo_menu:
-                Intent intent = new Intent(ParqueActivity.this, AgregarReclamoActivity.class);
-                intent.putExtra(PARQUEDETALLES, (Serializable) parque);
-                startActivity(intent);
-                break;
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
