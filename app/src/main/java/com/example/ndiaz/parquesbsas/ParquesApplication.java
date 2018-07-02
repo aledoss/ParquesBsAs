@@ -20,7 +20,7 @@ public class ParquesApplication extends Application {
             Stetho.initializeWithDefaults(this);
         }
         // TODO: 02/07/2018 Sacara mock
-        setUser(new Usuario("Juan", "Perez", "36109123", 1,
+        setUser(new Usuario(1, "Juan", "Perez", "36109123", 1,
                 "DNI", "juan.perez@hotmail.com", "123"));
     }
 

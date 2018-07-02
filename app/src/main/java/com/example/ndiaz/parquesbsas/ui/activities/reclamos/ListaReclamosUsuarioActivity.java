@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
 import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
@@ -60,7 +59,7 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     }
 
     private void initializeVariables() {
-        this.usuario = ParquesApplication.getInstance().getUser();
+        this.usuario = getUsuario();
     }
 
     private void initializeViews() {
