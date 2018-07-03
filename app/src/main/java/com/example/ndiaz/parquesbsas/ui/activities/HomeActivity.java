@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,6 +64,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     private Usuario usuario;
     private boolean canLoadParques;
     private List<Parque> parques;
+    private Menu navMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,8 +72,8 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         setContentView(R.layout.activity_home);
         //usuario = obtenerDatosUsuario();
         setupUI();
+        initializeVariables();
         initializeViews();
-        canLoadParques = false;
         presenter.doGetParques();
     }
 
@@ -85,12 +87,25 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
 
     private void initializeViews() {
         RateItDialogFragment.show(this, getSupportFragmentManager());
+        validateViewsFromProfile();
+    }
+
+    private void validateViewsFromProfile() {
+        if (getUsuario() == null) {
+            navMenu.findItem(R.id.nav_menu_perfil).setVisible(false);
+            navMenu.findItem(R.id.nav_menu_reclamos).setVisible(false);
+            navMenu.findItem(R.id.nav_menu_logout).setVisible(false);
+        }
+    }
+
+    private void initializeVariables() {
+        canLoadParques = false;
     }
 
     private void setupUI() {
         setupToolbar();
         setupDrawerLayout();
-        setupNavigationHeader();
+        setupNavigationView();
         setupMap();
     }
 
@@ -120,9 +135,10 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         toogle.syncState();
     }
 
-    private void setupNavigationHeader() {
+    private void setupNavigationView() {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navMenu = navigationView.getMenu();
         View header = navigationView.getHeaderView(0);
 
         imgPerfilUsuario = (ImageView) header.findViewById(R.id.nav_drawer_profile_image);
@@ -219,7 +235,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     public void onMapReady(GoogleMap googleMap) {
         canLoadParques = true;
 //        LatLng capitalFederal = new LatLng(-34.612892, -58.4707548);
-        LatLng capitalFederal = new LatLng(-34.6182053,-58.4386018);
+        LatLng capitalFederal = new LatLng(-34.6182053, -58.4386018);
         this.googleMap = googleMap;
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11.5f));
         if (parques != null) {
@@ -236,7 +252,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
 
     @Override
     public void loadParques(List<Parque> parques) {
-        if(canLoadParques){
+        if (canLoadParques) {
             LatLng parqueLatLng;
             for (Parque parque : parques) {
                 BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
@@ -279,5 +295,14 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     @Override
     public void showMessage(String message) {
         showMessage(lLContainer, message);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
