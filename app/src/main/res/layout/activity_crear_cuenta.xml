@@ -45,6 +45,7 @@
                 android:drawablePadding="6dp"
                 android:hint="@string/nombreHint"
                 android:inputType="text"
+                android:maxLength="@integer/max_length_nombre"
                 android:text="poasfk"
                 android:textSize="@dimen/LoginEdittext" />
 
@@ -57,6 +58,7 @@
                 android:drawablePadding="6dp"
                 android:hint="@string/apellidoHint"
                 android:inputType="text"
+                android:maxLength="@integer/max_length_apellido"
                 android:text="aosgkoga"
                 android:textSize="@dimen/LoginEdittext" />
 

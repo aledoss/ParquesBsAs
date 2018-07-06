@@ -5,11 +5,6 @@ package com.example.ndiaz.parquesbsas.constants;
  */
 
 public interface Constants {
-
-    //Edit text validator
-    String LOGIN_ORIGIN = "Login Origin";
-    String CREATE_USER_ORIGIN = "Create User Origin";
-
     //Detalles Parque
     String PARQUEDETALLES = "ParqueDetalles";
     String ID_PARQUE = "Id_Parque";

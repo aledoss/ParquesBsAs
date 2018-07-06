@@ -20,12 +20,12 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
     }
 
     @Override
-    public void doUpdateName(Usuario usuario) {
+    public void doUpdateName(String nombre, String apellido) {
         view.showProgressDialog();
-        interactor.updateName(usuario, new EmptyCallback() {
+        interactor.updateName(nombre, apellido, new EmptyCallback() {
             @Override
             public void onSuccess() {
-                view.updateName(usuario);
+                view.updateName(nombre, apellido);
                 view.hideProgressDialog();
             }
 

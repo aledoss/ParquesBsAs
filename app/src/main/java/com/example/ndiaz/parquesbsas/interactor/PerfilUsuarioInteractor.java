@@ -26,7 +26,7 @@ public class PerfilUsuarioInteractor extends BaseInteractorImp
     }
 
     @Override
-    public void updateName(Usuario usuario, EmptyCallback callback) {
+    public void updateName(String nombre, String apellido, EmptyCallback callback) {
         // TODO: 30/06/2018 Completar
     }
 

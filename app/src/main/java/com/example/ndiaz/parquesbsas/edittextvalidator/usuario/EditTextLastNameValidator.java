@@ -24,7 +24,7 @@ public class EditTextLastNameValidator extends EditTextValidator {
         if (lastName.isEmpty()) {
             etLastName.setError(context.getString(R.string.invalid_last_name));
             return false;
-        } else if (hasIncorrectLength(lastName, 2, 32)) {
+        } else if (hasIncorrectLength(lastName, 2, context.getResources().getInteger(R.integer.max_length_nombre))) {
             etLastName.setError(context.getString(R.string.invalid_length));
             return false;
         } else if (!textValidator.isAlpha(lastName)) {

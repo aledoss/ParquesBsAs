@@ -2,7 +2,10 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -12,11 +15,15 @@ import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.PerfilUsuarioContract;
+import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.TipoDocumentoHelper;
+import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.PerfilUsuarioInteractor;
+import com.example.ndiaz.parquesbsas.listeners.OnCambiarNombYApeListener;
 import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.PerfilUsuarioPresenter;
+import com.example.ndiaz.parquesbsas.ui.dialogs.CambiarNombYApeDialogFragment;
 
 import java.util.List;
 import java.util.Locale;
@@ -24,8 +31,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText.UPDATE_USER_DOC_ORIGIN;
+
 public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Presenter>
-        implements PerfilUsuarioContract.View {
+        implements PerfilUsuarioContract.View, OnCambiarNombYApeListener {
 
     @BindView(R.id.createAccountContainerLayout)
     ConstraintLayout createAccountContainerLayout;
@@ -53,6 +62,8 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     private List<Documento> documentos;
     private TipoDocumentoHelper tipoDocumentoHelper;
     private ArrayAdapter<String> docTypesAdapter;
+    private boolean docEditionInProgress;
+    private ViewHelper viewHelper;
 
     @OnClick(R.id.imgEditDoc)
     public void onEditDocClick() {
@@ -65,13 +76,14 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @OnClick(R.id.imgCommitEditDoc)
     public void onCommitEditDoc() {
-        disableDocEdition();
-        // TODO: 02/07/2018 Realizar validaciones
         String docType = spiDocType.getSelectedItem().toString();
-        int idDoc = tipoDocumentoHelper.getDocIdFromText(docType, documentos);
-        String numeroDoc = etDocumento.getText().toString();
+        if (datosDocumentoCorrectos(docType)) {
+            disableDocEdition();
+            int idDoc = tipoDocumentoHelper.getDocIdFromText(docType, documentos);
+            String numeroDoc = etDocumento.getText().toString();
 
-        presenter.doUpdateDoc(new Documento(idDoc, docType, numeroDoc));
+            presenter.doUpdateDoc(new Documento(idDoc, docType, numeroDoc));
+        }
     }
 
     @OnClick(R.id.imgDismissEditDoc)
@@ -79,11 +91,13 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         disableDocEdition();
         fillSpinner(new String[]{getUsuario().getTipoDoc()});
         etDocumento.setText(getUsuario().getNumeroDoc());
+        etDocumento.setError(null);
     }
 
     @OnClick(R.id.imgEditNombre)
     public void onEditNombreClick() {
-        // TODO: 01/07/2018 Abrir custom dialog con edicion de nombre y apellido
+        CambiarNombYApeDialogFragment.newInstance(getUsuario(), this)
+                .show(getSupportFragmentManager(), CambiarNombYApeDialogFragment.class.getSimpleName());
     }
 
     @OnClick(R.id.txtCambiarContrasenia)
@@ -100,9 +114,14 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
-        tipoDocumentoHelper = new TipoDocumentoHelper();
+        initializeVariables();
         presenter.doGetDocTypes();
         setupUI();
+    }
+
+    private void initializeVariables() {
+        tipoDocumentoHelper = new TipoDocumentoHelper();
+        viewHelper = new ViewHelper();
     }
 
     @Override
@@ -142,6 +161,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         imgCommitEditDoc.setVisibility(View.VISIBLE);
         imgDismissEditDoc.setVisibility(View.VISIBLE);
         fillSpinner(tipoDocumentoHelper.getDocTypeArray(documentos));
+        docEditionInProgress = true;
     }
 
     private void disableDocEdition() {
@@ -150,6 +170,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         imgEditDoc.setVisibility(View.VISIBLE);
         imgCommitEditDoc.setVisibility(View.GONE);
         imgDismissEditDoc.setVisibility(View.GONE);
+        docEditionInProgress = false;
     }
 
     @Override
@@ -170,10 +191,10 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     }
 
     @Override
-    public void updateName(Usuario usuario) {
-        setNombreApellidoTxt(usuario.getNombre(), usuario.getApellido());
-        getUsuario().setNombre(usuario.getNombre());
-        getUsuario().setApellido(usuario.getApellido());
+    public void updateName(String nombre, String apellido) {
+        setNombreApellidoTxt(nombre, apellido);
+        getUsuario().setNombre(nombre);
+        getUsuario().setApellido(apellido);
     }
 
     @Override
@@ -197,15 +218,60 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        // TODO: 01/07/2018 Verificar que no esté nada en edicion 
+        if (docEditionInProgress) {
+            showExitDialog();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void showExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Cambios sin guardar")
+                .setMessage("Estás saliendo de la pantalla con cambios sin guardar. Desea hacerlo de todas maneras?")
+                .setPositiveButton(R.string.dialog_exit, (dialog, which) -> PerfilUsuarioActivity.super.onBackPressed())
+                .setNegativeButton(R.string.dialog_cancel, (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
     }
 
     private void setNombreApellidoTxt(String nombre, String apellido) {
         txtNombreApellido.setText(String.format(Locale.getDefault(), "%s, %s", nombre, apellido));
     }
 
+    private boolean datosDocumentoCorrectos(String docType) {
+        UserFactoryEditText factoryEditText = new UserFactoryEditText();
+
+        factoryEditText.setEtDocNum(etDocumento);
+        factoryEditText.setDocType(docType);
+        factoryEditText.setOrigin(UPDATE_USER_DOC_ORIGIN);
+
+        return viewHelper.isValidData(factoryEditText);
+    }
+
     public void changePassword(Usuario usuario) {
         presenter.doUpdatePassword(usuario);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.perfil_usuario_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.eliminar_cuenta_menu:
+                //presenter.doDeleteCuenta(getUsuario().getId());   todo activar
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCambiarNombYApe(String nombre, String apellido) {
+        //presenter.doUpdateName(usuario); // TODO: 04/07/2018 Mandar al presenter el update
     }
 }

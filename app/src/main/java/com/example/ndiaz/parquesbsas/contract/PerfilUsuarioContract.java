@@ -19,7 +19,7 @@ public interface PerfilUsuarioContract {
 
         void fillSpinner(String[] docTypes);
 
-        void updateName(Usuario usuario);
+        void updateName(String nombre, String apellido);
 
         void updateDoc(Documento documento);
 
@@ -29,7 +29,7 @@ public interface PerfilUsuarioContract {
     }
 
     interface Presenter extends BasePresenter {
-        void doUpdateName(Usuario usuario);
+        void doUpdateName(String nombre, String apellido);
 
         void doUpdateDoc(Documento documento);
 
@@ -41,7 +41,7 @@ public interface PerfilUsuarioContract {
     }
 
     interface Interactor extends BaseInteractor {
-        void updateName(Usuario usuario, EmptyCallback callback);
+        void updateName(String nombre, String apellido, EmptyCallback callback);
 
         void updateDoc(Documento documento, EmptyCallback callback);
 
