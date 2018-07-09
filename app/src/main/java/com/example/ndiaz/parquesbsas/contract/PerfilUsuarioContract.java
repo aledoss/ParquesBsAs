@@ -6,7 +6,7 @@ import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
 import com.example.ndiaz.parquesbsas.model.Documento;
-import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 
 import java.util.List;
 
@@ -29,11 +29,11 @@ public interface PerfilUsuarioContract {
     }
 
     interface Presenter extends BasePresenter {
-        void doUpdateName(String nombre, String apellido);
+        void doUpdateName(int idUsuario, String nombre, String apellido);
 
-        void doUpdateDoc(Documento documento);
+        void doUpdateDoc(int idUsuario, Documento documento);
 
-        void doUpdatePassword(Usuario usuario);
+        void doUpdatePassword(UsuarioPassword usuario);
 
         void doDeleteCuenta(int idUsuario);
 
@@ -41,11 +41,11 @@ public interface PerfilUsuarioContract {
     }
 
     interface Interactor extends BaseInteractor {
-        void updateName(String nombre, String apellido, EmptyCallback callback);
+        void updateName(int idUsuario, String nombre, String apellido, EmptyCallback callback);
 
-        void updateDoc(Documento documento, EmptyCallback callback);
+        void updateDoc(int idUsuario, Documento documento, EmptyCallback callback);
 
-        void updatePassword(Usuario usuario, EmptyCallback callback);
+        void updatePassword(UsuarioPassword usuario, EmptyCallback callback);
 
         void deleteCuenta(int idUsuario, BaseCallback<String> callback);
 

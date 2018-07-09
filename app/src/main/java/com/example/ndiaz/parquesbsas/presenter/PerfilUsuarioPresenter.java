@@ -4,7 +4,7 @@ import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.PerfilUsuarioContract;
 import com.example.ndiaz.parquesbsas.model.Documento;
-import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
     }
 
     @Override
-    public void doUpdateName(String nombre, String apellido) {
+    public void doUpdateName(int idUsuario, String nombre, String apellido) {
         view.showProgressDialog();
-        interactor.updateName(nombre, apellido, new EmptyCallback() {
+        interactor.updateName(idUsuario, nombre, apellido, new EmptyCallback() {
             @Override
             public void onSuccess() {
                 view.updateName(nombre, apellido);
@@ -38,9 +38,9 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
     }
 
     @Override
-    public void doUpdateDoc(Documento documento) {
+    public void doUpdateDoc(int idUsuario, Documento documento) {
         view.showProgressDialog();
-        interactor.updateDoc(documento, new EmptyCallback() {
+        interactor.updateDoc(idUsuario, documento, new EmptyCallback() {
             @Override
             public void onSuccess() {
                 view.updateDoc(documento);
@@ -56,7 +56,7 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
     }
 
     @Override
-    public void doUpdatePassword(Usuario usuario) {
+    public void doUpdatePassword(UsuarioPassword usuario) {
         view.showProgressDialog();
         interactor.updatePassword(usuario, new EmptyCallback() {
             @Override

@@ -21,7 +21,7 @@ import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.PerfilUsuarioInteractor;
 import com.example.ndiaz.parquesbsas.listeners.OnCambiarNombYApeListener;
 import com.example.ndiaz.parquesbsas.model.Documento;
-import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 import com.example.ndiaz.parquesbsas.presenter.PerfilUsuarioPresenter;
 import com.example.ndiaz.parquesbsas.ui.dialogs.CambiarNombYApeDialogFragment;
 
@@ -82,7 +82,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
             int idDoc = tipoDocumentoHelper.getDocIdFromText(docType, documentos);
             String numeroDoc = etDocumento.getText().toString();
 
-            presenter.doUpdateDoc(new Documento(idDoc, docType, numeroDoc));
+            presenter.doUpdateDoc(getUsuario().getId(), new Documento(idDoc, docType, numeroDoc));
         }
     }
 
@@ -249,7 +249,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         return viewHelper.isValidData(factoryEditText);
     }
 
-    public void changePassword(Usuario usuario) {
+    public void changePassword(UsuarioPassword usuario) {
         presenter.doUpdatePassword(usuario);
     }
 
@@ -272,6 +272,6 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @Override
     public void onCambiarNombYApe(String nombre, String apellido) {
-        //presenter.doUpdateName(usuario); // TODO: 04/07/2018 Mandar al presenter el update
+        presenter.doUpdateName(getUsuario().getId(), nombre, apellido);
     }
 }

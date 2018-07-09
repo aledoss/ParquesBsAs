@@ -19,9 +19,9 @@ public class ParquesApplication extends Application {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
-        // TODO: 02/07/2018 Sacara mock
+        // TODO: 02/07/2018 Sacar mock
         setUser(new Usuario(1, "Juan", "Perez", "36109123", 1,
-                "DNI", "juan.perez@hotmail.com", "123"));
+                "DNI", "juan.perez@hotmail.com", "Asd1234$"));
     }
 
     public static ParquesApplication getInstance() {

@@ -122,4 +122,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public Usuario getUsuario() {
         return ParquesApplication.getInstance().getUser();
     }
+
+    @Override
+    protected void onDestroy() {
+        //presenter.onDestroy();
+        super.onDestroy();
+    }
 }

@@ -15,6 +15,7 @@ import com.example.ndiaz.parquesbsas.model.ParqueLikeBody;
 import com.example.ndiaz.parquesbsas.model.PuntoVerde;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 
 import java.util.List;
 
@@ -34,6 +35,15 @@ interface RetrofitApi {
 
     @POST("parquesapi/createUser")
     Single<NetworkResponse> createUser(@Body Usuario usuario);
+
+    @POST("parquesapi/updateUserName")
+    Single<NetworkResponse> updateUserName(@Body Usuario usuario);
+
+    @POST("parquesapi/updateDocument/{id}")
+    Single<NetworkResponse> updateUserDocument(@Path("id") int id, @Body Documento documento);
+
+    @POST("parquesapi/updatePassword")
+    Single<NetworkResponse> updateUserPassword(@Body UsuarioPassword usuario);
 
     @GET("parquesapi/getParques")
     Single<NetworkResponse<List<Parque>>> getParques();

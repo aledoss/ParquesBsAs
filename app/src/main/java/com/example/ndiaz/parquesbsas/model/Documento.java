@@ -12,6 +12,7 @@ public class Documento {
     private int id;
     @JsonProperty("descripcion")
     private String tipoDocumento;
+    @JsonProperty("numero_documento")
     private String numeroDocumento;
 
     public Documento() {

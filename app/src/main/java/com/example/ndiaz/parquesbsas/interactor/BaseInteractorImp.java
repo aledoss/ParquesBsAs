@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.interactor;
 import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
@@ -21,7 +22,6 @@ public class BaseInteractorImp implements BaseInteractor {
     private NetworkServiceImp networkServiceImp;
 
     public BaseInteractorImp() {
-        initializeCompositeDisposable();
     }
 
     public BaseInteractorImp(NetworkServiceImp networkServiceImp) {
@@ -29,24 +29,28 @@ public class BaseInteractorImp implements BaseInteractor {
     }
 
     public BaseInteractorImp(DBHelper dbHelper, NetworkServiceImp networkServiceImp) {
-        initializeCompositeDisposable();
         this.dbHelper = dbHelper;
         this.networkServiceImp = networkServiceImp;
     }
 
     public BaseInteractorImp(PreferencesRepository preferencesRepository,
                              NetworkServiceImp networkServiceImp) {
-        initializeCompositeDisposable();
         this.preferencesRepository = preferencesRepository;
         this.networkServiceImp = networkServiceImp;
     }
 
     public BaseInteractorImp(DBHelper dbHelper, PreferencesRepository preferencesRepository,
                              NetworkServiceImp networkServiceImp) {
-        initializeCompositeDisposable();
         this.dbHelper = dbHelper;
         this.preferencesRepository = preferencesRepository;
         this.networkServiceImp = networkServiceImp;
+    }
+
+    private CompositeDisposable getCompositeDisposable() {
+        if (compositeDisposable == null){
+            this.compositeDisposable = new CompositeDisposable();
+        }
+        return compositeDisposable;
     }
 
     public DBHelper getDbHelper() {
@@ -73,30 +77,44 @@ public class BaseInteractorImp implements BaseInteractor {
         this.networkServiceImp = networkServiceImp;
     }
 
-    public void initializeCompositeDisposable() {
-        this.compositeDisposable = new CompositeDisposable();
-    }
-
     @Override
-    public void unsubscribe() {
-        compositeDisposable.clear();
+    public void unsubscribeAll() {
+        if (compositeDisposable != null){
+            compositeDisposable.clear();
+        }
     }
 
     public void addDisposable(Disposable disposable) {
-        this.compositeDisposable.add(disposable);
+        getCompositeDisposable().add(disposable);
     }
 
-    // TODO: 17/06/2018 Reemplazar los default de los onError de los interactor correspondientes
-    <T> void onErrorDefault(Throwable e, String tag, String msg, BaseCallback<T> callback) {
+    <T> void onErrorDefault(Throwable e, String tag, String methodName, BaseCallback<T> callback) {
         String message = e.getMessage();
         callback.onError(message);
-        Log.e(tag, msg + ", onError: " + message, e);
+        Log.e(tag, methodName + ", onError: " + message, e);
+    }
+
+    <T> void onErrorEmpty(Throwable e, String tag, String methodName, EmptyCallback callback) {
+        String message = e.getMessage();
+        callback.onError(message);
+        Log.e(tag, methodName + ", onError: " + message, e);
     }
 
     <T> void onSuccessDefault(NetworkResponse<T> response, String tag, String methodName, BaseCallback<T> callback) {
         String message = response.getMessage();
         if (response.getStatus() == HTTPConstants.STATUS_OK) {
             callback.onSuccess(response.getResponse());
+            Log.i(tag, methodName + ", onSuccess: " + message);
+        } else {
+            callback.onError(message);
+            Log.e(tag, methodName + ", onSuccess: " + message);
+        }
+    }
+
+    <T> void onSuccessEmpty(NetworkResponse response, String tag, String methodName, EmptyCallback callback) {
+        String message = response.getMessage();
+        if (response.getStatus() == HTTPConstants.STATUS_OK) {
+            callback.onSuccess();
             Log.i(tag, methodName + ", onSuccess: " + message);
         } else {
             callback.onError(message);

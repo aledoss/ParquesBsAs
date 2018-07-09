@@ -15,6 +15,7 @@ import com.example.ndiaz.parquesbsas.model.ParqueLikeBody;
 import com.example.ndiaz.parquesbsas.model.PuntoVerde;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.model.Usuario;
+import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 
 import java.util.List;
 
@@ -44,6 +45,24 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .createUser(usuario);
+    }
+
+    public Single<NetworkResponse> updateUserName(Usuario usuario) {
+        return retrofitService
+                .getClient()
+                .updateUserName(usuario);
+    }
+
+    public Single<NetworkResponse> updateUserDocument(int id, Documento documento) {
+        return retrofitService
+                .getClient()
+                .updateUserDocument(id, documento);
+    }
+
+    public Single<NetworkResponse> updateUserPassword(UsuarioPassword usuario) {
+        return retrofitService
+                .getClient()
+                .updateUserPassword(usuario);
     }
 
     public Single<NetworkResponse<List<Parque>>> getParques() {
