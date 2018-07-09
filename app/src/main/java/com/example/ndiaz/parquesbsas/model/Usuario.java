@@ -126,6 +126,6 @@ public class Usuario implements Serializable {
     }
 
     public boolean hasDocument() {
-        return getNumeroDoc() != null && getNumeroDoc().isEmpty();
+        return getNumeroDoc() != null && !getNumeroDoc().isEmpty();
     }
 }

@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     @Override
     protected LoginContract.Presenter createPresenter() {
         LoginContract.Interactor loginInteractor = new LoginInteractor(
-                defaultPreferencesRepository, networkServiceImp
+                getDefaultPreferencesRepository(), networkServiceImp
         );
 
         return new LoginPresenter(this, loginInteractor);

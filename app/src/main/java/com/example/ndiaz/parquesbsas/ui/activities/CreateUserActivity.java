@@ -73,7 +73,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     @Override
     protected CreateUserContract.Presenter createPresenter() {
         CreateUserInteractor interactor = new CreateUserInteractor(
-                defaultPreferencesRepository, networkServiceImp);
+                getDefaultPreferencesRepository(), networkServiceImp);
         return new CreateUserPresenter(this, interactor);
     }
 

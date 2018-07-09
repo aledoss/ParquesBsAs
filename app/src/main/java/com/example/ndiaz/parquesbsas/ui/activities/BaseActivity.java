@@ -3,7 +3,6 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -14,14 +13,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.example.ndiaz.parquesbsas.ParquesApplication;
-import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
 import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
-import com.example.ndiaz.parquesbsas.network.RetrofitService;
 import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
 
 import butterknife.ButterKnife;
@@ -38,12 +35,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupDefaultSettings();
-        defaultPreferencesRepository = PreferencesRepository.getDefaultSharedPref(this);
-        networkServiceImp = new NetworkServiceImp(new RetrofitService());
-        rxdbInteractor = new RXDBInteractor(this);
+        networkServiceImp = ParquesApplication.getInstance().getNetworkServiceImp();
+        rxdbInteractor = ParquesApplication.getInstance().getRxdbInteractor();
         progressDialog = new ProgressDialog(this);
-        permissionsManager = new PermissionsManager(this);
     }
 
     @Override
@@ -64,13 +58,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     }
 
-    private void setupDefaultSettings() {
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-    }
-
     protected abstract T createPresenter();
 
     public PreferencesRepository getDefaultPreferencesRepository() {
+        if (defaultPreferencesRepository == null) {
+            defaultPreferencesRepository = PreferencesRepository.getDefaultSharedPref(this);
+        }
         return defaultPreferencesRepository;
     }
 
@@ -108,6 +101,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     public PermissionsManager getPermissionsManager() {
+        if (permissionsManager == null) {
+            permissionsManager = new PermissionsManager(this);
+        }
+
         return permissionsManager;
     }
 
