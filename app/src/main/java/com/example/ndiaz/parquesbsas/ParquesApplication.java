@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -28,9 +29,16 @@ public class ParquesApplication extends Application {
         instance = this;
         initializeVariables();
         setupDefaultSettings();
+
         // TODO: 02/07/2018 Sacar mock
-        setUser(new Usuario(1, "Juan", "Perez", "36109123", 1,
-                "DNI", "juan.perez@hotmail.com", "Asd1234$"));
+        loginFakeUser();
+    }
+
+    private void loginFakeUser() {
+        networkServiceImp
+                .getUser(new Usuario("juan.perez@hotmail.com", "Asd1234$"))
+                .subscribe(usuarioNetworkResponse -> setUser(usuarioNetworkResponse.getResponse()),
+                        throwable -> Toast.makeText(ParquesApplication.this, "Error, no se pudo obtener usuario", Toast.LENGTH_SHORT).show());
     }
 
     private void initializeVariables() {
