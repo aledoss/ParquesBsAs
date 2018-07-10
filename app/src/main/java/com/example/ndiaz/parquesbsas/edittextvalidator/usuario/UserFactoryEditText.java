@@ -19,10 +19,13 @@ public class UserFactoryEditText implements FactoryEditText {
     private static final String CREATE_USER_ORIGIN = "Create User Origin";
     public static final String UPDATE_USER_NAME_ORIGIN = "Update User Name Origin";
     public static final String UPDATE_USER_DOC_ORIGIN = "Update User Doc Origin";
+    public static final String UPDATE_USER_PASSWORD_ORIGIN = "Update User Password Origin";
     private EditText etName;
     private EditText etLastName;
     private EditText etEmail;
     private EditText etPassword;
+    private EditText etRepeatPassword;
+    private EditText etOldPassword;
     private EditText etDocNum;
     private String docType;
     private String origin;
@@ -70,6 +73,13 @@ public class UserFactoryEditText implements FactoryEditText {
             case UPDATE_USER_DOC_ORIGIN:
                 editTextValidators.add(setDocTypeValidator());
                 break;
+            case UPDATE_USER_PASSWORD_ORIGIN:
+                editTextValidators.add(new EditTextPasswordValidator(etOldPassword));
+                editTextValidators.add(new EditTextPasswordValidator(etPassword));
+                editTextValidators.add(new EditTextPasswordValidator(etRepeatPassword));
+                break;
+            default:
+                break;
         }
 
         return editTextValidators;
@@ -110,5 +120,17 @@ public class UserFactoryEditText implements FactoryEditText {
 
     public void setDocType(String docType) {
         this.docType = docType;
+    }
+
+    public void setEtPassword(EditText etPassword) {
+        this.etPassword = etPassword;
+    }
+
+    public void setEtRepeatPassword(EditText etRepeatPassword) {
+        this.etRepeatPassword = etRepeatPassword;
+    }
+
+    public void setEtOldPassword(EditText etOldPassword) {
+        this.etOldPassword = etOldPassword;
     }
 }

@@ -81,7 +81,28 @@ public class PerfilUsuarioInteractor extends BaseInteractorImp
 
     @Override
     public void updatePassword(UsuarioPassword usuario, EmptyCallback callback) {
-        // TODO: 30/06/2018 Completar
+        networkServiceImp
+                .updateUserPassword(usuario)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse>() {
+                    String methodName = "updatePassword";
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(NetworkResponse networkResponse) {
+                        onSuccessEmpty(networkResponse, TAG, methodName, callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorEmpty(e, TAG, methodName, callback);
+                    }
+                });
     }
 
     @Override

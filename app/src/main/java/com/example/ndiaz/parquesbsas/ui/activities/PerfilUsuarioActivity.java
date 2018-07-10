@@ -19,10 +19,12 @@ import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditTe
 import com.example.ndiaz.parquesbsas.helpers.TipoDocumentoHelper;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.PerfilUsuarioInteractor;
+import com.example.ndiaz.parquesbsas.listeners.OnCambiarContraseniaListener;
 import com.example.ndiaz.parquesbsas.listeners.OnCambiarNombYApeListener;
 import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 import com.example.ndiaz.parquesbsas.presenter.PerfilUsuarioPresenter;
+import com.example.ndiaz.parquesbsas.ui.dialogs.CambiarContraseniaDialogFragment;
 import com.example.ndiaz.parquesbsas.ui.dialogs.CambiarNombYApeDialogFragment;
 
 import java.util.List;
@@ -34,7 +36,7 @@ import butterknife.OnClick;
 import static com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText.UPDATE_USER_DOC_ORIGIN;
 
 public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Presenter>
-        implements PerfilUsuarioContract.View, OnCambiarNombYApeListener {
+        implements PerfilUsuarioContract.View, OnCambiarNombYApeListener, OnCambiarContraseniaListener {
 
     @BindView(R.id.createAccountContainerLayout)
     ConstraintLayout createAccountContainerLayout;
@@ -102,7 +104,8 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @OnClick(R.id.txtCambiarContrasenia)
     public void onCambiarContraseniaClick() {
-
+        CambiarContraseniaDialogFragment.newInstance(this)
+                .show(getSupportFragmentManager(), CambiarContraseniaDialogFragment.class.getSimpleName());
     }
 
     @OnClick(R.id.txtCerrarSesion)
@@ -273,5 +276,10 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     @Override
     public void onCambiarNombYApe(String nombre, String apellido) {
         presenter.doUpdateName(getUsuario().getId(), nombre, apellido);
+    }
+
+    @Override
+    public void onCambiarContrasenia(String oldPassword, String newPassword) {
+        presenter.doUpdatePassword(new UsuarioPassword(getUsuario().getId(), newPassword, oldPassword));
     }
 }

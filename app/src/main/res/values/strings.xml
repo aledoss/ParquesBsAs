@@ -18,6 +18,10 @@
     <string name="CrearCuenta">Crear Cuenta</string>
     <string name="RecuperarContraseña">Recuperar Contraseña</string>
     <string name="CambiarContraseña">Cambiar contraseña</string>
+    <string name="contraseniaViejaHint">Contraseña antigua</string>
+    <string name="contraseniaNuevaHint">Contraseña nueva</string>
+    <string name="contraseniaNuevaRepetirHint">Repetir contraseña</string>
+    <string name="contrasenias_deben_coincidir">Las contraseñas deben coincidir</string>
     <string name="WorkInProgress">Work in progress</string>
     <string name="DatosVacios">Campos obligatorios sin completar</string>
     <string name="nombreHint">Nombre</string>

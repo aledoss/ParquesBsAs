@@ -24,7 +24,7 @@ public class EditTextPasswordValidator extends EditTextValidator {
         if (password.isEmpty()) {
             etPass.setError(context.getString(R.string.invalid_password));
             return false;
-        } else if (hasIncorrectLength(password, 8, 64)) {
+        } else if (hasIncorrectLength(password, 8, context.getResources().getInteger(R.integer.max_length_contrasenia))) {
             etPass.setError(context.getString(R.string.invalid_length));
             return false;
         } else if (!textValidator.isValidPassword(password)) {
