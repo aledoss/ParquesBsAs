@@ -161,13 +161,12 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @Override
     public void navigateToHome() {
-        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-        finish();
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
     public void showLoginError(String message) {
         showMessage(lLContainer, message);
-    }
-
+}
 }

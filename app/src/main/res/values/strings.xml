@@ -47,6 +47,7 @@
     <string name="menu_settings">@string/configuracion</string>
     <string name="menu_about_me">Acerca de</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="login">Iniciar sesión</string>
     <string name="eliminar_cuenta">Eliminar cuenta</string>
 
     <string name="about_me_text">Desarrollado por Nicolás Diaz. Contacto: nicoadiaz93@gmail.com</string>

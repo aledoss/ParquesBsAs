@@ -2,9 +2,8 @@ package com.example.ndiaz.parquesbsas;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -38,7 +37,7 @@ public class ParquesApplication extends Application {
         networkServiceImp
                 .getUser(new Usuario("juan.perez@hotmail.com", "Asd1234$"))
                 .subscribe(usuarioNetworkResponse -> setUser(usuarioNetworkResponse.getResponse()),
-                        throwable -> Toast.makeText(ParquesApplication.this, "Error, no se pudo obtener usuario", Toast.LENGTH_SHORT).show());
+                        throwable -> Log.e("ParquesApplication", "loginFakeUser: ", throwable));
     }
 
     private void initializeVariables() {
@@ -46,7 +45,7 @@ public class ParquesApplication extends Application {
         rxdbInteractor = new RXDBInteractor(this);
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
-            StrictMode.enableDefaults();
+            //StrictMode.enableDefaults();
         }
     }
 

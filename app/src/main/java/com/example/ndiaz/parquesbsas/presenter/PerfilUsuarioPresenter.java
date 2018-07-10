@@ -78,8 +78,10 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
         view.showProgressDialog();
         interactor.deleteCuenta(idUsuario, new BaseCallback<String>() {
             @Override
-            public void onSuccess(String value) {
-                // TODO: 30/06/2018 Llevar a la pantalla de login cerrando todas las activities del stack y mostrar el mensaje
+            public void onSuccess(String message) {
+                view.hideProgressDialog();
+                view.showToastMessage(message);
+                view.navigateToLogin();
             }
 
             @Override

@@ -14,4 +14,6 @@ public interface BaseView {
     void hideProgressDialog();
 
     void showEmptyAdapter(View llEmptyAdapter, View viewToHide);
+
+    void hideKeyboard();
 }

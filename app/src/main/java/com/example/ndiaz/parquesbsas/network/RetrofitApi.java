@@ -45,6 +45,9 @@ interface RetrofitApi {
     @POST("parquesapi/updatePassword")
     Single<NetworkResponse> updateUserPassword(@Body UsuarioPassword usuario);
 
+    @POST("parquesapi/deleteUser")
+    Single<NetworkResponse> deleteUser(@Body Usuario usuario);
+
     @GET("parquesapi/getParques")
     Single<NetworkResponse<List<Parque>>> getParques();
 

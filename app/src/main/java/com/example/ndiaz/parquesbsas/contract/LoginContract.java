@@ -12,6 +12,8 @@ public interface LoginContract {
         void navigateToHome();
 
         void showLoginError(String message);
+
+        void hideKeyboard();
     }
 
     interface Presenter extends BasePresenter {

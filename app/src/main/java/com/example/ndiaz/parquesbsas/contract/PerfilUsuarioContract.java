@@ -26,6 +26,10 @@ public interface PerfilUsuarioContract {
         void showSuccessPasswordUpdated();
 
         void showMessage(String message);
+
+        void showToastMessage(String message);
+
+        void navigateToLogin();
     }
 
     interface Presenter extends BasePresenter {

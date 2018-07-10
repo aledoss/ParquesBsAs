@@ -31,6 +31,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     loginView.navigateToHome();
                     ParquesApplication.getInstance().setUser((Usuario) response.getResponse());
                 }else{
+                    loginView.hideKeyboard();
                     loginView.showLoginError(response.getMessage());
                 }
             }

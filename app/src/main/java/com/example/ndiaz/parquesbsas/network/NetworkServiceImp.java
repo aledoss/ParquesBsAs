@@ -65,6 +65,12 @@ public class NetworkServiceImp {
                 .updateUserPassword(usuario);
     }
 
+    public Single<NetworkResponse> deleteUser(Usuario usuario) {
+        return retrofitService
+                .getClient()
+                .deleteUser(usuario);
+    }
+
     public Single<NetworkResponse<List<Parque>>> getParques() {
         return retrofitService
                 .getClient()

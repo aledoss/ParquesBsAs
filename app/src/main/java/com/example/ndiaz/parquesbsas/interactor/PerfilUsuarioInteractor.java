@@ -107,7 +107,28 @@ public class PerfilUsuarioInteractor extends BaseInteractorImp
 
     @Override
     public void deleteCuenta(int idUsuario, BaseCallback<String> callback) {
-        // TODO: 30/06/2018 Completar
+        networkServiceImp
+                .deleteUser(new Usuario(idUsuario))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse>() {
+                    String methodName = "deleteCuenta";
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(NetworkResponse networkResponse) {
+                        onSuccessDefault(networkResponse, TAG, methodName, callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorDefault(e, TAG, methodName, callback);
+                    }
+                });
     }
 
     @Override

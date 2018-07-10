@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.PerfilUsuarioContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
@@ -110,7 +113,17 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @OnClick(R.id.txtCerrarSesion)
     public void onCerrarSesionClick() {
-
+        // TODO: 09/07/2018 Limpiar preferences
+        /*try {
+            SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(EMAILLOGINSAVED, "");
+            editor.putString(PASSWORDLOGINSAVED, "");
+            editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        navigateToLogin();
     }
 
     @Override
@@ -238,6 +251,11 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
                 .show();
     }
 
+    @Override
+    public void showToastMessage(String message) {
+        Toast.makeText(ParquesApplication.getInstance().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
     private void setNombreApellidoTxt(String nombre, String apellido) {
         txtNombreApellido.setText(String.format(Locale.getDefault(), "%s, %s", nombre, apellido));
     }
@@ -252,10 +270,6 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         return viewHelper.isValidData(factoryEditText);
     }
 
-    public void changePassword(UsuarioPassword usuario) {
-        presenter.doUpdatePassword(usuario);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.perfil_usuario_menu, menu);
@@ -266,11 +280,17 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.eliminar_cuenta_menu:
-                //presenter.doDeleteCuenta(getUsuario().getId());   todo activar
+                presenter.doDeleteCuenta(getUsuario().getId()); // TODO: 09/07/2018 Hacer una pantalla advirtiendo
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void navigateToLogin() {
+        startActivity(new Intent(PerfilUsuarioActivity.this, LoginActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override

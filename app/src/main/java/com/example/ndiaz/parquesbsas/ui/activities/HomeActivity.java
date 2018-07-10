@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -94,7 +93,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         if (getUsuario() == null) {
             navMenu.findItem(R.id.nav_menu_perfil).setVisible(false);
             navMenu.findItem(R.id.nav_menu_reclamos).setVisible(false);
-            navMenu.findItem(R.id.nav_menu_logout).setVisible(false);
+            navMenu.findItem(R.id.nav_menu_login).setVisible(true);
         }
     }
 
@@ -194,8 +193,8 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
             case R.id.nav_menu_about_me:
                 mostrarDialogAboutMe();
                 break;
-            case R.id.nav_menu_logout:
-                logout();
+            case R.id.nav_menu_login:
+                navigateToLogin();
                 break;
         }
 
@@ -213,22 +212,9 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         dialog.show();
     }
 
-    private void mostrarSnackbar() {
-        Snackbar.make(lLContainer, getResources().getString(R.string.WorkInProgress), Snackbar.LENGTH_SHORT).show();
-    }
-
-    private void logout() {
-        /*try {
-            SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(EMAILLOGINSAVED, "");
-            editor.putString(PASSWORDLOGINSAVED, "");
-            editor.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        finish();
-        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+    private void navigateToLogin() {
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
