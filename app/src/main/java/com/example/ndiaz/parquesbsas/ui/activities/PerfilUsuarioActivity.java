@@ -280,11 +280,23 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.eliminar_cuenta_menu:
-                presenter.doDeleteCuenta(getUsuario().getId()); // TODO: 09/07/2018 Hacer una pantalla advirtiendo
+                showDeleteCuentaDialog();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showDeleteCuentaDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.warning)
+                .setIcon(R.drawable.ic_warning)
+                .setMessage(R.string.eliminar_cuenta_texto)
+                .setPositiveButton(R.string.dialog_delete, (dialog, which) -> {
+                    presenter.doDeleteCuenta(getUsuario().getId());
+                })
+                .setNegativeButton(R.string.dialog_cancel, (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     @Override

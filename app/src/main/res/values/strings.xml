@@ -49,6 +49,7 @@
     <string name="logout">Cerrar sesión</string>
     <string name="login">Iniciar sesión</string>
     <string name="eliminar_cuenta">Eliminar cuenta</string>
+    <string name="eliminar_cuenta_texto">Si usted elimina la cuenta, no habrá posibilidades de recuperarla</string>
 
     <string name="about_me_text">Desarrollado por Nicolás Diaz. Contacto: nicoadiaz93@gmail.com</string>
     <string name="borrar_parque_menu">Borrar</string>
@@ -105,6 +106,7 @@
     <string name="dialog_rate">CALIFICAR</string>
     <string name="dialog_exit">SALIR</string>
     <string name="dialog_accept">ACEPTAR</string>
+    <string name="dialog_delete">ELIMINAR</string>
 
     <string name="como_llego">Cómo llego?</string>
     <string name="reclamo_sin_documento">Debe haber agregado su documento para poder generar un reclamo</string>
@@ -112,6 +114,7 @@
     <!-- Rate It Dialog -->
     <string name="rate_title">Califica esta aplicación</string>
     <string name="rate_message">Si disfrutas utilizar esta aplicación, te tomarías un momento para calificarla? No te llevará más de un minuto. Gracias por tu apoyo!</string>
+    <string name="warning">Atención</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>
