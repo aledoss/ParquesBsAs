@@ -71,6 +71,9 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         setContentView(R.layout.activity_login);
         setTransparentStatusBar();
         loginCreateViewHelper = new ViewHelper();
+
+        // TODO: 10/07/2018 LOGIN AUTOMATICO
+        presenter.doLogin(new Usuario("juan.perez@hotmail.com", "Asd1234$"));
     }
 
     @Override
