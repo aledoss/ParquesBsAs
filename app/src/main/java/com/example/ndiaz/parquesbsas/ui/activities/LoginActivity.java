@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
@@ -36,7 +36,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     @BindView(R.id.etPasswordLogin)
     EditText etPassword;
     @BindView(R.id.loginContainerLayout)
-    LinearLayout lLContainer;
+    ConstraintLayout container;
     private String email, password;
     private boolean recordarDatosLogin;
     private ViewHelper loginCreateViewHelper;
@@ -54,9 +54,14 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         startActivity(new Intent(LoginActivity.this, CreateUserActivity.class));
     }
 
+    @OnClick(R.id.txtOmitir)
+    public void onClickOmitir() {
+        navigateToHome();
+    }
+
     @OnClick(R.id.btnRecuperarContraseña)
     public void onClickRecuPass() {
-        showMessage(lLContainer, getString(R.string.WorkInProgress));
+        showMessage(container, getString(R.string.WorkInProgress));
     }
 
     @OnTouch(R.id.etPasswordLogin)
@@ -73,7 +78,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         loginCreateViewHelper = new ViewHelper();
 
         // TODO: 10/07/2018 LOGIN AUTOMATICO
-        presenter.doLogin(new Usuario("juan.perez@hotmail.com", "Asd1234$"));
+        //presenter.doLogin(new Usuario("juan.perez@hotmail.com", "Asd1234$"));
     }
 
     @Override
@@ -170,6 +175,6 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @Override
     public void showLoginError(String message) {
-        showMessage(lLContainer, message);
-}
+        showMessage(container, message);
+    }
 }

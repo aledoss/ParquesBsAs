@@ -1,125 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loginContainerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_home_img_original"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="@dimen/general_padding"
-    android:weightSum="100"
-    tools:context=".ui.activities.LoginActivity">
+    android:padding="@dimen/general_padding">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_weight="40"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="@dimen/LoginTitle"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-    <LinearLayout
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".28" />
+
+    <EditText
+        android:id="@+id/etEmailLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="20"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#87000000"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="6dp"
+        android:drawableStart="@drawable/ic_email"
+        android:hint="@string/emailHint"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="@dimen/LoginEdittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <EditText
+        android:id="@+id/etPasswordLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#87000000"
+        android:drawableEnd="@drawable/ic_ver_password"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="6dp"
+        android:drawableRight="@drawable/ic_ver_password"
+        android:drawableStart="@drawable/ic_password"
+        android:hint="@string/PasswordHint"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="@dimen/LoginEdittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailLogin" />
+
+    <TextView
+        android:id="@+id/txtOmitir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="#5a000000"
+        android:padding="8dp"
+        android:text="@string/Omitir"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/btnIniciar_Sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"
+        android:text="@string/IniciarSesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:text="Facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnIniciar_Sesion" />
+
+    <Button
+        android:id="@+id/btnCrear_Cuenta_Login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="50"
+        android:text="@string/CrearCuenta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <Button
+        android:id="@+id/btnRecuperarContraseña"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="50"
+        android:text="@string/RecuperarContraseña"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="100">
+        app:layout_constraintGuide_percent=".5" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:layout_weight="50"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".87" />
 
-            <EditText
-                android:id="@+id/etEmailLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#87000000"
-                android:drawableLeft="@drawable/ic_email"
-                android:drawablePadding="6dp"
-                android:hint="@string/emailHint"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/LoginEdittext" />
-
-            <EditText
-                android:id="@+id/etPasswordLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#87000000"
-                android:drawableLeft="@drawable/ic_password"
-                android:drawablePadding="6dp"
-                android:drawableRight="@drawable/ic_ver_password"
-                android:hint="@string/PasswordHint"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/LoginEdittext" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_weight="50"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnIniciar_Sesion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/IniciarSesion" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Facebook" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="40"
-        android:gravity="bottom">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <Button
-                android:id="@+id/btnCrear_Cuenta_Login"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:text="@string/CrearCuenta" />
-
-            <Button
-                android:id="@+id/btnRecuperarContraseña"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:text="@string/RecuperarContraseña" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

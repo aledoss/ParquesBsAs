@@ -115,6 +115,7 @@
     <string name="rate_title">Califica esta aplicación</string>
     <string name="rate_message">Si disfrutas utilizar esta aplicación, te tomarías un momento para calificarla? No te llevará más de un minuto. Gracias por tu apoyo!</string>
     <string name="warning">Atención</string>
+    <string name="Omitir">Omitir</string>
 
     <string-array name="lat_entries">
         <item>-34.6060982</item>
