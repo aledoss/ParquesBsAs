@@ -9,7 +9,6 @@ import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
-import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -18,7 +17,6 @@ public class BaseInteractorImp implements BaseInteractor {
 
     private CompositeDisposable compositeDisposable;
     private DBHelper dbHelper;
-    private PreferencesRepository preferencesRepository;
     private NetworkServiceImp networkServiceImp;
 
     public BaseInteractorImp() {
@@ -30,19 +28,6 @@ public class BaseInteractorImp implements BaseInteractor {
 
     public BaseInteractorImp(DBHelper dbHelper, NetworkServiceImp networkServiceImp) {
         this.dbHelper = dbHelper;
-        this.networkServiceImp = networkServiceImp;
-    }
-
-    public BaseInteractorImp(PreferencesRepository preferencesRepository,
-                             NetworkServiceImp networkServiceImp) {
-        this.preferencesRepository = preferencesRepository;
-        this.networkServiceImp = networkServiceImp;
-    }
-
-    public BaseInteractorImp(DBHelper dbHelper, PreferencesRepository preferencesRepository,
-                             NetworkServiceImp networkServiceImp) {
-        this.dbHelper = dbHelper;
-        this.preferencesRepository = preferencesRepository;
         this.networkServiceImp = networkServiceImp;
     }
 
@@ -59,14 +44,6 @@ public class BaseInteractorImp implements BaseInteractor {
 
     public void setDbHelper(DBHelper dbHelper) {
         this.dbHelper = dbHelper;
-    }
-
-    public PreferencesRepository getPreferencesRepository() {
-        return preferencesRepository;
-    }
-
-    public void setPreferencesRepository(PreferencesRepository preferencesRepository) {
-        this.preferencesRepository = preferencesRepository;
     }
 
     public NetworkServiceImp getNetworkServiceImp() {

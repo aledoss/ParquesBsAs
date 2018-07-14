@@ -6,7 +6,7 @@ import com.example.ndiaz.parquesbsas.model.Documento;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
-import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
+import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ import io.reactivex.schedulers.Schedulers;
 public class CreateUserInteractor extends BaseInteractorImp
         implements CreateUserContract.Interactor {
 
-    private PreferencesRepository preferencesRepository;
+    private DefaultPreferencesRepository defaultPreferencesRepository;
     private NetworkServiceImp networkServiceImp;
 
-    public CreateUserInteractor(PreferencesRepository preferencesRepository, NetworkServiceImp networkServiceImp) {
-        this.preferencesRepository = preferencesRepository;
+    public CreateUserInteractor(DefaultPreferencesRepository defaultPreferencesRepository, NetworkServiceImp networkServiceImp) {
+        this.defaultPreferencesRepository = defaultPreferencesRepository;
         this.networkServiceImp = networkServiceImp;
     }
 

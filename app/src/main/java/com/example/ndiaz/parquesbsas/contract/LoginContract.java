@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.contract;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.callbacks.SingleCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
@@ -14,14 +15,26 @@ public interface LoginContract {
         void showLoginError(String message);
 
         void hideKeyboard();
+
+        void onAutoLoginEnabled(Boolean autoLoginEnabled);
     }
 
     interface Presenter extends BasePresenter {
-        void doLogin(Usuario usuario);
+        void doLogin(Usuario usuario, boolean updateUserData);
+
+        void doGetIsAutoLoginEnabled();
+
+        void doAutoLogin();
     }
 
     interface Interactor extends BaseInteractor {
-        void login(Usuario usuario, BaseCallback callback);
+        void login(Usuario usuario, BaseCallback<Usuario> callback);
+
+        void isAutoLoginEnabled(SingleCallback<Boolean> isAutologinEnabled);
+
+        void getLoginData(SingleCallback<Usuario> usuario);
+
+        void updateUserData(Usuario usuario);
     }
 
 }

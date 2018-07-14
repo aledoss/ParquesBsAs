@@ -21,14 +21,14 @@ import com.example.ndiaz.parquesbsas.helpers.permissions.PermissionsManager;
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
-import com.example.ndiaz.parquesbsas.preferences.PreferencesRepository;
+import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
 
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {
 
     protected T presenter;
-    protected PreferencesRepository defaultPreferencesRepository;
+    protected DefaultPreferencesRepository defaultDefaultPreferencesRepository;
     protected NetworkServiceImp networkServiceImp;
     protected RXDBInteractor rxdbInteractor;
     private ProgressDialog progressDialog;
@@ -62,11 +62,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     protected abstract T createPresenter();
 
-    public PreferencesRepository getDefaultPreferencesRepository() {
-        if (defaultPreferencesRepository == null) {
-            defaultPreferencesRepository = PreferencesRepository.getDefaultSharedPref(this);
+    public DefaultPreferencesRepository getDefaultDefaultPreferencesRepository() {
+        if (defaultDefaultPreferencesRepository == null) {
+            defaultDefaultPreferencesRepository = DefaultPreferencesRepository.getDefaultSharedPref(this);
         }
-        return defaultPreferencesRepository;
+        return defaultDefaultPreferencesRepository;
     }
 
     public NetworkServiceImp getNetworkServiceImp() {

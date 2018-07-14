@@ -106,4 +106,9 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
             }
         });
     }
+
+    @Override
+    public void doCleanAutoLoginUserData() {
+        interactor.cleanAutoLoginUserData();
+    }
 }

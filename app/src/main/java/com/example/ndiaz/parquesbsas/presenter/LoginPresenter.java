@@ -5,42 +5,55 @@ import android.util.Log;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
-import com.example.ndiaz.parquesbsas.model.Documento;
-import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
-
-import java.util.List;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
     private static final String TAG = LoginPresenter.class.getSimpleName();
-    private LoginContract.View loginView;
-    private LoginContract.Interactor loginInteractor;
+    private LoginContract.View view;
+    private LoginContract.Interactor interactor;
 
-    public LoginPresenter(LoginContract.View loginView, LoginContract.Interactor loginInteractor) {
-        this.loginView = loginView;
-        this.loginInteractor = loginInteractor;
+    public LoginPresenter(LoginContract.View view, LoginContract.Interactor interactor) {
+        this.view = view;
+        this.interactor = interactor;
     }
 
     @Override
-    public void doLogin(Usuario usuario) {
-        loginInteractor.login(usuario, new BaseCallback<NetworkResponse<List<Documento>>>() {
+    public void doLogin(Usuario usuario, boolean updateUserData) {
+        view.showProgressDialog();
+        interactor.login(usuario, new BaseCallback<Usuario>() {
             @Override
-            public void onSuccess(NetworkResponse<List<Documento>> response) {
-                if(response.getResponse() != null){
-                    loginView.navigateToHome();
-                    ParquesApplication.getInstance().setUser((Usuario) response.getResponse());
-                }else{
-                    loginView.hideKeyboard();
-                    loginView.showLoginError(response.getMessage());
+            public void onSuccess(Usuario usuarioLoguedo) {
+                ParquesApplication.getInstance().setUser(usuarioLoguedo);
+                if (updateUserData) {
+                    interactor.updateUserData(usuarioLoguedo);
                 }
+                view.navigateToHome();
+                view.hideKeyboard();
+                view.hideProgressDialog();
             }
 
             @Override
             public void onError(String message) {
-                loginView.showLoginError(message);
+                view.hideKeyboard();
+                view.hideProgressDialog();
+                view.showLoginError(message);
                 Log.e(TAG, "doLogin onError: " + message);
             }
         });
     }
+
+    @Override
+    public void doAutoLogin() {
+        interactor.getLoginData(usuario -> {
+            if (usuario.getEmail() != null && !usuario.getEmail().isEmpty())
+                doLogin(usuario, false);
+        });
+    }
+
+    @Override
+    public void doGetIsAutoLoginEnabled() {
+        interactor.isAutoLoginEnabled(autoLoginEnabled -> view.onAutoLoginEnabled(autoLoginEnabled));
+    }
+
 }

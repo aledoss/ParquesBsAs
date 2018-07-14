@@ -8,6 +8,7 @@ import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
+import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
 
 import java.util.List;
 
@@ -21,9 +22,11 @@ public class PerfilUsuarioInteractor extends BaseInteractorImp
 
     private static final String TAG = PerfilUsuarioInteractor.class.getSimpleName();
     private NetworkServiceImp networkServiceImp;
+    private DefaultPreferencesRepository defaultPreferencesRepository;
 
-    public PerfilUsuarioInteractor(NetworkServiceImp networkServiceImp) {
+    public PerfilUsuarioInteractor(NetworkServiceImp networkServiceImp, DefaultPreferencesRepository defaultDefaultPreferencesRepository) {
         this.networkServiceImp = networkServiceImp;
+        this.defaultPreferencesRepository = defaultDefaultPreferencesRepository;
     }
 
     @Override
@@ -153,5 +156,11 @@ public class PerfilUsuarioInteractor extends BaseInteractorImp
                         onErrorDefault(e, TAG, e.getMessage(), callback);
                     }
                 });
+    }
+
+    @Override
+    public void cleanAutoLoginUserData() {
+        defaultPreferencesRepository.setUserEmail("");
+        defaultPreferencesRepository.setUserPassword("");
     }
 }

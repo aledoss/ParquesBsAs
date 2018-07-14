@@ -113,16 +113,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @OnClick(R.id.txtCerrarSesion)
     public void onCerrarSesionClick() {
-        // TODO: 09/07/2018 Limpiar preferences
-        /*try {
-            SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(EMAILLOGINSAVED, "");
-            editor.putString(PASSWORDLOGINSAVED, "");
-            editor.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        presenter.doCleanAutoLoginUserData();
         navigateToLogin();
     }
 
@@ -142,7 +133,8 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @Override
     protected PerfilUsuarioContract.Presenter createPresenter() {
-        PerfilUsuarioContract.Interactor interactor = new PerfilUsuarioInteractor(getNetworkServiceImp());
+        PerfilUsuarioContract.Interactor interactor = new PerfilUsuarioInteractor(getNetworkServiceImp(),
+                getDefaultDefaultPreferencesRepository());
 
         return new PerfilUsuarioPresenter(this, interactor);
     }

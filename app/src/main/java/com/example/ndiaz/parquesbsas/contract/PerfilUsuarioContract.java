@@ -42,6 +42,8 @@ public interface PerfilUsuarioContract {
         void doDeleteCuenta(int idUsuario);
 
         void doGetDocTypes();
+
+        void doCleanAutoLoginUserData();
     }
 
     interface Interactor extends BaseInteractor {
@@ -54,6 +56,8 @@ public interface PerfilUsuarioContract {
         void deleteCuenta(int idUsuario, BaseCallback<String> callback);
 
         void getDocTypes(BaseCallback<List<Documento>> callback);
+
+        void cleanAutoLoginUserData();
     }
 
 }
