@@ -26,12 +26,16 @@ public interface CreateUserContract {
         void doCreateUser(Usuario usuario);
 
         void doGetDocTypes();
+
+        void doSaveUserData(Usuario usuario);
     }
 
     interface Interactor extends BaseInteractor {
         void createUser(Usuario usuario, BaseCallback<NetworkResponse> callback);
 
         void getDocTypes(BaseCallback<NetworkResponse<List<Documento>>> callback);
+
+        void saveUserData(Usuario usuario);
     }
 
 }

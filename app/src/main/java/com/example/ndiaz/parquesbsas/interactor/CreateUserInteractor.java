@@ -74,4 +74,10 @@ public class CreateUserInteractor extends BaseInteractorImp
                     }
                 });
     }
+
+    @Override
+    public void saveUserData(Usuario usuario) {
+        defaultPreferencesRepository.setUserEmail(usuario.getEmail());
+        defaultPreferencesRepository.setUserPassword(usuario.getPassword());
+    }
 }

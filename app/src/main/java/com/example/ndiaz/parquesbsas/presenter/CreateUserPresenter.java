@@ -66,4 +66,9 @@ public class CreateUserPresenter extends BasePresenterImp
             }
         });
     }
+
+    @Override
+    public void doSaveUserData(Usuario usuario) {
+        createUserInteractor.saveUserData(usuario);
+    }
 }

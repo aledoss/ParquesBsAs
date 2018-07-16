@@ -51,9 +51,10 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     public void onClickCreateUser() {
         getFieldsData();
         if (isValidData()) {
-            // TODO: 14/07/2018 Tmb Guardar datos en las sharedpref
-            presenter.doCreateUser(new Usuario(nombre, apellido, docNumber, docType.getId(),
-                    docType.getTipoDocumento(), email, password));
+            Usuario usuario = new Usuario(nombre, apellido, docNumber, docType.getId(),
+                    docType.getTipoDocumento(), email, password);
+            presenter.doSaveUserData(usuario);
+            presenter.doCreateUser(usuario);
         }
     }
 
@@ -82,19 +83,6 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
         UserFactoryEditText factoryEditText = new UserFactoryEditText(etNombre, etApellido, etEmail,
                 etPassword, etDocNumber, docType.getTipoDocumento());
         return viewHelper.isValidData(factoryEditText);
-    }
-
-    //Funcionalidad de autologin + acceder al home
-    private void accederHome(Usuario usuario) {
-        /*SharedPreferences sharedPreferences = getSharedPreferences(LOGINPREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(EMAILLOGINSAVED, email);
-        editor.putString(PASSWORDLOGINSAVED, password);
-        editor.commit();
-        Intent intent = new Intent(CreateUserActivity.this, HomeActivity.class);
-        intent.putExtra(CREARCUENTAUSUARIO, (Serializable) usuario);
-        startActivity(intent);
-        finish();*/
     }
 
     private void getFieldsData() {
