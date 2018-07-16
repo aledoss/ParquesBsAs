@@ -30,7 +30,6 @@ import static com.example.ndiaz.parquesbsas.database.DBConfig.WIFI_PARQUE;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-
     public DBHelper(Context context) {
         super(context, DATABASE, null, VERSIONDB);
     }

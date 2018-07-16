@@ -265,7 +265,10 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     public void showRetryUploadingPhoto(Reclamo reclamo) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Hubo un inconveniente al querer cargar la foto. Desea generar el reclamo sin foto?")
-                .setPositiveButton(getString(R.string.dialog_ok), (dialog, which) -> presenter.doInsertReclamo(reclamo))
+                .setPositiveButton(getString(R.string.dialog_ok), (dialog, which) -> {
+                    reclamo.setImagen("");
+                    presenter.doInsertReclamo(reclamo);
+                })
                 .setNegativeButton(getString(R.string.dialog_cancel), (dialog, which) -> dialog.dismiss())
                 .setNeutralButton(getString(R.string.dialog_reintent), (dialog, which) -> presenter.doInsertReclamoWithPhoto(reclamo))
                 .show();

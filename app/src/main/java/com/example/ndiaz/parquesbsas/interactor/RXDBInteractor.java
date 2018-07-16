@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.ndiaz.parquesbsas.database.DBHelper;
 import com.example.ndiaz.parquesbsas.model.Parque;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -20,8 +21,11 @@ public class RXDBInteractor {
     }
 
     public Single<List<Parque>> getParques() {
-        return Single.defer(new ObservableJust<SingleSource<List<Parque>>>(
-                Single.<List<Parque>>just(dbHelper.getAllParques())));
+        return Single.fromCallable(() -> {
+            List<Parque> parques = dbHelper.getAllParques();
+
+            return parques == null ? new ArrayList<>() : parques;
+        });
     }
 
 

@@ -51,6 +51,7 @@ public class CreateUserActivity extends BaseActivity<CreateUserContract.Presente
     public void onClickCreateUser() {
         getFieldsData();
         if (isValidData()) {
+            // TODO: 14/07/2018 Tmb Guardar datos en las sharedpref
             presenter.doCreateUser(new Usuario(nombre, apellido, docNumber, docType.getId(),
                     docType.getTipoDocumento(), email, password));
         }
