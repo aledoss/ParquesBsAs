@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.HomeContract;
 import com.example.ndiaz.parquesbsas.interactor.HomeInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.HomePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ListaReclamosUsuarioActivity;
@@ -56,11 +54,9 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     @BindView(R.id.linear_layout_home)
     LinearLayout lLContainer;
 
-    private TextView txtNombre, txtEmail;
-    private ImageView imgPerfilUsuario;
+    private TextView txtWelcome;
     private ActionBarDrawerToggle toogle;
     private GoogleMap googleMap;
-    private Usuario usuario;
     private boolean canLoadParques;
     private List<Parque> parques;
     private Menu navMenu;
@@ -69,7 +65,6 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //usuario = obtenerDatosUsuario();
         setupUI();
         initializeVariables();
         initializeViews();
@@ -135,19 +130,18 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     }
 
     private void setupNavigationView() {
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
         navMenu = navigationView.getMenu();
         View header = navigationView.getHeaderView(0);
+        String saludo = getString(R.string.welcome);
 
-        imgPerfilUsuario = (ImageView) header.findViewById(R.id.nav_drawer_profile_image);
-        txtNombre = (TextView) header.findViewById(R.id.nav_drawer_txt_name);
-        txtEmail = (TextView) header.findViewById(R.id.nav_drawer_txt_email);
+        txtWelcome = header.findViewById(R.id.nav_drawer_txt_welcome);
 
-        if (usuario != null) {
-            txtNombre.setText(usuario.getNombre() + " " + usuario.getApellido());
-            txtEmail.setText(usuario.getEmail());
+        if (getUsuario() != null) {
+            saludo = saludo + " " + getUsuario().getNombre();
         }
+        txtWelcome.setText(saludo);
     }
 
     private void setupMap() {
