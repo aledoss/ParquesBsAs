@@ -12,7 +12,7 @@ public interface HomeContract {
 
     interface View extends BaseView {
         void loadParques(List<Parque> parques);
-        void showParquesDialog(Parque parque);
+        void navigateToParque(Parque parque);
         void showMessage(String message);
     }
 

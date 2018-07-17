@@ -44,7 +44,7 @@ public class HomePresenter extends BasePresenterImp implements HomeContract.Pres
         homeInteractor.getParqueNetwork(parqueId, new BaseCallback<Parque>() {
             @Override
             public void onSuccess(Parque parque) {
-                homeView.showParquesDialog(parque);
+                homeView.navigateToParque(parque);
                 homeView.hideProgressDialog();
             }
 

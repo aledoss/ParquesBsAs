@@ -1,6 +1,5 @@
 package com.example.ndiaz.parquesbsas.ui.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -254,22 +253,9 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     }
 
     @Override
-    public void showParquesDialog(final Parque parque) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-        builder.setTitle(parque.getNombre())
-                .setMessage(R.string.mas_informacion)
-                .setPositiveButton(R.string.dialog_accept, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(HomeActivity.this, ParqueActivity.class);
-                        intent.putExtra(PARQUEDETALLES, parque);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        builder.create().show();
+    public void navigateToParque(Parque parque) {
+        startActivity(new Intent(HomeActivity.this, ParqueActivity.class)
+                .putExtra(PARQUEDETALLES, parque));
     }
 
     @Override
