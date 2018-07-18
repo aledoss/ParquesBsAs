@@ -11,7 +11,7 @@ import java.util.List;
 public interface HomeContract {
 
     interface View extends BaseView {
-        void loadParques(List<Parque> parques);
+        void loadParquesInTheMap(List<Parque> parques);
         void navigateToParque(Parque parque);
         void showMessage(String message);
     }

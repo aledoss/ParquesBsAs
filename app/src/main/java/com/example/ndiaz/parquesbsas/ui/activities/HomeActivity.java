@@ -2,8 +2,6 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -19,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.cluster.ParqueCluster;
+import com.example.ndiaz.parquesbsas.cluster.ParqueClusterRendered;
 import com.example.ndiaz.parquesbsas.contract.HomeContract;
 import com.example.ndiaz.parquesbsas.interactor.HomeInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
@@ -30,10 +30,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.List;
 
@@ -42,8 +41,8 @@ import butterknife.BindView;
 import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 
 public class HomeActivity extends BaseActivity<HomeContract.Presenter> implements HomeContract.View,
-        NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+        NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback,
+        ClusterManager.OnClusterItemClickListener<ParqueCluster>, ClusterManager.OnClusterClickListener<ParqueCluster> {
 
     @BindView(R.id.toolbar_home)
     Toolbar toolbar;
@@ -59,6 +58,8 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
     private boolean canLoadParques;
     private List<Parque> parques;
     private Menu navMenu;
+    private ClusterManager<ParqueCluster> clusterManager;
+    private ParqueClusterRendered clusterRendered;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         setupToolbar();
         setupDrawerLayout();
         setupNavigationView();
-        setupMap();
+        initializeMap();
     }
 
     private void setupToolbar() {
@@ -143,7 +144,7 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         txtWelcome.setText(saludo);
     }
 
-    private void setupMap() {
+    private void initializeMap() {
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapa_home);
         supportMapFragment.getMapAsync(this);
     }
@@ -217,39 +218,42 @@ public class HomeActivity extends BaseActivity<HomeContract.Presenter> implement
         LatLng capitalFederal = new LatLng(-34.6182053, -58.4386018);
         this.googleMap = googleMap;
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(capitalFederal, 11.5f));
+        clusterManager = new ClusterManager<>(this, googleMap);
+        clusterRendered = new ParqueClusterRendered(this, googleMap, clusterManager);
+        clusterManager.setOnClusterItemClickListener(this);
+        clusterManager.setOnClusterClickListener(this);
+        googleMap.setOnCameraIdleListener(clusterManager);
+        googleMap.setOnMarkerClickListener(clusterManager);
         if (parques != null) {
-            loadParques(parques);
+            loadParquesInTheMap(parques);
         }
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 14.5f));
-        presenter.doGetParqueFromNetw((int) marker.getZIndex());
+    public void loadParquesInTheMap(List<Parque> parques) {
+        if (canLoadParques) {
+            for (Parque parque : parques) {
+                clusterManager.addItem(new ParqueCluster(parque));
+            }
+            clusterManager.setRenderer(clusterRendered);
+            clusterManager.cluster();
+            hideProgressDialog();
+        }
+        this.parques = parques;
+    }
+
+    @Override
+    public boolean onClusterItemClick(ParqueCluster parqueCluster) {
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(parqueCluster.getPosition(), 14.5f));
+        presenter.doGetParqueFromNetw(parqueCluster.getParque().getIdParque());
         return true;
     }
 
     @Override
-    public void loadParques(List<Parque> parques) {
-        if (canLoadParques) {
-            LatLng parqueLatLng;
-            for (Parque parque : parques) {
-                BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher);
-                Bitmap b = bitmapdraw.getBitmap();
-                Bitmap smallMarker = Bitmap.createScaledBitmap(b, 65, 65, false);
-                parqueLatLng = new LatLng(Double.parseDouble(parque.getLatitud()), Double.parseDouble(parque.getLongitud()));
-                googleMap.addMarker(new MarkerOptions()
-                        //.title(parque.getNombre())
-                        //.snippet(parque.getDescripcionCorta())
-                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                        .position(parqueLatLng)
-                        .zIndex(parque.getIdParque())
-                );
-            }
-            googleMap.setOnMarkerClickListener(this);
-            hideProgressDialog();
-        }
-        this.parques = parques;
+    public boolean onClusterClick(Cluster<ParqueCluster> cluster) {
+        float newZoom = googleMap.getCameraPosition().zoom + 1;
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cluster.getPosition(), newZoom));
+        return true;
     }
 
     @Override

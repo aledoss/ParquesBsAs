@@ -40,6 +40,7 @@ dependencies {
     //Play Services - Maps
     implementation "com.google.android.gms:play-services-maps:$PLAY_SERVICES_VERSION"
     implementation "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
     //Butterknife
     implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
     annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
