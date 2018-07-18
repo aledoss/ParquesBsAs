@@ -24,7 +24,7 @@ public class EditTextEmailValidator extends EditTextValidator {
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError(context.getString(R.string.invalid_email));
             return false;
-        } else if (hasIncorrectLength(email, 7, 128)) {
+        } else if (hasIncorrectLength(email, 7, context.getResources().getInteger(R.integer.max_length_email))) {
             etEmail.setError(context.getString(R.string.invalid_length));
             return false;
         }

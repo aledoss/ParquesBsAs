@@ -56,4 +56,21 @@ public class LoginPresenter implements LoginContract.Presenter {
         interactor.isAutoLoginEnabled(autoLoginEnabled -> view.onAutoLoginEnabled(autoLoginEnabled));
     }
 
+    @Override
+    public void doRecuperarContrasenia(String email) {
+        view.showProgressDialog();
+        interactor.recuperarContrasenia(email, new BaseCallback<String>() {
+            @Override
+            public void onSuccess(String message) {
+                view.hideProgressDialog();
+                view.showMessage(message);
+            }
+
+            @Override
+            public void onError(String message) {
+                view.hideProgressDialog();
+                view.showMessage(message);
+            }
+        });
+    }
 }

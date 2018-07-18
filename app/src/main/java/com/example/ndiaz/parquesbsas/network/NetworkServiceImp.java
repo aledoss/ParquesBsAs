@@ -65,6 +65,12 @@ public class NetworkServiceImp {
                 .updateUserPassword(usuario);
     }
 
+    public Single<NetworkResponse<String>> recoverPassword(Usuario usuario){
+        return  retrofitService
+                .getClient()
+                .recoverPassword(usuario);
+    }
+
     public Single<NetworkResponse> deleteUser(Usuario usuario) {
         return retrofitService
                 .getClient()

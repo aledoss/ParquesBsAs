@@ -88,4 +88,30 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
     private Single<Boolean> getIsAutoLoginEnabled() {
         return Single.fromCallable(() -> defaultPreferencesRepository.getIsAutoLoginEnabled());
     }
+
+    @Override
+    public void recuperarContrasenia(String email, BaseCallback<String> callback) {
+        Usuario usuario = new Usuario();
+        usuario.setEmail(email);
+        networkServiceImp
+                .recoverPassword(usuario)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(NetworkResponse<String> networkResponse) {
+                        onSuccessDefault(networkResponse, TAG, "recuperarContrasenia", callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorDefault(e, TAG, "recuperarContrasenia", callback);
+                    }
+                });
+    }
 }

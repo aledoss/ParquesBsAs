@@ -97,6 +97,7 @@
     <string name="default_permission_rejected">Se debe aceptar el permiso para acceder a la funcionalidad</string>
     <string name="showing_maps_route_confirmation">Se abrirá el Maps para mostrar el recorrido hacia el parque</string>
     <string name="welcome">Bienvenido</string>
+    <string name="dialog_title_recover_password">Ingrese su email para recuperar su contraseña</string>
 
     <!-- Dialog Buttons-->
     <string name="dialog_ok">OK</string>

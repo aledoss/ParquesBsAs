@@ -12,15 +12,17 @@ import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
+import com.example.ndiaz.parquesbsas.listeners.OnRecuperarContraseniaListener;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
+import com.example.ndiaz.parquesbsas.ui.dialogs.RecuperarContraseniaDialogFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTouch;
 
 public class LoginActivity extends BaseActivity<LoginContract.Presenter>
-        implements LoginContract.View {
+        implements LoginContract.View, OnRecuperarContraseniaListener {
 
     @BindView(R.id.etEmailLogin)
     EditText etEmail;
@@ -52,7 +54,8 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @OnClick(R.id.btnRecuperarContraseña)
     public void onClickRecuPass() {
-        showMessage(container, getString(R.string.WorkInProgress));
+        RecuperarContraseniaDialogFragment fragment = RecuperarContraseniaDialogFragment.newInstance(this);
+        fragment.show(getSupportFragmentManager(), RecuperarContraseniaDialogFragment.class.getSimpleName());
     }
 
     @OnTouch(R.id.etPasswordLogin)
@@ -104,6 +107,16 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @Override
     public void showLoginError(String message) {
+        showMessage(container, message);
+    }
+
+    @Override
+    public void onRecuperarContrasenia(String email) {
+        presenter.doRecuperarContrasenia(email);
+    }
+
+    @Override
+    public void showMessage(String message){
         showMessage(container, message);
     }
 }

@@ -10,6 +10,8 @@ import com.example.ndiaz.parquesbsas.model.Usuario;
 public interface LoginContract {
 
     interface View extends BaseView {
+        void showMessage(String message);
+
         void navigateToHome();
 
         void showLoginError(String message);
@@ -25,6 +27,8 @@ public interface LoginContract {
         void doGetIsAutoLoginEnabled();
 
         void doAutoLogin();
+
+        void doRecuperarContrasenia(String email);
     }
 
     interface Interactor extends BaseInteractor {
@@ -35,6 +39,8 @@ public interface LoginContract {
         void getLoginData(SingleCallback<Usuario> usuario);
 
         void updateUserData(Usuario usuario);
+
+        void recuperarContrasenia(String email, BaseCallback<String> callback);
     }
 
 }

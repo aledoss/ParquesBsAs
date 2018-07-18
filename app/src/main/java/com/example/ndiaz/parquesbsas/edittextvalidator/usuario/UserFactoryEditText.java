@@ -20,6 +20,7 @@ public class UserFactoryEditText implements FactoryEditText {
     public static final String UPDATE_USER_NAME_ORIGIN = "Update User Name Origin";
     public static final String UPDATE_USER_DOC_ORIGIN = "Update User Doc Origin";
     public static final String UPDATE_USER_PASSWORD_ORIGIN = "Update User Password Origin";
+    public static final String RECOVER_USER_EMAIL_ORIGIN = "Recover User Email Origin";
     private EditText etName;
     private EditText etLastName;
     private EditText etEmail;
@@ -78,6 +79,9 @@ public class UserFactoryEditText implements FactoryEditText {
                 editTextValidators.add(new EditTextPasswordValidator(etPassword));
                 editTextValidators.add(new EditTextPasswordValidator(etRepeatPassword));
                 break;
+            case RECOVER_USER_EMAIL_ORIGIN:
+                editTextValidators.add(new EditTextEmailValidator(etEmail));
+                break;
             default:
                 break;
         }
@@ -132,5 +136,9 @@ public class UserFactoryEditText implements FactoryEditText {
 
     public void setEtOldPassword(EditText etOldPassword) {
         this.etOldPassword = etOldPassword;
+    }
+
+    public void setEtEmail(EditText etEmail) {
+        this.etEmail = etEmail;
     }
 }

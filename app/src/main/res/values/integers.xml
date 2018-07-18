@@ -4,5 +4,6 @@
     <integer name="max_length_nombre">32</integer>
     <integer name="max_length_apellido">32</integer>
     <integer name="max_length_contrasenia">64</integer>
+    <integer name="max_length_email">128</integer>
 
 </resources>
