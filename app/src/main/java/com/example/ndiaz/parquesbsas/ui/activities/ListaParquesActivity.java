@@ -19,6 +19,7 @@ import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaParquesInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.presenter.ListaParquesPresenter;
+import com.example.ndiaz.parquesbsas.ui.activities.info_parques.FiltroParqueActivity;
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ParquesAdapter;
 
@@ -121,8 +122,8 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
+            case R.id.filter_menu:
+                startActivity(new Intent(ListaParquesActivity.this, FiltroParqueActivity.class));
                 break;
             default:
                 break;
