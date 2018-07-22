@@ -44,4 +44,7 @@
 
     <dimen name="ocho_dp">8dp</dimen>
 
+    <!-- Checkbox Filter-->
+    <dimen name="defaultPadding">8dp</dimen>
+
 </resources>
