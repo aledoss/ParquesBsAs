@@ -34,7 +34,6 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
 
         presenter.doGetActividades();
         presenter.doGetFerias();
-        // TODO: 19/07/2018 Hacer nueva vista de Checkbox a partir de un TextView
     }
 
     @Override
@@ -51,11 +50,19 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
 
     @Override
     public void showActividades(List<Actividad> actividades) {
+        addActividadesToAdapter(actividades);
+    }
+
+    private void addActividadesToAdapter(List<Actividad> actividades) {
         // TODO: 19/07/2018 Mostrar titulo de Actividades junto con la lista
     }
 
     @Override
     public void showFerias(List<Feria> ferias) {
+        addFeriasToAdapter(ferias);
+    }
+
+    private void addFeriasToAdapter(List<Feria> ferias) {
         // TODO: 19/07/2018 Mostrar titulo de Ferias junto con la lista
     }
 }

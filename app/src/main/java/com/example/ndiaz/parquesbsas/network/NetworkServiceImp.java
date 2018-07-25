@@ -190,4 +190,16 @@ public class NetworkServiceImp {
                 .getClient()
                 .createCalificacionEncuesta(calificacionEncuesta);
     }
+
+    public Single<NetworkResponse<List<Actividad>>> getActividadesToFilter() {
+        return retrofitService
+                .getClient()
+                .getActividadesToFilter();
+    }
+
+    public Single<NetworkResponse<List<Feria>>> getFeriasToFilter() {
+        return retrofitService
+                .getClient()
+                .getFeriasToFilter();
+    }
 }

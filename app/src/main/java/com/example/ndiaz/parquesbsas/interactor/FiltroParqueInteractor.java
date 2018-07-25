@@ -5,10 +5,16 @@ import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.FiltroParqueContract;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.Feria;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.ParqueFilter;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
 import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class FiltroParqueInteractor extends BaseInteractorImp
         implements FiltroParqueContract.Interactor {
@@ -22,13 +28,53 @@ public class FiltroParqueInteractor extends BaseInteractorImp
 
 
     @Override
-    public void getActividades(BaseCallback<List<Actividad>> callback) {
+    public void getActividadesToFilter(BaseCallback<List<Actividad>> callback) {
+        networkServiceImp
+                .getActividadesToFilter()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse<List<Actividad>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
 
+                    @Override
+                    public void onSuccess(NetworkResponse<List<Actividad>> listNetworkResponse) {
+                        onSuccessDefault(listNetworkResponse, TAG, "getActividadesToFilter",
+                                callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorDefault(e, TAG, "getActividadesToFilter", callback);
+                    }
+                });
     }
 
     @Override
-    public void getFerias(BaseCallback<List<Feria>> callback) {
+    public void getFeriasToFilter(BaseCallback<List<Feria>> callback) {
+        networkServiceImp
+                .getFeriasToFilter()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse<List<Feria>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
 
+                    @Override
+                    public void onSuccess(NetworkResponse<List<Feria>> listNetworkResponse) {
+                        onSuccessDefault(listNetworkResponse, TAG, "getFeriasToFilter",
+                                callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorDefault(e, TAG, "getFeriasToFilter", callback);
+                    }
+                });
     }
 
     @Override

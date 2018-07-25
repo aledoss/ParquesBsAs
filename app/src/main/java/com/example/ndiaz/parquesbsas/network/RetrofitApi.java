@@ -110,4 +110,10 @@ interface RetrofitApi {
 
     @POST("parquesapi/insertarCalificacionEncuesta")
     Single<NetworkResponse<Boolean>> createCalificacionEncuesta(@Body CalificacionEncuesta calificacionEncuesta);
+
+    @GET("parquesapi/getActividadesToFilter")
+    Single<NetworkResponse<List<Actividad>>> getActividadesToFilter();
+
+    @GET("parquesapi/getFeriasToFilter")
+    Single<NetworkResponse<List<Feria>>> getFeriasToFilter();
 }

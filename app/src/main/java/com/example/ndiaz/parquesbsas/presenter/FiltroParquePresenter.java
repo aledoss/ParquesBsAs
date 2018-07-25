@@ -22,30 +22,30 @@ public class FiltroParquePresenter extends BasePresenterImp
 
     @Override
     public void doGetActividades() {
-        interactor.getActividades(new BaseCallback<List<Actividad>>() {
+        interactor.getActividadesToFilter(new BaseCallback<List<Actividad>>() {
             @Override
-            public void onSuccess(List<Actividad> value) {
-
+            public void onSuccess(List<Actividad> actividades) {
+                view.showActividades(actividades);
             }
 
             @Override
             public void onError(String message) {
-
+                view.showMessage(message);
             }
         });
     }
 
     @Override
     public void doGetFerias() {
-        interactor.getFerias(new BaseCallback<List<Feria>>() {
+        interactor.getFeriasToFilter(new BaseCallback<List<Feria>>() {
             @Override
-            public void onSuccess(List<Feria> value) {
-
+            public void onSuccess(List<Feria> ferias) {
+                view.showFerias(ferias);
             }
 
             @Override
             public void onError(String message) {
-
+                view.showMessage(message);
             }
         });
     }
