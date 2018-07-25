@@ -14,7 +14,7 @@
     <dimen name="row_list_padding">8dp</dimen>
     <dimen name="title_details_bici">28sp</dimen>
     <dimen name="details_bici">24sp</dimen>
-    <dimen name="fab_margin">20dp</dimen>
+    <dimen name="fab_margin">18dp</dimen>
 
     <!-- Reclamos -->
     <dimen name="reclamo_nombre_parque">26sp</dimen>
@@ -35,6 +35,7 @@
     <dimen name="m_font_size">18sp</dimen>
     <dimen name="s_font_size">16sp</dimen>
     <dimen name="xs_font_size">14sp</dimen>
+    <dimen name="fifteen_sp">15sp</dimen>
     <dimen name="fecha_height">40dp</dimen>
     <dimen name="marginLeftRightRow">16dp</dimen>
 
@@ -45,6 +46,9 @@
     <dimen name="ocho_dp">8dp</dimen>
 
     <!-- Checkbox Filter-->
-    <dimen name="defaultPadding">8dp</dimen>
+    <dimen name="filter_default_margin">16dp</dimen>
+    <dimen name="filter_checkbox_defaultPadding">8dp</dimen>
+    <dimen name="filter_min_height_actividades">180dp</dimen>
+    <dimen name="filter_min_height_ferias">80dp</dimen>
 
 </resources>

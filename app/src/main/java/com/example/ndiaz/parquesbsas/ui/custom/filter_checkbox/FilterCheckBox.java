@@ -8,6 +8,9 @@ import android.view.View;
 
 import com.example.ndiaz.parquesbsas.R;
 
+import static android.util.TypedValue.COMPLEX_UNIT_PX;
+import static android.view.Gravity.CENTER;
+
 public class FilterCheckBox extends AppCompatTextView implements View.OnClickListener {
 
     private FilterCheckBoxState state;
@@ -35,8 +38,11 @@ public class FilterCheckBox extends AppCompatTextView implements View.OnClickLis
     }
 
     private void initializeViewProperties() {
-        int defaultPadding = (int) getContext().getResources().getDimension(R.dimen.defaultPadding);
+        int defaultPadding = (int) getContext().getResources().getDimension(R.dimen.filter_checkbox_defaultPadding);
         setPadding(defaultPadding, defaultPadding, defaultPadding, defaultPadding);
+        setMinLines(getContext().getResources().getInteger(R.integer.filter_checkbox_min_lines));
+        setTextSize(COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.fifteen_sp));
+        setGravity(CENTER);
     }
 
     private void initializeVariables() {

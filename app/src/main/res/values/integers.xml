@@ -6,4 +6,5 @@
     <integer name="max_length_contrasenia">64</integer>
     <integer name="max_length_email">128</integer>
 
+    <integer name="filter_checkbox_min_lines">2</integer>
 </resources>
