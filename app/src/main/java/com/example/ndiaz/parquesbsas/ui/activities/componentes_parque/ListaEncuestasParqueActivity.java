@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaEncuestasParqueContract;
-import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
+import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaEncuestasParqueInteractor;
 import com.example.ndiaz.parquesbsas.listeners.OnCalificarEncuestaListener;
 import com.example.ndiaz.parquesbsas.model.Calificacion;

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
-import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
+import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;

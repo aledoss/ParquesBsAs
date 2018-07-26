@@ -46,9 +46,10 @@
     <dimen name="ocho_dp">8dp</dimen>
 
     <!-- Checkbox Filter-->
-    <dimen name="filter_default_margin">16dp</dimen>
+    <dimen name="filter_default_margin">8dp</dimen>
     <dimen name="filter_checkbox_defaultPadding">8dp</dimen>
-    <dimen name="filter_min_height_actividades">180dp</dimen>
-    <dimen name="filter_min_height_ferias">80dp</dimen>
+    <dimen name="filter_min_height_actividades">170dp</dimen>
+    <dimen name="filter_min_height_ferias">90dp</dimen>
+    <dimen name="filter_checkbox_grid_space">4dp</dimen>
 
 </resources>

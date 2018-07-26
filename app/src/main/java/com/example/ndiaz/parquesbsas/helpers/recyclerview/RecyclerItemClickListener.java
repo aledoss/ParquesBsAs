@@ -1,4 +1,4 @@
-package com.example.ndiaz.parquesbsas.helpers;
+package com.example.ndiaz.parquesbsas.helpers.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

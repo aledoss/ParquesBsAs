@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
-import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
+import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosUsuarioInteractor;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 import com.example.ndiaz.parquesbsas.model.Usuario;

@@ -7,4 +7,6 @@
     <integer name="max_length_email">128</integer>
 
     <integer name="filter_checkbox_min_lines">2</integer>
+    <integer name="filter_checkbox_grid_columns">2</integer>
+
 </resources>

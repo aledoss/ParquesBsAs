@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaActividadesContract;
-import com.example.ndiaz.parquesbsas.helpers.RecyclerItemClickListener;
+import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaActividadesInteractor;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.presenter.ListaActividadesPresenter;
