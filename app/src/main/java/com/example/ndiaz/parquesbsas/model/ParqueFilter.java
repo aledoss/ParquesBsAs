@@ -10,4 +10,11 @@ public class ParqueFilter {
     private boolean centroSaludSelected;
     private boolean patioJuegosSelected;
 
+    public ParqueFilter(List<Actividad> actividades, List<Feria> ferias, boolean feriaItineranteSelected, boolean centroSaludSelected, boolean patioJuegosSelected) {
+        this.actividades = actividades;
+        this.ferias = ferias;
+        this.feriaItineranteSelected = feriaItineranteSelected;
+        this.centroSaludSelected = centroSaludSelected;
+        this.patioJuegosSelected = patioJuegosSelected;
+    }
 }

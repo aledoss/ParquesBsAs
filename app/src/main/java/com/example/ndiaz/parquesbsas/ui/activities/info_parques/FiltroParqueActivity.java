@@ -5,6 +5,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.FiltroParqueContract;
@@ -12,11 +13,12 @@ import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerSpaceItemDecor
 import com.example.ndiaz.parquesbsas.interactor.FiltroParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.Feria;
-import com.example.ndiaz.parquesbsas.model.filter_checkbox.ActividadesFilterCheckbox;
-import com.example.ndiaz.parquesbsas.model.filter_checkbox.FeriasFilterCheckbox;
+import com.example.ndiaz.parquesbsas.model.ParqueFilter;
+import com.example.ndiaz.parquesbsas.model.filter_checkbox.FilterCheckboxDataHelper;
 import com.example.ndiaz.parquesbsas.presenter.FiltroParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.FilterCheckBoxAdapter;
+import com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox;
 
 import java.util.List;
 
@@ -34,15 +36,31 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
     RecyclerView rvFeriasContainer;
     @BindView(R.id.toolbar_filtro_parque)
     Toolbar toolbar;
+    @BindView(R.id.fChkBoxItinerantes)
+    FilterCheckBox fChkBoxItinerantes;
+    @BindView(R.id.fChkBoxEstSalud)
+    FilterCheckBox fChkBoxEstSalud;
+    @BindView(R.id.fChkBoxPatioJuegos)
+    FilterCheckBox fChkBoxPatioJuegos;
 
     private FilterCheckBoxAdapter actividadesAdapter;
     private FilterCheckBoxAdapter feriasAdapter;
+    private FilterCheckboxDataHelper filterCheckboxDataHelper;
     private int cantColumns;
     private int spacing;
 
     @OnClick(R.id.fabFiltrar)
     public void onClickFiltrar() {
-        // TODO: 18/07/2018 obtener datos y crear objeto ParqueFilter
+        List<Actividad> actividadesMarcadas = filterCheckboxDataHelper.getActividadesMarcadas(actividadesAdapter.getItems());
+        List<Feria> feriasMarcadas = filterCheckboxDataHelper.getFeriasMarcadas(feriasAdapter.getItems());
+        boolean feriaItineranteSelected = fChkBoxItinerantes.isChecked();
+        boolean centroSaludSelected = fChkBoxEstSalud.isChecked();
+        boolean patioJuegosSelected = fChkBoxPatioJuegos.isChecked();
+
+        ParqueFilter parqueFilter = new ParqueFilter(actividadesMarcadas, feriasMarcadas,
+                feriaItineranteSelected, centroSaludSelected, patioJuegosSelected);
+        presenter.doFilter(parqueFilter);
+        Log.i("NICOTEST", "onClickFiltrar: actividades: " + actividadesMarcadas.size() + ", ferias: " + feriasMarcadas.size());
     }
 
     @Override
@@ -59,6 +77,7 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
     private void initializeVariables() {
         cantColumns = getResources().getInteger(R.integer.filter_checkbox_grid_columns);
         spacing = (int) getResources().getDimension(R.dimen.filter_checkbox_grid_space);
+        filterCheckboxDataHelper = new FilterCheckboxDataHelper();
     }
 
     private void initializeToolbar() {
@@ -89,7 +108,7 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, cantColumns);
             rvActividadesContainer.setLayoutManager(mLayoutManager);
             rvActividadesContainer.addItemDecoration(new RecyclerSpaceItemDecoration(spacing));
-            actividadesAdapter = new FilterCheckBoxAdapter(new ActividadesFilterCheckbox(actividades));
+            actividadesAdapter = new FilterCheckBoxAdapter(filterCheckboxDataHelper.createActividadesFilterCheckBox(actividades));
         }
         rvActividadesContainer.setAdapter(actividadesAdapter);
     }
@@ -104,7 +123,7 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, cantColumns);
             rvFeriasContainer.addItemDecoration(new RecyclerSpaceItemDecoration(spacing));
             rvFeriasContainer.setLayoutManager(mLayoutManager);
-            feriasAdapter = new FilterCheckBoxAdapter(new FeriasFilterCheckbox(ferias));
+            feriasAdapter = new FilterCheckBoxAdapter(filterCheckboxDataHelper.createFeriasFilterCheckbox(ferias));
         }
         rvFeriasContainer.setAdapter(feriasAdapter);
     }

@@ -2,10 +2,13 @@ package com.example.ndiaz.parquesbsas.model.filter_checkbox;
 
 public interface BaseFilterCheckbox {
 
-    String getTitle(int position);
+    String getTitle();
 
-    int getId(int position);
+    int getId();
 
-    int getCount();
+    boolean isChecked();
 
+    void setChecked(boolean isChecked);
+
+    Object getObject();
 }

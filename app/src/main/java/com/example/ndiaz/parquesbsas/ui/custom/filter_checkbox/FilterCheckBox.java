@@ -14,7 +14,7 @@ import static android.view.Gravity.CENTER;
 public class FilterCheckBox extends AppCompatTextView implements View.OnClickListener {
 
     private FilterCheckBoxState state;
-    private boolean isChecked = false;
+    private boolean isChecked;
 
     public FilterCheckBox(Context context) {
         super(context);
@@ -46,6 +46,7 @@ public class FilterCheckBox extends AppCompatTextView implements View.OnClickLis
     }
 
     private void initializeVariables() {
+        isChecked = false;
         handleCheckBoxState();
     }
 
