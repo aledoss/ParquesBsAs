@@ -11,6 +11,7 @@ import com.example.ndiaz.parquesbsas.model.FeriaItinerante;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueComponente;
+import com.example.ndiaz.parquesbsas.model.ParqueFilter;
 import com.example.ndiaz.parquesbsas.model.ParqueLikeBody;
 import com.example.ndiaz.parquesbsas.model.PuntoVerde;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
@@ -201,5 +202,11 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .getFeriasToFilter();
+    }
+
+    public Single<NetworkResponse<List<Parque>>> filter(ParqueFilter parqueFilter){
+        return retrofitService
+                .getClient()
+                .filter(parqueFilter);
     }
 }

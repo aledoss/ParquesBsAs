@@ -1,11 +1,11 @@
 package com.example.ndiaz.parquesbsas.interactor;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
-import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.FiltroParqueContract;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.Feria;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
+import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueFilter;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
@@ -78,7 +78,26 @@ public class FiltroParqueInteractor extends BaseInteractorImp
     }
 
     @Override
-    public void filter(ParqueFilter filter, EmptyCallback callback) {
+    public void filter(ParqueFilter filter, BaseCallback<List<Parque>> callback) {
+        networkServiceImp
+                .filter(filter)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse<List<Parque>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
 
+                    @Override
+                    public void onSuccess(NetworkResponse<List<Parque>> listNetworkResponse) {
+                        onSuccessDefault(listNetworkResponse, TAG, "filter", callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorDefault(e, TAG, "filter", callback);
+                    }
+                });
     }
 }

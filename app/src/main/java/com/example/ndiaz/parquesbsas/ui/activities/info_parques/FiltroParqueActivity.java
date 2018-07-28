@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.ui.activities.info_parques;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerSpaceItemDecor
 import com.example.ndiaz.parquesbsas.interactor.FiltroParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.Feria;
+import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueFilter;
 import com.example.ndiaz.parquesbsas.model.filter_checkbox.FilterCheckboxDataHelper;
 import com.example.ndiaz.parquesbsas.presenter.FiltroParquePresenter;
@@ -20,14 +22,18 @@ import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.FilterCheckBoxAdapter;
 import com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.example.ndiaz.parquesbsas.ui.activities.ListaParquesActivity.REQUEST_CODE_FILTER;
+
 public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
         implements FiltroParqueContract.View {
 
+    public static final String PARQUES_FROM_FILTRO = "PARQUES_FROM_FILTRO";
     @BindView(R.id.container)
     ConstraintLayout container;
     @BindView(R.id.rvActividadesContainer)
@@ -126,5 +132,12 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
             feriasAdapter = new FilterCheckBoxAdapter(filterCheckboxDataHelper.createFeriasFilterCheckbox(ferias));
         }
         rvFeriasContainer.setAdapter(feriasAdapter);
+    }
+
+    @Override
+    public void showListParquesActivity(List<Parque> parques) {
+        Intent intent = new Intent().putExtra(PARQUES_FROM_FILTRO, (Serializable) parques);
+        setResult(REQUEST_CODE_FILTER, intent);
+        finish();
     }
 }

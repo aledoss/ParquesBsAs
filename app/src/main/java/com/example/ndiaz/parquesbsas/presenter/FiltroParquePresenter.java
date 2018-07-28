@@ -1,10 +1,10 @@
 package com.example.ndiaz.parquesbsas.presenter;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
-import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.FiltroParqueContract;
 import com.example.ndiaz.parquesbsas.model.Actividad;
 import com.example.ndiaz.parquesbsas.model.Feria;
+import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.ParqueFilter;
 
 import java.util.List;
@@ -52,15 +52,15 @@ public class FiltroParquePresenter extends BasePresenterImp
 
     @Override
     public void doFilter(ParqueFilter filter) {
-        interactor.filter(filter, new EmptyCallback() {
+        interactor.filter(filter, new BaseCallback<List<Parque>>() {
             @Override
-            public void onSuccess() {
-
+            public void onSuccess(List<Parque> parques) {
+                view.showListParquesActivity(parques);
             }
 
             @Override
             public void onError(String message) {
-
+                view.showMessage(message);
             }
         });
     }

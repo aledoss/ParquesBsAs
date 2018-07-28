@@ -23,6 +23,7 @@ import com.example.ndiaz.parquesbsas.ui.activities.info_parques.FiltroParqueActi
 import com.example.ndiaz.parquesbsas.ui.activities.info_parques.ParqueActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ParquesAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,6 +33,7 @@ import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
 public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Presenter> implements
         ListaParquesContract.View, SearchView.OnQueryTextListener {
 
+    public static final int REQUEST_CODE_FILTER = 1;
     @BindView(R.id.lLContainer)
     LinearLayout lLContainer;
     @BindView(R.id.llEmptyAdapter)
@@ -123,7 +125,9 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.filter_menu:
-                startActivity(new Intent(ListaParquesActivity.this, FiltroParqueActivity.class));
+                startActivityForResult(
+                        new Intent(ListaParquesActivity.this, FiltroParqueActivity.class),
+                        REQUEST_CODE_FILTER);
                 break;
             default:
                 break;
@@ -163,6 +167,19 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
         if (rvParques.getVisibility() == View.GONE) {
             rvParques.setVisibility(View.VISIBLE);
             llEmptyAdapter.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_FILTER) {
+            if (resultCode == RESULT_OK) {
+                List<Parque> parquesFiltrados = (ArrayList<Parque>) data.getSerializableExtra(FiltroParqueActivity.PARQUES_FROM_FILTRO);
+                if (parquesFiltrados != null && !parquesFiltrados.isEmpty()) {
+                    // TODO: 27/07/2018 Filtrar
+                }
+            }
         }
     }
 }
