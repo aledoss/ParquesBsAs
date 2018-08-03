@@ -78,9 +78,9 @@ public class FiltroParqueInteractor extends BaseInteractorImp
     }
 
     @Override
-    public void filter(ParqueFilter filter, BaseCallback<List<Parque>> callback) {
+    public void filterParques(ParqueFilter filter, BaseCallback<List<Parque>> callback) {
         networkServiceImp
-                .filter(filter)
+                .filterParques(filter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<NetworkResponse<List<Parque>>>() {
@@ -91,12 +91,12 @@ public class FiltroParqueInteractor extends BaseInteractorImp
 
                     @Override
                     public void onSuccess(NetworkResponse<List<Parque>> listNetworkResponse) {
-                        onSuccessDefault(listNetworkResponse, TAG, "filter", callback);
+                        onSuccessDefault(listNetworkResponse, TAG, "filterParques", callback);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        onErrorDefault(e, TAG, "filter", callback);
+                        onErrorDefault(e, TAG, "filterParques", callback);
                     }
                 });
     }

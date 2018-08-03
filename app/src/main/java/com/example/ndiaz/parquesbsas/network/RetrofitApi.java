@@ -118,6 +118,6 @@ interface RetrofitApi {
     @GET("parquesapi/getFeriasToFilter")
     Single<NetworkResponse<List<Feria>>> getFeriasToFilter();
 
-    @POST("parquesapi/filter")
-    Single<NetworkResponse<List<Parque>>> filter(@Body ParqueFilter parqueFilter);
+    @POST("parquesapi/filterParques")
+    Single<NetworkResponse<List<Parque>>> filterParques(@Body ParqueFilter parqueFilter);
 }

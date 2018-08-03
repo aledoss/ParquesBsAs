@@ -28,7 +28,7 @@ public interface FiltroParqueContract {
 
         void doGetFerias();
 
-        void doFilter(ParqueFilter filter);
+        void doFilterParques(ParqueFilter filter);
     }
 
     interface Interactor extends BaseInteractor {
@@ -36,7 +36,7 @@ public interface FiltroParqueContract {
 
         void getFeriasToFilter(BaseCallback<List<Feria>> callback);
 
-        void filter(ParqueFilter filter, BaseCallback<List<Parque>> callback);
+        void filterParques(ParqueFilter filter, BaseCallback<List<Parque>> callback);
     }
 
 }

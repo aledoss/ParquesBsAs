@@ -51,8 +51,8 @@ public class FiltroParquePresenter extends BasePresenterImp
     }
 
     @Override
-    public void doFilter(ParqueFilter filter) {
-        interactor.filter(filter, new BaseCallback<List<Parque>>() {
+    public void doFilterParques(ParqueFilter filter) {
+        interactor.filterParques(filter, new BaseCallback<List<Parque>>() {
             @Override
             public void onSuccess(List<Parque> parques) {
                 view.showListParquesActivity(parques);

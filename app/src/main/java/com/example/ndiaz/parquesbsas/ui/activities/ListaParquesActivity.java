@@ -177,7 +177,7 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
             if (resultCode == RESULT_OK) {
                 List<Parque> parquesFiltrados = (ArrayList<Parque>) data.getSerializableExtra(FiltroParqueActivity.PARQUES_FROM_FILTRO);
                 if (parquesFiltrados != null && !parquesFiltrados.isEmpty()) {
-                    // TODO: 27/07/2018 Filtrar
+                    showParques(parquesFiltrados, true);
                 }
             }
         }

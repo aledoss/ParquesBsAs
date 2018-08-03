@@ -204,9 +204,9 @@ public class NetworkServiceImp {
                 .getFeriasToFilter();
     }
 
-    public Single<NetworkResponse<List<Parque>>> filter(ParqueFilter parqueFilter){
+    public Single<NetworkResponse<List<Parque>>> filterParques(ParqueFilter parqueFilter){
         return retrofitService
                 .getClient()
-                .filter(parqueFilter);
+                .filterParques(parqueFilter);
     }
 }

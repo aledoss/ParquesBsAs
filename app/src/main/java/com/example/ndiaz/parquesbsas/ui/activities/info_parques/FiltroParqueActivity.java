@@ -28,8 +28,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.example.ndiaz.parquesbsas.ui.activities.ListaParquesActivity.REQUEST_CODE_FILTER;
-
 public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
         implements FiltroParqueContract.View {
 
@@ -65,7 +63,7 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
 
         ParqueFilter parqueFilter = new ParqueFilter(actividadesMarcadas, feriasMarcadas,
                 feriaItineranteSelected, centroSaludSelected, patioJuegosSelected);
-        presenter.doFilter(parqueFilter);
+        presenter.doFilterParques(parqueFilter);
         Log.i("NICOTEST", "onClickFiltrar: actividades: " + actividadesMarcadas.size() + ", ferias: " + feriasMarcadas.size());
     }
 
@@ -137,7 +135,7 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
     @Override
     public void showListParquesActivity(List<Parque> parques) {
         Intent intent = new Intent().putExtra(PARQUES_FROM_FILTRO, (Serializable) parques);
-        setResult(REQUEST_CODE_FILTER, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }
