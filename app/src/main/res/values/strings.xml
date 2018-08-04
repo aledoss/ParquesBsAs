@@ -102,6 +102,8 @@
     <string name="patio_juegos">Patio de juegos</string>
     <string name="others">Otros</string>
     <string name="filters">Filtros</string>
+    <string name="apply">Aplicar</string>
+    <string name="clean_filters">Limpiar filtros</string>
 
     <!-- Dialog Buttons-->
     <string name="dialog_ok">OK</string>

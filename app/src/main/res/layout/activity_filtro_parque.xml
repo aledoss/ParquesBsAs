@@ -1,159 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.activities.info_parques.FiltroParqueActivity">
 
-    <ScrollView
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include
+            android:id="@+id/toolbar_filtro_parque"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <include
-                android:id="@+id/toolbar_filtro_parque"
-                layout="@layout/toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtActividades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/filter_default_margin"
+            android:text="@string/actividades"
+            android:textColor="@color/black"
+            android:textSize="@dimen/m_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_filtro_parque" />
 
-            <TextView
-                android:id="@+id/txtActividades"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/filter_default_margin"
-                android:text="@string/actividades"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar_filtro_parque" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvActividadesContainer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/filter_min_height_actividades"
+            android:layout_marginEnd="@dimen/filter_default_margin"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginRight="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/filter_default_margin"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtActividades" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvActividadesContainer"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/filter_min_height_actividades"
-                android:layout_marginEnd="@dimen/filter_default_margin"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginRight="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/filter_default_margin"
-                android:orientation="vertical"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtActividades" />
+        <TextView
+            android:id="@+id/txtFerias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:text="@string/ferias"
+            android:textColor="@color/black"
+            android:textSize="@dimen/m_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvActividadesContainer" />
 
-            <TextView
-                android:id="@+id/txtFerias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/general_margin"
-                android:text="@string/ferias"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvActividadesContainer" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvFeriasContainer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/filter_min_height_ferias"
+            android:layout_marginEnd="@dimen/filter_default_margin"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginRight="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/filter_default_margin"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFerias" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvFeriasContainer"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/filter_min_height_ferias"
-                android:layout_marginEnd="@dimen/filter_default_margin"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginRight="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/filter_default_margin"
-                android:orientation="vertical"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtFerias" />
+        <TextView
+            android:id="@+id/txtOtros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/general_margin"
+            android:text="@string/others"
+            android:textColor="@color/black"
+            android:textSize="@dimen/m_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvFeriasContainer" />
 
-            <TextView
-                android:id="@+id/txtOtros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/general_margin"
-                android:text="@string/others"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvFeriasContainer" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".5" />
+        <com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox
+            android:id="@+id/fChkBoxItinerantes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/filter_default_margin"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginRight="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/filter_default_margin"
+            android:text="@string/ferias_itinerantes"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtOtros" />
 
-            <com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox
-                android:id="@+id/fChkBoxItinerantes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/filter_default_margin"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginRight="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/filter_default_margin"
-                android:text="@string/ferias_itinerantes"
-                app:layout_constraintEnd_toStartOf="@+id/guideline5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtOtros" />
+        <com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox
+            android:id="@+id/fChkBoxEstSalud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/filter_default_margin"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginRight="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:layout_marginTop="@dimen/filter_default_margin"
+            android:text="@string/estaciones_saludables"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fChkBoxItinerantes" />
 
-            <com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox
-                android:id="@+id/fChkBoxEstSalud"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/filter_default_margin"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginRight="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:layout_marginTop="@dimen/filter_default_margin"
-                android:text="@string/estaciones_saludables"
-                app:layout_constraintEnd_toStartOf="@+id/guideline5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fChkBoxItinerantes" />
+        <com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox
+            android:id="@+id/fChkBoxPatioJuegos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/filter_default_margin"
+            android:layout_marginLeft="@dimen/filter_default_margin"
+            android:layout_marginRight="@dimen/filter_default_margin"
+            android:layout_marginStart="@dimen/filter_default_margin"
+            android:minLines="@integer/filter_checkbox_min_lines"
+            android:text="@string/patio_juegos"
+            app:layout_constraintBottom_toBottomOf="@+id/fChkBoxItinerantes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fChkBoxItinerantes"
+            app:layout_constraintTop_toTopOf="@+id/fChkBoxItinerantes" />
 
-            <com.example.ndiaz.parquesbsas.ui.custom.filter_checkbox.FilterCheckBox
-                android:id="@+id/fChkBoxPatioJuegos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/filter_default_margin"
-                android:layout_marginLeft="@dimen/filter_default_margin"
-                android:layout_marginRight="@dimen/filter_default_margin"
-                android:layout_marginStart="@dimen/filter_default_margin"
-                android:minLines="@integer/filter_checkbox_min_lines"
-                android:text="@string/patio_juegos"
-                app:layout_constraintBottom_toBottomOf="@+id/fChkBoxItinerantes"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/fChkBoxItinerantes"
-                app:layout_constraintTop_toTopOf="@+id/fChkBoxItinerantes" />
-
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabFiltrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorAccent"
-        app:elevation="4dp"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_check_white" />
-
-</FrameLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

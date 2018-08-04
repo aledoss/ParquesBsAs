@@ -7,6 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.FiltroParqueContract;
@@ -26,7 +28,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
         implements FiltroParqueContract.View {
@@ -52,20 +53,6 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
     private FilterCheckboxDataHelper filterCheckboxDataHelper;
     private int cantColumns;
     private int spacing;
-
-    @OnClick(R.id.fabFiltrar)
-    public void onClickFiltrar() {
-        List<Actividad> actividadesMarcadas = filterCheckboxDataHelper.getActividadesMarcadas(actividadesAdapter.getItems());
-        List<Feria> feriasMarcadas = filterCheckboxDataHelper.getFeriasMarcadas(feriasAdapter.getItems());
-        boolean feriaItineranteSelected = fChkBoxItinerantes.isChecked();
-        boolean centroSaludSelected = fChkBoxEstSalud.isChecked();
-        boolean patioJuegosSelected = fChkBoxPatioJuegos.isChecked();
-
-        ParqueFilter parqueFilter = new ParqueFilter(actividadesMarcadas, feriasMarcadas,
-                feriaItineranteSelected, centroSaludSelected, patioJuegosSelected);
-        presenter.doFilterParques(parqueFilter);
-        Log.i("NICOTEST", "onClickFiltrar: actividades: " + actividadesMarcadas.size() + ", ferias: " + feriasMarcadas.size());
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,5 +124,33 @@ public class FiltroParqueActivity extends BaseActivity<FiltroParquePresenter>
         Intent intent = new Intent().putExtra(PARQUES_FROM_FILTRO, (Serializable) parques);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.filtro_parque_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_aplicar_filtro) {
+            filterParques();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void filterParques() {
+        List<Actividad> actividadesMarcadas = filterCheckboxDataHelper.getActividadesMarcadas(actividadesAdapter.getItems());
+        List<Feria> feriasMarcadas = filterCheckboxDataHelper.getFeriasMarcadas(feriasAdapter.getItems());
+        boolean feriaItineranteSelected = fChkBoxItinerantes.isChecked();
+        boolean centroSaludSelected = fChkBoxEstSalud.isChecked();
+        boolean patioJuegosSelected = fChkBoxPatioJuegos.isChecked();
+
+        ParqueFilter parqueFilter = new ParqueFilter(actividadesMarcadas, feriasMarcadas,
+                feriaItineranteSelected, centroSaludSelected, patioJuegosSelected);
+        presenter.doFilterParques(parqueFilter);
+        Log.i("NICOTEST", "onClickFiltrar: actividades: " + actividadesMarcadas.size() + ", ferias: " + feriasMarcadas.size());
     }
 }

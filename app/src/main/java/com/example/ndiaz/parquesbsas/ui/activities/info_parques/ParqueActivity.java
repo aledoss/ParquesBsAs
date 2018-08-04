@@ -5,7 +5,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -115,12 +114,9 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
         rvParqueComponentes.setLayoutManager(mLayoutManager);
         adapter = new ParqueComponentesAdapter(parqueComponentes);
         rvParqueComponentes.setAdapter(adapter);
-        rvParqueComponentes.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                ParqueComponente parqueComponente = adapter.getitem(position);
-                parqueComponente.navigateToActivity(ParqueActivity.this);
-            }
+        rvParqueComponentes.addOnItemTouchListener(new RecyclerItemClickListener(this, (view, position) -> {
+            ParqueComponente parqueComponente = adapter.getitem(position);
+            parqueComponente.navigateToActivity(ParqueActivity.this);
         }));
         adapter.notifyDataSetChanged();
     }

@@ -2,6 +2,8 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,8 +36,8 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
         ListaParquesContract.View, SearchView.OnQueryTextListener {
 
     public static final int REQUEST_CODE_FILTER = 1;
-    @BindView(R.id.lLContainer)
-    LinearLayout lLContainer;
+    @BindView(R.id.container)
+    CoordinatorLayout container;
     @BindView(R.id.llEmptyAdapter)
     LinearLayout llEmptyAdapter;
     @BindView(R.id.rvParques)
@@ -97,7 +99,7 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
 
     @Override
     public void showMessage(String message) {
-        showMessage(lLContainer, message);
+        showMessage(container, message);
     }
 
     private void setupToolbar() {
@@ -178,8 +180,20 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
                 List<Parque> parquesFiltrados = (ArrayList<Parque>) data.getSerializableExtra(FiltroParqueActivity.PARQUES_FROM_FILTRO);
                 if (parquesFiltrados != null && !parquesFiltrados.isEmpty()) {
                     showParques(parquesFiltrados, true);
+                } else if (parquesFiltrados != null) {
+                    showParques(new ArrayList<>(), true);
+                    showEmptyAdapter();
+                    showResetFiltersView();
                 }
             }
         }
+    }
+
+    private void showResetFiltersView() {
+        Snackbar.make(container, "", Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.clean_filters, v -> {
+                    showParques(parques, false);
+                })
+                .show();
     }
 }
