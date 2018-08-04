@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.interactor;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.PerfilUsuarioContract;
@@ -162,5 +163,6 @@ public class PerfilUsuarioInteractor extends BaseInteractorImp
     public void cleanAutoLoginUserData() {
         defaultPreferencesRepository.setUserEmail("");
         defaultPreferencesRepository.setUserPassword("");
+        ParquesApplication.getInstance().clearUser();
     }
 }

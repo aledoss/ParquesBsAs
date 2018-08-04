@@ -71,4 +71,8 @@ public class ParquesApplication extends Application {
     private void setupDefaultSettings() {
         Completable.fromAction(() -> PreferenceManager.setDefaultValues(ParquesApplication.this, R.xml.settings, false));
     }
+
+    public void clearUser() {
+        this.user = null;
+    }
 }
