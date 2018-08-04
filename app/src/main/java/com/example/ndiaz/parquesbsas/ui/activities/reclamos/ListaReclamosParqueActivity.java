@@ -2,18 +2,17 @@ package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosParqueContract;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosParqueInteractor;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
-import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosParquePresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 import com.example.ndiaz.parquesbsas.ui.adapters.ReclamosParqueAdapter;
@@ -37,14 +36,15 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
     RecyclerView rvReclamosParque;
     @BindView(R.id.toolbar_lista_reclamos_parque)
     Toolbar toolbar;
+    @BindView(R.id.btnAgregarReclamo)
+    FloatingActionButton fabAgregarReclamo;
 
     private ReclamosParqueAdapter adapter;
     private int idParque;
-    private Usuario usuario;
 
     @OnClick(R.id.btnAgregarReclamo)
     void btnAgregarReclamo() {
-        if (usuario.hasDocument()) {
+        if (getUsuario().hasDocument()) {
             startActivityForResult(new Intent(ListaReclamosParqueActivity.this, AgregarReclamoActivity.class),
                     AgregarReclamoActivity.RESULT_CODE_RECLAMO);
         } else {
@@ -58,7 +58,14 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         setContentView(R.layout.activity_lista_reclamos_parque);
         obtenerDatos();
         setupToolbar();
+        initializeViews();
         presenter.doGetReclamos(idParque, false);
+    }
+
+    private void initializeViews() {
+        if (getUsuario() != null) {
+            fabAgregarReclamo.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupToolbar() {
@@ -72,7 +79,6 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         if (bundle != null) {
             idParque = bundle.getInt(ID_PARQUE, idParque);
         }
-        this.usuario = ParquesApplication.getInstance().getUser();
     }
 
     @Override

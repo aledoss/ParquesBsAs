@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaEncuestasParqueContract;
 import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerItemClickListener;
@@ -63,9 +62,11 @@ public class ListaEncuestasParqueActivity extends BaseActivity<ListaEncuestasPar
         setContentView(R.layout.activity_lista_encuestas_parque);
         assignBundleVariables();
         setupToolbar();
-        idUsuario = ParquesApplication.getInstance().getUser().getId();
-        getEncuestasParaCalificar();
-        presenter.doGetCalificaciones();
+        if (getUsuario() != null){
+            idUsuario = getUsuario().getId();
+            getEncuestasParaCalificar();
+            presenter.doGetCalificaciones();
+        }
         getEncuestasByParque(false);
     }
 

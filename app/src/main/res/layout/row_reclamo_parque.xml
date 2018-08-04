@@ -20,8 +20,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:text="Actividades"
-            android:textSize="24sp" />
+            android:text="Reparacion de patio de juegos"
+            android:textSize="@dimen/l_font_size" />
 
         <TextView
             android:id="@+id/txtCantidadReclamos"
@@ -35,7 +35,7 @@
             android:layout_marginRight="20dp"
             android:src="@drawable/ic_acceder"
             android:text="(10)"
-            android:textSize="24sp" />
+            android:textSize="@dimen/l_font_size" />
 
     </RelativeLayout>
 

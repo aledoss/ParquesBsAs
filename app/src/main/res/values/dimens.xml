@@ -31,7 +31,7 @@
 
     <!-- Font size-->
     <dimen name="xl_font_size">23sp</dimen>
-    <dimen name="l_font_size">19sp</dimen>
+    <dimen name="l_font_size">20sp</dimen>
     <dimen name="m_font_size">18sp</dimen>
     <dimen name="s_font_size">16sp</dimen>
     <dimen name="xs_font_size">14sp</dimen>
