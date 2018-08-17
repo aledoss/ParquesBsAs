@@ -19,7 +19,6 @@ import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.helpers.maps.URLMapImage;
 import com.example.ndiaz.parquesbsas.interactor.DescGralInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
-import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.model.parquelike.ParqueLike;
 import com.example.ndiaz.parquesbsas.model.parquelike.ParqueLikeDecrease;
 import com.example.ndiaz.parquesbsas.model.parquelike.ParqueLikeDefault;
@@ -66,7 +65,6 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
     Drawable icCheckGreen;
 
     private Parque parque;
-    private Usuario usuario;
     private ViewHelper viewHelper;
     private ParqueLike parqueLike;
     private IntentMap intentMap;
@@ -76,14 +74,14 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
     public void onThumbsUpClick() {
         disableLikeButtons();
         parqueLike.onClickImgBtnThumbsUp();
-        presenter.doUpdateParqueLike(parque.getIdParque(), usuario.getId(), true, parqueLike);
+        presenter.doUpdateParqueLike(parque.getIdParque(), getUsuario().getId(), true, parqueLike);
     }
 
     @OnClick(R.id.imgBtnThumbsDown)
     public void onThumbsDownClick() {
         disableLikeButtons();
         parqueLike.onClickimgBtnThumbsDown();
-        presenter.doUpdateParqueLike(parque.getIdParque(), usuario.getId(), false, parqueLike);
+        presenter.doUpdateParqueLike(parque.getIdParque(), getUsuario().getId(), false, parqueLike);
     }
 
     @OnClick(R.id.txtComoLlego)
@@ -99,7 +97,9 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
         setContentView(R.layout.activity_desc_general_parque);
         initializeVariables();
         setupUi();
-        presenter.doGetParqueLikeStatus(parque.getIdParque(), usuario.getId());
+        if (getUsuario() != null){
+            presenter.doGetParqueLikeStatus(parque.getIdParque(), getUsuario().getId());
+        }
     }
 
     @Override
@@ -112,11 +112,18 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
 
     private void initializeVariables() {
         this.parque = ParquesApplication.getInstance().getParque();
-        this.usuario = ParquesApplication.getInstance().getUser();
         this.viewHelper = new ViewHelper();
         this.intentMap = new IntentMap(this);
         this.dialogBuilder = new AlertDialogBuilder();
         createDefaultParqueLike();
+        handleUnloggedUser();
+    }
+
+    private void handleUnloggedUser() {
+        if (getUsuario() == null) {
+            imgBtnThumbsUp.setEnabled(false);
+            imgBtnThumbsDown.setEnabled(false);
+        }
     }
 
     private void setupUi() {
@@ -132,8 +139,8 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
     }
 
     private void initializeTxts() {
-        txtThumbsUp.setText(parque.getLikes().toString());
-        txtThumbsDown.setText(parque.getHates().toString());
+        txtThumbsUp.setText(String.valueOf(parque.getLikes()));
+        txtThumbsDown.setText(String.valueOf(parque.getHates()));
         txtDesc.setText(parque.getDescripcion());
     }
 

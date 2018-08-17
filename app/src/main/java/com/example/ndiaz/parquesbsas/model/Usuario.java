@@ -22,6 +22,8 @@ public class Usuario implements Serializable {
     private String email;
     @JsonProperty("contrasenia")
     private String password;
+    @JsonProperty("googleId")
+    private String googleId;
 
     public Usuario() {
     }
@@ -127,5 +129,13 @@ public class Usuario implements Serializable {
 
     public boolean hasDocument() {
         return getNumeroDoc() != null && !getNumeroDoc().isEmpty();
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
     }
 }

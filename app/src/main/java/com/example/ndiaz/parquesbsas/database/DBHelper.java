@@ -18,9 +18,11 @@ import static com.example.ndiaz.parquesbsas.database.DBConfig.DATABASE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.DESCRIPCIONCORTAPARQUECOLUMNA;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.DESCRIPCION_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.DIRECCION_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.HATES_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.IMAGEN_ANDROID_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.IMAGEN_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.LATITUD_PARQUE;
+import static com.example.ndiaz.parquesbsas.database.DBConfig.LIKES_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.LONGITUD_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.NOMBRE_PARQUE;
 import static com.example.ndiaz.parquesbsas.database.DBConfig.PATIO_JUEGOS_PARQUE;
@@ -40,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DESCRIPCIONCORTAPARQUECOLUMNA + " text, " + DESCRIPCION_PARQUE + " text, " + DIRECCION_PARQUE + " text, " +
                 IMAGEN_PARQUE + " text, " + IMAGEN_ANDROID_PARQUE + " text, " + LATITUD_PARQUE + " text, " + LONGITUD_PARQUE + " text, " +
                 BARRIO_PARQUE + " text, " + COMUNA_PARQUE + " text, " + PATIO_JUEGOS_PARQUE + " integer, " +
-                WIFI_PARQUE + " integer )");
+                LIKES_PARQUE + " integer, " + HATES_PARQUE + " integer, " + WIFI_PARQUE + " integer )");
     }
 
     @Override
@@ -69,6 +71,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 parque.setComuna(cur.getString(cur.getColumnIndex(COMUNA_PARQUE)));
                 parque.setHasPatioJuegos(cur.getInt(cur.getColumnIndex(PATIO_JUEGOS_PARQUE)) == 1);
                 parque.setHasWifi(cur.getInt(cur.getColumnIndex(WIFI_PARQUE)) == 1);
+                parque.setLikes(cur.getInt(cur.getColumnIndex(LIKES_PARQUE)));
+                parque.setHates(cur.getInt(cur.getColumnIndex(HATES_PARQUE)));
 
                 listaParques.add(parque);
                 cur.moveToNext();
@@ -102,6 +106,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 parque.setComuna(cur.getString(cur.getColumnIndex(COMUNA_PARQUE)));
                 parque.setHasPatioJuegos(cur.getInt(cur.getColumnIndex(PATIO_JUEGOS_PARQUE)) == 1);
                 parque.setHasWifi(cur.getInt(cur.getColumnIndex(WIFI_PARQUE)) == 1);
+                parque.setLikes(cur.getInt(cur.getColumnIndex(LIKES_PARQUE)));
+                parque.setHates(cur.getInt(cur.getColumnIndex(HATES_PARQUE)));
             }
             return parque;
         } catch (Exception e) {
@@ -130,6 +136,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 contentValues.put(COMUNA_PARQUE, parque.getComuna());
                 contentValues.put(PATIO_JUEGOS_PARQUE, parque.getHasPatioJuegos() ? 1 : 0);
                 contentValues.put(WIFI_PARQUE, parque.getHasWifi() ? 1 : 0);
+                contentValues.put(LIKES_PARQUE, parque.getLikes());
+                contentValues.put(HATES_PARQUE, parque.getHates());
 
                 db.insert(TABLE_PARQUES, null, contentValues);
             }

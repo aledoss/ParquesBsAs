@@ -9,13 +9,21 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+    }
+    signingConfigs {
+        config {
+            keyAlias ''
+            keyPassword ''
+            storeFile file('G:/Usuarios/Nicolas/Keystores/parques_bsas.jks')
+            storePassword '!'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
@@ -32,6 +40,7 @@ dependencies {
     final OK_HTTP_VERSION = '3.4.1'
     final RETROFIT_VERSION = '2.3.0'
     final BUTTERKNIFE_VERSION = '8.8.1'
+
     //Support Library
     implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
@@ -40,6 +49,7 @@ dependencies {
     //Play Services - Maps
     implementation "com.google.android.gms:play-services-maps:$PLAY_SERVICES_VERSION"
     implementation "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
+    implementation "com.google.android.gms:play-services-auth:$PLAY_SERVICES_VERSION"
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     //Butterknife
     implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"

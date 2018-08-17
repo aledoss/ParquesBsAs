@@ -7,28 +7,20 @@ import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 
-public interface LoginContract {
+public interface SplashScreenContract {
 
     interface View extends BaseView {
-        void showMessage(String message);
-
         void navigateToHome();
 
-        void showLoginError(String message);
-
-        void hideKeyboard();
-
-        void onAutoLoginEnabled(Boolean autoLoginEnabled);
+        void navigateToLogin();
     }
 
     interface Presenter extends BasePresenter {
-        void doLogin(Usuario usuario, boolean updateUserData);
-
-        void doGetIsAutoLoginEnabled();
+        void doLogin(Usuario usuario);
 
         void doAutoLogin();
 
-        void doRecuperarContrasenia(String email);
+        void onStop();
 
         void doLoginWithGoogle(Usuario usuario);
     }
@@ -36,15 +28,8 @@ public interface LoginContract {
     interface Interactor extends BaseInteractor {
         void login(Usuario usuario, BaseCallback<Usuario> callback);
 
-        void isAutoLoginEnabled(SingleCallback<Boolean> isAutologinEnabled);
-
         void getLoginData(SingleCallback<Usuario> usuario);
-
-        void updateUserData(Usuario usuario);
-
-        void recuperarContrasenia(String email, BaseCallback<String> callback);
 
         void loginWithGoogle(Usuario usuario, BaseCallback<Usuario> callback);
     }
-
 }

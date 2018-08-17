@@ -66,8 +66,8 @@ public class NetworkServiceImp {
                 .updateUserPassword(usuario);
     }
 
-    public Single<NetworkResponse<String>> recoverPassword(Usuario usuario){
-        return  retrofitService
+    public Single<NetworkResponse<String>> recoverPassword(Usuario usuario) {
+        return retrofitService
                 .getClient()
                 .recoverPassword(usuario);
     }
@@ -204,9 +204,15 @@ public class NetworkServiceImp {
                 .getFeriasToFilter();
     }
 
-    public Single<NetworkResponse<List<Parque>>> filterParques(ParqueFilter parqueFilter){
+    public Single<NetworkResponse<List<Parque>>> filterParques(ParqueFilter parqueFilter) {
         return retrofitService
                 .getClient()
                 .filterParques(parqueFilter);
+    }
+
+    public Single<NetworkResponse<Usuario>> loginWithGoogle(Usuario usuario) {
+        return retrofitService
+                .getClient()
+                .loginWithGoogle(usuario);
     }
 }

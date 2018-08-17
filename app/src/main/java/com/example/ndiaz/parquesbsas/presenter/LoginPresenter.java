@@ -23,10 +23,10 @@ public class LoginPresenter implements LoginContract.Presenter {
         view.showProgressDialog();
         interactor.login(usuario, new BaseCallback<Usuario>() {
             @Override
-            public void onSuccess(Usuario usuarioLoguedo) {
-                ParquesApplication.getInstance().setUser(usuarioLoguedo);
+            public void onSuccess(Usuario usuarioLogueado) {
+                ParquesApplication.getInstance().setUser(usuarioLogueado);
                 if (updateUserData) {
-                    interactor.updateUserData(usuarioLoguedo);
+                    interactor.updateUserData(usuarioLogueado);
                 }
                 view.navigateToHome();
                 view.hideKeyboard();
@@ -64,6 +64,25 @@ public class LoginPresenter implements LoginContract.Presenter {
             public void onSuccess(String message) {
                 view.hideProgressDialog();
                 view.showMessage(message);
+            }
+
+            @Override
+            public void onError(String message) {
+                view.hideProgressDialog();
+                view.showMessage(message);
+            }
+        });
+    }
+
+    @Override
+    public void doLoginWithGoogle(Usuario usuario) {
+        view.showProgressDialog();
+        interactor.loginWithGoogle(usuario, new BaseCallback<Usuario>() {
+            @Override
+            public void onSuccess(Usuario usuarioLogueado) {
+                ParquesApplication.getInstance().setUser(usuarioLogueado);
+                view.navigateToHome();
+                view.hideProgressDialog();
             }
 
             @Override

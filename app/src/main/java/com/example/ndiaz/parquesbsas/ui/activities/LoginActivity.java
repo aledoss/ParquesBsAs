@@ -3,11 +3,13 @@ package com.example.ndiaz.parquesbsas.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.ndiaz.parquesbsas.R;
+import com.example.ndiaz.parquesbsas.constants.PassConstants;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
@@ -16,6 +18,12 @@ import com.example.ndiaz.parquesbsas.listeners.OnRecuperarContraseniaListener;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
 import com.example.ndiaz.parquesbsas.ui.dialogs.RecuperarContraseniaDialogFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,6 +32,8 @@ import butterknife.OnTouch;
 public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         implements LoginContract.View, OnRecuperarContraseniaListener {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
+    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
     @BindView(R.id.etEmailLogin)
     EditText etEmail;
     @BindView(R.id.etPasswordLogin)
@@ -33,6 +43,8 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     private String email, password;
     private ViewHelper loginCreateViewHelper;
+    private GoogleSignInOptions googleSignInOptions;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @OnClick(R.id.btnIniciar_Sesion)
     public void onClickIniciarSesion() {
@@ -63,15 +75,36 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         return loginCreateViewHelper.tooglePasswordTextType(etPassword, event);
     }
 
+    @OnClick(R.id.btnLoginGoogle)
+    public void onClickBtnLoginGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         presenter.doGetIsAutoLoginEnabled();
         setTransparentStatusBar();
-        loginCreateViewHelper = new ViewHelper();
+        initializeVariables();
+    }
 
-//        presenter.doLogin(new Usuario("juan.perez@hotmail.com", "Asd1234$"), false);  todo login automatico, sacar.
+    private void initializeVariables() {
+        loginCreateViewHelper = new ViewHelper();
+        initializeGoogleSignIn();
+    }
+
+    private void initializeGoogleSignIn() {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            doLoginWithGoogle(account);
+        }
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(PassConstants.googleClientId)
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
     }
 
     @Override
@@ -95,7 +128,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     @Override
     public void onAutoLoginEnabled(Boolean isAutoLoginEnabled) {
         if (isAutoLoginEnabled) {
-            presenter.doAutoLogin();
+            //presenter.doAutoLogin();
         }
     }
 
@@ -116,7 +149,38 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     }
 
     @Override
-    public void showMessage(String message){
+    public void showMessage(String message) {
         showMessage(container, message);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_GOOGLE_SIGN_IN:
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+                break;
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            doLoginWithGoogle(account);
+        } catch (ApiException e) {
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            showMessage("No se pudo iniciar sesión. Intentelo nuevamente más tarde");
+            Log.w(TAG, "Google signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    private void doLoginWithGoogle(GoogleSignInAccount account) {
+        Usuario usuario = new Usuario();
+        usuario.setGoogleId(account.getId());
+        usuario.setEmail(account.getEmail());
+        usuario.setNombre(account.getGivenName());
+        usuario.setApellido(account.getFamilyName());
+//        presenter.doLoginWithGoogle(usuario);
     }
 }

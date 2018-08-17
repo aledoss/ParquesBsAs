@@ -120,4 +120,8 @@ interface RetrofitApi {
 
     @POST("parquesapi/filterParques")
     Single<NetworkResponse<List<Parque>>> filterParques(@Body ParqueFilter parqueFilter);
+
+    @POST("parquesapi/loginWithGoogle")
+    Single<NetworkResponse<Usuario>> loginWithGoogle(@Body Usuario usuario);
+
 }
