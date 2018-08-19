@@ -13,12 +13,17 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias ''
-            keyPassword ''
-            storeFile file('G:/Usuarios/Nicolas/Keystores/parques_bsas.jks')
-            storePassword '!'
+            try {
+                keyAlias KEY_ALIAS
+                keyPassword KEY_PASSWORD
+                storeFile file('G:/Usuarios/Nicolas/Keystores/parques_bsas.jks')
+                storePassword KEYSTORE_PASSWORD
+            } catch (ex) {
+                throw new InvalidUserDataException("Undefined keys")
+            }
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
