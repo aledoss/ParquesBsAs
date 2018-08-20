@@ -22,7 +22,7 @@ public class Usuario implements Serializable {
     private String email;
     @JsonProperty("contrasenia")
     private String password;
-    @JsonProperty("googleId")
+    @JsonProperty("id_google")
     private String googleId;
 
     public Usuario() {
