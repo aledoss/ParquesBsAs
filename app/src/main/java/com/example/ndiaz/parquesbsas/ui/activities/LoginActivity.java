@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
-import com.example.ndiaz.parquesbsas.constants.PassConstants;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @OnClick(R.id.btnLoginGoogle)
     public void onClickBtnLoginGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Intent signInIntent = ParquesApplication.getInstance().getGoogleSignInClient().getSignInIntent();
         startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN);
     }
 
@@ -88,11 +88,11 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         presenter.doGetIsAutoLoginEnabled();
         setTransparentStatusBar();
         initializeVariables();
+        initializeGoogleSignIn();
     }
 
     private void initializeVariables() {
         loginCreateViewHelper = new ViewHelper();
-        initializeGoogleSignIn();
     }
 
     private void initializeGoogleSignIn() {
@@ -100,11 +100,6 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         if (account != null) {
             doLoginWithGoogle(account);
         }
-        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestIdToken(PassConstants.googleClientId)
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
     }
 
     @Override
@@ -181,6 +176,6 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
         usuario.setEmail(account.getEmail());
         usuario.setNombre(account.getGivenName());
         usuario.setApellido(account.getFamilyName());
-//        presenter.doLoginWithGoogle(usuario);
+        presenter.doLoginWithGoogle(usuario);
     }
 }

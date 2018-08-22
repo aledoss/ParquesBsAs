@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.presenter;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.PerfilUsuarioContract;
@@ -80,6 +81,7 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
             @Override
             public void onSuccess(String message) {
                 view.hideProgressDialog();
+                doCleanAutoLoginUserData();
                 view.showToastMessage(message);
                 view.navigateToLogin();
             }
@@ -105,6 +107,18 @@ public class PerfilUsuarioPresenter extends BasePresenterImp
                 view.showDocTypesError(message);
             }
         });
+    }
+
+    @Override
+    public void doLogout(ParquesApplication parquesApplication) {
+        if (parquesApplication.isLoggedWithGoogle()) {
+            parquesApplication
+                    .getGoogleSignInClient()
+                    .signOut()
+                    .addOnSuccessListener(aVoid -> ParquesApplication.getInstance().setLoggedWithGoogle(false));
+        }
+        doCleanAutoLoginUserData();
+        view.navigateToLogin();
     }
 
     @Override

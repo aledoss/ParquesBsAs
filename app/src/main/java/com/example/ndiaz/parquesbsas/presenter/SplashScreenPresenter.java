@@ -49,6 +49,7 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
             @Override
             public void onSuccess(Usuario usuarioLogueado) {
                 ParquesApplication.getInstance().setUser(usuarioLogueado);
+                ParquesApplication.getInstance().setLoggedWithGoogle(true);
                 view.navigateToHome();
             }
 

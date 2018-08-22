@@ -69,6 +69,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     private ArrayAdapter<String> docTypesAdapter;
     private boolean docEditionInProgress;
     private ViewHelper viewHelper;
+    private ParquesApplication parquesApplication;
 
     @OnClick(R.id.imgEditDoc)
     public void onEditDocClick() {
@@ -113,8 +114,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @OnClick(R.id.txtCerrarSesion)
     public void onCerrarSesionClick() {
-        presenter.doCleanAutoLoginUserData();
-        navigateToLogin();
+        presenter.doLogout(parquesApplication);
     }
 
     @Override
@@ -127,6 +127,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     }
 
     private void initializeVariables() {
+        parquesApplication = ParquesApplication.getInstance();
         tipoDocumentoHelper = new TipoDocumentoHelper();
         viewHelper = new ViewHelper();
     }
@@ -245,7 +246,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
 
     @Override
     public void showToastMessage(String message) {
-        Toast.makeText(ParquesApplication.getInstance().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(parquesApplication.getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void setNombreApellidoTxt(String nombre, String apellido) {

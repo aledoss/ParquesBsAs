@@ -5,12 +5,16 @@ import android.app.Application;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 
+import com.example.ndiaz.parquesbsas.constants.PassConstants;
 import com.example.ndiaz.parquesbsas.interactor.RXDBInteractor;
 import com.example.ndiaz.parquesbsas.model.Parque;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.network.RetrofitService;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import io.reactivex.Completable;
 
@@ -21,6 +25,9 @@ public class ParquesApplication extends Application {
     private Parque parque;
     private NetworkServiceImp networkServiceImp;
     private RXDBInteractor rxdbInteractor;
+    private GoogleSignInOptions googleSignInOptions;
+    private GoogleSignInClient mGoogleSignInClient;
+    private boolean loggedWithGoogle;
 
     @Override
     public void onCreate() {
@@ -33,6 +40,7 @@ public class ParquesApplication extends Application {
     private void initializeVariables() {
         networkServiceImp = new NetworkServiceImp(new RetrofitService());
         rxdbInteractor = new RXDBInteractor(this);
+        loggedWithGoogle = false;
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
             StrictMode.enableDefaults();
@@ -74,5 +82,24 @@ public class ParquesApplication extends Application {
 
     public void clearUser() {
         this.user = null;
+    }
+
+    public void setLoggedWithGoogle(boolean loggedWithGoogle) {
+        this.loggedWithGoogle = loggedWithGoogle;
+    }
+
+    public boolean isLoggedWithGoogle() {
+        return loggedWithGoogle;
+    }
+
+    public GoogleSignInClient getGoogleSignInClient() {
+        if (googleSignInOptions == null || mGoogleSignInClient == null) {
+            googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .requestIdToken(PassConstants.googleClientId)
+                    .build();
+            mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        }
+        return mGoogleSignInClient;
     }
 }

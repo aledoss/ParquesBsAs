@@ -1,5 +1,6 @@
 package com.example.ndiaz.parquesbsas.contract;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
@@ -44,6 +45,8 @@ public interface PerfilUsuarioContract {
         void doGetDocTypes();
 
         void doCleanAutoLoginUserData();
+
+        void doLogout(ParquesApplication parquesApplication);
     }
 
     interface Interactor extends BaseInteractor {

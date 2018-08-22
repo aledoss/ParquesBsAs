@@ -49,7 +49,7 @@ public class SplashScreenActivity extends BaseActivity<SplashScreenContract.Pres
         usuario.setEmail(account.getEmail());
         usuario.setNombre(account.getGivenName());
         usuario.setApellido(account.getFamilyName());
-//        presenter.doLoginWithGoogle(usuario);
+        presenter.doLoginWithGoogle(usuario);
     }
 
     private void initializeCountDownTimer() {

@@ -81,6 +81,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onSuccess(Usuario usuarioLogueado) {
                 ParquesApplication.getInstance().setUser(usuarioLogueado);
+                ParquesApplication.getInstance().setLoggedWithGoogle(true);
                 view.navigateToHome();
                 view.hideProgressDialog();
             }
