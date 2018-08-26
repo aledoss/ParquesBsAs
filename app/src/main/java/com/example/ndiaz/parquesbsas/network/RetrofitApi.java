@@ -28,100 +28,100 @@ import retrofit2.http.Path;
 
 interface RetrofitApi {
 
-    @GET("parquesapi/getDocTypes")
+    @GET("ParquesApi/getDocTypes")
     Single<NetworkResponse<List<Documento>>> getDocTypes();
 
-    @POST("parquesapi/login")
+    @POST("ParquesApi/login")
     Single<NetworkResponse<Usuario>> loginUser(@Body Usuario usuario);
 
-    @POST("parquesapi/createUser")
+    @POST("ParquesApi/createUser")
     Single<NetworkResponse> createUser(@Body Usuario usuario);
 
-    @POST("parquesapi/updateUserName")
+    @POST("ParquesApi/updateUserName")
     Single<NetworkResponse> updateUserName(@Body Usuario usuario);
 
-    @POST("parquesapi/updateDocument/{id}")
+    @POST("ParquesApi/updateDocument/{id}")
     Single<NetworkResponse> updateUserDocument(@Path("id") int id, @Body Documento documento);
 
-    @POST("parquesapi/updatePassword")
+    @POST("ParquesApi/updatePassword")
     Single<NetworkResponse> updateUserPassword(@Body UsuarioPassword usuario);
 
-    @POST("parquesapi/deleteCuenta")
+    @POST("ParquesApi/deleteCuenta")
     Single<NetworkResponse> deleteUser(@Body Usuario usuario);
 
-    @POST("parquesapi/recoverPassword")
+    @POST("ParquesApi/recoverPassword")
     Single<NetworkResponse<String>> recoverPassword(@Body Usuario usuario);
 
-    @GET("parquesapi/getParques")
+    @GET("ParquesApi/getParques")
     Single<NetworkResponse<List<Parque>>> getParques();
 
-    @GET("parquesapi/getParque/{id}")
+    @GET("ParquesApi/getParque/{id}")
     Single<NetworkResponse<Parque>> getParque(@Path("id") int idParque);
 
-    @GET("parquesapi/getParqueComponents/{id}")
+    @GET("ParquesApi/getParqueComponents/{id}")
     Single<NetworkResponse<List<ParqueComponente>>> getParqueComponentes(@Path("id") int idParque);
 
-    @GET("parquesapi/getReclamosByParque/{id}")
+    @GET("ParquesApi/getReclamosByParque/{id}")
     Single<NetworkResponse<List<Reclamo>>> getReclamosByParque(@Path("id") int idParque);
 
-    @GET("parquesapi/getReclamosDesc")
+    @GET("ParquesApi/getReclamosDesc")
     Single<NetworkResponse<List<Reclamo>>> getReclamos();
 
-    @POST("parquesapi/createReclamo")
+    @POST("ParquesApi/createReclamo")
     Single<NetworkResponse> insertReclamo(@Body Reclamo reclamo);
 
-    @GET("parquesapi/getActividadesByParque/{id}")
+    @GET("ParquesApi/getActividadesByParque/{id}")
     Single<NetworkResponse<List<Actividad>>> getActividades(@Path("id") int idParque);
 
-    @GET("parquesapi/getHorariosByParqueActividad/{idParque}/{idActividad}")
+    @GET("ParquesApi/getHorariosByParqueActividad/{idParque}/{idActividad}")
     Single<NetworkResponse<List<Actividad>>> getHorarios(@Path("idParque") int idParque,
                                                          @Path("idActividad") int idActividad);
 
-    @GET("parquesapi/getFeriasByParque/{id}")
+    @GET("ParquesApi/getFeriasByParque/{id}")
     Single<NetworkResponse<List<Feria>>> getFerias(@Path("id") int idParque);
 
-    @GET("parquesapi/getFeriasItinerantesByParque/{id}")
+    @GET("ParquesApi/getFeriasItinerantesByParque/{id}")
     Single<NetworkResponse<List<FeriaItinerante>>> getFeriasItinerantes(@Path("id") int idParque);
 
-    @GET("parquesapi/getEstSaludablesByParque/{id}")
+    @GET("ParquesApi/getEstSaludablesByParque/{id}")
     Single<NetworkResponse<List<EstacionSaludable>>> getEstSaludables(@Path("id") int idParque);
 
-    @GET("parquesapi/getReclamosByUsuario/{id}")
+    @GET("ParquesApi/getReclamosByUsuario/{id}")
     Single<NetworkResponse<List<Reclamo>>> getReclamosByUsuario(@Path("id") int idUsuario);
 
-    @GET("parquesapi/getPuntosVerdesByParque/{id}")
+    @GET("ParquesApi/getPuntosVerdesByParque/{id}")
     Single<NetworkResponse<List<PuntoVerde>>> getPuntosVerdes(@Path("id") int idParque);
 
-    @POST("parquesapi/updateParqueLike/")
+    @POST("ParquesApi/updateParqueLike/")
     Single<NetworkResponse> updateParqueLike(@Body ParqueLikeBody parqueLikeBody);
 
-    @GET("parquesapi/getEncuestasParaCalificarByParqueAndUsuario/{idParque}/{idEncuesta}")
+    @GET("ParquesApi/getEncuestasParaCalificarByParqueAndUsuario/{idParque}/{idEncuesta}")
     Single<NetworkResponse<List<Encuesta>>> getEncuestasParaCalificar(@Path("idParque") int idParque,
                                                                       @Path("idEncuesta") int idUsuario);
 
-    @GET("parquesapi/getCalificaciones/")
+    @GET("ParquesApi/getCalificaciones/")
     Single<NetworkResponse<List<Calificacion>>> getCalificaciones();
 
-    @GET("parquesapi/getEncuestasByParque/{id}")
+    @GET("ParquesApi/getEncuestasByParque/{id}")
     Single<NetworkResponse<List<Encuesta>>> getEncuestasByParque(@Path("id") int idParque);
 
-    @GET("parquesapi/getEstadisticasEncuestaByParque/{idParque}/{idEncuesta}")
+    @GET("ParquesApi/getEstadisticasEncuestaByParque/{idParque}/{idEncuesta}")
     Single<NetworkResponse<Calificacion>> getEstadisticasEncuesta(@Path("idParque") int idParque,
                                                                   @Path("idEncuesta") int idEncuesta);
 
-    @POST("parquesapi/insertarCalificacionEncuesta")
+    @POST("ParquesApi/insertarCalificacionEncuesta")
     Single<NetworkResponse<Boolean>> createCalificacionEncuesta(@Body CalificacionEncuesta calificacionEncuesta);
 
-    @GET("parquesapi/getActividadesToFilter")
+    @GET("ParquesApi/getActividadesToFilter")
     Single<NetworkResponse<List<Actividad>>> getActividadesToFilter();
 
-    @GET("parquesapi/getFeriasToFilter")
+    @GET("ParquesApi/getFeriasToFilter")
     Single<NetworkResponse<List<Feria>>> getFeriasToFilter();
 
-    @POST("parquesapi/filterParques")
+    @POST("ParquesApi/filterParques")
     Single<NetworkResponse<List<Parque>>> filterParques(@Body ParqueFilter parqueFilter);
 
-    @POST("parquesapi/loginWithGoogle")
+    @POST("ParquesApi/loginWithGoogle")
     Single<NetworkResponse<Usuario>> loginWithGoogle(@Body Usuario usuario);
 
 }

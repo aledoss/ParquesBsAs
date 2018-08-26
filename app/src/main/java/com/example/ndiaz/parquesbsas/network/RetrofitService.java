@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import static com.example.ndiaz.parquesbsas.constants.Constants.API_URL;
+import static com.example.ndiaz.parquesbsas.constants.NetworkUrls.API_URL;
 
 public class RetrofitService {
 

@@ -28,8 +28,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.example.ndiaz.parquesbsas.constants.Constants.IMAGENES_PARQUES_URL;
 import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
+import static com.example.ndiaz.parquesbsas.constants.NetworkUrls.IMAGENES_PARQUES_URL;
 
 public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> implements ParqueContract.View {
 

@@ -23,14 +23,6 @@ public interface Constants {
     String FTP_PASS = ""; //configurar
     String FTP_ANDROID_IMAGE_DIRECTORY = "public/img/android/";
 
-    //REQUEST URLS
-    String BASE_URL = "http://192.168.0.100/nico/";
-    String API_URL = BASE_URL + "index.php/";
-    String IMAGENES_PARQUES_URL = BASE_URL + "public/img/parques/";
-    //String ALL_PARQUES_URL = "http://192.168.0.104/parques/index.php/ws_parques/todos";
-    String ALL_PARQUES_URL = "http://appweb158.hol.es/ws_parques/todos";
-    //String ALL_PARQUES_URL = "http://webapp321.eshost.com.ar/ws_parques/todos";
-
     //Intent, extras
     String MESSAGE = "Message";
 
