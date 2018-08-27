@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +22,22 @@ import com.example.ndiaz.parquesbsas.contract.PerfilUsuarioContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
 import com.example.ndiaz.parquesbsas.helpers.TipoDocumentoHelper;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
+import com.example.ndiaz.parquesbsas.helpers.login_google.LoginWithGoogle;
+import com.example.ndiaz.parquesbsas.helpers.login_google.OnUserLoggedWithGoogleListener;
 import com.example.ndiaz.parquesbsas.interactor.PerfilUsuarioInteractor;
 import com.example.ndiaz.parquesbsas.listeners.OnCambiarContraseniaListener;
 import com.example.ndiaz.parquesbsas.listeners.OnCambiarNombYApeListener;
 import com.example.ndiaz.parquesbsas.model.Documento;
+import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 import com.example.ndiaz.parquesbsas.presenter.PerfilUsuarioPresenter;
 import com.example.ndiaz.parquesbsas.ui.dialogs.CambiarContraseniaDialogFragment;
 import com.example.ndiaz.parquesbsas.ui.dialogs.CambiarNombYApeDialogFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 import java.util.Locale;
@@ -39,8 +48,9 @@ import butterknife.OnClick;
 import static com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText.UPDATE_USER_DOC_ORIGIN;
 
 public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Presenter>
-        implements PerfilUsuarioContract.View, OnCambiarNombYApeListener, OnCambiarContraseniaListener {
+        implements PerfilUsuarioContract.View, OnCambiarNombYApeListener, OnCambiarContraseniaListener, OnUserLoggedWithGoogleListener {
 
+    private static final String TAG = PerfilUsuarioActivity.class.getSimpleName();
     @BindView(R.id.createAccountContainerLayout)
     ConstraintLayout createAccountContainerLayout;
     @BindView(R.id.toolbar_perfil_usuario)
@@ -54,6 +64,8 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     TextView txtNombreApellido;
     @BindView(R.id.etDocumento)
     EditText etDocumento;
+    @BindView(R.id.txtConnectWithGoogle)
+    TextView txtConnectWithGoogle;
 
     @BindView(R.id.imgEditNombre)
     ImageButton imgEditNombre;
@@ -64,12 +76,14 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     @BindView(R.id.imgDismissEditDoc)
     ImageButton imgDismissEditDoc;
 
+    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
     private List<Documento> documentos;
     private TipoDocumentoHelper tipoDocumentoHelper;
     private ArrayAdapter<String> docTypesAdapter;
     private boolean docEditionInProgress;
     private ViewHelper viewHelper;
     private ParquesApplication parquesApplication;
+    private LoginWithGoogle loginWithGoogle;
 
     @OnClick(R.id.imgEditDoc)
     public void onEditDocClick() {
@@ -117,6 +131,12 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         presenter.doLogout(parquesApplication);
     }
 
+    @OnClick(R.id.txtConnectWithGoogle)
+    public void onConnectWithGoogleClick() {
+        Intent signInIntent = ParquesApplication.getInstance().getGoogleSignInClient().getSignInIntent();
+        startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +150,7 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         parquesApplication = ParquesApplication.getInstance();
         tipoDocumentoHelper = new TipoDocumentoHelper();
         viewHelper = new ViewHelper();
+        loginWithGoogle = new LoginWithGoogle(getDefaultDefaultPreferencesRepository(), getNetworkServiceImp());
     }
 
     @Override
@@ -145,6 +166,8 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
         disableDocEdition();
         initializeTexts();
         initializeSpinner();
+        txtConnectWithGoogle.setVisibility(parquesApplication.isLoggedWithGoogle() ?
+                View.GONE : View.VISIBLE);
     }
 
     private void initializeToolbar() {
@@ -306,5 +329,45 @@ public class PerfilUsuarioActivity extends BaseActivity<PerfilUsuarioContract.Pr
     @Override
     public void onCambiarContrasenia(String oldPassword, String newPassword) {
         presenter.doUpdatePassword(new UsuarioPassword(getUsuario().getId(), newPassword, oldPassword));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_GOOGLE_SIGN_IN:
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+                break;
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            loginWithGoogle.doVinculate(account, getUsuario().getId(), this);
+        } catch (ApiException e) {
+            if (e.getStatusCode() != CommonStatusCodes.ERROR) {
+                showMessage("No se pudo iniciar sesión. Intentelo nuevamente más tarde");
+            }
+            Log.w(TAG, "Google signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    @Override
+    public void onLoginWithGoogleSuccess(Usuario usuario) {
+        txtConnectWithGoogle.setVisibility(View.GONE);
+        showMessage("Su cuenta ha sido vinculada correctamente");
+    }
+
+    @Override
+    public void onLoginWithGoogleError(String message) {
+        showMessage(message);
+    }
+
+    @Override
+    protected void onStop() {
+        loginWithGoogle.onStop();
+        super.onStop();
     }
 }

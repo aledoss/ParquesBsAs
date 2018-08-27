@@ -20,9 +20,8 @@ import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
 import com.example.ndiaz.parquesbsas.ui.dialogs.RecuperarContraseniaDialogFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
@@ -43,8 +42,6 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     private String email, password;
     private ViewHelper loginCreateViewHelper;
-    private GoogleSignInOptions googleSignInOptions;
-    private GoogleSignInClient mGoogleSignInClient;
 
     @OnClick(R.id.btnIniciar_Sesion)
     public void onClickIniciarSesion() {
@@ -164,8 +161,9 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             doLoginWithGoogle(account);
         } catch (ApiException e) {
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            showMessage("No se pudo iniciar sesión. Intentelo nuevamente más tarde");
+            if (e.getStatusCode() != CommonStatusCodes.ERROR) {
+                showMessage("No se pudo iniciar sesión. Intentelo nuevamente más tarde");
+            }
             Log.w(TAG, "Google signInResult:failed code=" + e.getStatusCode());
         }
     }

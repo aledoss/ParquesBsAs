@@ -111,6 +111,7 @@ public class SplashScreenActivity extends BaseActivity<SplashScreenContract.Pres
     protected void onStop() {
         presenter.onStop();
         super.onStop();
+        finish();
     }
 
 }

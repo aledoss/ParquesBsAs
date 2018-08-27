@@ -46,7 +46,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void doAutoLogin() {
         interactor.getLoginData(usuario -> {
-            if (usuario.getEmail() != null && !usuario.getEmail().isEmpty())
+            if (usuario.getEmail() != null && !usuario.getEmail().isEmpty()
+                    && usuario.getPassword() != null && !usuario.getPassword().isEmpty())
                 doLogin(usuario, false);
         });
     }

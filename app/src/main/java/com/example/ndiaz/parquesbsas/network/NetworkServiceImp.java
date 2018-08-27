@@ -215,4 +215,10 @@ public class NetworkServiceImp {
                 .getClient()
                 .loginWithGoogle(usuario);
     }
+
+    public Single<NetworkResponse<Usuario>> vinculateWithGoogle(Usuario usuario) {
+        return retrofitService
+                .getClient()
+                .vinculateWithGoogle(usuario);
+    }
 }

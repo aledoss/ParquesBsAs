@@ -124,4 +124,6 @@ interface RetrofitApi {
     @POST("ParquesApi/loginWithGoogle")
     Single<NetworkResponse<Usuario>> loginWithGoogle(@Body Usuario usuario);
 
+    @POST("ParquesApi/vinculateWithGoogle")
+    Single<NetworkResponse<Usuario>> vinculateWithGoogle(@Body Usuario usuario);
 }
