@@ -31,12 +31,6 @@ android {
             buildConfigField "String", "IMAGENES_PARQUES_URL", '"http://192.168.0.100/nico/public/img/parques/"'
         }
 
-        debugProd {
-            buildConfigField "String", "BASE_URL", '"http://afternoon-hamlet-13828.herokuapp.com/"'
-            buildConfigField "String", "API_URL", '"http://afternoon-hamlet-13828.herokuapp.com/index.php/"'
-            buildConfigField "String", "IMAGENES_PARQUES_URL", '"http://afternoon-hamlet-13828.herokuapp.com/public/img/parques/"'
-        }
-
         release {
             buildConfigField "String", "BASE_URL", '"http://afternoon-hamlet-13828.herokuapp.com/"'
             buildConfigField "String", "API_URL", '"http://afternoon-hamlet-13828.herokuapp.com/index.php/"'
