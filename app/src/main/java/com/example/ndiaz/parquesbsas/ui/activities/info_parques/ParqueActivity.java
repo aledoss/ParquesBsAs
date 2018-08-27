@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.ndiaz.parquesbsas.BuildConfig;
 import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ParqueContract;
@@ -29,7 +30,6 @@ import java.util.List;
 import butterknife.BindView;
 
 import static com.example.ndiaz.parquesbsas.constants.Constants.PARQUEDETALLES;
-import static com.example.ndiaz.parquesbsas.constants.NetworkUrls.IMAGENES_PARQUES_URL;
 
 public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> implements ParqueContract.View {
 
@@ -88,7 +88,7 @@ public class ParqueActivity extends BaseActivity<ParqueContract.Presenter> imple
     private void cargarImagen() {
         try {
             Picasso.with(this)
-                    .load(IMAGENES_PARQUES_URL + parque.getImagenAndroid())
+                    .load(BuildConfig.IMAGENES_PARQUES_URL + parque.getImagenAndroid())
                     .error(R.drawable.place_holder_parque)
                     .placeholder(R.drawable.place_holder_parque)
                     .into(imgParque);
