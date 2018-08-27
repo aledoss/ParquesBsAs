@@ -18,10 +18,6 @@ public class ReclamosParqueAdapter extends RecyclerView.Adapter<ReclamosParqueAd
 
     private List<Reclamo> reclamos;
 
-    public ReclamosParqueAdapter(List<Reclamo> reclamos) {
-        this.reclamos = reclamos;
-    }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_reclamo_parque,
@@ -39,7 +35,7 @@ public class ReclamosParqueAdapter extends RecyclerView.Adapter<ReclamosParqueAd
 
     @Override
     public int getItemCount() {
-        return reclamos.size();
+        return reclamos != null ? reclamos.size() : 0;
     }
 
     public Reclamo getItem(int position) {

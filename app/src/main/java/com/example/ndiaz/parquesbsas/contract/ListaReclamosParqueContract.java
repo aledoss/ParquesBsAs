@@ -11,8 +11,6 @@ import java.util.List;
 public interface ListaReclamosParqueContract {
 
     interface View extends BaseView {
-        void showReclamos(List<Reclamo> reclamos);
-
         void showMessage(String message);
 
         void showEmptyContainer();
@@ -21,7 +19,7 @@ public interface ListaReclamosParqueContract {
     }
 
     interface Presenter extends BasePresenter {
-        void doGetReclamos(int idParque, boolean refreshData);
+        void doGetReclamos(int idParque);
     }
 
     interface Interactor extends BaseInteractor {

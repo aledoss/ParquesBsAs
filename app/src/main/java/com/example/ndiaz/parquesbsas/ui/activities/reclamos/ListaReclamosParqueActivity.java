@@ -59,13 +59,14 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         obtenerDatos();
         setupToolbar();
         initializeViews();
-        presenter.doGetReclamos(idParque, false);
+        presenter.doGetReclamos(idParque);
     }
 
     private void initializeViews() {
         if (getUsuario() != null) {
             fabAgregarReclamo.setVisibility(View.VISIBLE);
         }
+        initializeReclamosAdapter();
     }
 
     private void setupToolbar() {
@@ -89,14 +90,10 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         return new ListaReclamosParquePresenter(this, interactor);
     }
 
-    @Override
-    public void showReclamos(List<Reclamo> reclamos) {
-        if (adapter == null) {
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-            rvReclamosParque.setLayoutManager(mLayoutManager);
-            adapter = new ReclamosParqueAdapter(reclamos);
-        }
-
+    public void initializeReclamosAdapter() {
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        rvReclamosParque.setLayoutManager(mLayoutManager);
+        adapter = new ReclamosParqueAdapter();
         rvReclamosParque.setAdapter(adapter);
     }
 
@@ -110,8 +107,7 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
         if (requestCode == AgregarReclamoActivity.RESULT_CODE_RECLAMO) {
             if (data != null) {
                 showMessage(data.getStringExtra(MESSAGE));
-                presenter.doGetReclamos(idParque, true);
-                adapter.notifyDataSetChanged();
+                presenter.doGetReclamos(idParque);
             }
         } else if (requestCode == AgregarReclamoActivity.RESULT_CODE_SIN_DOCUMENTO) {
             showSinDocumentoMessage();
@@ -130,7 +126,11 @@ public class ListaReclamosParqueActivity extends BaseActivity<ListaReclamosParqu
 
     @Override
     public void refreshReclamos(List<Reclamo> reclamos) {
-        adapter.setItemList(reclamos);
-        adapter.notifyDataSetChanged();
+        if (reclamos != null & !reclamos.isEmpty()){
+            adapter.setItemList(reclamos);
+            adapter.notifyDataSetChanged();
+            emptyContainer.setVisibility(View.GONE);
+            rvReclamosParque.setVisibility(View.VISIBLE);
+        }
     }
 }

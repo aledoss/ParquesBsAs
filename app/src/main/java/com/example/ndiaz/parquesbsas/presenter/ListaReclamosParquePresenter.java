@@ -20,15 +20,11 @@ public class ListaReclamosParquePresenter extends BasePresenterImp implements
     }
 
     @Override
-    public void doGetReclamos(int idParque, final boolean refreshData) {
+    public void doGetReclamos(int idParque) {
         reclamosParqueInteractor.getReclamos(idParque, new BaseCallback<List<Reclamo>>() {
             @Override
             public void onSuccess(List<Reclamo> reclamos) {
-                if (!refreshData) {
-                    reclamosParqueView.get().showReclamos(reclamos);
-                } else {
-                    reclamosParqueView.get().refreshReclamos(reclamos);
-                }
+                reclamosParqueView.get().refreshReclamos(reclamos);
             }
 
             @Override
