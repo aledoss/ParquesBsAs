@@ -49,4 +49,19 @@ public class ListaParquesPresenter extends BasePresenterImp implements ListaParq
             }
         });
     }
+
+    @Override
+    public void doGetParque(Integer idParque) {
+        listaParquesInteractor.getParque(idParque, new BaseCallback<Parque>() {
+            @Override
+            public void onSuccess(Parque parque) {
+                listaParquesView.get().navigateToParqueDetails(parque);
+            }
+
+            @Override
+            public void onError(String message) {
+                listaParquesView.get().showMessage(message);
+            }
+        });
+    }
 }

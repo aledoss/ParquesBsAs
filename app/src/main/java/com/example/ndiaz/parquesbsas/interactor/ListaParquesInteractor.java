@@ -4,7 +4,9 @@ import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.contract.ListaParquesContract;
+import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Parque;
+import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -21,9 +23,11 @@ import io.reactivex.schedulers.Schedulers;
 public class ListaParquesInteractor extends BaseInteractorImp implements ListaParquesContract.Interactor {
 
     private static final String TAG = ListaParquesInteractor.class.getSimpleName();
+    private NetworkServiceImp networkServiceImp;
     private RXDBInteractor rxdbInteractor;
 
-    public ListaParquesInteractor(RXDBInteractor rxdbInteractor) {
+    public ListaParquesInteractor(NetworkServiceImp networkServiceImp, RXDBInteractor rxdbInteractor) {
+        this.networkServiceImp = networkServiceImp;
         this.rxdbInteractor = rxdbInteractor;
     }
 
@@ -48,6 +52,30 @@ public class ListaParquesInteractor extends BaseInteractorImp implements ListaPa
                     public void onError(Throwable e) {
                         callback.onError(e.getMessage());
                         Log.e(TAG, "getParques onError:", e);
+                    }
+                });
+    }
+
+    @Override
+    public void getParque(Integer idParque, BaseCallback<Parque> callback) {
+        networkServiceImp
+                .getParque(idParque)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<NetworkResponse<Parque>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(NetworkResponse<Parque> parqueNetworkResponse) {
+                        onSuccessDefault(parqueNetworkResponse, TAG, "getParque", callback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorDefault(e, TAG, "getParque", callback);
                     }
                 });
     }

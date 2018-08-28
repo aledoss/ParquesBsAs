@@ -59,7 +59,8 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
 
     @Override
     protected ListaParquesContract.Presenter createPresenter() {
-        ListaParquesInteractor interactor = new ListaParquesInteractor(getRxdbInteractor());
+        ListaParquesInteractor interactor = new ListaParquesInteractor(getNetworkServiceImp(),
+                getRxdbInteractor());
 
         return new ListaParquesPresenter(this, interactor);
     }
@@ -70,18 +71,15 @@ public class ListaParquesActivity extends BaseActivity<ListaParquesContract.Pres
             rvParques.setLayoutManager(mLayoutManager);
             rvParques.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             adapter = new ParquesAdapter();
-            rvParques.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    navigateToParqueDetails(adapter.getItemList().get(position));
-                }
-            }));
+            rvParques.addOnItemTouchListener(new RecyclerItemClickListener(this,
+                    (view, position) -> presenter.doGetParque(adapter.getItemList().get(position).getIdParque())));
         }
 
         rvParques.setAdapter(adapter);
     }
 
-    private void navigateToParqueDetails(Parque parque) {
+    @Override
+    public void navigateToParqueDetails(Parque parque) {
         Intent intent = new Intent(ListaParquesActivity.this, ParqueActivity.class);
         intent.putExtra(PARQUEDETALLES, parque);
         startActivity(intent);
