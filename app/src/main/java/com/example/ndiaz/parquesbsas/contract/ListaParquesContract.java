@@ -16,18 +16,24 @@ public interface ListaParquesContract {
         void showParques(List<Parque> parques, boolean refreshData);
 
         void showMessage(String message);
+
+        void navigateToParqueDetails(Parque parque);
     }
 
     interface Presenter extends BasePresenter {
         void doGetParques();
 
         void doGetParquesFiltered(List<Parque> itemList, String newText);
+
+        void doGetParque(Integer idParque);
     }
 
     interface Interactor extends BaseInteractor {
         void getParques(BaseCallback<List<Parque>> callback);
 
         void getParquesFiltered(List<Parque> itemList, String newText, BaseCallback<List<Parque>> callback);
+
+        void getParque(Integer idParque, BaseCallback<Parque> callback);
     }
 
 }

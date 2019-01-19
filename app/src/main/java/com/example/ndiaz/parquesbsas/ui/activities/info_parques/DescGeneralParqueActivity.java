@@ -237,8 +237,8 @@ public class DescGeneralParqueActivity extends BaseActivity<DescGralContract.Pre
 
     @Override
     protected void onStop() {
-        super.onStop();
         updateParqueInstanceLikes();
+        super.onStop();
     }
 
     private void updateParqueInstanceLikes() {
