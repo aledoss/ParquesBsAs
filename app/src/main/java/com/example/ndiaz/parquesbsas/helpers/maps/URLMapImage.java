@@ -1,5 +1,8 @@
 package com.example.ndiaz.parquesbsas.helpers.maps;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
+import com.example.ndiaz.parquesbsas.R;
+
 public class URLMapImage {
 
     private static final String BEGINING_URL = "https://maps.googleapis.com/maps/api/staticmap?center=";
@@ -23,8 +26,8 @@ public class URLMapImage {
 
     public String getUrl() {
         return BEGINING_URL + latitudMarker + "," + longitudMarker + "&zoom=" + zoom + "&size=" +
-                width + "x" + height + "&key&markers=color:red%7Clabel:A%7C" + latitudMarker + "," +
-                longitudMarker;
+                width + "x" + height + "&markers=color:red%7Clabel:A%7C" + latitudMarker + "," +
+                longitudMarker + "&key=" + ParquesApplication.getInstance().getApplicationContext().getString(R.string.google_maps_key);
     }
 
     public static String getBeginingUrl() {
