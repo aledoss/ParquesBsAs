@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.dialogs;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -14,6 +15,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +27,9 @@ public class EstadisticasEncuestasDialogFragment extends DialogFragment {
     private PieChart chart;
 
     public static EstadisticasEncuestasDialogFragment newInstance(Encuesta encuesta, Calificacion calificacion) {
-
         EstadisticasEncuestasDialogFragment fragment = new EstadisticasEncuestasDialogFragment();
         fragment.encuesta = encuesta;
         fragment.calificacion = calificacion;
-
         return fragment;
     }
 
@@ -46,8 +46,14 @@ public class EstadisticasEncuestasDialogFragment extends DialogFragment {
     }
 
     private void initializeChart(View view) {
-        // TODO: 17/06/2018 Mejorar estilo
         chart = view.findViewById(R.id.estadisticasEncuestasChart);
+        chart.setUsePercentValues(true);
+        chart.getDescription().setEnabled(false);
+        chart.setExtraOffsets(5, 10, 5, 5);
+        chart.setDragDecelerationFrictionCoef(0.95f);
+        chart.setDrawHoleEnabled(false);
+        chart.setHoleColor(Color.WHITE);
+        chart.setTransparentCircleRadius(61f);
 
         List<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry(calificacion.getPorcBueno(), "Bueno"));
@@ -55,12 +61,14 @@ public class EstadisticasEncuestasDialogFragment extends DialogFragment {
         entries.add(new PieEntry(calificacion.getPorcMalo(), "Malo"));
 
         PieDataSet dataSet = new PieDataSet(entries, "Calificaciones");
-        PieData data = new PieData(dataSet);
-        chart.setData(data);
-        chart.setUsePercentValues(true);
-        chart.setDrawSlicesUnderHole(true);
-        chart.setEntryLabelTextSize(14f);
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
-        chart.invalidate(); // refresh
+        PieData data = new PieData(dataSet);
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.YELLOW);
+
+        chart.setData(data);
     }
 }
