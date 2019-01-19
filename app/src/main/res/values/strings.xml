@@ -26,7 +26,7 @@
     <string name="DatosVacios">Campos obligatorios sin completar</string>
     <string name="nombreHint">Nombre</string>
     <string name="apellidoHint">Apellido</string>
-    <string name="DNIHint">Documento</string>
+    <string name="NumberHint">Numero</string>
     <string name="EmailExistente">Email existente</string>
     <string name="DatosIncorrectos">Datos incorrectos</string>
 

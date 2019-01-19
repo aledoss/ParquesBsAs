@@ -88,7 +88,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="50"
                     android:background="#87000000"
-                    android:hint="@string/DNIHint"
+                    android:hint="@string/NumberHint"
                     android:inputType="text"
                     android:maxLength="@integer/max_cant_caracteres_documento"
                     android:maxLines="1"

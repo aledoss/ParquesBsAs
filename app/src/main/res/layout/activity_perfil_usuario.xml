@@ -106,7 +106,7 @@
         android:layout_marginStart="@dimen/up_default_margin"
         android:background="@android:color/transparent"
         android:enabled="false"
-        android:hint="@string/DNIHint"
+        android:hint="@string/NumberHint"
         android:inputType="textCapWords"
         android:maxLength="@integer/max_cant_caracteres_documento"
         android:maxLines="1"
