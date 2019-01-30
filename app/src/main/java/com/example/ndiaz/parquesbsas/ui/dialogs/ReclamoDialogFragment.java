@@ -1,7 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.dialogs;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -12,16 +12,17 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.ndiaz.parquesbsas.BuildConfig;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.helpers.maps.IntentMap;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
+import com.example.ndiaz.parquesbsas.ui.activities.reclamos.ImagenReclamoActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.example.ndiaz.parquesbsas.model.Reclamo.DEFAULT_LAT_LNG_VALUE;
-import static com.example.ndiaz.parquesbsas.model.Reclamo.RECLAMO_KEY;
 
 public class ReclamoDialogFragment extends DialogFragment {
 
@@ -41,13 +42,8 @@ public class ReclamoDialogFragment extends DialogFragment {
     private IntentMap intentMap;
 
     public static ReclamoDialogFragment newInstance(Reclamo reclamo) {
-
-        Bundle args = new Bundle();
-
         ReclamoDialogFragment fragment = new ReclamoDialogFragment();
-        args.putParcelable(RECLAMO_KEY, reclamo);
-        fragment.setArguments(args);
-
+        fragment.reclamo = reclamo;
         return fragment;
     }
 
@@ -64,27 +60,37 @@ public class ReclamoDialogFragment extends DialogFragment {
     }
 
     private void initializeVariables() {
-        Bundle bundle = getArguments();
-        reclamo = bundle.getParcelable(RECLAMO_KEY);
         intentMap = new IntentMap(getContext());
     }
 
     private void initializeButtons(AlertDialog.Builder builder) {
-        // TODO: 13/02/2018 Los listeners de las acciones del botón
         if (!reclamo.getImagen().isEmpty()) {
-            builder.setPositiveButton(getString(R.string.image), null);
+            builder.setPositiveButton(R.string.image,
+                    (dialog, which) -> ImagenReclamoActivity.newIntent(getContext(), reclamo.getImagen()));
         }
 
         if (!reclamo.getLatitud().isEmpty() && !reclamo.getLatitud().equalsIgnoreCase(DEFAULT_LAT_LNG_VALUE)) {
-            builder.setNegativeButton(getString(R.string.map), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    intentMap.navigateToMapsWithMarker(reclamo.getLatitud(), reclamo.getLongitud(), reclamo.getNombre());
-                }
-            });
+            builder.setNegativeButton(R.string.map,
+                    (dialog, which) -> intentMap.navigateToMapsWithMarker(reclamo.getLatitud(), reclamo.getLongitud(), reclamo.getNombre()));
         }
 
-        builder.setNeutralButton(getString(R.string.share), null);
+        builder.setNeutralButton(R.string.share, ((dialog, which) -> shareReclamo()));
+    }
+
+    private void shareReclamo() {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getTextToShare());
+        shareIntent.setType("text/plain");
+        startActivity(Intent.createChooser(shareIntent, "Compartir reclamo"));
+    }
+
+    private String getTextToShare() {
+        return "Realicé mi reclamo mediante la app Parques BsAs" +
+                "Parque: " + reclamo.getNombreParque() +
+                ", Reclamo: " + reclamo.getNombre() +
+                ", Comentarios: " + reclamo.getComentarios() +
+                ". Realizá el tuyo ingresando a: " + BuildConfig.HOME_URL;
     }
 
     private void initializeViews() {

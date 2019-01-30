@@ -29,12 +29,14 @@ android {
             buildConfigField "String", "BASE_URL", '"http://afternoon-hamlet-13828.herokuapp.com/"'
             buildConfigField "String", "API_URL", '"http://afternoon-hamlet-13828.herokuapp.com/index.php/"'
             buildConfigField "String", "IMAGENES_PARQUES_URL", '"http://afternoon-hamlet-13828.herokuapp.com/public/img/parques/"'
+            buildConfigField "String", "HOME_URL", '"www.google.com.ar"'
         }
 
         release {
             buildConfigField "String", "BASE_URL", '"http://afternoon-hamlet-13828.herokuapp.com/"'
             buildConfigField "String", "API_URL", '"http://afternoon-hamlet-13828.herokuapp.com/index.php/"'
             buildConfigField "String", "IMAGENES_PARQUES_URL", '"http://afternoon-hamlet-13828.herokuapp.com/public/img/parques/"'
+            buildConfigField "String", "HOME_URL", '"www.google.com.ar"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -65,7 +67,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$PLAY_SERVICES_VERSION"
     implementation "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
     implementation "com.google.android.gms:play-services-auth:$PLAY_SERVICES_VERSION"
-    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
 
     //Butterknife
     implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"

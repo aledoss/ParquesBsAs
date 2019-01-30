@@ -24,8 +24,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activities.LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.SplashScreenActivity"
             android:screenOrientation="portrait">
@@ -82,6 +81,7 @@
         <activity
             android:name=".ui.activities.info_parques.FiltroParqueActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.reclamos.ImagenReclamoActivity" />
     </application>
 
 </manifest>
