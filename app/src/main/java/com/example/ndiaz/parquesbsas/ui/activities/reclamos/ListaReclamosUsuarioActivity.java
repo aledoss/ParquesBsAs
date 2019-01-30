@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
-import com.example.ndiaz.parquesbsas.helpers.recyclerview.RecyclerItemClickListener;
 import com.example.ndiaz.parquesbsas.interactor.ListaReclamosUsuarioInteractor;
+import com.example.ndiaz.parquesbsas.listeners.OnReclamoListenerClick;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.ListaReclamosUsuarioPresenter;
@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsuarioContract.Presenter>
-        implements ListaReclamosUsuarioContract.View, SwipeRefreshLayout.OnRefreshListener {
+        implements ListaReclamosUsuarioContract.View, SwipeRefreshLayout.OnRefreshListener, OnReclamoListenerClick {
 
     @BindView(R.id.toolbar_lista_reclamos_usuario)
     Toolbar toolbar;
@@ -48,6 +48,11 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
         initializeVariables();
         initializeViews();
         setupToolbar();
+        callGetReclamosConFechas(false);
+    }
+
+    @Override
+    public void callGetReclamosConFechas(boolean refreshData) {
         presenter.doGetReclamosConFechas(usuario.getId(), false);
     }
 
@@ -78,14 +83,7 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             rvReclamosUsuario.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             rvReclamosUsuario.setLayoutManager(mLayoutManager);
-            rvReclamosUsuario.addOnItemTouchListener(new RecyclerItemClickListener(this, (view, position) -> {
-                ReclamoFecha reclamoFecha = adapter.getItem(position);
-                if (reclamoFecha.getReclamo() != null) {
-                    ReclamoDialogFragment dialog = ReclamoDialogFragment.newInstance(reclamoFecha.getReclamo());
-                    dialog.show(getSupportFragmentManager(), ReclamoDialogFragment.class.getSimpleName());
-                }
-            }));
-            adapter = new ReclamosUsuarioAdapter(reclamosFechas);
+            adapter = new ReclamosUsuarioAdapter(this, reclamosFechas, this);
         }
 
         rvReclamosUsuario.setAdapter(adapter);
@@ -110,11 +108,24 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
 
     @Override
     public void onRefresh() {
-        presenter.doGetReclamosConFechas(usuario.getId(), true);
+        callGetReclamosConFechas(true);
     }
 
     @Override
     public void hideSwipeRefresh() {
         swipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onDelete(int idReclamo) {
+        presenter.doDeleteReclamo(idReclamo);
+    }
+
+    @Override
+    public void onClick(ReclamoFecha reclamoFecha) {
+        if (reclamoFecha.getReclamo() != null) {
+            ReclamoDialogFragment dialog = ReclamoDialogFragment.newInstance(reclamoFecha.getReclamo());
+            dialog.show(getSupportFragmentManager(), ReclamoDialogFragment.class.getSimpleName());
+        }
     }
 }

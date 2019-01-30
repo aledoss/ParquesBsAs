@@ -221,4 +221,10 @@ public class NetworkServiceImp {
                 .getClient()
                 .vinculateWithGoogle(usuario);
     }
+
+    public Single<NetworkResponse> deleteReclamo(int idReclamo) {
+        return retrofitService
+                .getClient()
+                .deleteReclamo(idReclamo);
+    }
 }

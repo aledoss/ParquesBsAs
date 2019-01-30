@@ -126,4 +126,7 @@ interface RetrofitApi {
 
     @POST("ParquesApi/vinculateWithGoogle")
     Single<NetworkResponse<Usuario>> vinculateWithGoogle(@Body Usuario usuario);
+
+    @POST("ParquesApi/deleteReclamo")
+    Single<NetworkResponse> deleteReclamo(@Body int idReclamo);
 }

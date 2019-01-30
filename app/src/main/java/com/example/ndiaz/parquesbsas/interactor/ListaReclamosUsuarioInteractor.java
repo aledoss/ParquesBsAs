@@ -3,6 +3,7 @@ package com.example.ndiaz.parquesbsas.interactor;
 import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
 import com.example.ndiaz.parquesbsas.helpers.ReclamoFechaBuilder;
@@ -62,5 +63,30 @@ public class ListaReclamosUsuarioInteractor extends BaseInteractorImp
                         Log.e(TAG, "getReclamosFecha, onError: " + message);
                     }
                 });
+    }
+
+    @Override
+    public void deleteReclamo(int idReclamo, EmptyCallback emptyCallback) {
+        networkServiceImp
+                .deleteReclamo(idReclamo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<NetworkResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(NetworkResponse networkResponse) {
+                        onSuccessEmpty(networkResponse, TAG, "deleteReclamo", emptyCallback);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onErrorEmpty(e, TAG, "deleteReclamo", emptyCallback);
+                    }
+                });
+
     }
 }

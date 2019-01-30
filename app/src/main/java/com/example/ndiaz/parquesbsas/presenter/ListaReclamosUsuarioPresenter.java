@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.presenter;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
+import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
@@ -39,6 +40,24 @@ public class ListaReclamosUsuarioPresenter extends BasePresenterImp implements
             @Override
             public void onError(String message) {
                 view.get().showEmptyContainer();
+            }
+        });
+    }
+
+    @Override
+    public void doDeleteReclamo(int idReclamo) {
+        view.get().showProgressDialog();
+        interactor.deleteReclamo(idReclamo, new EmptyCallback() {
+            @Override
+            public void onSuccess() {
+                view.get().hideProgressDialog();
+                view.get().callGetReclamosConFechas(true);
+            }
+
+            @Override
+            public void onError(String message) {
+                view.get().hideProgressDialog();
+                view.get().showMessage(message);
             }
         });
     }
