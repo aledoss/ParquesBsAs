@@ -109,6 +109,7 @@ public class HomeInteractor extends BaseInteractorImp implements HomeContract.In
 
                     @Override
                     public void onError(Throwable e) {
+                        // TODO: 16/08/2018   verifyConnection(e); // e instanceOf SocketTimeoutException
                         callback.onError(e.getMessage());
                         Log.e(TAG, "getParqueNetwork, onError: " + e.getMessage());
                     }

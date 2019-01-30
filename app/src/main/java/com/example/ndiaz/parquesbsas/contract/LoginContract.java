@@ -16,8 +16,6 @@ public interface LoginContract {
 
         void showLoginError(String message);
 
-        void hideKeyboard();
-
         void onAutoLoginEnabled(Boolean autoLoginEnabled);
     }
 

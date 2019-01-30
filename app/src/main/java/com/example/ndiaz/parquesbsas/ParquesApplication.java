@@ -2,7 +2,6 @@ package com.example.ndiaz.parquesbsas;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 
 import com.example.ndiaz.parquesbsas.constants.PassConstants;
@@ -43,7 +42,7 @@ public class ParquesApplication extends Application {
         loggedWithGoogle = false;
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
-            StrictMode.enableDefaults();
+//            StrictMode.enableDefaults();
         }
     }
 
