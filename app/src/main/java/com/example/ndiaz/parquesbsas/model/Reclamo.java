@@ -11,6 +11,8 @@ public class Reclamo implements Parcelable {
 
     public static final String RECLAMO_KEY = "ReclamoKey";
     public static final String DEFAULT_LAT_LNG_VALUE = "0.0";
+    @JsonProperty("id_urp")
+    private int idReclamoUsuarioParque;
     @JsonProperty("id_reclamo")
     private int idReclamo;
     @JsonProperty("id_parque")
@@ -40,6 +42,14 @@ public class Reclamo implements Parcelable {
 
     public Reclamo() {
         //Required for parcelable
+    }
+
+    public int getIdReclamoUsuarioParque() {
+        return idReclamoUsuarioParque;
+    }
+
+    public void setIdReclamoUsuarioParque(int idReclamoUsuarioParque) {
+        this.idReclamoUsuarioParque = idReclamoUsuarioParque;
     }
 
     public int getIdReclamo() {
@@ -164,6 +174,7 @@ public class Reclamo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.idReclamoUsuarioParque);
         dest.writeInt(this.idReclamo);
         dest.writeValue(this.idParque);
         dest.writeValue(this.idUsuario);
@@ -180,6 +191,7 @@ public class Reclamo implements Parcelable {
     }
 
     protected Reclamo(Parcel in) {
+        this.idReclamoUsuarioParque = in.readInt();
         this.idReclamo = in.readInt();
         this.idParque = (Integer) in.readValue(Integer.class.getClassLoader());
         this.idUsuario = (Integer) in.readValue(Integer.class.getClassLoader());

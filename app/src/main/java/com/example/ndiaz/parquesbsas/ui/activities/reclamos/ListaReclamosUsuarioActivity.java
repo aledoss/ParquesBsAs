@@ -117,8 +117,8 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
     }
 
     @Override
-    public void onDelete(int idReclamo) {
-        presenter.doDeleteReclamo(idReclamo);
+    public void onDelete(int idUsuarioReclamoParque) {
+        presenter.doDeleteReclamo(idUsuarioReclamoParque);
     }
 
     @Override

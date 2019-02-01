@@ -1,7 +1,6 @@
 package com.example.ndiaz.parquesbsas.presenter;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
-import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
@@ -45,13 +44,14 @@ public class ListaReclamosUsuarioPresenter extends BasePresenterImp implements
     }
 
     @Override
-    public void doDeleteReclamo(int idReclamo) {
+    public void doDeleteReclamo(int idUsuarioReclamoParque) {
         view.get().showProgressDialog();
-        interactor.deleteReclamo(idReclamo, new EmptyCallback() {
+        interactor.deleteReclamo(idUsuarioReclamoParque, new BaseCallback<String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String message) {
                 view.get().hideProgressDialog();
                 view.get().callGetReclamosConFechas(true);
+                view.get().showMessage(message);
             }
 
             @Override

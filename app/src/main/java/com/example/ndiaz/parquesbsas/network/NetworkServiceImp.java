@@ -222,9 +222,9 @@ public class NetworkServiceImp {
                 .vinculateWithGoogle(usuario);
     }
 
-    public Single<NetworkResponse> deleteReclamo(int idReclamo) {
+    public Single<NetworkResponse<String>> deleteReclamo(Reclamo reclamo) {
         return retrofitService
                 .getClient()
-                .deleteReclamo(idReclamo);
+                .deleteReclamo(reclamo);
     }
 }

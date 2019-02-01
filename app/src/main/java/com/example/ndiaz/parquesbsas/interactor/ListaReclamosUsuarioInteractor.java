@@ -3,7 +3,6 @@ package com.example.ndiaz.parquesbsas.interactor;
 import android.util.Log;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
-import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.ListaReclamosUsuarioContract;
 import com.example.ndiaz.parquesbsas.helpers.ReclamoFechaBuilder;
@@ -66,25 +65,27 @@ public class ListaReclamosUsuarioInteractor extends BaseInteractorImp
     }
 
     @Override
-    public void deleteReclamo(int idReclamo, EmptyCallback emptyCallback) {
+    public void deleteReclamo(int idUsuarioReclamoParque, BaseCallback<String> callback) {
+        Reclamo reclamo = new Reclamo();
+        reclamo.setIdReclamoUsuarioParque(idUsuarioReclamoParque);
         networkServiceImp
-                .deleteReclamo(idReclamo)
+                .deleteReclamo(reclamo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new SingleObserver<NetworkResponse>() {
+                .subscribe(new SingleObserver<NetworkResponse<String>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         addDisposable(d);
                     }
 
                     @Override
-                    public void onSuccess(NetworkResponse networkResponse) {
-                        onSuccessEmpty(networkResponse, TAG, "deleteReclamo", emptyCallback);
+                    public void onSuccess(NetworkResponse<String> networkResponse) {
+                        onSuccessDefault(networkResponse, TAG, "deleteReclamo", callback);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        onErrorEmpty(e, TAG, "deleteReclamo", emptyCallback);
+                        onErrorDefault(e, TAG, "deleteReclamo", callback);
                     }
                 });
 

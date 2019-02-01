@@ -1,7 +1,6 @@
 package com.example.ndiaz.parquesbsas.contract;
 
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
-import com.example.ndiaz.parquesbsas.callbacks.EmptyCallback;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseInteractor;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BasePresenter;
 import com.example.ndiaz.parquesbsas.contract.basecontract.BaseView;
@@ -34,7 +33,7 @@ public interface ListaReclamosUsuarioContract {
     interface Interactor extends BaseInteractor {
         void getReclamosFecha(int idUsuario, BaseCallback<List<ReclamoFecha>> callback);
 
-        void deleteReclamo(int idReclamo, EmptyCallback emptyCallback);
+        void deleteReclamo(int idReclamo, BaseCallback<String> callback);
     }
 
 }

@@ -74,16 +74,16 @@ public class ReclamosUsuarioAdapter extends RecyclerView.Adapter<ReclamosUsuario
         } else {
             holder.txtDescReclamo.setText(reclamoFecha.getReclamo().getNombre());
             holder.txtNombreParque.setText(reclamoFecha.getReclamo().getNombreParque());
-            holder.deleteReclamo.setOnClickListener(V -> showDialogDeleteReclamo(reclamoFecha.getReclamo().getIdReclamo()));
+            holder.deleteReclamo.setOnClickListener(V -> showDialogDeleteReclamo(reclamoFecha.getReclamo().getIdReclamoUsuarioParque()));
             holder.itemView.setOnClickListener(v -> listener.onClick(reclamoFecha));
             viewHelper.changeXMLViewColor(holder.viewEstadoReclamo, reclamoFecha.getReclamo().getColorEstado());
         }
     }
 
-    private void showDialogDeleteReclamo(int idReclamo) {
+    private void showDialogDeleteReclamo(int idURP) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.delete_reclamo)
-                .setPositiveButton(R.string.dialog_delete, (dialog, which) -> listener.onDelete(idReclamo))
+                .setPositiveButton(R.string.dialog_delete, (dialog, which) -> listener.onDelete(idURP))
                 .setNegativeButton(R.string.dialog_cancel, null)
                 .setCancelable(false)
                 .show();
