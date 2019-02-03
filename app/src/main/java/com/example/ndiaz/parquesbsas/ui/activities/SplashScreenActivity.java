@@ -12,6 +12,7 @@ import com.example.ndiaz.parquesbsas.contract.SplashScreenContract;
 import com.example.ndiaz.parquesbsas.interactor.SplashScreenInteractor;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.SplashScreenPresenter;
+import com.example.ndiaz.parquesbsas.repositories.UserDataRepository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -70,7 +71,8 @@ public class SplashScreenActivity extends BaseActivity<SplashScreenContract.Pres
     @Override
     protected SplashScreenContract.Presenter createPresenter() {
         SplashScreenContract.Interactor interactor = new SplashScreenInteractor(
-                getDefaultDefaultPreferencesRepository(), getNetworkServiceImp());
+                getDefaultDefaultPreferencesRepository(), getNetworkServiceImp(),
+                new UserDataRepository(getDefaultDefaultPreferencesRepository()));
 
         return new SplashScreenPresenter(this, interactor);
     }

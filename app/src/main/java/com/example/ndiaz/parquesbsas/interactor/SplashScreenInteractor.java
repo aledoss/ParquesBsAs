@@ -8,6 +8,7 @@ import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
+import com.example.ndiaz.parquesbsas.repositories.UserDataRepository;
 
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -21,10 +22,13 @@ public class SplashScreenInteractor extends BaseInteractorImp implements SplashS
     private static final String TAG = SplashScreenInteractor.class.getSimpleName();
     private DefaultPreferencesRepository defaultPreferencesRepository;
     private NetworkServiceImp networkServiceImp;
+    private UserDataRepository userDataRepository;
 
-    public SplashScreenInteractor(DefaultPreferencesRepository defaultPreferencesRepository, NetworkServiceImp networkServiceImp) {
+    public SplashScreenInteractor(DefaultPreferencesRepository defaultPreferencesRepository
+            , NetworkServiceImp networkServiceImp, UserDataRepository userDataRepository) {
         this.defaultPreferencesRepository = defaultPreferencesRepository;
         this.networkServiceImp = networkServiceImp;
+        this.userDataRepository = userDataRepository;
     }
 
     @Override
@@ -57,13 +61,10 @@ public class SplashScreenInteractor extends BaseInteractorImp implements SplashS
         if (usuario != null) {
             callback.onSuccess(usuario);
         } else {
-            addDisposable(getUserEmail()
+            addDisposable(userDataRepository.getUserData()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(email -> getUserPassword()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(password -> callback.onSuccess(new Usuario(email, password))))
+                    .subscribe(callback::onSuccess)
             );
         }
 

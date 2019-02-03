@@ -17,6 +17,7 @@ import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
 import com.example.ndiaz.parquesbsas.listeners.OnRecuperarContraseniaListener;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.LoginPresenter;
+import com.example.ndiaz.parquesbsas.repositories.UserDataRepository;
 import com.example.ndiaz.parquesbsas.ui.dialogs.RecuperarContraseniaDialogFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -102,7 +103,8 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     @Override
     protected LoginContract.Presenter createPresenter() {
         LoginContract.Interactor loginInteractor = new LoginInteractor(
-                getDefaultDefaultPreferencesRepository(), networkServiceImp
+                getDefaultDefaultPreferencesRepository(), networkServiceImp,
+                new UserDataRepository(getDefaultDefaultPreferencesRepository())
         );
 
         return new LoginPresenter(this, loginInteractor);

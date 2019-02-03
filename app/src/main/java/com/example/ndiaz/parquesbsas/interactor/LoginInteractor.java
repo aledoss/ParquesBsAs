@@ -7,6 +7,7 @@ import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
+import com.example.ndiaz.parquesbsas.repositories.UserDataRepository;
 
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -20,10 +21,13 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
     private static final String TAG = LoginInteractor.class.getSimpleName();
     private DefaultPreferencesRepository defaultPreferencesRepository;
     private NetworkServiceImp networkServiceImp;
+    private UserDataRepository userDataRepository;
 
-    public LoginInteractor(DefaultPreferencesRepository defaultPreferencesRepository, NetworkServiceImp networkServiceImp) {
+    public LoginInteractor(DefaultPreferencesRepository defaultPreferencesRepository, NetworkServiceImp networkServiceImp,
+                           UserDataRepository userDataRepository) {
         this.defaultPreferencesRepository = defaultPreferencesRepository;
         this.networkServiceImp = networkServiceImp;
+        this.userDataRepository = userDataRepository;
     }
 
     @Override
@@ -52,8 +56,7 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
 
     @Override
     public void updateUserData(Usuario usuario) {
-        defaultPreferencesRepository.setUserEmail(usuario.getEmail());
-        defaultPreferencesRepository.setUserPassword(usuario.getPassword());
+        userDataRepository.saveUserData(usuario);
     }
 
     @Override
@@ -67,13 +70,10 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
 
     @Override
     public void getLoginData(SingleCallback<Usuario> callback) {
-        addDisposable(getUserEmail()
+        addDisposable(userDataRepository.getUserData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(email -> getUserPassword()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(password -> callback.onSuccess(new Usuario(email, password))))
+                .subscribe(callback::onSuccess)
         );
     }
 
