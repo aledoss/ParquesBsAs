@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.SplashScreenContract;
+import com.example.ndiaz.parquesbsas.helpers.CipherWrapper;
 import com.example.ndiaz.parquesbsas.interactor.SplashScreenInteractor;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.presenter.SplashScreenPresenter;
@@ -72,7 +73,7 @@ public class SplashScreenActivity extends BaseActivity<SplashScreenContract.Pres
     protected SplashScreenContract.Presenter createPresenter() {
         SplashScreenContract.Interactor interactor = new SplashScreenInteractor(
                 getDefaultDefaultPreferencesRepository(), getNetworkServiceImp(),
-                new UserDataRepository(getDefaultDefaultPreferencesRepository()));
+                new UserDataRepository(getDefaultDefaultPreferencesRepository(), new CipherWrapper()));
 
         return new SplashScreenPresenter(this, interactor);
     }

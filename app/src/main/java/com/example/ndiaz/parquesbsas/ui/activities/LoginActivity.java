@@ -12,6 +12,7 @@ import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.R;
 import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.edittextvalidator.usuario.UserFactoryEditText;
+import com.example.ndiaz.parquesbsas.helpers.CipherWrapper;
 import com.example.ndiaz.parquesbsas.helpers.ViewHelper;
 import com.example.ndiaz.parquesbsas.interactor.LoginInteractor;
 import com.example.ndiaz.parquesbsas.listeners.OnRecuperarContraseniaListener;
@@ -104,7 +105,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     protected LoginContract.Presenter createPresenter() {
         LoginContract.Interactor loginInteractor = new LoginInteractor(
                 getDefaultDefaultPreferencesRepository(), networkServiceImp,
-                new UserDataRepository(getDefaultDefaultPreferencesRepository())
+                new UserDataRepository(getDefaultDefaultPreferencesRepository(), new CipherWrapper())
         );
 
         return new LoginPresenter(this, loginInteractor);

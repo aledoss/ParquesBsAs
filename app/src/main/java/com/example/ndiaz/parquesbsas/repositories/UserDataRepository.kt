@@ -1,15 +1,16 @@
 package com.example.ndiaz.parquesbsas.repositories
 
+import com.example.ndiaz.parquesbsas.helpers.CipherWrapper
 import com.example.ndiaz.parquesbsas.model.Usuario
 import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
-class UserDataRepository(val prefs: DefaultPreferencesRepository) {
+class UserDataRepository(val prefs: DefaultPreferencesRepository, val cypher: CipherWrapper) {
 
     fun saveUserData(usuario: Usuario) {
-        prefs.userEmail = usuario.email
-        prefs.userPassword = usuario.password
+        prefs.userEmail = cypher.encrypt(usuario.email)
+        prefs.userPassword = cypher.encrypt(usuario.password)
     }
 
     fun getUserData(): Single<Usuario> {
@@ -21,10 +22,24 @@ class UserDataRepository(val prefs: DefaultPreferencesRepository) {
     }
 
     private val userEmail: Single<String>
-        get() = Single.fromCallable { prefs.userEmail }
+        get() = Single.fromCallable {
+            val userEmail = prefs.userEmail
+            if (userEmail.isEmpty()) {
+                userEmail
+            } else {
+                cypher.decrypt(userEmail)
+            }
+        }
 
     private val userPassword: Single<String>
-        get() = Single.fromCallable { prefs.userPassword }
+        get() = Single.fromCallable {
+            val userPassword = prefs.userPassword
+            if (userPassword.isEmpty()) {
+                userPassword
+            } else {
+                cypher.decrypt(userPassword)
+            }
+        }
 
 
 }
