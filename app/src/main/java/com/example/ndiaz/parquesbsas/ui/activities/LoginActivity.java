@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        presenter.doGetIsAutoLoginEnabled();
+//        presenter.doGetIsAutoLoginEnabled(); funcion deshabilitada
         setTransparentStatusBar();
         initializeVariables();
         initializeGoogleSignIn();
@@ -103,8 +103,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter>
 
     @Override
     protected LoginContract.Presenter createPresenter() {
-        LoginContract.Interactor loginInteractor = new LoginInteractor(
-                getDefaultDefaultPreferencesRepository(), networkServiceImp,
+        LoginContract.Interactor loginInteractor = new LoginInteractor(networkServiceImp,
                 new UserDataRepository(getDefaultDefaultPreferencesRepository(), new CipherWrapper())
         );
 

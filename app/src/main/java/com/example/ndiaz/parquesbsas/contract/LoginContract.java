@@ -34,7 +34,7 @@ public interface LoginContract {
     interface Interactor extends BaseInteractor {
         void login(Usuario usuario, BaseCallback<Usuario> callback);
 
-        void isAutoLoginEnabled(SingleCallback<Boolean> isAutologinEnabled);
+//        void isAutoLoginEnabled(SingleCallback<Boolean> isAutologinEnabled);
 
         void getLoginData(SingleCallback<Usuario> usuario);
 

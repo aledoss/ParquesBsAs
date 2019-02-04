@@ -26,7 +26,8 @@
         <item
             android:id="@+id/nav_menu_settings"
             android:icon="@drawable/ic_settings"
-            android:title="@string/menu_settings" />
+            android:title="@string/menu_settings"
+            android:visible="false" />
         <item
             android:id="@+id/nav_menu_about_me"
             android:icon="@drawable/ic_info"

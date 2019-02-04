@@ -7,10 +7,8 @@ import com.example.ndiaz.parquesbsas.contract.SplashScreenContract;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
-import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
 import com.example.ndiaz.parquesbsas.repositories.UserDataRepository;
 
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -20,13 +18,10 @@ import io.reactivex.schedulers.Schedulers;
 public class SplashScreenInteractor extends BaseInteractorImp implements SplashScreenContract.Interactor {
 
     private static final String TAG = SplashScreenInteractor.class.getSimpleName();
-    private DefaultPreferencesRepository defaultPreferencesRepository;
     private NetworkServiceImp networkServiceImp;
     private UserDataRepository userDataRepository;
 
-    public SplashScreenInteractor(DefaultPreferencesRepository defaultPreferencesRepository
-            , NetworkServiceImp networkServiceImp, UserDataRepository userDataRepository) {
-        this.defaultPreferencesRepository = defaultPreferencesRepository;
+    public SplashScreenInteractor(NetworkServiceImp networkServiceImp, UserDataRepository userDataRepository) {
         this.networkServiceImp = networkServiceImp;
         this.userDataRepository = userDataRepository;
     }
@@ -68,14 +63,6 @@ public class SplashScreenInteractor extends BaseInteractorImp implements SplashS
             );
         }
 
-    }
-
-    private Single<String> getUserEmail() {
-        return Single.fromCallable(() -> defaultPreferencesRepository.getUserEmail());
-    }
-
-    private Single<String> getUserPassword() {
-        return Single.fromCallable(() -> defaultPreferencesRepository.getUserPassword());
     }
 
     @Override

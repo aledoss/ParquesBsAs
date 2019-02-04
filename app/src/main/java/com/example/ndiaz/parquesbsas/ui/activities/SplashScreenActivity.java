@@ -72,7 +72,7 @@ public class SplashScreenActivity extends BaseActivity<SplashScreenContract.Pres
     @Override
     protected SplashScreenContract.Presenter createPresenter() {
         SplashScreenContract.Interactor interactor = new SplashScreenInteractor(
-                getDefaultDefaultPreferencesRepository(), getNetworkServiceImp(),
+                getNetworkServiceImp(),
                 new UserDataRepository(getDefaultDefaultPreferencesRepository(), new CipherWrapper()));
 
         return new SplashScreenPresenter(this, interactor);

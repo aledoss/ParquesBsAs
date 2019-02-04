@@ -6,10 +6,8 @@ import com.example.ndiaz.parquesbsas.contract.LoginContract;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Usuario;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
-import com.example.ndiaz.parquesbsas.preferences.DefaultPreferencesRepository;
 import com.example.ndiaz.parquesbsas.repositories.UserDataRepository;
 
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -19,13 +17,11 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginInteractor extends BaseInteractorImp implements LoginContract.Interactor {
 
     private static final String TAG = LoginInteractor.class.getSimpleName();
-    private DefaultPreferencesRepository defaultPreferencesRepository;
     private NetworkServiceImp networkServiceImp;
     private UserDataRepository userDataRepository;
 
-    public LoginInteractor(DefaultPreferencesRepository defaultPreferencesRepository, NetworkServiceImp networkServiceImp,
+    public LoginInteractor(NetworkServiceImp networkServiceImp,
                            UserDataRepository userDataRepository) {
-        this.defaultPreferencesRepository = defaultPreferencesRepository;
         this.networkServiceImp = networkServiceImp;
         this.userDataRepository = userDataRepository;
     }
@@ -59,14 +55,14 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
         userDataRepository.saveUserData(usuario);
     }
 
-    @Override
+    /*@Override
     public void isAutoLoginEnabled(SingleCallback<Boolean> callback) {
         addDisposable(getIsAutoLoginEnabled()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(isAutoLoginEnabled -> callback.onSuccess(isAutoLoginEnabled))
         );
-    }
+    }*/
 
     @Override
     public void getLoginData(SingleCallback<Usuario> callback) {
@@ -75,18 +71,6 @@ public class LoginInteractor extends BaseInteractorImp implements LoginContract.
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess)
         );
-    }
-
-    private Single<String> getUserEmail() {
-        return Single.fromCallable(() -> defaultPreferencesRepository.getUserEmail());
-    }
-
-    private Single<String> getUserPassword() {
-        return Single.fromCallable(() -> defaultPreferencesRepository.getUserPassword());
-    }
-
-    private Single<Boolean> getIsAutoLoginEnabled() {
-        return Single.fromCallable(() -> defaultPreferencesRepository.getIsAutoLoginEnabled());
     }
 
     @Override
