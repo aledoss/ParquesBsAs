@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.example.ndiaz.parquesbsas.BuildConfig;
 import com.example.ndiaz.parquesbsas.R;
 import com.squareup.picasso.Picasso;
 
 public class ImagenReclamoActivity extends AppCompatActivity {
 
-    private static final String URL_IMAGE_RECLAMO = "URL_IMAGE_RECLAMO";
+    private static final String IMAGE_RECLAMO_NAME = "IMAGE_RECLAMO_NAME";
     private ImageView imgReclamo;
-    private String urlImgReclamo;
+    private String imageReclamoName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +27,18 @@ public class ImagenReclamoActivity extends AppCompatActivity {
 
     public static Intent newIntent(Context context, String urlImgReclamo) {
         Intent intent = new Intent(context, ImagenReclamoActivity.class);
-        intent.putExtra(URL_IMAGE_RECLAMO, urlImgReclamo);
+        intent.putExtra(IMAGE_RECLAMO_NAME, urlImgReclamo);
         return intent;
     }
 
     private void initializeVariables() {
-        urlImgReclamo = getIntent().getExtras().getString(URL_IMAGE_RECLAMO, "");
+        imageReclamoName = getIntent().getExtras().getString(IMAGE_RECLAMO_NAME, "");
         imgReclamo = findViewById(R.id.imgReclamo);
     }
 
     private void loadImage() {
         Picasso.with(this)
-                .load(urlImgReclamo)
+                .load(BuildConfig.IMAGENES_RECLAMOS_URL + imageReclamoName)
                 .into(imgReclamo);
     }
 

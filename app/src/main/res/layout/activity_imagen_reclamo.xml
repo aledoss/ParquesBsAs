@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +8,12 @@
 
     <ImageView
         android:id="@+id/imgReclamo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="Imagen Reclamo" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="Imagen Reclamo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

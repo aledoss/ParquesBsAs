@@ -29,6 +29,7 @@ android {
         debug {
             buildConfigField "String", "BASE_URL", '"http://192.168.0.100/nico/"'
             buildConfigField "String", "API_URL", '"http://192.168.0.100/nico/index.php/"'
+            buildConfigField "String", "IMAGENES_RECLAMOS_URL", '"http://192.168.0.100/nico/public/img/reclamo/"'
             buildConfigField "String", "IMAGENES_PARQUES_URL", '"http://afternoon-hamlet-13828.herokuapp.com/public/img/parques/"'
             buildConfigField "String", "HOME_URL", '"www.google.com.ar"'
         }
@@ -36,6 +37,7 @@ android {
         release {
             buildConfigField "String", "BASE_URL", '"http://afternoon-hamlet-13828.herokuapp.com/"'
             buildConfigField "String", "API_URL", '"http://afternoon-hamlet-13828.herokuapp.com/index.php/"'
+            buildConfigField "String", "IMAGENES_RECLAMOS_URL", '"http://afternoon-hamlet-13828.herokuapp.com/public/img/reclamo/"'
             buildConfigField "String", "IMAGENES_PARQUES_URL", '"http://afternoon-hamlet-13828.herokuapp.com/public/img/parques/"'
             buildConfigField "String", "HOME_URL", '"www.google.com.ar"'
             minifyEnabled false

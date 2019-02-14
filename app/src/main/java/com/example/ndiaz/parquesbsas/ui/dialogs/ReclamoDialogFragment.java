@@ -66,7 +66,7 @@ public class ReclamoDialogFragment extends DialogFragment {
     private void initializeButtons(AlertDialog.Builder builder) {
         if (!reclamo.getImagen().isEmpty()) {
             builder.setPositiveButton(R.string.image,
-                    (dialog, which) -> ImagenReclamoActivity.newIntent(getContext(), reclamo.getImagen()));
+                    (dialog, which) -> startActivity(ImagenReclamoActivity.newIntent(getContext(), reclamo.getImagen())));
         }
 
         if (!reclamo.getLatitud().isEmpty() && !reclamo.getLatitud().equalsIgnoreCase(DEFAULT_LAT_LNG_VALUE)) {
