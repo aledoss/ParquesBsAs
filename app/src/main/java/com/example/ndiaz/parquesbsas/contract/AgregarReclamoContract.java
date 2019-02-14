@@ -25,7 +25,7 @@ public interface AgregarReclamoContract {
 
         void doInsertReclamo(Reclamo reclamo);
 
-        void doInsertReclamoWithPhoto(Reclamo reclamo);
+        void doInsertReclamoWithPhoto(Reclamo reclamo, String rutaImagen);
     }
 
     interface Interactor extends BaseInteractor {
@@ -33,7 +33,7 @@ public interface AgregarReclamoContract {
 
         void insertReclamo(Reclamo reclamo, BaseCallback<String> callback);
 
-        void uploadPhoto(Reclamo reclamo, BaseCallback<String> baseCallback);
+        void uploadPhoto(Reclamo reclamo, String rutaImagen, BaseCallback<String> baseCallback);
     }
 
 }

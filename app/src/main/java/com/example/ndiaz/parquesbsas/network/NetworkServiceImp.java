@@ -21,6 +21,8 @@ import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 import java.util.List;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class NetworkServiceImp {
 
@@ -226,5 +228,12 @@ public class NetworkServiceImp {
         return retrofitService
                 .getClient()
                 .deleteReclamo(reclamo);
+    }
+
+    public Single<NetworkResponse<String>> uploadFotoReclamo(RequestBody description,
+                                                             MultipartBody.Part file) {
+        return retrofitService
+                .getClient()
+                .uploadFotoReclamo(description, file);
     }
 }

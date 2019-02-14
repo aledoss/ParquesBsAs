@@ -60,10 +60,10 @@ public class AgregarReclamoPresenter extends BasePresenterImp
     }
 
     @Override
-    public void doInsertReclamoWithPhoto(Reclamo reclamo) {
+    public void doInsertReclamoWithPhoto(Reclamo reclamo, String rutaImagen) {
         agregarReclamoView.get().showProgressDialog();
         agregarReclamoInteractor
-                .uploadPhoto(reclamo, new BaseCallback<String>() {
+                .uploadPhoto(reclamo, rutaImagen, new BaseCallback<String>() {
                     @Override
                     public void onSuccess(String value) {
                         agregarReclamoView.get().hideProgressDialog();

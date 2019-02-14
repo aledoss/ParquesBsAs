@@ -65,14 +65,14 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
     private FileManager fileManager;
     private ActualLocation actualLocation;
     boolean reclamoConFoto = false;
-    String rutaImagen = "";
+    String imgName = "";
     double latitud = 0, longitud = 0;
 
     @OnClick(R.id.btn_generar_reclamo)
     public void onBtnGenerarReclamo() {
         if (datosValidos()) {
             if (reclamoConFoto) {
-                presenter.doInsertReclamoWithPhoto(getDatosReclamo());
+                presenter.doInsertReclamoWithPhoto(getDatosReclamo(), fileManager.getImageFileDirectory());
             } else {
                 doInsertReclamo();
             }
@@ -199,7 +199,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
             String fileName = fileManager.getImageFileName();
             if (fileName != null && !fileName.isEmpty()) {
                 this.reclamoConFoto = true;
-                this.rutaImagen = fileName;
+                this.imgName = fileName;
             }
         }
 
@@ -236,7 +236,7 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
         reclamo.setComentarios(String.valueOf(etComentarios.getText()));
         reclamo.setLatitud(String.valueOf(latitud));
         reclamo.setLongitud(String.valueOf(longitud));
-        reclamo.setImagen(String.valueOf(rutaImagen));  //si no se saco foto, la latitud, longitud y la ruta de la imagen, se ponen en 0 y ""
+        reclamo.setImagen(String.valueOf(imgName));  //si no se saco foto, la latitud, longitud y la ruta de la imagen, se ponen en 0 y ""
 
         return reclamo;
     }
@@ -270,7 +270,8 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
                     presenter.doInsertReclamo(reclamo);
                 })
                 .setNegativeButton(getString(R.string.dialog_cancel), (dialog, which) -> dialog.dismiss())
-                .setNeutralButton(getString(R.string.dialog_reintent), (dialog, which) -> presenter.doInsertReclamoWithPhoto(reclamo))
+                .setNeutralButton(getString(R.string.dialog_reintent), (dialog, which) ->
+                        presenter.doInsertReclamoWithPhoto(reclamo, fileManager.getImageFileDirectory()))
                 .show();
     }
 

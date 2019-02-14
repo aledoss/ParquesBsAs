@@ -2,23 +2,21 @@ package com.example.ndiaz.parquesbsas.interactor;
 
 import android.util.Log;
 
+import com.example.ndiaz.parquesbsas.ParquesApplication;
 import com.example.ndiaz.parquesbsas.callbacks.BaseCallback;
 import com.example.ndiaz.parquesbsas.constants.HTTPConstants;
 import com.example.ndiaz.parquesbsas.contract.AgregarReclamoContract;
-import com.example.ndiaz.parquesbsas.helpers.FTPManager;
+import com.example.ndiaz.parquesbsas.helpers.UploadImageManager;
 import com.example.ndiaz.parquesbsas.model.NetworkResponse;
 import com.example.ndiaz.parquesbsas.model.Reclamo;
 import com.example.ndiaz.parquesbsas.network.NetworkServiceImp;
 
 import java.util.List;
 
-import io.reactivex.CompletableObserver;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.example.ndiaz.parquesbsas.constants.Constants.FTP_ANDROID_IMAGE_DIRECTORY;
 
 public class AgregarReclamoInteractor extends BaseInteractorImp
         implements AgregarReclamoContract.Interactor {
@@ -73,7 +71,7 @@ public class AgregarReclamoInteractor extends BaseInteractorImp
                 .subscribe(new SingleObserver<NetworkResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        addDisposable(d);
                     }
 
                     @Override
@@ -98,21 +96,26 @@ public class AgregarReclamoInteractor extends BaseInteractorImp
     }
 
     @Override
-    public void uploadPhoto(Reclamo reclamo, BaseCallback<String> baseCallback) {
-        FTPManager ftpManager = new FTPManager();
-        ftpManager
-                .uploadFile(reclamo.getImagen(), FTP_ANDROID_IMAGE_DIRECTORY)
+    public void uploadPhoto(Reclamo reclamo, String imageFilePath, BaseCallback<String> baseCallback) {
+        UploadImageManager uploadImageManager =
+                new UploadImageManager(ParquesApplication.getInstance().getApplicationContext(), imageFilePath, reclamo.getImagen());
+        networkServiceImp
+                .uploadFotoReclamo(uploadImageManager.getDescription(), uploadImageManager.getMultipartBody())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
+                .subscribe(new SingleObserver<NetworkResponse<String>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        addDisposable(d);
                     }
 
                     @Override
-                    public void onComplete() {
-                        insertReclamo(reclamo, baseCallback);
+                    public void onSuccess(NetworkResponse<String> response) {
+                        if (response.getStatus() == HTTPConstants.STATUS_OK) {
+                            insertReclamo(reclamo, baseCallback);
+                        } else {
+                            onError(new Throwable(response.message));
+                        }
                     }
 
                     @Override

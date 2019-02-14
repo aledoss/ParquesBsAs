@@ -15,14 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_reclamo_nombre_parque"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:text="@string/nombre_parque"
             android:textAlignment="center"
             android:textSize="@dimen/reclamo_nombre_parque" />
@@ -31,7 +31,7 @@
             android:id="@+id/btn_elegir_reclamo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
             android:enabled="false"
             android:text="@string/elegir_reclamo"
@@ -41,8 +41,8 @@
             android:id="@+id/et_reclamos_comentarios"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="top|left"

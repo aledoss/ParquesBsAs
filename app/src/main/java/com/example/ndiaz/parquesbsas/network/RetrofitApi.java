@@ -21,9 +21,13 @@ import com.example.ndiaz.parquesbsas.model.UsuarioPassword;
 import java.util.List;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 interface RetrofitApi {
@@ -129,4 +133,10 @@ interface RetrofitApi {
 
     @POST("ParquesApi/deleteReclamo")
     Single<NetworkResponse<String>> deleteReclamo(@Body Reclamo reclamo);
+
+    @Multipart
+    @POST("ParquesApi/uploadFotoReclamo")
+    Single<NetworkResponse<String>> uploadFotoReclamo(
+            @Part("description") RequestBody description,
+            @Part MultipartBody.Part file);
 }
