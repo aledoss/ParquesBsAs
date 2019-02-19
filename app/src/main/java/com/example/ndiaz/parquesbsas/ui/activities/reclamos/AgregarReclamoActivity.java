@@ -1,8 +1,12 @@
 package com.example.ndiaz.parquesbsas.ui.activities.reclamos;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -29,6 +33,9 @@ import com.example.ndiaz.parquesbsas.presenter.AgregarReclamoPresenter;
 import com.example.ndiaz.parquesbsas.ui.activities.BaseActivity;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -199,11 +206,32 @@ public class AgregarReclamoActivity extends BaseActivity<AgregarReclamoContract.
             String fileName = fileManager.getImageFileName();
             if (fileName != null && !fileName.isEmpty()) {
                 this.reclamoConFoto = true;
+                compressFile(fileManager.getImageFileDirectory());
                 this.imgName = fileName;
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void compressFile(String imageFileDirectory) {
+        FileOutputStream out = null;
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getUriFromFile(new File(imageFileDirectory)));
+            out = new FileOutputStream(imageFileDirectory);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 65, out);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Uri getUriFromFile(File file) {
+        return FileProvider.getUriForFile(this,
+                "com.example.android.fileprovider",
+                file
+        );
     }
 
     private boolean datosValidos() {
