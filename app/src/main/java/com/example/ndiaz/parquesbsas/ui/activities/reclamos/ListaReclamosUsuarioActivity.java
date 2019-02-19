@@ -53,7 +53,7 @@ public class ListaReclamosUsuarioActivity extends BaseActivity<ListaReclamosUsua
 
     @Override
     public void callGetReclamosConFechas(boolean refreshData) {
-        presenter.doGetReclamosConFechas(usuario.getId(), false);
+        presenter.doGetReclamosConFechas(usuario.getId(), refreshData);
     }
 
     @Override
