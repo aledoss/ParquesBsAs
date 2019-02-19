@@ -1,6 +1,7 @@
 package com.example.ndiaz.parquesbsas.ui.adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,8 +16,6 @@ import com.example.ndiaz.parquesbsas.listeners.OnReclamoListenerClick;
 import com.example.ndiaz.parquesbsas.model.ReclamoFecha;
 
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
