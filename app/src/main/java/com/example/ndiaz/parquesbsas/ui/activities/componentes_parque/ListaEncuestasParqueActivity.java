@@ -22,6 +22,7 @@ import com.example.ndiaz.parquesbsas.ui.adapters.EncuestasParqueAdapter;
 import com.example.ndiaz.parquesbsas.ui.dialogs.CalificarEncuestaDialogFragment;
 import com.example.ndiaz.parquesbsas.ui.dialogs.EstadisticasEncuestasDialogFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,6 +68,7 @@ public class ListaEncuestasParqueActivity extends BaseActivity<ListaEncuestasPar
             getEncuestasParaCalificar();
             presenter.doGetCalificaciones();
         }
+        configureAdapter();
         getEncuestasByParque(false);
     }
 
@@ -91,18 +93,19 @@ public class ListaEncuestasParqueActivity extends BaseActivity<ListaEncuestasPar
         return new ListaEncuestasParquePresenter(this, interactor);
     }
 
+    private void configureAdapter() {
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        rvEncuestasParque.setLayoutManager(mLayoutManager);
+        rvEncuestasParque.addOnItemTouchListener(new RecyclerItemClickListener(this, (view, position) -> {
+            presenter.doGetEstadisticasEncuesta(idParque, adapter.getItem(position));
+        }));
+        adapter = new EncuestasParqueAdapter(new ArrayList<>());
+        rvEncuestasParque.setAdapter(adapter);
+    }
+
     @Override
     public void showEncuestas(List<Encuesta> encuestas) {
-        if (adapter == null) {
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-            rvEncuestasParque.setLayoutManager(mLayoutManager);
-            rvEncuestasParque.addOnItemTouchListener(new RecyclerItemClickListener(this, (view, position) -> {
-                presenter.doGetEstadisticasEncuesta(idParque, adapter.getItem(position));
-            }));
-            adapter = new EncuestasParqueAdapter(encuestas);
-        }
-
-        rvEncuestasParque.setAdapter(adapter);
+        refreshEncuestas(encuestas);
     }
 
     @Override
@@ -140,6 +143,8 @@ public class ListaEncuestasParqueActivity extends BaseActivity<ListaEncuestasPar
     public void refreshEncuestas(List<Encuesta> encuestas) {
         adapter.setItemList(encuestas);
         adapter.notifyDataSetChanged();
+        emptyContainer.setVisibility(View.GONE);
+        rvEncuestasParque.setVisibility(View.VISIBLE);
     }
 
     @Override
